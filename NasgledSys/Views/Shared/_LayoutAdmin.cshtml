@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Nasgled</title>
+  
+   
+
+    @Styles.Render("~/bundles/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+
+<body ng-app="nasgledApp">
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/nasgledApp.js"></script>
+    <!-- Main navbar -->
+    <div class="navbar navbar-inverse bg-indigo">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="@Url.Action("AIndex","Home")">
+                <img src="~/Content/assets/images/logo_light.png" alt="" />
+            </a>
+            <ul class="nav navbar-nav pull-right visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+
+            <ul class="nav navbar-nav navbar-right">
+
+
+                <li class="dropdown dropdown-user">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="~/Content/assets/images/placeholder.jpg" />
+                       
+                        <span>Admin</span>
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      
+                        <li><a href="@Url.Action("AdminLogin","Home")"><i class="icon-switch2"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /main navbar -->
+    <!-- Second navbar -->
+    <div class="navbar navbar-default" id="navbar-second">
+        <ul class="nav navbar-nav no-border visible-xs-block">
+            <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
+        </ul>
+        <div class="navbar-collapse collapse" id="navbar-second-toggle">
+            <ul class="nav navbar-nav navbar-nav-material">
+                <li class="active"><a href="@Url.Action("AIndex","Home")"><i class="icon-display4 position-left"></i> Dashboard</a></li>
+                <li class="dropdown mega-menu mega-menu-wide">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-puzzle4 position-left"></i> Components <span class="caret"></span></a>
+                    <div class="dropdown-menu dropdown-content">
+                        <div class="dropdown-content-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="menu-heading underlined">Forms</span>
+                                    <ul class="menu-list">
+                                        <li>
+                                            <a href="#"><i class="icon-pencil3"></i> Form components</a>
+                                            <ul>
+                                                <li><a href="@Url.Action("Index","MgtInstitute")">Company</a></li>
+                                                <li><a href="@Url.Action("Index","MgtModules")">Modules</a></li>
+                                                <li><a href="@Url.Action("Index","MgtForms")">Forms</a></li>
+                                                <li><a href="form_controls_extended.html">Usergroup</a></li>
+                                                <li><a href="form_controls_extended.html">Person</a></li>
+                                            </ul>
+                                        </li>
+                                       
+                                    </ul>
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                
+            
+            </ul>
+            
+        </div>
+    </div>
+    <!-- /second navbar -->
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+
+                @if (IsSectionDefined(("SideBar")))
+                {
+                    @RenderSection("SideBar", required: true)
+                }
+                else
+                {
+                    <h4>
+                        <i class="icon-arrow-left52 position-left"></i>
+                        <span class="text-semibold">Home</span> - Dashboard
+                        <small class="display-block">Admin Control Panel</small>
+                    </h4>
+                }
+            </div>
+            
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main content -->
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+            <!-- /main content -->
+        </div>
+        <!-- /page content -->
+    </div>
+    <!-- /page container -->
+    <!-- Footer -->
+    <div class="footer text-muted">
+        &copy; @DateTime.Now.Year - NasGLED
+
+    </div>
+    <!-- /footer -->
+   
+</body>
+</html>

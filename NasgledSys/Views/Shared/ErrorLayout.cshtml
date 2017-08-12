@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Nasgled</title>
+    @Styles.Render("~/bundles/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+
+<body ng-app="nasgledApp">
+
+    <script src="~/Scripts/nasgledApp.js"></script>
+    <!-- Main navbar -->
+    
+    <!-- /main navbar -->
+    
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+
+               
+                    <h4>
+                        <i class="icon-arrow-left52 position-left"></i>
+                        <span class="text-semibold">Error</span>
+                      
+                    </h4>
+           
+            </div>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main content -->
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+            <!-- /main content -->
+        </div>
+        <!-- /page content -->
+    </div>
+    <!-- /page container -->
+    <!-- Footer -->
+    <div class="footer text-muted">
+        &copy; @DateTime.Now.Year - NasGLED
+
+    </div>
+    <!-- /footer -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

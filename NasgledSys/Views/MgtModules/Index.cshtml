@@ -1,0 +1,80 @@
+﻿@model IEnumerable<NasgledSys.Models.ModuleClass>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Content/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            $('#ctable').DataTable();
+
+        });
+
+    </script>
+}
+@section SideBar{
+    <h4>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold">Modules</span> - List of Modules
+        <small class="display-block"><a href="@Url.Action("Create","MgtModules")"><i class="icon-display4 position-left"></i> Add new Module</a></small>
+    </h4>
+}
+
+
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">List of Modules</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover datatable-highlight" id="ctable">
+        <thead>
+            <tr>
+              
+                <th>Name</th>
+                <th>Level</th>
+                <th>Sub</th>
+                <th>Parent Module</th>
+                <th></th>
+                <th></th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModuleName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModuleLevel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sub)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MainModuleName)
+                    </td>
+
+                    <td>@Html.ActionLink("Edit", "Edit", "MgtModules", new { id = item.ModuleID }, null) </td>
+
+                   
+
+                    <td>@Html.ActionLink("Remove", "Delete", "MgtModules", new { id = item.ModuleID }, new { onclick = "return confirm('Are you sure you want to Remove this?')" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

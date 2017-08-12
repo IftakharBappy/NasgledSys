@@ -1,0 +1,172 @@
+﻿@model NasgledSys.Models.Company
+@{
+    ViewBag.Title = "AddNewCompany";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/AutoComplete/scStateCity.js"></script>
+
+@section SideBar{
+
+    <i class="icon-arrow-left52 position-left"></i>
+    <span class="text-semibold"><a href="@Url.Action("Index","MgtInstitute")"><i class="icon-display4 position-left"></i>List of Company</a></span>
+    <small class="display-block"><i class="icon-display4 position-left"></i>Add New Company</small>
+
+}
+@using (Html.BeginForm("Create", "MgtInstitute", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">New Company</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                   
+                        <div class="form-group">
+                           
+                                <label class="display-block">Upload Logo:</label>
+                                <input type="file" name="file" class="file-styled">
+                                <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                          
+                    </div>
+                    
+
+                   
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyID, "ID")
+                     
+                            @Html.TextBoxFor(model => model.CompanyID,new { placeholder = "ID", @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
+                  
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyName, "Name")
+                       
+                            @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Name", @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                      
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyAddress, "Address")
+                       
+                            @Html.TextBoxFor(model => model.CompanyAddress,new { placeholder = "Address", @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
+                      
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyAddress, "State")
+                       
+                            <input type="text" name="StateName" id="StateName" required="required" placeholder = "State" class="form-control" />
+                            @Html.HiddenFor(model => model.StateCode, new { id = "StateCode", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
+                      
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyAddress, "City")
+                       
+                            <input type="text" name="CityName" id="CityName" required="required"placeholder = "City" class="form-control" />
+                            @Html.HiddenFor(model => model.CityKey, new { id = "CityKey", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
+                      
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Zipcode, "Zipcode")
+                      
+                            @Html.TextBoxFor(model => model.Zipcode, new { id= "Zipcode", placeholder = "Zipcode", @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
+                      
+                    </div>
+                  
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyPhone, "Phone #")
+
+                        @Html.TextBoxFor(model => model.CompanyPhone, new { placeholder = "Phone #", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyPhone, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyMobile, "Mobile #")
+
+                        @Html.TextBoxFor(model => model.CompanyMobile, new { placeholder = "Mobile No", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyMobile, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyEmail, "Email Address")
+                    
+                            @Html.TextBoxFor(model => model.CompanyEmail, new { placeholder = "Email Address", @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.CompanyEmail, "", new { @class = "text-danger" })
+                      
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyWebsite, "Website")
+                       
+                            @Html.TextBoxFor(model => model.CompanyWebsite, new { placeholder = "Website", @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.CompanyWebsite, "", new { @class = "text-danger" })
+                       
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyFax, "Fax")
+                       
+                            @Html.TextBoxFor(model => model.CompanyFax, new { placeholder = "FAX", @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.CompanyFax, "", new { @class = "text-danger" })
+                       
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactPersonName, "Contact Person")
+                       
+                            @Html.TextBoxFor(model => model.ContactPersonName,  new { placeholder = "Contact Person", @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.ContactPersonName, "", new { @class = "text-danger" })
+                       
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, "Title")
+                       
+                            @Html.TextBoxFor(model => model.Title, new { placeholder = "Title", @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                       
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactPersonNo, "Contact #")
+                      
+                            @Html.TextBoxFor(model => model.ContactPersonNo,  new { placeholder = "Contact Person Contact #", @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.ContactPersonNo, "", new { @class = "text-danger" })
+                       
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactEmail, "Email")
+                       
+                            @Html.TextBoxFor(model => model.ContactEmail, new { placeholder = "Contact Person Email", @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.ContactEmail, "", new { @class = "text-danger" })
+                       
+                    </div>
+                    <div class="text-right">
+                       
+                        <button type="submit" class="btn btn-primary">Save<i class="icon-arrow-right14 position-right"></i></button>
+                        @Html.ActionLink("Cancel", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+}

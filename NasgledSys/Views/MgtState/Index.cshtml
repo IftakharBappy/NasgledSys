@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "StateList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Content/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        //$(function () {
+
+        //    $('#ctable').DataTable();
+
+        //});
+
+        $(document).ready(function () {
+            var oTable = $('#ctable').DataTable({
+                "ajax": {
+                    "url": '/MgtState/GetAllState',
+                    "type": "get",
+                    "datatype":"json"
+                },
+                "columns": [
+                    { "data": "StateName", "autoWidth":true },
+                    { "data": "StateCode", "autoWidth": true },
+                     {
+                         "data": "PKey", "autoWidth": true, "render": function (data) {
+                             return '<a class="popup" href="/MgtState/Save/'+data+'">Edit</a>'
+                         }
+                     },
+                     {
+                         "data": "PKey", "autoWidth": true, "render": function (data) {
+                             return '<a class="popup" href="/MgtState/Delete/' + data + '">Delete</a>'
+                         }
+                     }
+                ]
+            })
+
+
+            function Openpopup(pageUrl) {
+                var $pageContent = $('<div/>');
+                $pageContent.load(pageUrl);
+                $dialog = $('<div class="popupWindow" style="overflow:auto"></div>')
+                        .html($pageContent)
+                .dialog({
+                    draggable: false,
+                    autoOpen: false,
+                    resizable: false,
+
+                    modal: true,
+                    title: 'Manage State',
+                    close: function () {
+                        $dialog.dialog('destroy').remove();
+                    }
+                })
+
+                $(popupWindow).on('submit')
+                $dialog.dialog('open');
+            }
+        })
+    </script>
+}
+@section SideBar{
+    <h4>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold">State</span> 
+        <small class="display-block"><a href="@Url.Action("Create","MgtInstitute")"><i class="icon-display4 position-left"></i> Add new Company</a></small>
+    </h4>
+}
+
+
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">List of State</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover datatable-highlight" id="ctable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Is Active</th>
+               
+                <th>Edit</th>
+                <th>Delete</th>
+               
+            </tr>
+        </thead>
+        
+    </table>
+</div>
+
+
+
+
