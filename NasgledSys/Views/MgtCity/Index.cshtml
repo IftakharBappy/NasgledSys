@@ -1,0 +1,126 @@
+﻿@model NasgledSys.Models.CityClass
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+
+<script src="~/Scripts/AutoComplete/scCity.js"></script>
+    <script src="~/Content/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".discussion-comment").click(function (event) {
+                //alert($(this).attr("discussion-id"));
+                $('#CityKey').val($(this).attr("discussion-id"));
+                $('#myModal').modal('show');
+                $('#btnUpdate').show();
+                $('#btnAdd').hide();
+                var w = "#CityKey";
+
+                var url = '@Url.Content("~/")' + "Utility/LoadCityData";
+                $.getJSON(url, { SelectID: $(w).val() }, function (data) {
+
+
+                    $('#CityName').val(data["CityName"]);
+                    $('#StateCode').val(data["StateCode"]);
+                    $('#StateCode').text(data["StateName"]);
+                });
+
+
+            });
+        });
+        $(function () {
+
+            $('#ctable').DataTable();
+
+        });
+
+    </script>
+
+@section SideBar{
+    <h4>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold">List of City</span> 
+       
+    </h4>
+}
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">List of City</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New City</button>
+    </div> 
+   
+    <table class="table table-bordered table-hover datatable-highlight" id="ctable">
+        <thead><tr><th>City Name</th><th>State</th><th>Action</th></tr></thead>
+        <tbody>
+            @foreach (var item in Model.CityList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StateName)
+                    </td>
+
+
+                    <td><a class="discussion-comment" discussion-id="@item.CityKey" href="#">Edit</a> ||
+    |
+
+    <a href="@Url.Action("Delete", "MgtCity",new{id=item.CityKey})" onclick="return confirm('Are you sure you want to Remove this?')">Delete</a>
+</td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Add New City</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CityName)
+                            @Html.HiddenFor(model => model.CityKey,new { id= "CityKey" })
+                            @Html.TextBoxFor(model => model.CityName, new { placeholder = "City Name",id= "CityName", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CityName, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StateName)
+                            @Html.DropDownList("StateCode", null,  new {@required="required", id = "StateCode", @class = "select" })
+                            @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+
+
+

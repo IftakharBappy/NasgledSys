@@ -31,7 +31,8 @@
                
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="assets/images/placeholder.jpg" alt="">
+                       
+                        <img src="~/Content/assets/images/placeholder.jpg"alt="" />
                         <span>@Html.DisplayFor(m=>GlobalClass.LoginUser.PName)</span>
                         <i class="caret"></i>
                     </a>
@@ -67,9 +68,9 @@
                                         <li>
                                             <a href="#"><i class="icon-pencil3"></i>GIS</a>
                                             <ul>
-                                                <li><a href="@Url.Action("Index","MgtState")">State</a></li>
+                                                <li><a href="@Url.Action("Index","MgtCity")">State</a></li>
                                               
-                                                <li><a href="@Url.Action("Index","MgtState")">City</a></li>
+                                                <li><a href="@Url.Action("Index","MgtCity")">City</a></li>
                                                 <li><a href="form_controls_extended.html">Zipcode</a></li>
                                                 
                                             </ul>

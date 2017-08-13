@@ -111,26 +111,21 @@ namespace NasgledSys.Models
     
      
     }
-    [MetadataType(typeof(StateMetaData))]
-    public partial class StateList
+   
+    public class CityClass
     {
-        
-
-
-
-    }
-    public class StateMetaData
-    {
-        public int PKey { get; set; }
-        [Required(AllowEmptyStrings=false, ErrorMessage = "Name is required")]
-        [Display(Name = "Name")]
-        public string StateName { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Short Name is required")]
-        [Display(Name = "Shortname/ Code")]
-        public string StateCode { get; set; }
-        public Nullable<bool> IsDelete { get; set; }
+        public int CityKey { get; set; }
+        [Display(Name = "Name*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string CityName { get; set; }
+        [Display(Name = "State*")]
        
-
-
+        public string StateName { get; set; }
+       
+        public Nullable<int> StateCode { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<CityClass> CityList { get; set; }
     }
+
+  
 }

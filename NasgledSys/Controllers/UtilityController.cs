@@ -14,7 +14,19 @@ namespace NasgledSys.Controllers
     {
         // GET: Utility
         private NasgledDBEntities db = new NasgledDBEntities();
-        
+        public ActionResult LoadCityData(int SelectID)
+        {
+            JsonResult result = new JsonResult();
+            CityClass obj = new CityClass();
+            CityList m = db.CityList.Find(SelectID);
+            obj.CityName = m.CityName;
+            obj.StateCode = m.StateCode;
+            obj.StateName = m.StateList.StateName;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();
