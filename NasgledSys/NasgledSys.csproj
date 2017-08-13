@@ -203,7 +203,6 @@
     <Compile Include="Controllers\MgtInstituteController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
-    <Compile Include="Controllers\MgtStateController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
@@ -3294,7 +3293,6 @@
     <Content Include="Views\MgtModules\Index.cshtml" />
     <Content Include="Views\MgtModules\Create.cshtml" />
     <Content Include="Views\MgtModules\Edit.cshtml" />
-    <Content Include="Views\MgtState\Index.cshtml" />
     <Content Include="Views\MgtForms\Index.cshtml" />
     <Content Include="Views\MgtForms\Create.cshtml" />
     <Content Include="Views\MgtForms\Edit.cshtml" />
