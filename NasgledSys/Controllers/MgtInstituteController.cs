@@ -54,6 +54,8 @@ namespace NasgledSys.Controllers
         {
             try
             {
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName");
                 return View();
             }
             catch (Exception e)
@@ -92,7 +94,8 @@ namespace NasgledSys.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName", company.StateCode);
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName", company.CityKey);
                 return View(company);
             }
             catch (Exception e)
@@ -113,6 +116,8 @@ namespace NasgledSys.Controllers
                 {
                     return HttpNotFound();
                 }
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName", company.StateCode);
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName", company.CityKey);
                 return View(company);
             }
             catch (Exception e)
@@ -164,6 +169,8 @@ namespace NasgledSys.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName", company.StateCode);
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName", company.CityKey);
                 return View(company);
             }
             catch (Exception e)
@@ -177,6 +184,9 @@ namespace NasgledSys.Controllers
             {
                 Company company = db.Company.Find(GlobalClass.Company.CompanyKey);
                 CompanyClass model = manage.FillCompanyInfo(company);
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName",model.StateCode);
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete==false).OrderBy(m => m.CityName), "CityKey", "CityName",model.CityKey);
+
                 return View(model);
             }
             catch (Exception e)
@@ -230,6 +240,9 @@ namespace NasgledSys.Controllers
                     db.SaveChanges();
                     return RedirectToAction("UserDetails");
                 }
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName",company.StateCode);
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName",company.CityKey);
+
                 return View(company);
             }
             catch (Exception e)

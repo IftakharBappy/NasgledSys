@@ -3,7 +3,27 @@
     ViewBag.Title = "AddNewCompany";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<script src="~/Scripts/AutoComplete/scStateCity.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#StateCode').change(function () {
+            $.ajax({
+                type: "post",
+                url: "/DropdownUtility/GetCity",
+                data: { stateId: $('#StateCode').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var ddltarget = "#CityKey";
+                    $(ddltarget).empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $(ddltarget).append("<option value='" + data[i].Value + "'>" + data[i].Text + "</option>");
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 @section SideBar{
 
@@ -66,19 +86,13 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.CompanyAddress, "State")
-                       
-                            <input type="text" name="StateName" id="StateName" required="required" placeholder = "State" class="form-control" />
-                            @Html.HiddenFor(model => model.StateCode, new { id = "StateCode", @required = "required" })
-                            @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
-                      
+                        @Html.DropDownList("StateCode", null, string.Empty, htmlAttributes: new { id = "StateCode", @class = "select" })
+                        @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="CityName">
                         @Html.LabelFor(model => model.CompanyAddress, "City")
-                       
-                            <input type="text" name="CityName" id="CityName" required="required"placeholder = "City" class="form-control" />
-                            @Html.HiddenFor(model => model.CityKey, new { id = "CityKey", @required = "required" })
-                            @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
-                      
+                        @Html.DropDownList("CityKey", null, string.Empty, htmlAttributes: new { id = "CityKey", @class = "select" })
+                        @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Zipcode, "Zipcode")

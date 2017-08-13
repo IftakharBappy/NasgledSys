@@ -11,6 +11,20 @@ namespace NasgledSys.Controllers
     {
         // GET: DropdownUtility
         private NasgledDBEntities db = new NasgledDBEntities();
+        [HttpPost]
+        public ActionResult GetCity(int stateId)
+        {
+            
+            List<SelectListItem> districtNames = new List<SelectListItem>();            
+                
+                List<CityList> city = db.CityList.Where(x => x.StateCode == stateId && x.IsDelete==false).ToList();
+                city.ForEach(x =>
+                {
+                    districtNames.Add(new SelectListItem { Text = x.CityName, Value = x.CityKey.ToString() });
+                });
+           
+            return Json(districtNames, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetStateName(string query)
         {
             var users = (from u in db.StateList

@@ -3,27 +3,35 @@
     ViewBag.Title = "InstituteEdit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="~/Scripts/AutoComplete/scStateCity.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
 
-        var p = "#StateCode";
-        var c = "#CityKey";
+        $('#StateCode').change(function () {
+            $.ajax({
+                type: "post",
+                url: "/DropdownUtility/GetCity",
+                data: { stateId: $('#StateCode').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var ddltarget = "#CityKey";
+                    $(ddltarget).empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $(ddltarget).append("<option value='" + data[i].Value + "'>" + data[i].Text + "</option>");
+                    }
 
-
-        var url1 = '@Url.Content("~/")' + "Utility/GetStateName";
-        var url2 = '@Url.Content("~/")' + "Utility/GetCityName";
-
-
-        $.getJSON(url1, { StateCode: $(p).val() }, function (data) {
-            $("#StateName").val(data);
+                    //var district = "<select id='CityKey'>";
+                    //district = district + '<option value="">--Select--</option>';
+                    //for (var i = 0; i < data.length; i++)
+                    //{
+                    //    district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    //}
+                    //district = district + '</select>';
+                    //$('#CityName').html(district);
+                }
+            });
         });
-        $.getJSON(url2, { CityKey: $(c).val() }, function (data) {
-            $("#CityName").val(data);
-        });
-
-
-
     });
 </script>
 @section SideBar{
@@ -58,49 +66,31 @@
                         <label class="display-block">Upload Logo:</label>
                         <input type="file" name="file" class="file-styled">
                         <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
-
                     </div>
-
-
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.CompanyID, "ID")
-
                         @Html.TextBoxFor(model => model.CompanyID, new { placeholder = "ID", @class = "form-control", @required = "required" })
                         @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
-
                     </div>
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.CompanyName, "Name")
-
                         @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Name", @class = "form-control", @required = "required" })
                         @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
-
                     </div>
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.CompanyAddress, "Address")
-
                         @Html.TextBoxFor(model => model.CompanyAddress, new { placeholder = "Address", @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
-
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.CompanyAddress, "State")
-
-                        <input type="text" name="StateName" id="StateName" required="required" placeholder="State" class="form-control" />
-                        @Html.HiddenFor(model => model.StateCode, new { id = "StateCode", @required = "required" })
-                        @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
-
+                        @Html.DropDownList("StateCode", null, string.Empty, htmlAttributes: new { id = "StateCode", @class = "select" })                      
+                        @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="CityName">
                         @Html.LabelFor(model => model.CompanyAddress, "City")
-
-                        <input type="text" name="CityName" id="CityName" required="required" placeholder="City" class="form-control" />
-                        @Html.HiddenFor(model => model.CityKey, new { id = "CityKey", @required = "required" })
-                        @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
-
+                       @Html.DropDownList("CityKey", null, string.Empty, htmlAttributes: new {id= "CityKey", @class = "select" })                       
+                        @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Zipcode, "Zipcode")
