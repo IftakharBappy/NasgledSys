@@ -1,16 +1,13 @@
-﻿@model IEnumerable<NasgledSys.Models.ModuleClass>
+﻿@model IEnumerable<NasgledSys.Models.Usergroup>
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Usergroup";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
 @section scripts{
     <script src="~/Content/datatables/jquery.dataTables.js"></script>
     <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
-<script type="text/javascript">
-
-   
-
+    <script type="text/javascript">
         $(function () {
 
             $('#ctable').DataTable();
@@ -22,8 +19,10 @@
 @section SideBar{
     <h4>
         <i class="icon-arrow-left52 position-left"></i>
-        <span class="text-semibold">Modules</span> - List of Modules
-        <small class="display-block"><a href="@Url.Action("Create","MgtModules")"><i class="icon-display4 position-left"></i> Add new Module</a></small>
+        <span class="text-semibold"><a href="@Url.Action("Index","MgtInstitute")"><i class="icon-display4 position-left"></i>List of Company</a></span>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold">User groups</span> - List of User groups
+        <small class="display-block"><a href="@Url.Action("Create","MgtUsergroup")"><i class="icon-display4 position-left"></i> Add new User group</a></small>
     </h4>
 }
 
@@ -31,7 +30,7 @@
 
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">List of Modules</h5>
+        <h5 class="panel-title">List of User Group</h5>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>
@@ -44,11 +43,9 @@
     <table class="table table-bordered table-hover datatable-highlight" id="ctable">
         <thead>
             <tr>
-              
+                <th>ID</th>
                 <th>Name</th>
-                <th>Level</th>
-                <th>Sub</th>
-                <th>Parent Module</th>
+             
                 <th></th>
                 <th></th>
               
@@ -59,23 +56,18 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ModuleName)
+                        @Html.DisplayFor(modelItem => item.GroupID)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ModuleLevel)
+                        @Html.DisplayFor(modelItem => item.GroupName)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.sub)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MainModuleName)
-                    </td>
+                    
+                 
+                    <td>@Html.ActionLink("Edit", "Edit", "MgtUsergroup", new { id = item.UserGroupKey }, null) </td>
 
-                    <td>@Html.ActionLink("Edit", "Edit", "MgtModules", new { id = item.ModuleID }, null) </td>
+                    <td>@Html.ActionLink("view Details", "Details", "MgtUsergroup", new { id = item.UserGroupKey }, null) </td>
 
-                   
-
-                    <td>@Html.ActionLink("Remove", "Delete", "MgtModules", new { id = item.ModuleID }, new { onclick = "return confirm('Are you sure you want to Remove this?')" })</td>
+                    <td>@Html.ActionLink("Remove", "Delete", "MgtUsergroup", new { id = item.UserGroupKey }, new { onclick = "return confirm('Are you sure you want to Remove this?')" })</td>
                 </tr>
             }
         </tbody>

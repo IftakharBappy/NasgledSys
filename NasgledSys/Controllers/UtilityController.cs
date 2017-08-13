@@ -14,6 +14,27 @@ namespace NasgledSys.Controllers
     {
         // GET: Utility
         private NasgledDBEntities db = new NasgledDBEntities();
+        
+        public ActionResult CheckUsernameCreate(string user)
+        {
+            JsonResult result = new JsonResult();
+            var temp = from x in db.StaffList where x.Username == user select x;
+            if (temp.Count() > 0) result.Data = 99;
+            else
+                result.Data = 1;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult CheckUsernameEdit(string user,Guid per)
+        {
+            JsonResult result = new JsonResult();
+            var temp = from x in db.StaffList where x.Username == user && x.PersonnelKey!=per select x;
+            if (temp.Count() > 0) result.Data = 99;
+            else
+                result.Data = 1;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult GetStateName(int StateCode)
         {
             JsonResult result = new JsonResult();

@@ -35,5 +35,42 @@ namespace NasgledSys.Validation
 
             return obj;
         }
+        public StaffClass ValidateStaff(StaffClass model, bool ICreate)
+        {
+            if (ICreate == true)
+            {
+                if (String.IsNullOrEmpty(model.PID))
+                    model.PID = UniqueIDCreator.CreateID();
+
+                if (String.IsNullOrEmpty(model.Mail))
+                    model.Mail = "n/a";
+                if (String.IsNullOrEmpty(model.Mobile))
+                    model.Mobile = "n/a";
+                if (String.IsNullOrEmpty(model.Department))
+                    model.Department = "none";
+
+                if (String.IsNullOrEmpty(model.Designation))
+                    model.Designation = "none";
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(model.PID))
+                    model.PID = UniqueIDCreator.CreateID();
+
+                if (String.IsNullOrEmpty(model.Mail))
+                    model.Mail = "n/a";
+                if (String.IsNullOrEmpty(model.Mail))
+                    model.Mail = "n/a";
+                if (String.IsNullOrEmpty(model.Mobile))
+                    model.Mobile = "n/a";
+                if (String.IsNullOrEmpty(model.Department))
+                    model.Department = "none";
+
+                if (String.IsNullOrEmpty(model.Designation))
+                    model.Designation = "none";
+
+            }
+            return model;
+        }
     }
 }

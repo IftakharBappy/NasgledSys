@@ -3,8 +3,17 @@
     ViewBag.Title = "AddNewModule";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<script src="~/Scripts/AutoComplete/scStateCity.js"></script>
+<script type="text/javascript">
 
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
 @section SideBar{
 
     <i class="icon-arrow-left52 position-left"></i>
@@ -42,7 +51,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.ModuleLevel)
                         
-                            @Html.TextBoxFor(model => model.ModuleLevel,  new { @class = "form-control", @required = "required"  })
+                            @Html.TextBoxFor(model => model.ModuleLevel,  new { @onkeypress = "return isNumberKey(event)", @class = "form-control", @required = "required"  })
                             @Html.ValidationMessageFor(model => model.ModuleLevel, "", new { @class = "text-danger" })
                        
                     </div>

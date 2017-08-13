@@ -1,0 +1,60 @@
+﻿@model NasgledSys.Models.Usergroup
+    @using NasgledSys.Models
+@{
+    ViewBag.Title = "Usergroup";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section SideBar{
+
+    <i class="icon-arrow-left52 position-left"></i>
+   
+    <a href="@Url.Action("Index","MgtUsergroup",new { id=GlobalClass.Company.CompanyKey})"><i class="icon-display4 position-left"></i>List of Usergroup</a>
+    <small class="display-block"><a href="@Url.Action("Details","MgtUsergroup",new { id=Model.UserGroupKey})"><i class="icon-display4 position-left"></i>@Html.DisplayFor(m => m.GroupName)</a></small>
+
+}
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    var temp = from x in db.UserGroupModule where x.UserGroupKey == Model.UserGroupKey  select x;
+    temp = temp.OrderBy(m => m.Modules.ModuleLevel);
+}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">@Html.DisplayFor(m => m.GroupID) >> @Html.DisplayFor(m => m.GroupName)</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        @{
+            foreach (var item in temp)
+            {
+                <h3>@Html.DisplayFor(m => item.Modules.ModuleName)</h3>
+                var ftemp = from x in db.UserGroupForm where x.UserGroupKey == Model.UserGroupKey  && x.ModuleKey == item.ModuleKey select x;
+                ftemp = ftemp.OrderBy(m => m.Forms.FormLevel);
+                if (ftemp.Count() > 0)
+                {
+                    <table class="table table-bordered">
+
+                        <tbody>
+                            @foreach (var Xitem in ftemp)
+                    {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Xitem.Forms.FormName)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+        }
+    </div>
+</div>

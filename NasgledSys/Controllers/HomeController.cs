@@ -10,6 +10,62 @@ namespace NasgledSys.Controllers
 {
     public class HomeController : Controller
     {
+        private NasgledDBEntities db = new NasgledDBEntities();
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.Clear();
+            Session.RemoveAll();
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult Login()
+        {
+            Session.Abandon();
+            Session.Clear();
+            Session.RemoveAll();
+            LoginViewModel model = new LoginViewModel();
+            if (Request.Cookies["UserLogin"] != null)
+            {
+                model.Username = Request.Cookies["UserLogin"].Values["Username"];
+                model.Password = Request.Cookies["UserLogin"].Values["Password"];
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Login(LoginViewModel model)
+        {
+
+            try
+            {
+                StaffList obj = db.StaffList.SingleOrDefault(m => m.Username == model.Username && m.Password == model.Password && m.IsDelete == false && m.IsUser == true);
+                if (obj == null)
+                {
+                    Exception e = new Exception("Incorrect user access. Unauthorized Access.");
+                    return View("Error", new HandleErrorInfo(e, "Home", "Login"));
+                }
+                else
+                {
+                    if (model.RememberMe)
+                    {
+                        HttpCookie cookie = new HttpCookie("UserLogin");
+                        cookie.Values.Add("Username", model.Username);
+                        cookie.Values.Add("Password", model.Password);
+                        cookie.Expires = DateTime.Now.AddDays(715);
+                        Response.Cookies.Add(cookie);
+
+                    }
+                    GlobalClass.LoginUser = obj;
+                    GlobalClass.Company = db.Company.SingleOrDefault(m => m.CompanyKey == obj.CompanyKey);                 
+                    return RedirectToAction("Index", "Home");
+                }
+
+            }
+            catch (DivideByZeroException e)
+            {
+                return View("Error", new HandleErrorInfo(e, "Home", "Login"));
+            }
+        }
         public ActionResult Index()
         {
             
@@ -58,7 +114,7 @@ namespace NasgledSys.Controllers
                         if (model.RememberMe)
                         {
                             HttpCookie cookie = new HttpCookie("Login");
-                            cookie.Values.Add("Username", model.Password);
+                            cookie.Values.Add("Username", model.Username);
                             cookie.Values.Add("Password", model.Password);
                             cookie.Expires = DateTime.Now.AddDays(715);
                             Response.Cookies.Add(cookie);

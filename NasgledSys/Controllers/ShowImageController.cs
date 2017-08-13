@@ -29,6 +29,19 @@ namespace NasgledSys.Controllers
                 return File(faoimagefile.FileContent, faoimagefile.FileType);
             }
         }
+        public ActionResult GetUserPic(Guid id)
+        {
+
+            StaffList obj = db.StaffList.SingleOrDefault(m => m.PersonnelKey == id);
+
+            if (obj.Pic != null)
+                return File(obj.Pic, obj.PicType);
+            else
+            {
+                ImageFile faoimagefile = db.ImageFile.Single(f => f.ImageFileKey == 1);
+                return File(faoimagefile.FileContent, faoimagefile.FileType);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

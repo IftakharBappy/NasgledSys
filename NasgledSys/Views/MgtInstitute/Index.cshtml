@@ -44,7 +44,7 @@
                     <th>Name</th>
                     <th>Address</th>
                     <th>Phone No</th>
-                <th></th><th></th><th></th>
+                <th></th><th></th><th></th><th></th>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +63,8 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.CompanyPhone)
                         </td>
-
+                        <td>@Html.ActionLink("User Group", "Index", "MgtUsergroup", new { id = item.CompanyKey }, null) ||
+                        @Html.ActionLink("Staff", "Index", "MgtStaff", new { id = item.CompanyKey }, null) </td>
                         <td>@Html.ActionLink("Edit", "Edit", "MgtInstitute", new { id = item.CompanyKey }, null) </td>
 
                         <td>@Html.ActionLink("view Details", "Details", "MgtInstitute", new { id = item.CompanyKey }, null) </td>

@@ -202,7 +202,9 @@
     <Compile Include="Controllers\MgtFormsController.cs" />
     <Compile Include="Controllers\MgtInstituteController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
+    <Compile Include="Controllers\MgtStaffController.cs" />
     <Compile Include="Controllers\MgtStateController.cs" />
+    <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Global.asax.cs">
@@ -398,6 +400,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Validation\FormValidation.cs" />
     <Compile Include="Validation\MgtInstituteInfo.cs" />
+    <Compile Include="Validation\UniqueIDCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets\css\bootstrap.css" />
@@ -3292,12 +3295,32 @@
     <Content Include="Views\MgtModules\Create.cshtml" />
     <Content Include="Views\MgtModules\Edit.cshtml" />
     <Content Include="Views\MgtState\Index.cshtml" />
+    <Content Include="Views\MgtForms\Index.cshtml" />
+    <Content Include="Views\MgtForms\Create.cshtml" />
+    <Content Include="Views\MgtForms\Edit.cshtml" />
+    <Content Include="Views\MgtUsergroup\Index.cshtml" />
+    <Content Include="Views\MgtUsergroup\Details.cshtml" />
+    <Content Include="Views\MgtUsergroup\Create.cshtml" />
+    <Content Include="Views\MgtUsergroup\Edit.cshtml" />
+    <Content Include="Views\MgtUsergroup\DIndex.cshtml" />
+    <Content Include="Views\MgtUsergroup\DDetails.cshtml" />
+    <Content Include="Views\MgtUsergroup\DCreate.cshtml" />
+    <Content Include="Views\MgtUsergroup\DEdit.cshtml" />
+    <Content Include="Views\MgtStaff\Index.cshtml" />
+    <Content Include="Views\MgtStaff\DIndex.cshtml" />
+    <Content Include="Views\MgtStaff\Details.cshtml" />
+    <Content Include="Views\MgtStaff\MyProfile.cshtml" />
+    <Content Include="Views\MgtStaff\Create.cshtml" />
+    <Content Include="Views\MgtStaff\Edit.cshtml" />
+    <Content Include="Views\MgtStaff\DCreate.cshtml" />
+    <Content Include="Views\MgtStaff\DEdit.cshtml" />
+    <Content Include="Views\MgtStaff\ChangePassword.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DAL\" />
     <Folder Include="Views\DropdownUtility\" />
-    <Folder Include="Views\MgtForms\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
   </ItemGroup>

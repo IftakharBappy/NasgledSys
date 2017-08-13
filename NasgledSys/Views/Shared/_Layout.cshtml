@@ -13,7 +13,7 @@
 </head>
 
 <body ng-app="nasgledApp">
-
+@using NasgledSys.Models
     <script src="~/Scripts/nasgledApp.js"></script>
     <!-- Main navbar -->
     <div class="navbar navbar-inverse bg-indigo">
@@ -32,16 +32,16 @@
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <img src="assets/images/placeholder.jpg" alt="">
-                        <span>Victoria</span>
+                        <span>@Html.DisplayFor(m=>GlobalClass.LoginUser.PName)</span>
                         <i class="caret"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
-                        <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
-                        <li><a href="#"><span class="badge badge-warning pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
+                        <li><a href="@Url.Action("MyProfile","MgtStaff")"><i class="icon-user-plus"></i> My profile</a></li>
+                      
+                      
                         <li class="divider"></li>
-                        <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-                        <li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+                        
+                        <li><a href="@Url.Action("Logout","Home")"><i class="icon-switch2"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -69,7 +69,7 @@
                                             <ul>
                                                 <li><a href="@Url.Action("Index","MgtState")">State</a></li>
                                               
-                                                <li><a href="form_input_groups.html">City</a></li>
+                                                <li><a href="@Url.Action("Index","MgtState")">City</a></li>
                                                 <li><a href="form_controls_extended.html">Zipcode</a></li>
                                                 
                                             </ul>
@@ -82,38 +82,16 @@
                                                 <li><a href="alpaca_controls.html">Controls</a></li>
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#"><i class="icon-footprint"></i> Wizards</a>
+                                        <li> @*Menu Set DO NOT DISTURB--------------------------------------- NAHID*@
+                                            <a href="#"><i class="icon-footprint"></i> Configuration</a>
                                             <ul>
-                                                <li><a href="wizard_steps.html">Steps wizard</a></li>
-                                                <li><a href="wizard_form.html">Form wizard</a></li>
-                                                <li><a href="wizard_stepy.html">Stepy wizard</a></li>
+                                                <li><a href="@Url.Action("DIndex","MgtUsergroup")">User group</a></li>
+                                                <li><a href="@Url.Action("DIndex","MgtStaff")">User</a></li>
+                                                <li><a href="@Url.Action("UserEdit", "MgtInstitute")">Company Info</a></li>
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#"><i class="icon-spell-check"></i> Editors</a>
-                                            <ul>
-                                                <li><a href="editor_summernote.html">Summernote editor</a></li>
-                                                <li><a href="editor_ckeditor.html">CKEditor</a></li>
-                                                <li><a href="editor_wysihtml5.html">WYSIHTML5 editor</a></li>
-                                                <li><a href="editor_code.html">Code editor</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="icon-select2"></i> Pickers</a>
-                                            <ul>
-                                                <li><a href="picker_date.html">Date &amp; time pickers</a></li>
-                                                <li><a href="picker_color.html">Color pickers</a></li>
-                                                <li><a href="picker_location.html">Location pickers</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="icon-insert-template"></i> Form layouts</a>
-                                            <ul>
-                                                <li><a href="form_layout_vertical.html">Vertical form</a></li>
-                                                <li><a href="form_layout_horizontal.html">Horizontal form</a></li>
-                                            </ul>
-                                        </li>
+                                       
+                                       
                                     </ul>
                                 </div>
                                 <div class="col-md-3">

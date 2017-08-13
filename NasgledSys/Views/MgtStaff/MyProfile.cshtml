@@ -1,0 +1,53 @@
+﻿@model NasgledSys.Models.StaffList
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section SideBar{
+
+    <i class="icon-arrow-left52 position-left"></i>
+  
+    <small class="display-block"><i class="icon-display4 position-left"></i>My Profile</small>
+
+}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">My Profile</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@Url.Action("GetUserPic", "ShowImage" ,new{id=Model.PersonnelKey})" width="50px" height="80px" alt="User Image" /><br />
+                <table class="table">
+                    <tr><th>ID</th><td>@Html.DisplayFor(m => m.PID)</td></tr>
+                    <tr><th>Name</th><td>@Html.DisplayFor(m => m.PName)</td></tr>
+                    <tr><th>Mobile#</th><td>@Html.DisplayFor(m => m.Mobile)</td></tr>
+                    <tr><th>Email</th><td>@Html.DisplayFor(m => m.Mail)</td></tr>
+                    <tr><th>Department</th><td>@Html.DisplayFor(m => m.Department)</td></tr>
+                    <tr><th>Designation</th><td>@Html.DisplayFor(m => m.Designation)</td></tr>
+
+
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table">
+
+                    <tr><th>Usergroup</th><td>@Html.DisplayFor(m => m.Usergroup.GroupName)</td></tr>
+                    <tr><th>Username</th><td>@Html.DisplayFor(m => m.Username)</td></tr>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
