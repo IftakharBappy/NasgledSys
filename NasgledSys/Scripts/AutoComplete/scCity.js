@@ -8,6 +8,7 @@ function Add() {
     var empObj = {
         CityName: $('#CityName').val(),
         StateCode: $('#StateCode').val()
+
     };
     $.ajax({
         url: "/MgtCity/Add",

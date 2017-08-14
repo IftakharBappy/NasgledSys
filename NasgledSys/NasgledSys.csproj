@@ -200,6 +200,7 @@
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
+    <Compile Include="Controllers\MgtCoolingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\MgtFormsController.cs" />
     <Compile Include="Controllers\MgtInstituteController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Controllers\ShowImageController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
+    <Compile Include="DAL\MgtCoolingEfficiencyType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3318,6 +3320,7 @@
     <Content Include="Views\MgtStaff\ChangePassword.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\MgtCity\Index.cshtml" />
+    <Content Include="Views\MgtCoolingEfficiencyType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
