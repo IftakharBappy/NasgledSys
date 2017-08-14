@@ -10,6 +10,7 @@ function Add() {
         StateCode: $('#StateCode').val()
     };
     $.ajax({
+
         url: "/MgtCity/Add",
         data: JSON.stringify(empObj),
         type: "POST",
