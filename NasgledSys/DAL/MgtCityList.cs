@@ -12,7 +12,7 @@ namespace NasgledSys.DAL
         {
             List<CityClass> obj = new List<CityClass>();
             var temp = (from x in db.CityList
-                       where x.IsDelete == false && x.CityKey<100
+                       where x.IsDelete == false && x.CityKey>30200
                        select new CityClass
                        {
                            CityKey=x.CityKey,
