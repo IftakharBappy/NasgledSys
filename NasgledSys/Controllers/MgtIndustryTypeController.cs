@@ -11,7 +11,7 @@ namespace NasgledSys.Controllers
         // GET: IndustryType
         public ActionResult Index()
         {
-            //
+            // test
             return View();
         }
     }
