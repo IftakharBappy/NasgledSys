@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace NasgledSys.Controllers
 {
-    public class MgtIndustryTypeController : Controller
+    public class IndustryTypeController : Controller
     {
         // GET: IndustryType
         public ActionResult Index()
