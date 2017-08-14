@@ -199,6 +199,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndustryTypeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
     <Compile Include="Controllers\MgtCoolingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\MgtFormsController.cs" />
@@ -3325,6 +3326,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\DropdownUtility\" />
+    <Folder Include="Views\IndustryType\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
   </ItemGroup>
