@@ -44,5 +44,10 @@ namespace NasgledSys.DAL
             }
             return i;
         }
+
+        public int Update(CoolingEfficiencyTypeClass obj)
+        {
+            return 0 ;
+        }
     }
 }

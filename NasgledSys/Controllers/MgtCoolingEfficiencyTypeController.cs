@@ -33,5 +33,10 @@ namespace NasgledSys.Controllers
         {
             return Json(getAll.Add(CoolingEfficientyType), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Update(CoolingEfficiencyTypeClass CoolingEfficientyType)
+        {
+            return Json(getAll.Update(CoolingEfficientyType), JsonRequestBehavior.AllowGet);
+        }
     }
 }
