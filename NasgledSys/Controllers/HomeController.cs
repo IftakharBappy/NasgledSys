@@ -18,7 +18,6 @@ namespace NasgledSys.Controllers
             Session.RemoveAll();
             return RedirectToAction("Login");
         }
-
         public ActionResult Login()
         {
             Session.Abandon();
