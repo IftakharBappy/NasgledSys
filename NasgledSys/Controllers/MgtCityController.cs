@@ -53,19 +53,12 @@ namespace NasgledSys.Controllers
         {
             return Json(manage.Add(city), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetbyID(int ID)
-        {
-            var Employee = manage.ListAll().Find(x => x.CityKey.Equals(ID));
-            return Json(Employee, JsonRequestBehavior.AllowGet);
-        }
+      
         public JsonResult Update(CityClass city)
         {
             return Json(manage.Update(city), JsonRequestBehavior.AllowGet);
         }
-        //public JsonResult Delete(int ID)
-        //{
-        //    return Json(manage.Delete(ID), JsonRequestBehavior.AllowGet);
-        //}
+      
         protected override void Dispose(bool disposing)
         {
             if (disposing)

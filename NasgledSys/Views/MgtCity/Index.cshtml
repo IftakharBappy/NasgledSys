@@ -5,13 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" /> @*////Common CSS file for All the setup*@
 
-<script src="~/Scripts/AutoComplete/scCity.js"></script>
+@*////Common JS file for All the setup*@
     <script src="~/Content/datatables/jquery.dataTables.js"></script>
     <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#msgSuccess').hide();
+
             $(".discussion-comment").click(function (event) {
                 //alert($(this).attr("discussion-id"));
                 $('#CityKey').val($(this).attr("discussion-id"));
@@ -19,26 +21,23 @@
                 $('#btnUpdate').show();
                 $('#btnAdd').hide();
                 var w = "#CityKey";
-
                 var url = '@Url.Content("~/")' + "Utility/LoadCityData";
                 $.getJSON(url, { SelectID: $(w).val() }, function (data) {
 
-
                     $('#CityName').val(data["CityName"]);
                     $('#StateCode').val(data["StateCode"]);
-                    $('#StateCode').text(data["StateName"]);
+                  
+                   
                 });
-
 
             });
         });
         $(function () {
-
             $('#ctable').DataTable();
-
         });
-
     </script>
+@*////form Specific File*@
+<script src="~/Scripts/AutoComplete/scCity.js"></script>
 
 @section SideBar{
     <h4>
@@ -74,15 +73,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.StateName)
                     </td>
-
-
-                    <td><a class="discussion-comment" discussion-id="@item.CityKey" href="#">Edit</a> ||
-    |
-
-    <a href="@Url.Action("Delete", "MgtCity",new{id=item.CityKey})" onclick="return confirm('Are you sure you want to Remove this?')">Delete</a>
-</td>
-
-
+                    <td><a class="discussion-comment" discussion-id="@item.CityKey" href="#">Edit</a> || 
+    <a href="@Url.Action("Delete", "MgtCity",new{id=item.CityKey})" onclick="return confirm('Are you sure you want to Remove this?')">Delete</a></td>
                 </tr>
             }
         </tbody>
@@ -98,6 +90,7 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        
                         <div class="form-group">
                             @Html.LabelFor(model => model.CityName)
                             @Html.HiddenFor(model => model.CityKey,new { id= "CityKey" })
@@ -107,10 +100,11 @@
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.StateName)
-                            @Html.DropDownList("StateCode", null,  new {@required="required", id = "StateCode", @class = "select" })
+                            @Html.DropDownList("StateCode", null,string.Empty,  new {@required="required", id = "StateCode", @class = "select" })
                             @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
                         </div>
                     </form>
+                    <div class="form-group" id="msgSuccess"><h4 class="alert alert-danger">Data is successfully Saved on database.</h4></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
