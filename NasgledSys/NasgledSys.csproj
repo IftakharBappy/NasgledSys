@@ -199,7 +199,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IndustryTypeController.cs" />
+    <Compile Include="Controllers\MgtIndustryTypeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
     <Compile Include="Controllers\MgtCoolingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\MgtFormsController.cs" />
