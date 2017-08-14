@@ -26,6 +26,17 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        public ActionResult LoadCoolingEfficiencyTypeData(int SelectID)
+        {
+            JsonResult result = new JsonResult();
+            CoolingEfficiencyTypeClass obj = new CoolingEfficiencyTypeClass();
+            CoolingEfficientyType m = db.CoolingEfficientyType.Find(SelectID);
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;          
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
 
         public ActionResult CheckUsernameCreate(string user)
         {

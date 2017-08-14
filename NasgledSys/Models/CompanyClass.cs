@@ -127,5 +127,17 @@ namespace NasgledSys.Models
         public List<CityClass> CityList { get; set; }
     }
 
-  
+    public class CoolingEfficiencyTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<CoolingEfficiencyTypeClass> CoolingEfficiencyTypeList { get; set; }
+    }
+
+
+
 }
