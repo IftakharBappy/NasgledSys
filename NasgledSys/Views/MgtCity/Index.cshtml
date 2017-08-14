@@ -10,6 +10,11 @@
 @*////Common JS file for All the setup*@
     <script src="~/Content/datatables/jquery.dataTables.js"></script>
     <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+
+@*////form Specific File*@
+<script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="~/Scripts/AutoComplete/scCity.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#msgSuccess').hide();
@@ -25,8 +30,8 @@
                 $.getJSON(url, { SelectID: $(w).val() }, function (data) {
 
                     $('#CityName').val(data["CityName"]);
-                    $('#StateCode').val(data["StateCode"]);
-                    $('#StateCode').text(data["StateName"]);
+                    $('#StateCode').select2().val(data["StateCode"]);
+                   
                 });
 
 
@@ -36,8 +41,7 @@
             $('#ctable').DataTable();
         });
     </script>
-@*////form Specific File*@
-<script src="~/Scripts/AutoComplete/scCity.js"></script>
+
 
 @section SideBar{
     <h4>
