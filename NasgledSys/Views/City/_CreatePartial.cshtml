@@ -4,6 +4,8 @@
     Layout = null;
 }
 
+@*<script src="~/Scripts/AutoComplete/scStateCity.js"></script>*@
+
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -27,8 +29,11 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.StateName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.StateName, "", new { @class = "text-danger" })
+                            @*@Html.EditorFor(model => model.StateName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StateName, "", new { @class = "text-danger" })*@
+                            @Html.EditorFor(model => model.StateName, new { htmlAttributes = new { id = "StateName", @class = "form-control" } })
+                            @Html.HiddenFor(model => model.StateCode, new { id = "StateCode" })
+                            @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
