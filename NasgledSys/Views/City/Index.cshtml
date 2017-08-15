@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">City</h1>
+                
+                <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-url="@Url.Action("Create","City")" id="btnCreateCity">
+                    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Add City
+                </button>
+            </div>
+            <div class="panel-body">
+                <table id="Citys-data-table" class="table table-striped table-bordered" style="width:100%;"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createCityModal" tabindex="-1" role="dialog" aria-labelledby="CreateCityModal" aria-hidden="true" data-backdrop="static">
+    <div id="createCityContainer">
+    </div>
+</div>
+
+<div class="modal fade" id="editCityModal" tabindex="-1" role="dialog" aria-labelledby="EditCityModal" aria-hidden="true" data-backdrop="static">
+    <div id="editCityContainer">
+    </div>
+</div>
+
+<div class="modal fade" id="detailsCityModal" tabindex="-1" role="dialog" aria-labelledby="DetailsCityModal" aria-hidden="true" data-backdrop="static">
+    <div id="detailsCityContainer">
+    </div>
+</div>
+
+<div class="modal fade" id="deleteCityModal" tabindex="-1" role="dialog" aria-labelledby="DeleteCityModal" aria-hidden="true" data-backdrop="static">
+    <div id="deleteCityContainer">
+    </div>
+</div>
+
+ 
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+        var CityListVM;
+        $(function () {
+            CityListVM = {
+                dt: null,
+
+                init: function () {
+                    dt = $('#Citys-data-table').DataTable({
+                        "serverSide": true,
+                        "processing": true,
+                        "ajax": {
+                            "url": "@Url.Action("Get","City")",
+                            "data": function (data) {
+
+                                data.CityKey = $("#CityKey").val();
+                                data.CityName = $("#CityName").val();
+                                data.StateName = $("#StateName").val();
+                                data.StateCode = $("#StateCode").val();
+                            }
+                        },
+                        "columns": [
+
+                            { "title": "CityName", "data": "CityName", "searchable": true },
+                            { "title": "StateName", "data": "StateName", "searchable": true },
+                            { "title": "StateCode", "data": "StateCode", "searchable": true },
+                            {
+                                "title": "Actions",
+                                "data": "CityKey",
+                                "searchable": false,
+                                "sortable": false,
+                                "render": function (data, type, full, meta) {
+                                    return '<a href="@Url.Action("Edit","City")?id=' + data + '" class="editCity">Edit</a> | <a href="@Url.Action("Details","City")?id=' + data + '" class="detailsCity">Details</a> | <a href="@Url.Action("Delete","City")?id=' + data + '" class="deleteCity">Delete</a>';
+                                }
+                            }
+                        ],
+                        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                    });
+                },
+
+                refresh: function () {
+                    dt.ajax.reload();
+                }
+            }
+
+            // Advanced Search Modal Search button click handler
+            $('#btnPerformAdvancedSearch').on("click", CityListVM.refresh);
+
+            // initialize the datatables
+            CityListVM.init();
+
+            $("#btnCreateCity").on("click", function () {
+
+                var url = $(this).data("url");
+
+                $.get(url, function (data) {
+                    $('#createCityContainer').html(data);
+
+                    $('#createCityModal').modal('show');
+                });
+
+            });
+
+
+            $('#Citys-data-table').on("click", ".editCity", function (event) {
+
+                event.preventDefault();
+
+                var url = $(this).attr("href");
+
+                $.get(url, function (data) {
+                    $('#editCityContainer').html(data);
+
+                    $('#editCityModal').modal('show');
+                });
+
+            });
+
+
+
+            $('#Citys-data-table').on("click", ".detailsCity", function (event) {
+
+                event.preventDefault();
+
+                var url = $(this).attr("href");
+
+                $.get(url, function (data) {
+                    $('#detailsCityContainer').html(data);
+
+                    $('#detailsCityModal').modal('show');
+                });
+
+            });
+
+
+
+            $('#Citys-data-table').on("click", ".deleteCity", function (event) {
+
+                event.preventDefault();
+
+                var url = $(this).attr("href");
+
+                $.get(url, function (data) {
+                    $('#deleteCityContainer').html(data);
+
+                    $('#deleteCityModal').modal('show');
+                });
+
+            });
+
+        });
+
+    /**** Create City Ajax Form CallBack ********/
+
+    function CreateCitySuccess(data) {
+
+        if (data != "success") {
+            $('#createCityContainer').html(data);
+            return;
+        }
+        $('#createCityModal').modal('hide');
+        $('#createCityContainer').html("");
+        CityListVM.refresh();
+
+    }
+
+    /**** Edit City Ajax Form CallBack ********/
+
+    function UpdateCitySuccess(data) {
+
+        if (data != "success") {
+            $('#editCityContainer').html(data);
+            return;
+        }
+        $('#editCityModal').modal('hide');
+        $('#editCityContainer').html("");
+        CityListVM.refresh();
+
+    }
+
+    /**** Delet City Ajax Form CallBack ********/
+
+    function DeleteCitySuccess(data) {
+
+        if (data != "success") {
+            $('#deleteCityContainer').html(data);
+            return;
+        }
+        $('#deleteCityModal').modal('hide');
+        $('#deleteCityContainer').html("");
+        CityListVM.refresh();
+
+    }
+
+
+    </script>
+
+}
+

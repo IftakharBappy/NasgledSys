@@ -203,6 +203,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
@@ -217,10 +218,12 @@
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
     <Compile Include="DAL\MgtCoolingEfficiencyType.cs" />
+    <Compile Include="EM\EM_City.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdvancedSearchViewModel.cs" />
     <Compile Include="Models\AppRoles.cs" />
     <Compile Include="Models\Area.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -255,6 +258,7 @@
     <Compile Include="Models\CityList.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CityViewModel.cs" />
     <Compile Include="Models\ClientCompany.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3561,6 +3565,11 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\MgtCity\Index.cshtml" />
     <Content Include="Views\MgtCoolingEfficiencyType\Index.cshtml" />
+    <Content Include="Views\City\Index.cshtml" />
+    <Content Include="Views\City\_CreatePartial.cshtml" />
+    <Content Include="Views\City\_DeletePartial.cshtml" />
+    <Content Include="Views\City\_detailsPartial.cshtml" />
+    <Content Include="Views\City\_EditPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
