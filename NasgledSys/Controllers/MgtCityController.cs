@@ -10,7 +10,6 @@ using NasgledSys.Models;
 using System.IO;
 using NasgledSys.DAL;
 using System.Web.Script.Serialization;
-
 namespace NasgledSys.Controllers
 {
     public class MgtCityController : Controller
