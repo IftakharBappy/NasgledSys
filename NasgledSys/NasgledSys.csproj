@@ -3054,6 +3054,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AngularController\jsInstituteController.js" />
     <Content Include="Scripts\AutoComplete\scCity.js" />
+    <Content Include="Scripts\AutoComplete\scCoolingEfficiencyType.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
