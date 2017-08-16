@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using NasgledSys.Models;
+using Z.EntityFramework.Plus;
 namespace NasgledSys.DAL
 {
     public class MgtCityList
@@ -12,7 +13,7 @@ namespace NasgledSys.DAL
         {
             List<CityClass> obj = new List<CityClass>();
             var temp = (from x in db.CityList
-                       where x.IsDelete == false && x.CityKey>30200
+                       where x.IsDelete == false 
                        select new CityClass
                        {
                            CityKey=x.CityKey,
@@ -20,7 +21,7 @@ namespace NasgledSys.DAL
                            StateCode=x.StateCode,
                            StateName=x.StateList.StateName,
                            IsDelete=x.IsDelete
-                       }).OrderBy(m=>m.CityName);
+                       }).OrderBy(m=>m.CityName).FromCache();
             obj = temp.ToList();
             return obj;
         }
