@@ -39,6 +39,19 @@ namespace NasgledSys.Controllers
             return result;
         }
 
+        public ActionResult LoadCoolingSystemTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            CoolingSystemTypeClass obj = new CoolingSystemTypeClass();
+            CoolingSystemType m = db.CoolingSystemType.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();

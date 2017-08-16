@@ -208,6 +208,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
     <Compile Include="Controllers\MgtCoolingEfficiencyTypeController.cs" />
+    <Compile Include="Controllers\MgtCoolingSystemTypeController.cs" />
     <Compile Include="Controllers\MgtFormsController.cs" />
     <Compile Include="Controllers\MgtIndustryTypeController.cs" />
     <Compile Include="Controllers\MgtInstituteController.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
     <Compile Include="DAL\MgtCoolingEfficiencyType.cs" />
+    <Compile Include="DAL\MgtCoolingSystemType.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -3055,6 +3057,7 @@
     <Content Include="Scripts\AngularController\jsInstituteController.js" />
     <Content Include="Scripts\AutoComplete\scCity.js" />
     <Content Include="Scripts\AutoComplete\scCoolingEfficiencyType.js" />
+    <Content Include="Scripts\AutoComplete\scCoolingSystemType.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -3571,6 +3574,7 @@
     <Content Include="Views\City\_DeletePartial.cshtml" />
     <Content Include="Views\City\_detailsPartial.cshtml" />
     <Content Include="Views\City\_EditPartial.cshtml" />
+    <Content Include="Views\MgtCoolingSystemType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
