@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.CoolingEfficiencyTypeClass
+﻿@model NasgledSys.Models.CoolingSystemTypeClass
 
 @{
     ViewBag.Title = "List";
@@ -13,7 +13,7 @@
 
 @*////form Specific File*@
 <script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
-<script src="~/Scripts/AutoComplete/scCoolingEfficiencyType.js"></script>
+<script src="~/Scripts/AutoComplete/scCoolingSystemType.js"></script>
 
 <script type="text/javascript">
         $(document).ready(function () {
@@ -25,7 +25,7 @@
                 $('#btnUpdate').show();
                 $('#btnAdd').hide();
                 var w = "#PKey";
-                var url = '@Url.Content("~/")' + "Utility/LoadCoolingEfficiencyTypeData";
+                var url = '@Url.Content("~/")' + "Utility/LoadCoolingSystemTypeData";
                 $.getJSON(url, { SelectID: $(w).val() }, function (data) {
 
                     $('#TypeName').val(data["TypeName"]);
@@ -45,13 +45,13 @@
 @section SideBar{
     <h4>
         <i class="icon-arrow-left52 position-left"></i>
-        <span class="text-semibold">List of Cooling Efficiency Type</span>
+        <span class="text-semibold">List of Cooling System Type</span>
 
     </h4>
 }
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">List of Cooling Efficiency Type</h5>
+        <h5 class="panel-title">List of Cooling System Type</h5>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>
@@ -61,13 +61,13 @@
         </div>
     </div>
     <div class="panel-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Cooling Efficiency Type</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Cooling System Type</button>
     </div>
 
     <table class="table table-bordered table-hover datatable-highlight" id="ctable">
         <thead><tr><th> Name</th><th>Description</th><th>Action</th></tr></thead>
         <tbody>
-            @foreach (var item in Model.CoolingEfficiencyTypeList)
+            @foreach (var item in Model.CoolingSystemTypeList)
             {
                 <tr>
                     <td>
@@ -79,7 +79,7 @@
                     <td>
                         <a class="discussion-comment" discussion-id="@item.PKey" href="#">Edit</a> ||
                         @*<a href="@Url.Action("Delete", "MgtCoolingEfficiencyType",new{id=item.PKey})" onclick="return confirm('Are you sure you want to Remove this?')">Delete</a>*@
-                        
+
                         <a href="#" onclick="Delete('@item.PKey')">Delete</a>
                     </td>
                 </tr>
@@ -93,7 +93,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Add New MgtCoolingEfficiencyType</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add New Cooling System Type</h4>
                 </div>
                 <div class="modal-body">
                     <form>

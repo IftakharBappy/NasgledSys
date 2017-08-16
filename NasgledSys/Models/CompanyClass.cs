@@ -138,6 +138,15 @@ namespace NasgledSys.Models
         public List<CoolingEfficiencyTypeClass> CoolingEfficiencyTypeList { get; set; }
     }
 
+    public class CoolingSystemTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<CoolingSystemTypeClass> CoolingSystemTypeList { get; set; }
+    }
+
 
 
 }
