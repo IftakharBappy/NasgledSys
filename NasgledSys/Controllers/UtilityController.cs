@@ -26,11 +26,12 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
-        public ActionResult LoadCoolingEfficiencyTypeData(int SelectID)
+        public ActionResult LoadCoolingEfficiencyTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
             CoolingEfficiencyTypeClass obj = new CoolingEfficiencyTypeClass();
             CoolingEfficientyType m = db.CoolingEfficientyType.Find(SelectID);
+            obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
             obj.Description = m.Description;          
             result.Data = obj;

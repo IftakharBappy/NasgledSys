@@ -12,7 +12,7 @@ namespace NasgledSys.Controllers
     {
 
         private NasgledDBEntities db = new NasgledDBEntities();
-        private MgtCoolingEfficiencyType getAll = new MgtCoolingEfficiencyType();
+        private MgtCoolingEfficiencyType manage = new MgtCoolingEfficiencyType();
         // GET: MgtCoolingEfficiencyType
         public ActionResult Index()
         {
@@ -20,7 +20,7 @@ namespace NasgledSys.Controllers
             {
                 CoolingEfficiencyTypeClass obj = new CoolingEfficiencyTypeClass();
                 obj.CoolingEfficiencyTypeList = new List<CoolingEfficiencyTypeClass>();
-                obj.CoolingEfficiencyTypeList = getAll.ListAll();
+                obj.CoolingEfficiencyTypeList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -31,12 +31,26 @@ namespace NasgledSys.Controllers
         }
         public JsonResult Add(CoolingEfficiencyTypeClass CoolingEfficientyType)
         {
-            return Json(getAll.Add(CoolingEfficientyType), JsonRequestBehavior.AllowGet);
+            return Json(manage.Add(CoolingEfficientyType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(CoolingEfficiencyTypeClass CoolingEfficientyType)
+        public JsonResult Update(CoolingEfficiencyTypeClass CoolingEfficiency)
         {
-            return Json(getAll.Update(CoolingEfficientyType), JsonRequestBehavior.AllowGet);
+            return Json(manage.Update(CoolingEfficiency), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Delete(Guid ID)
+        {
+            return Json(manage.Delete(ID), JsonRequestBehavior.AllowGet);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace NasgledSys.DAL
             try
             {
                 CoolingEfficientyType model = new CoolingEfficientyType();
+                model.PKey = Guid.NewGuid();
                 model.TypeName = obj.TypeName;
                 model.Description = obj.Description;
                 model.IsDelete = false;
@@ -47,7 +48,38 @@ namespace NasgledSys.DAL
 
         public int Update(CoolingEfficiencyTypeClass obj)
         {
-            return 0 ;
+            int i = 1;
+            try
+            {
+                CoolingEfficientyType model = db.CoolingEfficientyType.Find(obj.PKey);
+                model.TypeName = obj.TypeName;
+                model.Description = obj.Description;
+
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                i = 0;
+            }
+            return i;
+        }
+
+        public int Delete(Guid ID)
+        {
+            int i = 1;
+            try
+            {
+                CoolingEfficientyType model = db.CoolingEfficientyType.Find(ID);
+                model.IsDelete = true;
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                i = 0;
+            }
+            return i;
         }
     }
 }
