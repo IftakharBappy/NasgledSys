@@ -1,10 +1,8 @@
 ﻿
 @model NasgledSys.Models.CityViewModel
-@{
-    @Styles.Render("~/bundles/css")
-   
+@{ 
+    Layout = null;
 }
-
 
 
 <div class="modal-dialog">
@@ -30,7 +28,8 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label" })
                       
-                            @Html.DropDownList("StateCode", null, string.Empty, new { @required = "required", id = "StateCode", @class = "select" })
+
+                            @Html.DropDownList("StateCode", null, string.Empty, new { @required = "required", id = "StateCode", @class = "form-control" })
                           
                             @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
                        

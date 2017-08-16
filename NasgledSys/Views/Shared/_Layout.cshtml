@@ -4,19 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Nasgled</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
     @Styles.Render("~/bundles/css")
-    @Scripts.Render("~/bundles/modernizr")
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/bootstrap")
 
 </head>
 
-<body ng-app="nasgledApp">
-    
+<body>
+   
 @using NasgledSys.Models
-    <script src="~/Scripts/nasgledApp.js"></script>
+   
     <!-- Main navbar -->
     <div class="navbar navbar-inverse bg-indigo">
         <div class="navbar-header">
@@ -874,6 +871,6 @@
 
     </div>
     <!-- /footer -->
-    @RenderSection("scripts", required: false)
+   
 </body>
 </html>

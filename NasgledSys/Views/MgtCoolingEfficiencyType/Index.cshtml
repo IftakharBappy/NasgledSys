@@ -5,14 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" /> @*////Common CSS file for All the setup*@
 
-@*////Common JS file for All the setup*@
-<script src="~/Content/datatables/jquery.dataTables.js"></script>
-<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
-@*////form Specific File*@
-<script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/datatables_advanced.js"></script>
+
 <script src="~/Scripts/AutoComplete/scCoolingEfficiencyType.js"></script>
 
 <script type="text/javascript">
@@ -36,9 +32,7 @@
 
             });
         });
-        $(function () {
-            $('#ctable').DataTable();
-        });
+      
 </script>
 
 
@@ -51,7 +45,7 @@
 }
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">List of Cooling Efficiency Type</h5>
+     
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>
@@ -63,37 +57,38 @@
     <div class="panel-body">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Cooling Efficiency Type</button>
     </div>
-
-    <table class="table table-bordered table-hover datatable-highlight" id="ctable">
-        <thead><tr><th> Name</th><th>Description</th><th>Action</th></tr></thead>
-        <tbody>
-            @foreach (var item in Model.CoolingEfficiencyTypeList)
+    <div class="panel-body">
+        
+        <table class="table datatable-show-all">
+            <thead><tr><th>Name</th><th>Description</th><th>Action</th></tr></thead>
+            <tbody>
+               
+               @foreach (var item in Model.CoolingEfficiencyTypeList)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TypeName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        <a class="discussion-comment" discussion-id="@item.PKey" href="#">Edit</a> ||
-                        @*<a href="@Url.Action("Delete", "MgtCoolingEfficiencyType",new{id=item.PKey})" onclick="return confirm('Are you sure you want to Remove this?')">Delete</a>*@
-                        
-                        <a href="#" onclick="Delete('@item.PKey')">Delete</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a class="discussion-comment" discussion-id="@item.PKey" href="#">Edit</a> ||
+                          
+                            <a href="#" onclick="Delete('@item.PKey')">Delete</a>
+                        </td>
+                    </tr>
             }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-
+    </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Add New MgtCoolingEfficiencyType</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add New CoolingEfficiencyType</h4>
                 </div>
                 <div class="modal-body">
                     <form>

@@ -25,10 +25,16 @@ namespace NasgledSys
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                    "~/Content/assets/js/plugins/loaders/pace.min.js",
+                   "~/Content/assets/js/core/libraries/jquery.min.js",
                       "~/Content/assets/js/core/libraries/bootstrap.min.js",
                        "~/Content/assets/js/plugins/loaders/blockui.min.js",
                         "~/Content/assets/js/plugins/ui/nicescroll.min.js",
                          "~/Content/assets/js/plugins/ui/drilldown.js",
+
+                          "~/Content/assets/js/plugins/tables/datatables/datatables.min.js",
+                           "~/Content/assets/js/plugins/forms/selects/select2.min.js",
+
                           "~/Content/assets/js/plugins/visualization/d3/d3.min.js",
                            "~/Content/assets/js/plugins/visualization/d3/d3_tooltip.js",
                             "~/Content/assets/js/plugins/forms/styling/switchery.min.js",
@@ -37,7 +43,7 @@ namespace NasgledSys
                                "~/Content/assets/js/plugins/ui/moment/moment.min.js",
                                "~/Content/assets/js/plugins/pickers/daterangepicker.js",
 
-                                 "~/Content/assets/js/plugins/forms/selects/select2.min.js",
+                                
                                    "~/Content/assets/js/plugins/forms/styling/uniform.min.js",
                             "~/Content/assets/js/core/app.js",
                             "~/Content/assets/js/pages/form_layouts.js",
@@ -46,10 +52,10 @@ namespace NasgledSys
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                 "~/Content/assets/css/icons/icomoon/styles.css",
-                      "~/Content/assets/css/bootstrap.css"
-                     // "~/Content/assets/css/core.css",
-                     // "~/Content/assets/css/components.css",
-                    //  "~/Content/assets/css/colors.css"
+                      "~/Content/assets/css/bootstrap.css",
+                      "~/Content/assets/css/core.css",
+                     "~/Content/assets/css/components.css",
+                     "~/Content/assets/css/colors.css"
                       ));
           
         }

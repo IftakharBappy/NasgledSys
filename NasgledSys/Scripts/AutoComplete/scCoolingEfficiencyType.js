@@ -100,8 +100,8 @@ function validate() {
         $('#TypeName').css('border-color', 'lightgrey');
     }
     if ($('#Description').val().trim() === "") {
-        $('#Description').css('border', '2px solid red');
-        isValid = false;
+        $('#Description').val($('#TypeName').val());
+      
     }
     else {
         $('#Description').css('border-color', 'lightgrey');

@@ -25,6 +25,7 @@ namespace NasgledSys.Controllers
            
             return Json(districtNames, JsonRequestBehavior.AllowGet);
         }
+      
         public ActionResult GetStateName(string query)
         {
             var users = (from u in db.StateList
