@@ -17,12 +17,14 @@ namespace NasgledSys.Controllers
         // GET: City
         public ActionResult Index()
         {
+            ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
             return View();
         }
 
         public ActionResult Create()
         {
             var model = new CityViewModel();
+            ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
             return View("_CreatePartial", model);
         }
 
@@ -30,8 +32,12 @@ namespace NasgledSys.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CityViewModel cityVM)
         {
+            cityVM.IsDelete = false;
             if (!ModelState.IsValid)
+            {
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
                 return View("_CreatePartial", cityVM);
+            }
 
             CityList asset = EM_City.ConvertToEntity(cityVM);  
 
@@ -41,6 +47,7 @@ namespace NasgledSys.Controllers
 
             if (task.Exception != null)
             {
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
                 ModelState.AddModelError("", "Unable to add the City");
                 return View("_CreatePartial", cityVM);
             }

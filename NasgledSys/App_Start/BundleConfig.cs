@@ -46,10 +46,10 @@ namespace NasgledSys
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                 "~/Content/assets/css/icons/icomoon/styles.css",
-                      "~/Content/assets/css/bootstrap.css",
-                      "~/Content/assets/css/core.css",
-                      "~/Content/assets/css/components.css",
-                      "~/Content/assets/css/colors.css"
+                      "~/Content/assets/css/bootstrap.css"
+                     // "~/Content/assets/css/core.css",
+                     // "~/Content/assets/css/components.css",
+                    //  "~/Content/assets/css/colors.css"
                       ));
           
         }

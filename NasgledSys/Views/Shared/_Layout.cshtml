@@ -10,9 +10,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/bootstrap")
+
 </head>
 
 <body ng-app="nasgledApp">
+    
 @using NasgledSys.Models
     <script src="~/Scripts/nasgledApp.js"></script>
     <!-- Main navbar -->
@@ -153,7 +155,7 @@
                                         <li>
                                             <a href="#"><i class="icon-wrench3"></i> Tools</a>
                                             <ul>
-                                                <li><a href="tools_session_timeout.html">Session timeout</a></li>
+                                                <li><a href="@Url.Action("Index","City")">Base MRK</a></li>
                                                 <li><a href="tools_idle_timeout.html">Idle timeout</a></li>
                                             </ul>
                                         </li>

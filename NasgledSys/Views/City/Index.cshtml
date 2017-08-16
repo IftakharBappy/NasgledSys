@@ -3,9 +3,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
 <script src="~/Content/datatables/jquery.dataTables.js"></script>
 <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+
+
 
 <div class="row">
     <div class="col-md-12">
@@ -18,6 +21,7 @@
                 </button>
             </div>
             <div class="panel-body">
+              
                 <table id="Citys-data-table" class="table table-striped table-bordered" style="width:100%;"></table>
             </div>
         </div>
@@ -26,6 +30,9 @@
 
 <div class="modal fade" id="createCityModal" tabindex="-1" role="dialog" aria-labelledby="CreateCityModal" aria-hidden="true" data-backdrop="static">
     <div id="createCityContainer">
+        <div class="panel-body">
+           
+        </div>
     </div>
 </div>
 
@@ -48,7 +55,7 @@
 
 @section Scripts
 {
-
+<script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
     <script type="text/javascript">
         var CityListVM;
         $(function () {

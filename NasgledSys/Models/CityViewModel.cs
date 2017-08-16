@@ -8,7 +8,7 @@ namespace NasgledSys.Models
 {
     public class CityViewModel
     {
-        public int CityKey { get; set; }
+        public int? CityKey { get; set; }
         [Display(Name = "Name*")]
         [Required(ErrorMessage = "Name is required")]
         public string CityName { get; set; }
@@ -18,6 +18,6 @@ namespace NasgledSys.Models
 
         public Nullable<int> StateCode { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<CityClass> CityList { get; set; }
+      
     }
 }
