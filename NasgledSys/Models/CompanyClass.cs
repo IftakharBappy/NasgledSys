@@ -147,6 +147,46 @@ namespace NasgledSys.Models
         public List<CoolingSystemTypeClass> CoolingSystemTypeList { get; set; }
     }
 
+    public class IndustryTypeClass
+    {
+        public System.Guid IndustryKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<IndustryTypeClass> IndustryTypeClassList { get; set; }
+    }
+    public partial class ItemCategoryClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
 
+        //public List<MainProduct> MainProduct { get; set; }
+        //public List<ProfileProduct> ProfileProduct { get; set; }
+
+    }
+    public class FuelTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public string Unit { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<FuelTypeClass> FuelTypeClassList { get; set; }
+    }
+
+    public class HeatingEfficiencyTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<HeatingEfficiencyTypeClass> HeatingEfficiencyTypeList { get; set; }
+    }
 
 }

@@ -8,18 +8,20 @@ using System.Web.Mvc;
 
 namespace NasgledSys.Controllers
 {
-    public class MgtIndustryTypeController : Controller
+    public class MgtFuelTypeController : Controller
     {
-
+      
         private NasgledDBEntities db = new NasgledDBEntities();
-        private MgtIndustryType manage = new MgtIndustryType();
+        private MgtFuelType manage = new MgtFuelType();
+
+        // GET: MgtFuelType
         public ActionResult Index()
         {
             try
             {
-                IndustryTypeClass obj = new IndustryTypeClass();
-                obj.IndustryTypeClassList = new List<IndustryTypeClass>();
-                obj.IndustryTypeClassList = manage.ListAll();
+                FuelTypeClass obj = new FuelTypeClass();
+                obj.FuelTypeClassList = new List<FuelTypeClass>();
+                obj.FuelTypeClassList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,14 +30,14 @@ namespace NasgledSys.Controllers
             }
             return View();
         }
-        public JsonResult Add(IndustryTypeClass modelClass)
+        public JsonResult Add(FuelTypeClass FuelType)
         {
-            return Json(manage.Add(modelClass), JsonRequestBehavior.AllowGet);
+            return Json(manage.Add(FuelType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(IndustryTypeClass modelClass)
+        public JsonResult Update(FuelTypeClass FuelType)
         {
-            return Json(manage.Update(modelClass), JsonRequestBehavior.AllowGet);
+            return Json(manage.Update(FuelType), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Delete(Guid ID)

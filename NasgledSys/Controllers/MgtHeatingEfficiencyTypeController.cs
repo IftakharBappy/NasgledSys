@@ -8,18 +8,18 @@ using System.Web.Mvc;
 
 namespace NasgledSys.Controllers
 {
-    public class MgtIndustryTypeController : Controller
+    public class MgtHeatingEfficiencyTypeController : Controller
     {
-
+        // GET: HeatingEfficiencyType
         private NasgledDBEntities db = new NasgledDBEntities();
-        private MgtIndustryType manage = new MgtIndustryType();
+        private MgtHeatingEfficiencyType manage = new MgtHeatingEfficiencyType();
         public ActionResult Index()
         {
             try
             {
-                IndustryTypeClass obj = new IndustryTypeClass();
-                obj.IndustryTypeClassList = new List<IndustryTypeClass>();
-                obj.IndustryTypeClassList = manage.ListAll();
+                HeatingEfficiencyTypeClass obj = new HeatingEfficiencyTypeClass();
+                obj.HeatingEfficiencyTypeList = new List<HeatingEfficiencyTypeClass>();
+                obj.HeatingEfficiencyTypeList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,14 +28,14 @@ namespace NasgledSys.Controllers
             }
             return View();
         }
-        public JsonResult Add(IndustryTypeClass modelClass)
+        public JsonResult Add(HeatingEfficiencyTypeClass HeatingEfficiencyType)
         {
-            return Json(manage.Add(modelClass), JsonRequestBehavior.AllowGet);
+            return Json(manage.Add(HeatingEfficiencyType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(IndustryTypeClass modelClass)
+        public JsonResult Update(HeatingEfficiencyTypeClass HeatingEfficiencyType)
         {
-            return Json(manage.Update(modelClass), JsonRequestBehavior.AllowGet);
+            return Json(manage.Update(HeatingEfficiencyType), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Delete(Guid ID)
