@@ -157,5 +157,16 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
         public List<IndustryTypeClass> IndustryTypeClassList { get; set; }
     }
+    public partial class ItemCategoryClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
 
+        //public List<MainProduct> MainProduct { get; set; }
+        //public List<ProfileProduct> ProfileProduct { get; set; }
+    }
 }
