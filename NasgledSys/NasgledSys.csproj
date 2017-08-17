@@ -217,6 +217,7 @@
     <Compile Include="Controllers\MgtCoolingSystemTypeController.cs" />
     <Compile Include="Controllers\MgtFormsController.cs" />
     <Compile Include="Controllers\MgtFuelTypeController.cs" />
+    <Compile Include="Controllers\MgtHeatingSystemTypeController.cs" />
     <Compile Include="Controllers\MgtIndustryTypeController.cs" />
     <Compile Include="Controllers\MgtInstituteController.cs" />
     <Compile Include="Controllers\MgtItemCategoryController.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="DAL\MgtCoolingSystemType.cs" />
     <Compile Include="DAL\MgtFuelType.cs" />
     <Compile Include="DAL\MgtHeatingEfficiencyType.cs" />
+    <Compile Include="DAL\MgtHeatingSystemType.cs" />
     <Compile Include="DAL\MgtIndustryType.cs" />
     <Compile Include="DAL\MgtItemCategory.cs" />
     <Compile Include="EM\EM_City.cs" />
@@ -3075,6 +3077,7 @@
     <Content Include="Scripts\AutoComplete\scCoolingEfficiencyType.js" />
     <Content Include="Scripts\AutoComplete\scCoolingSystemType.js" />
     <Content Include="Scripts\AutoComplete\scFuelType.js" />
+    <Content Include="Scripts\AutoComplete\scHeatingSystemType.js" />
     <Content Include="Scripts\AutoComplete\scIndustryType.js" />
     <Content Include="Scripts\AutoComplete\scItemCategory.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
@@ -3602,12 +3605,11 @@
     <Content Include="Views\MgtFuelType\Index.cshtml" />
     <Content Include="Views\MgtHeatingEfficiencyType\Index.cshtml" />
     <Content Include="Views\MgtItemCategory\Index.cshtml" />
+    <Content Include="Views\MgtHeatingSystemType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\DropdownUtility\" />
-    <Folder Include="Views\HeatingEfficiencyType\" />
-    <Folder Include="Views\IndustryType\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
   </ItemGroup>
