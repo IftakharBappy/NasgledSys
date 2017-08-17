@@ -209,6 +209,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
+    <Compile Include="Controllers\MgtAdminItemController.cs" />
     <Compile Include="Controllers\MgtHeatingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
@@ -348,6 +349,7 @@
     <Compile Include="Models\ItemType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\JobFunction.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3597,12 +3599,14 @@
     <Content Include="Views\MgtIndustryType\Index.cshtml" />
     <Content Include="Views\MgtFuelType\Index.cshtml" />
     <Content Include="Views\MgtHeatingEfficiencyType\Index.cshtml" />
+    <Content Include="Views\Shared\_UserLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\DropdownUtility\" />
     <Folder Include="Views\HeatingEfficiencyType\" />
     <Folder Include="Views\IndustryType\" />
+    <Folder Include="Views\MgtAdminItem\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
   </ItemGroup>

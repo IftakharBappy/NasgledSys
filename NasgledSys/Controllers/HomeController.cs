@@ -54,6 +54,7 @@ namespace NasgledSys.Controllers
                         Response.Cookies.Add(cookie);
 
                     }
+                    GlobalClass.MasterSession = true;
                     GlobalClass.LoginUser = obj;
                     GlobalClass.Company = db.Company.SingleOrDefault(m => m.CompanyKey == obj.CompanyKey);                 
                     return RedirectToAction("Index", "Home");
