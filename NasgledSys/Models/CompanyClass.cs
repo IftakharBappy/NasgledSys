@@ -147,6 +147,15 @@ namespace NasgledSys.Models
         public List<CoolingSystemTypeClass> CoolingSystemTypeList { get; set; }
     }
 
-
+    public class IndustryTypeClass
+    {
+        public System.Guid IndustryKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<IndustryTypeClass> IndustryTypeClassList { get; set; }
+    }
 
 }
