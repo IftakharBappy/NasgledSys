@@ -180,4 +180,13 @@ namespace NasgledSys.Models
         public List<FuelTypeClass> FuelTypeClassList { get; set; }
     }
 
+    public class HeatingEfficiencyTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<HeatingEfficiencyTypeClass> HeatingEfficiencyTypeList { get; set; }
+    }
+
 }
