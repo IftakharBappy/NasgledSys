@@ -189,4 +189,15 @@ namespace NasgledSys.Models
         public List<HeatingEfficiencyTypeClass> HeatingEfficiencyTypeList { get; set; }
     }
 
+    public class HeatingSystemTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<HeatingSystemTypeClass> HeatingSystemTypeList { get; set; }
+    }
+
 }

@@ -88,6 +88,18 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        public ActionResult LoadHeatingSystemTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            HeatingSystemTypeClass obj = new HeatingSystemTypeClass();
+            HeatingSystemType m = db.HeatingSystemType.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();
