@@ -8,35 +8,34 @@ using System.Web.Mvc;
 
 namespace NasgledSys.Controllers
 {
-    public class MgtCoolingEfficiencyTypeController : Controller
+    public class MgtHeatingSystemTypeController : Controller
     {
-
+        // GET: HeatingSystemType
         private NasgledDBEntities db = new NasgledDBEntities();
-        private MgtCoolingEfficiencyType manage = new MgtCoolingEfficiencyType();
+        private MgtHeatingSystemType manage = new MgtHeatingSystemType();
         // GET: MgtCoolingEfficiencyType
         public ActionResult Index()
         {
             try
             {
-                CoolingEfficiencyTypeClass obj = new CoolingEfficiencyTypeClass();
-                obj.CoolingEfficiencyTypeList = new List<CoolingEfficiencyTypeClass>();
-                obj.CoolingEfficiencyTypeList = manage.ListAll();
+                HeatingSystemTypeClass obj = new HeatingSystemTypeClass();
+                obj.HeatingSystemTypeList = new List<HeatingSystemTypeClass>();
+                obj.HeatingSystemTypeList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
             {
                 return View("Error", new HandleErrorInfo(e, "Home", "Index"));
             }
-            
         }
-        public JsonResult Add(CoolingEfficiencyTypeClass CoolingEfficientyType)
+        public JsonResult Add(HeatingSystemTypeClass HeatingSystemType)
         {
-            return Json(manage.Add(CoolingEfficientyType), JsonRequestBehavior.AllowGet);
+            return Json(manage.Add(HeatingSystemType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(CoolingEfficiencyTypeClass CoolingEfficiency)
+        public JsonResult Update(HeatingSystemTypeClass HeatingSystemType)
         {
-            return Json(manage.Update(CoolingEfficiency), JsonRequestBehavior.AllowGet);
+            return Json(manage.Update(HeatingSystemType), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Delete(Guid ID)

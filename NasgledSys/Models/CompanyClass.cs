@@ -159,16 +159,13 @@ namespace NasgledSys.Models
     }
     public  class ItemCategoryClass
     {
-        public Guid? PKey { get; set; }
+        public System.Guid PKey { get; set; }
         [Display(Name = "Type*")]
         [Required(ErrorMessage = "Name is required")]
         public string TypeName { get; set; }
-        [Display(Name = "Description")]
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-
-        public List<ItemCategoryClass> CategoryList { get; set; }
-        
+        public List<ItemCategoryClass> ItemCategoryClassList { get; set; }
     }
     public class FuelTypeClass
     {
@@ -189,4 +186,56 @@ namespace NasgledSys.Models
         public List<HeatingEfficiencyTypeClass> HeatingEfficiencyTypeList { get; set; }
     }
 
+    public class HeatingSystemTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<HeatingSystemTypeClass> HeatingSystemTypeList { get; set; }
+    }
+    public class ItemCatelogueClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Catelogue*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<ItemCatelogueClass> ItemCatelogueClassList { get; set; }
+
+    }
+    public class ItemSubcategoryClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Subcategory*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<ItemSubcategoryClass> ItemSubcategoryClassList { get; set; }
+
+    }
+    public class ItemTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<ItemTypeClass> ItemTypeClassList { get; set; }
+    }
+    public class JobFunctionClass
+    {
+        public System.Guid JobFunctionKey { get; set; }
+        [Display(Name = "Function*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string FunctionName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<JobFunctionClass> JobFunctionClassList { get; set; }
+    }
 }

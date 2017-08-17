@@ -63,6 +63,19 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        public ActionResult LoadItemCategoryTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ItemCategoryClass obj = new ItemCategoryClass();
+            ItemCategory m = db.ItemCategory.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+
         public ActionResult LoadFuelTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
@@ -79,10 +92,71 @@ namespace NasgledSys.Controllers
         public ActionResult LoadHeatingEfficiencyTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            FuelTypeClass obj = new FuelTypeClass();
-            FuelType m = db.FuelType.Find(SelectID);
+            HeatingEfficiencyTypeClass obj = new HeatingEfficiencyTypeClass();
+            HeatingEfficiencyType m = db.HeatingEfficiencyType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult LoadHeatingSystemTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            HeatingSystemTypeClass obj = new HeatingSystemTypeClass();
+            HeatingSystemType m = db.HeatingSystemType.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult LoadItemCatelogueData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ItemCatelogueClass obj = new ItemCatelogueClass();
+            ItemCatelogue m = db.ItemCatelogue.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult LoadItemSubcategoryData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ItemSubcategoryClass obj = new ItemSubcategoryClass();
+            ItemSubcategory m = db.ItemSubcategory.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult LoadItemTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ItemTypeClass obj = new ItemTypeClass();
+            ItemType m = db.ItemType.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        //JobFunction
+        public ActionResult LoadJobFunctionData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            JobFunctionClass obj = new JobFunctionClass();
+            JobFunction m = db.JobFunction.Find(SelectID);
+            obj.JobFunctionKey = m.JobFunctionKey;
+            obj.FunctionName = m.FunctionName;
             obj.Description = m.Description;
             result.Data = obj;
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;

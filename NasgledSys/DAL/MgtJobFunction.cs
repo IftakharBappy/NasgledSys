@@ -6,36 +6,36 @@ using System.Web;
 
 namespace NasgledSys.DAL
 {
-    public class MgtHeatingEfficiencyType
+    public class MgtJobFunction
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<HeatingEfficiencyTypeClass> ListAll()
+        public List<JobFunctionClass> ListAll()
         {
-            List<HeatingEfficiencyTypeClass> obj = new List<HeatingEfficiencyTypeClass>();
-            var temp = (from x in db.HeatingEfficiencyType
+            List<JobFunctionClass> obj = new List<JobFunctionClass>();
+            var temp = (from x in db.JobFunction
                         where x.IsDelete == false
-                        select new HeatingEfficiencyTypeClass
+                        select new JobFunctionClass
                         {
-                            PKey = x.PKey,
+                            JobFunctionKey = x.JobFunctionKey,
+                            FunctionName = x.FunctionName,
                             Description = x.Description,
-                            TypeName = x.TypeName,
                             IsDelete = x.IsDelete
-                        }).OrderBy(m => m.TypeName);
+                        }).OrderBy(m => m.FunctionName);
             obj = temp.ToList();
             return obj;
         }
 
-        public int Add(HeatingEfficiencyTypeClass obj)
+        public int Add(JobFunctionClass obj)
         {
             int i = 1;
             try
             {
-                HeatingEfficiencyType model = new HeatingEfficiencyType();
-                model.PKey = Guid.NewGuid();
-                model.TypeName = obj.TypeName;
+                JobFunction model = new JobFunction();
+                model.JobFunctionKey = Guid.NewGuid();
+                model.FunctionName = obj.FunctionName;
                 model.Description = obj.Description;
                 model.IsDelete = false;
-                db.HeatingEfficiencyType.Add(model);
+                db.JobFunction.Add(model);
                 db.SaveChanges();
             }
             catch (Exception ex)
@@ -46,13 +46,13 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(HeatingEfficiencyTypeClass obj)
+        public int Update(JobFunctionClass obj)
         {
             int i = 1;
             try
             {
-                HeatingEfficiencyType model = db.HeatingEfficiencyType.Find(obj.PKey);
-                model.TypeName = obj.TypeName;
+                JobFunction model = db.JobFunction.Find(obj.JobFunctionKey);
+                model.FunctionName = obj.FunctionName;
                 model.Description = obj.Description;
 
                 db.SaveChanges();
@@ -70,7 +70,7 @@ namespace NasgledSys.DAL
             int i = 1;
             try
             {
-                HeatingEfficiencyType model = db.HeatingEfficiencyType.Find(ID);
+                JobFunction model = db.JobFunction.Find(ID);
                 model.IsDelete = true;
                 db.SaveChanges();
             }

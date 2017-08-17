@@ -6,36 +6,36 @@ using System.Web;
 
 namespace NasgledSys.DAL
 {
-    public class MgtHeatingEfficiencyType
+    public class MgtItemSubcategory
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<HeatingEfficiencyTypeClass> ListAll()
+        public List<ItemSubcategoryClass> ListAll()
         {
-            List<HeatingEfficiencyTypeClass> obj = new List<HeatingEfficiencyTypeClass>();
-            var temp = (from x in db.HeatingEfficiencyType
+            List<ItemSubcategoryClass> obj = new List<ItemSubcategoryClass>();
+            var temp = (from x in db.ItemSubcategory
                         where x.IsDelete == false
-                        select new HeatingEfficiencyTypeClass
+                        select new ItemSubcategoryClass
                         {
                             PKey = x.PKey,
-                            Description = x.Description,
                             TypeName = x.TypeName,
+                            Description = x.Description,
                             IsDelete = x.IsDelete
                         }).OrderBy(m => m.TypeName);
             obj = temp.ToList();
             return obj;
         }
 
-        public int Add(HeatingEfficiencyTypeClass obj)
+        public int Add(ItemSubcategoryClass obj)
         {
             int i = 1;
             try
             {
-                HeatingEfficiencyType model = new HeatingEfficiencyType();
+                ItemSubcategory model = new ItemSubcategory();
                 model.PKey = Guid.NewGuid();
                 model.TypeName = obj.TypeName;
                 model.Description = obj.Description;
                 model.IsDelete = false;
-                db.HeatingEfficiencyType.Add(model);
+                db.ItemSubcategory.Add(model);
                 db.SaveChanges();
             }
             catch (Exception ex)
@@ -46,12 +46,12 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(HeatingEfficiencyTypeClass obj)
+        public int Update(ItemSubcategoryClass obj)
         {
             int i = 1;
             try
             {
-                HeatingEfficiencyType model = db.HeatingEfficiencyType.Find(obj.PKey);
+                ItemSubcategory model = db.ItemSubcategory.Find(obj.PKey);
                 model.TypeName = obj.TypeName;
                 model.Description = obj.Description;
 
@@ -70,7 +70,7 @@ namespace NasgledSys.DAL
             int i = 1;
             try
             {
-                HeatingEfficiencyType model = db.HeatingEfficiencyType.Find(ID);
+                ItemSubcategory model = db.ItemSubcategory.Find(ID);
                 model.IsDelete = true;
                 db.SaveChanges();
             }

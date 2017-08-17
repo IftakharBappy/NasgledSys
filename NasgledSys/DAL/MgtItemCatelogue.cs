@@ -6,36 +6,36 @@ using System.Web;
 
 namespace NasgledSys.DAL
 {
-    public class MgtHeatingEfficiencyType
+    public class MgtItemCatelogue
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<HeatingEfficiencyTypeClass> ListAll()
+        public List<ItemCatelogueClass> ListAll()
         {
-            List<HeatingEfficiencyTypeClass> obj = new List<HeatingEfficiencyTypeClass>();
-            var temp = (from x in db.HeatingEfficiencyType
+            List<ItemCatelogueClass> obj = new List<ItemCatelogueClass>();
+            var temp = (from x in db.ItemCatelogue
                         where x.IsDelete == false
-                        select new HeatingEfficiencyTypeClass
+                        select new ItemCatelogueClass
                         {
                             PKey = x.PKey,
-                            Description = x.Description,
                             TypeName = x.TypeName,
+                            Description = x.Description,
                             IsDelete = x.IsDelete
                         }).OrderBy(m => m.TypeName);
             obj = temp.ToList();
             return obj;
         }
 
-        public int Add(HeatingEfficiencyTypeClass obj)
+        public int Add(ItemCatelogueClass obj)
         {
             int i = 1;
             try
             {
-                HeatingEfficiencyType model = new HeatingEfficiencyType();
+                ItemCatelogue model = new ItemCatelogue();
                 model.PKey = Guid.NewGuid();
                 model.TypeName = obj.TypeName;
                 model.Description = obj.Description;
                 model.IsDelete = false;
-                db.HeatingEfficiencyType.Add(model);
+                db.ItemCatelogue.Add(model);
                 db.SaveChanges();
             }
             catch (Exception ex)
@@ -46,12 +46,12 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(HeatingEfficiencyTypeClass obj)
+        public int Update(ItemCatelogueClass obj)
         {
             int i = 1;
             try
             {
-                HeatingEfficiencyType model = db.HeatingEfficiencyType.Find(obj.PKey);
+                ItemCatelogue model = db.ItemCatelogue.Find(obj.PKey);
                 model.TypeName = obj.TypeName;
                 model.Description = obj.Description;
 
@@ -70,7 +70,7 @@ namespace NasgledSys.DAL
             int i = 1;
             try
             {
-                HeatingEfficiencyType model = db.HeatingEfficiencyType.Find(ID);
+                ItemCatelogue model = db.ItemCatelogue.Find(ID);
                 model.IsDelete = true;
                 db.SaveChanges();
             }

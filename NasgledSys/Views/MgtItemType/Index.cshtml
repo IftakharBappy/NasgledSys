@@ -1,16 +1,19 @@
-﻿@model NasgledSys.Models.HeatingEfficiencyTypeClass
+﻿@model NasgledSys.Models.ItemTypeClass
 
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" /> @*////Common CSS file for All the setup*@
 
+@*////Common JS file for All the setup*@
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
-<script type="text/javascript" src="~/Content/assets/js/pages/datatables_advanced.js"></script>
-
-<script src="~/Scripts/AutoComplete/scHeatingEfficiencyType.js"></script>
-
+@*////form Specific File*@
+@*<script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>*@
+<script src="~/Scripts/AutoComplete/scItemType.js"></script> Item Type
 <script type="text/javascript">
         $(document).ready(function () {
             $('#msgSuccess').hide();
@@ -21,31 +24,32 @@
                 $('#btnUpdate').show();
                 $('#btnAdd').hide();
                 var w = "#PKey";
-                var url = '@Url.Content("~/")' + "Utility/LoadHeatingEfficiencyTypeData";
+                var url = '@Url.Content("~/")' + "Utility/LoadItemTypeData";
                 $.getJSON(url, { SelectID: $(w).val() }, function (data) {
 
                     $('#TypeName').val(data["TypeName"]);
                     $('#Description').val(data["Description"]);
-
                 });
 
 
             });
         });
-
+        $(function () {
+            $('#ctable').DataTable();
+        });
 </script>
 
 
 @section SideBar{
     <h4>
         <i class="icon-arrow-left52 position-left"></i>
-        <span class="text-semibold">List of Heating Efficiency Type</span>
+        <span class="text-semibold">List of  Item Type</span>
 
     </h4>
 }
 <div class="panel panel-flat">
     <div class="panel-heading">
-
+        <h5 class="panel-title">List of  Item Type</h5>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>
@@ -55,40 +59,37 @@
         </div>
     </div>
     <div class="panel-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Heating Efficiency Type</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New  Item Type</button>
     </div>
-    <div class="panel-body">
 
-        <table class="table datatable-show-all">
-            <thead><tr><th>Name</th><th>Description</th><th>Action</th></tr></thead>
-            <tbody>
-
-                @foreach (var item in Model.HeatingEfficiencyTypeList)
+    <table class="table table-bordered table-hover datatable-highlight" id="ctable">
+        <thead><tr><th> Name</th><th>Description</th><th>Action</th></tr></thead>
+        <tbody>
+            @foreach (var item in Model.ItemTypeClassList)
             {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TypeName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            <a class="discussion-comment" discussion-id="@item.PKey" href="#">Edit</a> ||
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <a class="discussion-comment" discussion-id="@item.PKey" href="#">Edit</a> ||
+                        <a href="#" onclick="Delete('@item.PKey')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-                            <a href="#" onclick="Delete('@item.PKey')">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
 
-    </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Add New CoolingEfficiencyType</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add New  Item Type</h4>
                 </div>
                 <div class="modal-body">
                     <form>

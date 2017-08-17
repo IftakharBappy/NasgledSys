@@ -28,7 +28,7 @@ namespace NasgledSys.Controllers
             {
                 return View("Error", new HandleErrorInfo(e, "Home", "Index"));
             }
-            return View();
+            
         }
         public JsonResult Add(FuelTypeClass FuelType)
         {
