@@ -65,6 +65,11 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "Home", "Login"));
             }
         }
+        public ActionResult UserLogin()
+        {
+
+            return View();
+        }
         public ActionResult Index()
         {
             

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-   
+    @RenderSection("scripts", required: false)
 @using NasgledSys.Models
    
     <!-- Main navbar -->
@@ -79,9 +79,8 @@
                                         <li>
                                             <a href="#"><i class="icon-file-css"></i>System</a>
                                             <ul>
-                                                <li><a href="alpaca_basic.html">Basic inputs</a></li>
-                                                <li><a href="alpaca_advanced.html">Advanced inputs</a></li>
-                                                <li><a href="alpaca_controls.html">Controls</a></li>
+                                                <li><a href="@Url.Action("Index","MgtRole")">User Role</a></li>
+                                                <li><a href="@Url.Action("Index","tcity")">Test City</a></li>
                                             </ul>
                                         </li>
                                         <li> @*Menu Set DO NOT DISTURB--------------------------------------- NAHID*@

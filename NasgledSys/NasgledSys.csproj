@@ -217,14 +217,17 @@
     <Compile Include="Controllers\MgtIndustryTypeController.cs" />
     <Compile Include="Controllers\MgtInstituteController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
+    <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
+    <Compile Include="Controllers\tcityController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
     <Compile Include="DAL\MgtCoolingEfficiencyType.cs" />
     <Compile Include="DAL\MgtCoolingSystemType.cs" />
     <Compile Include="EM\EM_City.cs" />
+    <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3579,6 +3582,10 @@
     <Content Include="Views\City\_detailsPartial.cshtml" />
     <Content Include="Views\City\_EditPartial.cshtml" />
     <Content Include="Views\MgtCoolingSystemType\Index.cshtml" />
+    <Content Include="Views\MgtRole\Index.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\UserLogin.cshtml" />
+    <Content Include="Views\tcity\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

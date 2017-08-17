@@ -1,0 +1,232 @@
+﻿@model NasgledSys.Models.CityViewModel
+@using NasgledSys.Models
+@{
+    ViewBag.Title = "City";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/form_select2.js"></script>
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">City List</h1>
+
+                <button type="button" class="btn btn-default btn-md" id="Add" data-toggle="modal" data-target="#modal_default">
+                    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Add New City
+                </button>
+            </div>
+            <div id="modal_default" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add New City</h4>
+                        </div>
+                        @using (Ajax.BeginForm("Index", "tcity", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateCitySuccess" }, new { @class = "form-horizontal", role = "form" }))
+                            {
+                            <div class="modal-body">
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.CityKey, new { id = "CityKey" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CityName, htmlAttributes: new { @class = "control-label" })
+
+                                        @Html.EditorFor(model => model.CityName, new { htmlAttributes = new { id = "CityName", @required = "required", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CityName, "", new { @class = "text-danger" })
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownList("StateCode", null, string.Empty, new { @required = "required", id = "StateCode", @class = "select select-search" })
+
+
+
+
+                                        @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-primary" value="Save" />
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <div id="deleteCityContainer">
+                </div>
+               
+
+                <table id="Citys-data-table" class="table table-striped table-bordered" style="width:100%;"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createCityModal" tabindex="-1" role="dialog" aria-labelledby="CreateCityModal" aria-hidden="true" data-backdrop="static">
+   
+</div>
+
+
+
+
+
+
+
+
+@section scripts
+{
+
+
+    <script type="text/javascript">
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+        var CityListVM;
+        $(function () {
+           
+            CityListVM = {
+                dt: null,
+
+                init: function () {
+                    dt = $('#Citys-data-table').DataTable({
+                        "serverSide": true,
+                        "processing": true,
+                        "ajax": {
+                            "url": "@Url.Action("Get", "tcity")",
+                            "data": function (data) {
+
+                                data.CityKey = $("#CityKey").val();
+                                data.CityName = $("#CityName").val();
+                                data.StateName = $("#StateName").val();
+                                data.StateCode = $("#StateCode").val();
+                                data.IsDelete = $("#IsDelete").val();
+                            }
+                        },
+                        "columns": [
+
+                            { "title": "City Name", "data": "CityName", "searchable": true, "sortable": true },
+                            { "title": "State", "data": "StateName", "searchable": true, "sortable": false },
+                            {
+                                "title": "Actions",
+                                "data": "CityKey",
+                                "searchable": false,
+                                "sortable": false,
+                                "render": function (data, type, full, meta) {
+                                    return '<a href="@Url.Action("Edit", "tcity")?id=' + data + '" class="editCity">Edit</a> | <a href="@Url.Action("Delete", "tcity")?id=' + data + '" class="deleteCity">Delete</a>';
+                                }
+                            }
+                        ],
+                        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                    });
+                },
+
+                refresh: function () {
+                    dt.ajax.reload();
+                }
+            }
+
+            // Advanced Search Modal Search button click handler
+            $('#btnPerformAdvancedSearch').on("click", CityListVM.refresh);
+
+            // initialize the datatables
+            CityListVM.init();
+
+
+
+            $('#Citys-data-table').on("click", ".editCity", function (event) {
+
+                event.preventDefault();
+
+                var url = $(this).attr("href");
+
+                $.get(url, function (data) {
+                    $('#CityKey').val(data["CityKey"]);
+                    $('#CityName').val(data["CityName"]);
+                    //$('#StateCode').select2(data["StateCode"]);
+                    $('.select').val(data["StateCode"]);
+                    $('#modal_default').modal('show');
+                });
+
+            });
+
+            $('#Add').click(function (event) {
+              
+          
+                $('#CityKey').val("");
+                $('#CityName').val("");
+                $('#StateCode').val("");
+                $('.select').val("")
+            });
+           
+
+            $('#Citys-data-table').on("click", ".deleteCity", function (event) {
+                event.preventDefault();
+                var ans = confirm("Are you sure you want to delete this Record?");
+                if (ans) {
+
+                    var url = $(this).attr("href");
+                    $.get(url, function (data) {
+                        CityListVM.refresh();
+                        $('#deleteCityContainer').html(data);
+                    });
+                }
+            });
+
+        });
+
+    /**** Create City Ajax Form CallBack ********/
+
+    function CreateCitySuccess(data) {
+
+        if (data != "success") {
+            $('#deleteCityContainer').html(data);
+            $('#createCityModal').modal('show');
+        }
+        $('#CityKey').val("");
+        $('#CityName').val("");
+        $('#StateCode').val("");
+        $('.select').val("")
+        $('#modal_default').modal('hide');
+        $('#deleteCityContainer').html("Data has been Saved Successfully");
+        CityListVM.refresh();
+
+    }
+
+
+
+
+
+    </script>
+
+}
+

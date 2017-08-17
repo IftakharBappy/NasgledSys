@@ -16,7 +16,7 @@
             <div class="modal-body">
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.CityKey, new { Value = Guid.NewGuid() })
+                    @Html.HiddenFor(model => model.CityKey)
                     <div class="form-group">
                         @Html.LabelFor(model => model.CityName, htmlAttributes: new { @class = "control-label" })
                       

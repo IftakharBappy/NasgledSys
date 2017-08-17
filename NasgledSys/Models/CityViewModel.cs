@@ -20,4 +20,17 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
       
     }
+
+    public class RoleViewModel
+    {
+        public Guid? RoleKey { get; set; }
+        [Display(Name = "Name*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string RoleName { get; set; }
+        [Display(Name = "Level*")]
+        
+        public Nullable<int> Rlevel { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+
+    }
 }

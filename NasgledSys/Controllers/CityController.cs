@@ -154,7 +154,7 @@ namespace NasgledSys.Controllers
 
         public ActionResult Get([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestModel, AdvancedSearchViewModel searchViewModel)
         {
-            IQueryable<CityList> query = db.CityList;
+            IQueryable<CityList> query = db.CityList.Where(m=>m.IsDelete==false);
             var totalCount = query.Count();
 
             // searching and sorting

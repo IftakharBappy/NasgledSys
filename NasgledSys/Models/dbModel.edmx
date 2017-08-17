@@ -689,6 +689,7 @@
           </Key>
           <Property Name="RoleKey" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar(max)" />
+          <Property Name="Rlevel" Type="int" />
           <Property Name="IsDelete" Type="bit" />
         </EntityType>
         <EntityType Name="ZIPList">
@@ -3274,6 +3275,7 @@
           <Property Name="IsDelete" Type="Boolean" />
           <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_UserRole" FromRole="UserRole" ToRole="Team" />
           <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_UserProfile_UserRole" FromRole="UserRole" ToRole="UserProfile" />
+          <Property Name="Rlevel" Type="Int32" />
         </EntityType>
         <Association Name="FK_Area_CoolingSystem">
           <End Type="NasgledDBModel.CoolingSystem" Role="CoolingSystem" Multiplicity="0..1" />
@@ -4971,6 +4973,7 @@
           <EntitySetMapping Name="UserRole">
             <EntityTypeMapping TypeName="NasgledDBModel.UserRole">
               <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="Rlevel" ColumnName="Rlevel" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="RoleKey" ColumnName="RoleKey" />
