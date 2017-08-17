@@ -158,4 +158,14 @@ namespace NasgledSys.Models
         public List<IndustryTypeClass> IndustryTypeClassList { get; set; }
     }
 
+    public class FuelTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public string Unit { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<FuelTypeClass> FuelTypeClassList { get; set; }
+    }
+
 }
