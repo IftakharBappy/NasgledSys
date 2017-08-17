@@ -12,7 +12,7 @@ namespace NasgledSys.DAL
         public List<HeatingEfficiencyTypeClass> ListAll()
         {
             List<HeatingEfficiencyTypeClass> obj = new List<HeatingEfficiencyTypeClass>();
-            var temp = (from x in db.CoolingEfficientyType
+            var temp = (from x in db.HeatingEfficiencyType
                         where x.IsDelete == false
                         select new HeatingEfficiencyTypeClass
                         {

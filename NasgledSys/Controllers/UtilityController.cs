@@ -91,8 +91,8 @@ namespace NasgledSys.Controllers
         public ActionResult LoadHeatingEfficiencyTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            FuelTypeClass obj = new FuelTypeClass();
-            FuelType m = db.FuelType.Find(SelectID);
+            HeatingEfficiencyTypeClass obj = new HeatingEfficiencyTypeClass();
+            HeatingEfficiencyType m = db.HeatingEfficiencyType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
             obj.Description = m.Description;
