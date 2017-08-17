@@ -18,9 +18,28 @@ namespace NasgledSys.Controllers
         private NasgledDBEntities db = new NasgledDBEntities();
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+            }
         }
-      
+        public ActionResult Catelogue()
+        {
+            try
+            {
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+            }
+
+        }
         public ActionResult Get([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestModel, AdvancedSearchViewModel searchViewModel)
         {
             IQueryable<MainProduct> query = db.MainProduct;

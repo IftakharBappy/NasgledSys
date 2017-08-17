@@ -71,5 +71,24 @@ namespace NasgledSys.Models
         [Display(Name = "Manufacturer*")]
         [Required(ErrorMessage = "Manufacturer is required")]
         public string Manufacturer { get; set; }
+
+        public List<ItemViewModel> ItemList { get; set; }
+    }
+
+    public class CatelogueViewModel
+    {
+        [Display(Name = "Type")]
+        public Nullable<System.Guid> ItemTypeKey { get; set; }
+        [Display(Name = "Category")]
+        public Nullable<System.Guid> CategoryKey { get; set; }
+        [Display(Name = "Sub Category")]
+        public Nullable<System.Guid> SubcategoryKey { get; set; }
+        [Display(Name = "Catelogue")]       
+        public Nullable<System.Guid> CatelogueKey { get; set; }
+        [Display(Name = "Manufacturer")]
+        public Nullable<System.Guid> ManufacturerKey { get; set; }
+        
+       
+        public List<ItemViewModel> ItemList { get; set; }
     }
 }

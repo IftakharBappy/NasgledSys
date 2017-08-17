@@ -16,8 +16,16 @@ namespace NasgledSys.Controllers
         private NasgledDBEntities db = new NasgledDBEntities();
         public ActionResult Index()
         {
-            ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
-            return View();
+            try
+            {
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+            }
+         
         }
         [HttpPost]
         public async Task<ActionResult> Index(CityViewModel cityVM)
