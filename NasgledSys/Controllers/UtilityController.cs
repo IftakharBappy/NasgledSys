@@ -63,6 +63,18 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        public ActionResult LoadItemCategoryTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ItemCategoryClass obj = new ItemCategoryClass();
+            ItemCategory m = db.ItemCategory.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult LoadFuelTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();

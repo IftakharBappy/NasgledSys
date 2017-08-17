@@ -165,10 +165,7 @@ namespace NasgledSys.Models
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-
-        //public List<MainProduct> MainProduct { get; set; }
-        //public List<ProfileProduct> ProfileProduct { get; set; }
-
+        public List<ItemCategoryClass> ItemCategoryClassList { get; set; }
     }
     public class FuelTypeClass
     {

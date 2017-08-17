@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -218,6 +219,7 @@
     <Compile Include="Controllers\MgtFuelTypeController.cs" />
     <Compile Include="Controllers\MgtIndustryTypeController.cs" />
     <Compile Include="Controllers\MgtInstituteController.cs" />
+    <Compile Include="Controllers\MgtItemCategoryController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
@@ -231,6 +233,7 @@
     <Compile Include="DAL\MgtFuelType.cs" />
     <Compile Include="DAL\MgtHeatingEfficiencyType.cs" />
     <Compile Include="DAL\MgtIndustryType.cs" />
+    <Compile Include="DAL\MgtItemCategory.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
@@ -3073,6 +3076,7 @@
     <Content Include="Scripts\AutoComplete\scCoolingSystemType.js" />
     <Content Include="Scripts\AutoComplete\scFuelType.js" />
     <Content Include="Scripts\AutoComplete\scIndustryType.js" />
+    <Content Include="Scripts\AutoComplete\scItemCategory.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -3597,6 +3601,7 @@
     <Content Include="Views\MgtIndustryType\Index.cshtml" />
     <Content Include="Views\MgtFuelType\Index.cshtml" />
     <Content Include="Views\MgtHeatingEfficiencyType\Index.cshtml" />
+    <Content Include="Views\MgtItemCategory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
