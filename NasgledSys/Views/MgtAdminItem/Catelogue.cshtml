@@ -1,0 +1,108 @@
+﻿@model NasgledSys.Models.CatelogueViewModel
+@{
+    ViewBag.Title = "Catelogue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section SideBar{
+    <h4>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold">Item Catelogue</span>
+
+    </h4>
+}
+@section scripts
+{
+<script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/form_select2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $("#CatelogueKey").select2();
+            $("#ManufacturerKey").select2();
+            $("#ItemTypeKey").select2();
+            $("#CategoryKey").select2();
+        });
+        </script>
+}
+<div class="row">
+@using (Html.BeginForm())
+{
+    <div class="col-sm-4">
+        <div class="panel panel-heading border-top-primary text-center">
+            <a href="@Url.Action("Create","MgtAdminItem")" class="btn btn-primary btn-raised legitRipple">Add New Product</a>
+        </div>
+        <!-- Widget with rounded icon -->
+        <div class="panel panel-heading">
+            <h1 class="panel-title list-panel-title">Filter Product By</h1>
+        </div>
+        <div class="panel panel-body">
+            <div class="form-horizontal">
+               
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CatelogueKey, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("CatelogueKey", null, string.Empty, new {  id = "CatelogueKey", @class = "select select-search" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ManufacturerKey, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("ManufacturerKey", null, string.Empty, new { id = "ManufacturerKey", @class = "select select-search" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemTypeKey, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("ItemTypeKey", null, string.Empty, new { id = "ItemTypeKey", @class = "select select-search" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryKey, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("CategoryKey", null, string.Empty, new { id = "CategoryKey", @class = "select select-search" })
+                </div>
+
+            </div>
+        </div>
+        <div class="panel panel-footer text-center">
+            <button type="submit" class="btn btn-primary">Find<i class="icon-arrow-right14 position-right"></i></button>
+        </div>
+        <!-- /widget with rounded icon -->
+        </div>
+}
+    <div class="col-sm-8">
+        <div class="panel panel-heading">
+            <h1 class="panel-title list-panel-title">@ViewBag.mess</h1>
+        </div>
+        @{
+            foreach (var item in Model.ItemList)
+            {
+                <div class="col-sm-4">
+                    <!-- Widget with rounded icon -->
+                    <div class="panel panel-body">
+                        <ul class="media-list">
+                            <li class="media stack-media-on-mobile">
+                                <div class="media-left">
+                                    <div class="thumb">                                       
+                                            <img src="@Url.Action("GetMainProductPic","ShowImage",new { id=item.FixtureKey})" class="img-responsive img-rounded media-preview" alt="">                                            
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="media-heading"><a href="@Url.Action("Edit","MgtAdminItem",new { id=item.FixtureKey})">@Html.DisplayFor(m=>item.ProductName)</a></h6>
+                                    <ul class="list-inline list-inline-separate mb-5">
+                                        <li>@Html.DisplayFor(m => item.ModelNo)</li>
+                                        <li>@Html.DisplayFor(m => item.Watt) Watt Per Luminaire</li>
+                                        <li>@Html.DisplayFor(m => item.Category) </li>
+                                        <li>@Html.DisplayFor(m => item.Manufacturer) </li>
+                                        <li>@Html.DisplayFor(m => item.LampLife)  Hrs     Lamp Life</li>
+                                        <li>@Html.DisplayFor(m => item.LightOutput)  Light Output</li>
+                                        <li><a href="@Url.Action("Details","MgtAdminItem",new { id=item.FixtureKey})">View Details</a></li>
+                                    </ul>
+                              
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /widget with rounded icon -->
+                </div>
+            }
+        }
+        
+        
+    </div>
+    </div>

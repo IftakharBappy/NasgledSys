@@ -29,6 +29,19 @@ namespace NasgledSys.Controllers
                 return File(faoimagefile.FileContent, faoimagefile.FileType);
             }
         }
+        public ActionResult GetMainProductPic(Guid id)
+        {
+
+            MainProduct obj = db.MainProduct.Find(id);
+
+            if (obj.Logo != null)
+                return File(obj.Logo, obj.FileType,obj.FileName);
+            else
+            {
+                ImageFile faoimagefile = db.ImageFile.Single(f => f.ImageFileKey == 1);
+                return File(faoimagefile.FileContent, faoimagefile.FileType);
+            }
+        }
         public ActionResult GetUserPic(Guid id)
         {
 

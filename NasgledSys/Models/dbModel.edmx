@@ -425,6 +425,10 @@
           <Property Name="Size" Type="nvarchar(max)" />
           <Property Name="Location" Type="nvarchar(max)" />
           <Property Name="MountingBase" Type="nvarchar(max)" />
+          <Property Name="Logo" Type="image" />
+          <Property Name="FileType" Type="nvarchar(max)" />
+          <Property Name="FileName" Type="nvarchar(max)" />
+          <Property Name="LampLife" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Manufacturer">
           <Key>
@@ -495,6 +499,10 @@
           <Property Name="Location" Type="nvarchar(max)" />
           <Property Name="MountingBase" Type="nvarchar(max)" />
           <Property Name="ProfileKey" Type="uniqueidentifier" />
+          <Property Name="Logo" Type="image" />
+          <Property Name="FileType" Type="nvarchar(max)" />
+          <Property Name="FileName" Type="nvarchar(max)" />
+          <Property Name="LampLife" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -3027,6 +3035,10 @@
           <NavigationProperty Name="ItemSubcategory" Relationship="NasgledDBModel.FK_MainProduct_ItemSubcategory" FromRole="MainProduct" ToRole="ItemSubcategory" />
           <NavigationProperty Name="ItemType" Relationship="NasgledDBModel.FK_MainProduct_ItemType" FromRole="MainProduct" ToRole="ItemType" />
           <NavigationProperty Name="Manufacturer" Relationship="NasgledDBModel.FK_MainProduct_Manufacturer" FromRole="MainProduct" ToRole="Manufacturer" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LampLife" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Manufacturer">
           <Key>
@@ -3104,6 +3116,10 @@
           <NavigationProperty Name="ItemType" Relationship="NasgledDBModel.FK_ProfileProduct_ItemType" FromRole="ProfileProduct" ToRole="ItemType" />
           <NavigationProperty Name="Manufacturer" Relationship="NasgledDBModel.FK_ProfileProduct_Manufacturer" FromRole="ProfileProduct" ToRole="Manufacturer" />
           <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_ProfileProduct_UserProfile" FromRole="ProfileProduct" ToRole="UserProfile" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LampLife" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -4742,6 +4758,10 @@
           <EntitySetMapping Name="MainProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.MainProduct">
               <MappingFragment StoreEntitySet="MainProduct">
+                <ScalarProperty Name="LampLife" ColumnName="LampLife" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
                 <ScalarProperty Name="MountingBase" ColumnName="MountingBase" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="Size" ColumnName="Size" />
@@ -4804,6 +4824,10 @@
           <EntitySetMapping Name="ProfileProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.ProfileProduct">
               <MappingFragment StoreEntitySet="ProfileProduct">
+                <ScalarProperty Name="LampLife" ColumnName="LampLife" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
                 <ScalarProperty Name="ProfileKey" ColumnName="ProfileKey" />
                 <ScalarProperty Name="MountingBase" ColumnName="MountingBase" />
                 <ScalarProperty Name="Location" ColumnName="Location" />

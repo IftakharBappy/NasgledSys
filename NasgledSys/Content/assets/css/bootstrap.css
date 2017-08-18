@@ -26,6 +26,7 @@ html {
 }
 body {
   margin: 0;
+  font-size:14px large;
 }
 article,
 aside,
@@ -2999,7 +3000,7 @@ select[multiple].input-lg {
 @media (min-width: 769px) {
   .form-horizontal .form-group-sm .control-label {
     padding-top: 7px;
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 .btn {

@@ -13,8 +13,6 @@
 
 }
 @section scripts{
-@Scripts.Render("~/bundles/jqueryval")
-    }
 <script type="text/javascript">
     $(document).ready(function () {
         $("#Username").blur(function () {
@@ -32,6 +30,9 @@
         });
     });
 </script>
+@Scripts.Render("~/bundles/jqueryval")
+    }
+
 @using (Html.BeginForm("Create", "MgtStaff", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()

@@ -36,6 +36,9 @@ namespace NasgledSys.Models
         [Display(Name = "Lumen*")]
         [Required(ErrorMessage = "Lumen is required")]
         public Nullable<decimal> Lumen { get; set; }
+        [Display(Name = "Lamp Life*")]
+        [Required(ErrorMessage = "Lamp Life is required")]
+        public Nullable<decimal> LampLife { get; set; }
         [Display(Name = "Light Appearence*")]
         [Required(ErrorMessage = "Light Appearence is required")]
         public Nullable<decimal> LightApparent { get; set; }
@@ -58,18 +61,18 @@ namespace NasgledSys.Models
         [Required(ErrorMessage = "Mounting Base is required")]
         public string MountingBase { get; set; }
         [Display(Name = "Category*")]
-        [Required(ErrorMessage = "Category is required")]
+       
         public string Category { get; set; }
         [Display(Name = "Catelogue*")]
-        [Required(ErrorMessage = "Catelogue is required")]
+     
         public string Catelogue { get; set; }
         [Display(Name = "Subcategory")]
         public string Subcategory { get; set; }
         [Display(Name = "Type*")]
-        [Required(ErrorMessage = "Type is required")]
+       
         public string Type { get; set; }
         [Display(Name = "Manufacturer*")]
-        [Required(ErrorMessage = "Manufacturer is required")]
+      
         public string Manufacturer { get; set; }
 
         public List<ItemViewModel> ItemList { get; set; }

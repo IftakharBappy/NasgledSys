@@ -45,6 +45,10 @@ namespace NasgledSys.Models
         public string Location { get; set; }
         public string MountingBase { get; set; }
         public Nullable<System.Guid> ProfileKey { get; set; }
+        public byte[] Logo { get; set; }
+        public string FileType { get; set; }
+        public string FileName { get; set; }
+        public Nullable<decimal> LampLife { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AreaProduct> AreaProduct { get; set; }

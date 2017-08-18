@@ -34,6 +34,10 @@ namespace NasgledSys.Models
         public string Size { get; set; }
         public string Location { get; set; }
         public string MountingBase { get; set; }
+        public byte[] Logo { get; set; }
+        public string FileType { get; set; }
+        public string FileName { get; set; }
+        public Nullable<decimal> LampLife { get; set; }
     
         public virtual ItemCategory ItemCategory { get; set; }
         public virtual ItemCatelogue ItemCatelogue { get; set; }
