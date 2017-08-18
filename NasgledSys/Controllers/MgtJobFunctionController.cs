@@ -8,34 +8,34 @@ using System.Web.Mvc;
 
 namespace NasgledSys.Controllers
 {
-    public class MgtHeatingSystemTypeController : Controller
+    public class MgtJobFunctionController : Controller
     {
-        // GET: HeatingSystemType
+
         private NasgledDBEntities db = new NasgledDBEntities();
-        private MgtHeatingSystemType manage = new MgtHeatingSystemType();
-        // GET: MgtCoolingEfficiencyType
+        private MgtJobFunction manage = new MgtJobFunction();
         public ActionResult Index()
         {
             try
             {
-                HeatingSystemTypeClass obj = new HeatingSystemTypeClass();
-                obj.HeatingSystemTypeList = new List<HeatingSystemTypeClass>();
-                obj.HeatingSystemTypeList = manage.ListAll();
+                JobFunctionClass obj = new JobFunctionClass();
+                obj.JobFunctionClassList = new List<JobFunctionClass>();
+                obj.JobFunctionClassList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
             {
                 return View("Error", new HandleErrorInfo(e, "Home", "Index"));
             }
+
         }
-        public JsonResult Add(HeatingSystemTypeClass HeatingSystemType)
+        public JsonResult Add(JobFunctionClass modelClass)
         {
-            return Json(manage.Add(HeatingSystemType), JsonRequestBehavior.AllowGet);
+            return Json(manage.Add(modelClass), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(HeatingSystemTypeClass HeatingSystemType)
+        public JsonResult Update(JobFunctionClass modelClass)
         {
-            return Json(manage.Update(HeatingSystemType), JsonRequestBehavior.AllowGet);
+            return Json(manage.Update(modelClass), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Delete(Guid ID)

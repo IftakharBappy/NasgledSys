@@ -157,7 +157,7 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
         public List<IndustryTypeClass> IndustryTypeClassList { get; set; }
     }
-    public partial class ItemCategoryClass
+    public  class ItemCategoryClass
     {
         public System.Guid PKey { get; set; }
         [Display(Name = "Type*")]
@@ -196,10 +196,10 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
         public List<HeatingSystemTypeClass> HeatingSystemTypeList { get; set; }
     }
-    public partial class ItemCatelogueClass
+    public class ItemCatelogueClass
     {
         public System.Guid PKey { get; set; }
-        [Display(Name = "Type*")]
+        [Display(Name = "Catelogue*")]
         [Required(ErrorMessage = "Name is required")]
         public string TypeName { get; set; }
         public string Description { get; set; }
@@ -207,10 +207,10 @@ namespace NasgledSys.Models
         public List<ItemCatelogueClass> ItemCatelogueClassList { get; set; }
 
     }
-    public partial class ItemSubcategoryClass
+    public class ItemSubcategoryClass
     {
         public System.Guid PKey { get; set; }
-        [Display(Name = "Type*")]
+        [Display(Name = "Subcategory*")]
         [Required(ErrorMessage = "Name is required")]
         public string TypeName { get; set; }
         public string Description { get; set; }
@@ -218,7 +218,7 @@ namespace NasgledSys.Models
         public List<ItemSubcategoryClass> ItemSubcategoryClassList { get; set; }
 
     }
-    public partial class ItemTypeClass
+    public class ItemTypeClass
     {
         public System.Guid PKey { get; set; }
         [Display(Name = "Type*")]
@@ -228,5 +228,14 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
         public List<ItemTypeClass> ItemTypeClassList { get; set; }
     }
-
+    public class JobFunctionClass
+    {
+        public System.Guid JobFunctionKey { get; set; }
+        [Display(Name = "Function*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string FunctionName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<JobFunctionClass> JobFunctionClassList { get; set; }
+    }
 }

@@ -149,6 +149,19 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        //JobFunction
+        public ActionResult LoadJobFunctionData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            JobFunctionClass obj = new JobFunctionClass();
+            JobFunction m = db.JobFunction.Find(SelectID);
+            obj.JobFunctionKey = m.JobFunctionKey;
+            obj.FunctionName = m.FunctionName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();
