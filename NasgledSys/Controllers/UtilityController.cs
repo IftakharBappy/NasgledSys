@@ -75,6 +75,7 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+
         public ActionResult LoadFuelTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
@@ -105,6 +106,18 @@ namespace NasgledSys.Controllers
             JsonResult result = new JsonResult();
             HeatingSystemTypeClass obj = new HeatingSystemTypeClass();
             HeatingSystemType m = db.HeatingSystemType.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult LoadItemCatelogueData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ItemCatelogueClass obj = new ItemCatelogueClass();
+            ItemCatelogue m = db.ItemCatelogue.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
             obj.Description = m.Description;

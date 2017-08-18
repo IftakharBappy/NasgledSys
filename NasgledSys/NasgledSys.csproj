@@ -221,6 +221,7 @@
     <Compile Include="Controllers\MgtIndustryTypeController.cs" />
     <Compile Include="Controllers\MgtInstituteController.cs" />
     <Compile Include="Controllers\MgtItemCategoryController.cs" />
+    <Compile Include="Controllers\MgtItemCatelogueController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="DAL\MgtHeatingSystemType.cs" />
     <Compile Include="DAL\MgtIndustryType.cs" />
     <Compile Include="DAL\MgtItemCategory.cs" />
+    <Compile Include="DAL\MgtItemCatelogue.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
@@ -3080,6 +3082,7 @@
     <Content Include="Scripts\AutoComplete\scHeatingSystemType.js" />
     <Content Include="Scripts\AutoComplete\scIndustryType.js" />
     <Content Include="Scripts\AutoComplete\scItemCategory.js" />
+    <Content Include="Scripts\AutoComplete\scItemCatelogue.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -3606,6 +3609,7 @@
     <Content Include="Views\MgtHeatingEfficiencyType\Index.cshtml" />
     <Content Include="Views\MgtItemCategory\Index.cshtml" />
     <Content Include="Views\MgtHeatingSystemType\Index.cshtml" />
+    <Content Include="Views\MgtItemCatelogue\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

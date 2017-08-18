@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.ItemCategoryClass
+﻿@model NasgledSys.Models.ItemCatelogueClass
 
 @{
     ViewBag.Title = "List";
@@ -13,7 +13,7 @@
 
 @*////form Specific File*@
 @*<script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>*@
-<script src="~/Scripts/AutoComplete/scItemCategory.js"></script>
+<script src="~/Scripts/AutoComplete/scItemCatelogue.js"></script>Item Catelogue
 <script type="text/javascript">
         $(document).ready(function () {
             $('#msgSuccess').hide();
@@ -24,7 +24,7 @@
                 $('#btnUpdate').show();
                 $('#btnAdd').hide();
                 var w = "#PKey";
-                var url = '@Url.Content("~/")' + "Utility/LoadItemCategoryTypeData";
+                var url = '@Url.Content("~/")' + "Utility/LoadItemCatelogueData";
                 $.getJSON(url, { SelectID: $(w).val() }, function (data) {
 
                     $('#TypeName').val(data["TypeName"]);
@@ -43,13 +43,13 @@
 @section SideBar{
     <h4>
         <i class="icon-arrow-left52 position-left"></i>
-        <span class="text-semibold">List of Item Category</span>
+        <span class="text-semibold">List of Item Catelogue</span>
 
     </h4>
 }
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">List of Item Category</h5>
+        <h5 class="panel-title">List of Item Catelogue</h5>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>
@@ -59,13 +59,13 @@
         </div>
     </div>
     <div class="panel-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Item Category</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Item Catelogue</button>
     </div>
 
     <table class="table table-bordered table-hover datatable-highlight" id="ctable">
         <thead><tr><th> Name</th><th>Description</th><th>Action</th></tr></thead>
         <tbody>
-            @foreach (var item in Model.ItemCategoryClassList)
+            @foreach (var item in Model.ItemCatelogueClassList)
             {
                 <tr>
                     <td>
@@ -89,7 +89,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Add New Item Category</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add New Item Catelogue</h4>
                 </div>
                 <div class="modal-body">
                     <form>
