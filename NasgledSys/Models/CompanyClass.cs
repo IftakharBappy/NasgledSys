@@ -199,6 +199,8 @@ namespace NasgledSys.Models
     public partial class ItemCatelogueClass
     {
         public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
@@ -208,11 +210,23 @@ namespace NasgledSys.Models
     public partial class ItemSubcategoryClass
     {
         public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
         public List<ItemSubcategoryClass> ItemSubcategoryClassList { get; set; }
 
+    }
+    public partial class ItemTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<ItemTypeClass> ItemTypeClassList { get; set; }
     }
 
 }

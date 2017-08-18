@@ -137,6 +137,18 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        public ActionResult LoadItemTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ItemTypeClass obj = new ItemTypeClass();
+            ItemType m = db.ItemType.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();
