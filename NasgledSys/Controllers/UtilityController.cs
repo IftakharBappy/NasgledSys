@@ -125,6 +125,18 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        public ActionResult LoadItemSubcategoryData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ItemSubcategoryClass obj = new ItemSubcategoryClass();
+            ItemSubcategory m = db.ItemSubcategory.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();

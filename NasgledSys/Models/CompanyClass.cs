@@ -205,5 +205,14 @@ namespace NasgledSys.Models
         public List<ItemCatelogueClass> ItemCatelogueClassList { get; set; }
 
     }
+    public partial class ItemSubcategoryClass
+    {
+        public System.Guid PKey { get; set; }
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<ItemSubcategoryClass> ItemSubcategoryClassList { get; set; }
+
+    }
 
 }
