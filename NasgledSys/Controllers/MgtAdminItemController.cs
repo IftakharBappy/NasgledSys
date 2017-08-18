@@ -105,7 +105,19 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "MgtAdminItem", "Catelogue"));
             }
         }
-
+        public ActionResult Details(Guid id)
+        {
+            try
+            {
+               
+                ItemViewModel model = manage.GetroductByID(id);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return View("Error", new HandleErrorInfo(e, "MgtAdminItem", "Catelogue"));
+            }
+        }
         [HttpPost]
         public async Task<ActionResult> Edit(ItemViewModel model, HttpPostedFileBase file)
         {

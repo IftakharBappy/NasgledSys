@@ -8,7 +8,7 @@
 @section SideBar{
 <h4>
     <i class="icon-arrow-left52 position-left"></i>
-    <span class="text-semibold"><a class="navbar-brand" href="@Url.Action("Index","Home")">Home</a></span> - Dashboard
+    <span class="text-semibold"><a class="navbar-brand" href="@Url.Action("Index","Home")">Home</a></span> 
     <a class="navbar-brand" href="@Url.Action("Catelogue", "MgtAdminItem")"> <small class="display-block">Product List</small></a>
    
 </h4>
@@ -35,29 +35,12 @@
             $("#SubcategoryKey").select2();
         });
 
-        function Success(data) {
-
-            if (data != "success") {
-                $('#deleteCityContainer').html(data);
-               
-            }
-            $('#ProductName').val("");
-            $('#ModelNo').val("");
-            $('#Watt').val("");
-          
-            $("#CatelogueKey").select2("val", "");
-            $("#ManufacturerKey").select2("val", "");
-            $("#ItemTypeKey").select2("val", "");
-            $("#CategoryKey").select2("val", "");
-            $("#SubcategoryKey").select2("val", "");
-            $('#deleteCityContainer').html("Data has been Saved Successfully");
-          
-        }
+      
      
     </script>
 
 }
-@using (Ajax.BeginForm("Create", "MgtAdminItem", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+@using (Ajax.BeginForm("Create", "MgtAdminItem", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "ShowMessage('Product has been Added Successfully.')" }, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
 <div class="row">
     <div class="col-md-6">

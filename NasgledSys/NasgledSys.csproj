@@ -3636,6 +3636,7 @@
     <Content Include="Views\MgtAdminItem\Catelogue.cshtml" />
     <Content Include="Views\MgtAdminItem\Create.cshtml" />
     <Content Include="Views\MgtAdminItem\Edit.cshtml" />
+    <Content Include="Views\MgtAdminItem\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
