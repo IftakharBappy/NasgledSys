@@ -249,4 +249,28 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
         public List<IncentiveMaxTypeClass> IncentiveMaxTypeList { get; set; }
     }
+    public class LightingSatisfactionFactorClass
+    {
+
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Name*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string FactorName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<LightingSatisfactionFactorClass> LightingSatisfactionFactorClassList { get; set; }
+
+    }
+    public class ManufacturerClass
+    {
+
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Name*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string ManufacturerName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+
+        public virtual List<ManufacturerClass> ManufacturerClassList { get; set; }
+    }
 }

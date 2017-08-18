@@ -175,8 +175,32 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        public ActionResult LoadLightingSatisfactionFactorData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            LightingSatisfactionFactorClass obj = new LightingSatisfactionFactorClass();
+            LightingSatisfactionFactor m = db.LightingSatisfactionFactor.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.FactorName = m.FactorName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult LoadManufacturerData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ManufacturerClass obj = new ManufacturerClass();
+            Manufacturer m = db.Manufacturer.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.ManufacturerName = m.ManufacturerName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
 
-        
+
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();
