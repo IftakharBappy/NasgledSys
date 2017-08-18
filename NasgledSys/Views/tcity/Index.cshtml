@@ -4,14 +4,7 @@
     ViewBag.Title = "City";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
 
-<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/pages/form_select2.js"></script>
-<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
-<script src="~/Content/datatables/jquery.dataTables.js"></script>
-<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
 
 
@@ -100,7 +93,15 @@
 
 @section scripts
 {
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
 
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+<script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/form_select2.js"></script>
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript">
         function isNumberKey(evt) {
@@ -111,6 +112,7 @@
 
             return true;
         }
+        $(document).ready(function () { $("#StateCode").select2(); });
         var CityListVM;
         $(function () {
            
@@ -170,8 +172,11 @@
                 $.get(url, function (data) {
                     $('#CityKey').val(data["CityKey"]);
                     $('#CityName').val(data["CityName"]);
-                    //$('#StateCode').select2(data["StateCode"]);
-                    $('.select').val(data["StateCode"]);
+                    $("#StateCode").select2();
+
+                    $("#StateCode").select2();
+                    $("#StateCode").select2("val", JSON.stringify(data["StateCode"]));
+                
                     $('#modal_default').modal('show');
                 });
 
@@ -182,8 +187,9 @@
           
                 $('#CityKey').val("");
                 $('#CityName').val("");
-                $('#StateCode').val("");
-                $('.select').val("")
+            
+                //$('.select').val("")
+                $("#StateCode").select2("val", "");
             });
            
 
@@ -213,7 +219,7 @@
         $('#CityKey').val("");
         $('#CityName').val("");
         $('#StateCode').val("");
-        $('.select').val("")
+        $("#StateCode").select2("val", "");
         $('#modal_default').modal('hide');
         $('#deleteCityContainer').html("Data has been Saved Successfully");
         CityListVM.refresh();

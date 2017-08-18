@@ -33,7 +33,7 @@ namespace NasgledSys
                          "~/Content/assets/js/plugins/ui/drilldown.js",
                            "~/Content/assets/js/core/libraries/jquery_ui/interactions.min.js",
                           "~/Content/assets/js/plugins/tables/datatables/datatables.min.js",
-                           "~/Content/assets/js/plugins/forms/selects/select2.min.js",
+                          
 
                           "~/Content/assets/js/plugins/visualization/d3/d3.min.js",
                            "~/Content/assets/js/plugins/visualization/d3/d3_tooltip.js",
