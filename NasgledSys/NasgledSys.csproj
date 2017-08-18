@@ -231,6 +231,7 @@
     <Compile Include="Controllers\ShowImageController.cs" />
     <Compile Include="Controllers\tcityController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
+    <Compile Include="DAL\ManageMainProduct.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
     <Compile Include="DAL\MgtCoolingEfficiencyType.cs" />
     <Compile Include="DAL\MgtCoolingSystemType.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="DAL\MgtItemType.cs" />
     <Compile Include="DAL\MgtJobFunction.cs" />
     <Compile Include="EM\EM_City.cs" />
+    <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -3631,11 +3633,13 @@
     <Content Include="Views\Shared\_UserLayout.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\MgtAdminItem\Catelogue.cshtml" />
+    <Content Include="Views\MgtAdminItem\Create.cshtml" />
+    <Content Include="Views\MgtAdminItem\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\DropdownUtility\" />
-    <Folder Include="Views\MgtAdminItem\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
   </ItemGroup>
