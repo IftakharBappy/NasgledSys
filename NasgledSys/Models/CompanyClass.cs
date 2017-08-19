@@ -273,4 +273,15 @@ namespace NasgledSys.Models
 
         public virtual List<ManufacturerClass> ManufacturerClassList { get; set; }
     }
+
+    public  class IncentiveTypeClass
+    {
+
+        public System.Guid PKey { get; set; }
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<IncentiveTypeClass> IncentiveTypeList { get; set; }
+
+    }
 }

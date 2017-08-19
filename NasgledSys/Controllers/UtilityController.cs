@@ -200,6 +200,19 @@ namespace NasgledSys.Controllers
             return result;
         }
 
+        public ActionResult LoadIncentiveTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            IncentiveTypeClass obj = new IncentiveTypeClass();
+            IncentiveType m = db.IncentiveType.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+
 
         public ActionResult CheckUsernameCreate(string user)
         {
