@@ -226,6 +226,7 @@
     <Compile Include="Controllers\MgtItemSubcategoryController.cs" />
     <Compile Include="Controllers\MgtItemTypeController.cs" />
     <Compile Include="Controllers\MgtJobFunctionController.cs" />
+    <Compile Include="Controllers\MgtLightingSatisfactionFactorController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="DAL\MgtItemSubcategory.cs" />
     <Compile Include="DAL\MgtItemType.cs" />
     <Compile Include="DAL\MgtJobFunction.cs" />
+    <Compile Include="DAL\MgtLightingSatisfactionFactor.cs" />
     <Compile Include="DAL\MgtProjectStatus.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
@@ -3102,6 +3104,7 @@
     <Content Include="Scripts\AutoComplete\scItemSubcategory.js" />
     <Content Include="Scripts\AutoComplete\scItemType.js" />
     <Content Include="Scripts\AutoComplete\scJobFunction.js" />
+    <Content Include="Scripts\AutoComplete\scLightingSatisfactionFactor.js" />
     <Content Include="Scripts\AutoComplete\scProjectStatus.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -3649,6 +3652,7 @@
     <Content Include="Views\MgtIncentiveMaxType\Index.cshtml" />
     <Content Include="Views\MgtIncentiveType\Index.cshtml" />
     <Content Include="Views\MgtProjectStatus\Index.cshtml" />
+    <Content Include="Views\MgtLightingSatisfactionFactor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
