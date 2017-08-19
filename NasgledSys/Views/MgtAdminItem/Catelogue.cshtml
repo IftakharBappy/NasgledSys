@@ -27,9 +27,9 @@
 <div class="row">
 @using (Html.BeginForm())
 {
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <div class="panel panel-heading border-top-primary text-center">
-            <a href="@Url.Action("Create","MgtAdminItem")" class="btn btn-primary btn-raised legitRipple">Add New Product</a>
+            <a href="@Url.Action("Create","MgtAdminItem")" class="btn btn-primary btn-rounded btn-xlg">Add New Product</a>
         </div>
         <!-- Widget with rounded icon -->
         <div class="panel panel-heading">
@@ -60,45 +60,50 @@
             </div>
         </div>
         <div class="panel panel-footer text-center">
-            <button type="submit" class="btn btn-primary">Find<i class="icon-arrow-right14 position-right"></i></button>
+            <button type="submit" class="btn btn-primary btn-rounded btn-xlg">Find<i class="icon-arrow-right14 position-right"></i></button>
         </div>
         <!-- /widget with rounded icon -->
         </div>
 }
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <div class="panel panel-heading">
             <h1 class="panel-title list-panel-title">@ViewBag.mess</h1>
         </div>
         @{
             foreach (var item in Model.ItemList)
             {
-                <div class="col-sm-4">
-                    <!-- Widget with rounded icon -->
-                    <div class="panel panel-body">
-                        <ul class="media-list">
-                            <li class="media stack-media-on-mobile">
-                                <div class="media-left">
-                                    <div class="thumb">                                       
-                                            <img src="@Url.Action("GetMainProductPic","ShowImage",new { id=item.FixtureKey})" class="img-responsive img-rounded media-preview" alt="">                                            
-                                    </div>
-                                </div>
+                
+
+                <div class="col-lg-4">
+                    <div class="thumbnail">
+                        <div class="thumb">                         
+                            <img src="@Url.Action("GetMainProductPic","ShowImage",new { id=item.FixtureKey})" class="img-responsive img-rounded" width="100px" height="80px" alt="">
+                        </div>
+                        <div class="caption">
+                            <div class="content-group-sm media">
                                 <div class="media-body">
-                                    <h6 class="media-heading"><a href="@Url.Action("Edit","MgtAdminItem",new { id=item.FixtureKey})">@Html.DisplayFor(m=>item.ProductName)</a></h6>
-                                    <ul class="list-inline list-inline-separate mb-5">
-                                        <li>@Html.DisplayFor(m => item.ModelNo)</li>
-                                        <li>@Html.DisplayFor(m => item.Watt) Watt Per Luminaire</li>
-                                        <li>@Html.DisplayFor(m => item.Category) </li>
-                                        <li>@Html.DisplayFor(m => item.Manufacturer) </li>
-                                        <li>@Html.DisplayFor(m => item.LampLife)  Hrs     Lamp Life</li>
-                                        <li>@Html.DisplayFor(m => item.LightOutput)  Light Output</li>
-                                        <li><a href="@Url.Action("Details","MgtAdminItem",new { id=item.FixtureKey})">View Details</a></li>
-                                    </ul>
-                              
+                                    <h6 class="text-semibold no-margin"><a href="@Url.Action("Edit","MgtAdminItem",new { id=item.FixtureKey})" class="text-default">@Html.DisplayFor(m => item.ProductName)</a></h6>
+                                    <small class="text-muted"><a href="@Url.Action("Details","MgtAdminItem",new { id=item.FixtureKey})">View Details</a></small>
                                 </div>
-                            </li>
-                        </ul>
+                                <h6 class="text-success media-right no-margin-bottom text-semibold">@Html.DisplayFor(m => item.ModelNo)</h6>
+                            </div>
+                           @Html.DisplayFor(m => item.Watt) Watt Per Luminaire
+                        </div>
+                        <div class="panel-footer panel-footer-transparent">
+                            <div class="heading-elements">
+                                <ul class="list-inline list-inline-separate heading-text">
+                                    <li><i class="icon-users position-left"></i> @Html.DisplayFor(m => item.LampLife)  Hrs     Lamp Life</li>
+                                    <li><i class="icon-alarm position-left"></i> @Html.DisplayFor(m => item.LightOutput)  Light Output</li>
+                                </ul>
+
+                                <span class="heading-text pull-right">
+                                  
+                                    <span class="text-muted position-right">@Html.DisplayFor(m => item.Category)</span>
+                                    <span class="text-muted position-right">@Html.DisplayFor(m => item.Manufacturer)</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /widget with rounded icon -->
                 </div>
             }
         }

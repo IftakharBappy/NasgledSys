@@ -5176,6 +5176,7 @@ ul.dropdown-menu .dropdown-content-heading:first-child {
 .thumbnail {
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  height:350px;
 }
 .thumbnail > a {
   display: block;
@@ -5239,9 +5240,9 @@ a.thumbnail.active {
 }
 .thumb img:not(.media-preview) {
   display: inline-block;
-  width: 100%;
+  /*width: 100%;
   max-width: 100%;
-  height: auto;
+  height: auto;*/
 }
 .thumb.thumb-fixed img {
   max-width: 240px;
