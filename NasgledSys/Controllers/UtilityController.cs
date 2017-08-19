@@ -212,7 +212,18 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
-
+        public ActionResult LoadProjectStatusData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ProjectStatusClass obj = new ProjectStatusClass();
+            ProjectStatus m = db.ProjectStatus.Find(SelectID);
+            obj.ProjectStatusKey = m.ProjectStatusKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
 
         public ActionResult CheckUsernameCreate(string user)
         {

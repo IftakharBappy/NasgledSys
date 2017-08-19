@@ -284,4 +284,14 @@ namespace NasgledSys.Models
         public List<IncentiveTypeClass> IncentiveTypeList { get; set; }
 
     }
+
+    public class ProjectStatusClass
+    {
+
+        public System.Guid ProjectStatusKey { get; set; }
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<ProjectStatusClass> ProjectStatusList { get; set; }
+    }
 }
