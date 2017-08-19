@@ -238,4 +238,15 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
         public List<JobFunctionClass> JobFunctionClassList { get; set; }
     }
+
+    public class IncentiveMaxTypeClass
+    {
+        public System.Guid PKey { get; set; }
+        [Display(Name = "Type*")]
+        [Required(ErrorMessage = "Name is required")]
+        public string TypeName { get; set; }
+        public string Description { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public List<IncentiveMaxTypeClass> IncentiveMaxTypeList { get; set; }
+    }
 }

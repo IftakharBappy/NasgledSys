@@ -217,6 +217,7 @@
     <Compile Include="Controllers\MgtFormsController.cs" />
     <Compile Include="Controllers\MgtFuelTypeController.cs" />
     <Compile Include="Controllers\MgtHeatingSystemTypeController.cs" />
+    <Compile Include="Controllers\MgtIncentiveMaxTypeController.cs" />
     <Compile Include="Controllers\MgtIndustryTypeController.cs" />
     <Compile Include="Controllers\MgtInstituteController.cs" />
     <Compile Include="Controllers\MgtItemCategoryController.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="DAL\MgtFuelType.cs" />
     <Compile Include="DAL\MgtHeatingEfficiencyType.cs" />
     <Compile Include="DAL\MgtHeatingSystemType.cs" />
+    <Compile Include="DAL\MgtIncentiveMaxType.cs" />
     <Compile Include="DAL\MgtIndustryType.cs" />
     <Compile Include="DAL\MgtItemCategory.cs" />
     <Compile Include="DAL\MgtItemCatelogue.cs" />
@@ -3088,6 +3090,7 @@
     <Content Include="Scripts\AutoComplete\scCoolingSystemType.js" />
     <Content Include="Scripts\AutoComplete\scFuelType.js" />
     <Content Include="Scripts\AutoComplete\scHeatingSystemType.js" />
+    <Content Include="Scripts\AutoComplete\scIncentiveMaxType.js" />
     <Content Include="Scripts\AutoComplete\scIndustryType.js" />
     <Content Include="Scripts\AutoComplete\scItemCategory.js" />
     <Content Include="Scripts\AutoComplete\scItemCatelogue.js" />
@@ -3637,6 +3640,7 @@
     <Content Include="Views\MgtAdminItem\Create.cshtml" />
     <Content Include="Views\MgtAdminItem\Edit.cshtml" />
     <Content Include="Views\MgtAdminItem\Details.cshtml" />
+    <Content Include="Views\MgtIncentiveMaxType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
