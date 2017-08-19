@@ -217,6 +217,8 @@
     <Compile Include="Controllers\MgtFormsController.cs" />
     <Compile Include="Controllers\MgtFuelTypeController.cs" />
     <Compile Include="Controllers\MgtHeatingSystemTypeController.cs" />
+    <Compile Include="Controllers\MgtIncentiveMaxTypeController.cs" />
+    <Compile Include="Controllers\MgtIncentiveTypeController.cs" />
     <Compile Include="Controllers\MgtIndustryTypeController.cs" />
     <Compile Include="Controllers\MgtInstituteController.cs" />
     <Compile Include="Controllers\MgtItemCategoryController.cs" />
@@ -224,7 +226,10 @@
     <Compile Include="Controllers\MgtItemSubcategoryController.cs" />
     <Compile Include="Controllers\MgtItemTypeController.cs" />
     <Compile Include="Controllers\MgtJobFunctionController.cs" />
+    <Compile Include="Controllers\MgtLightingSatisfactionFactorController.cs" />
+    <Compile Include="Controllers\MgtManufacturerController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
+    <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
@@ -238,12 +243,17 @@
     <Compile Include="DAL\MgtFuelType.cs" />
     <Compile Include="DAL\MgtHeatingEfficiencyType.cs" />
     <Compile Include="DAL\MgtHeatingSystemType.cs" />
+    <Compile Include="DAL\MgtIncentiveMaxType.cs" />
+    <Compile Include="DAL\MgtIncentiveType.cs" />
     <Compile Include="DAL\MgtIndustryType.cs" />
     <Compile Include="DAL\MgtItemCategory.cs" />
     <Compile Include="DAL\MgtItemCatelogue.cs" />
     <Compile Include="DAL\MgtItemSubcategory.cs" />
     <Compile Include="DAL\MgtItemType.cs" />
     <Compile Include="DAL\MgtJobFunction.cs" />
+    <Compile Include="DAL\MgtLightingSatisfactionFactor.cs" />
+    <Compile Include="DAL\MgtManufacturer.cs" />
+    <Compile Include="DAL\MgtProjectStatus.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Role.cs" />
@@ -3088,13 +3098,18 @@
     <Content Include="Scripts\AutoComplete\scCoolingSystemType.js" />
     <Content Include="Scripts\AutoComplete\scFuelType.js" />
     <Content Include="Scripts\AutoComplete\scHeatingSystemType.js" />
+    <Content Include="Scripts\AutoComplete\scIncentiveMaxType.js" />
+    <Content Include="Scripts\AutoComplete\scIncentiveType.js" />
     <Content Include="Scripts\AutoComplete\scIndustryType.js" />
     <Content Include="Scripts\AutoComplete\scItemCategory.js" />
     <Content Include="Scripts\AutoComplete\scItemCatelogue.js" />
     <Content Include="Scripts\AutoComplete\scItemSubcategory.js" />
     <Content Include="Scripts\AutoComplete\scItemType.js" />
     <Content Include="Scripts\AutoComplete\scJobFunction.js" />
+    <Content Include="Scripts\AutoComplete\scLightingSatisfactionFactor.js" />
+    <Content Include="Scripts\AutoComplete\scProjectStatus.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
+    <Content Include="Scripts\AutoComplete\scManufacturer.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -3637,6 +3652,11 @@
     <Content Include="Views\MgtAdminItem\Create.cshtml" />
     <Content Include="Views\MgtAdminItem\Edit.cshtml" />
     <Content Include="Views\MgtAdminItem\Details.cshtml" />
+    <Content Include="Views\MgtIncentiveMaxType\Index.cshtml" />
+    <Content Include="Views\MgtIncentiveType\Index.cshtml" />
+    <Content Include="Views\MgtProjectStatus\Index.cshtml" />
+    <Content Include="Views\MgtLightingSatisfactionFactor\Index.cshtml" />
+    <Content Include="Views\MgtManufacturer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

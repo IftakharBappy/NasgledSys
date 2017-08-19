@@ -162,6 +162,69 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+
+        public ActionResult LoadIncentiveMaxTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            IncentiveMaxTypeClass obj = new IncentiveMaxTypeClass();
+            IncentiveMaxType m = db.IncentiveMaxType.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult LoadLightingSatisfactionFactorData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            LightingSatisfactionFactorClass obj = new LightingSatisfactionFactorClass();
+            LightingSatisfactionFactor m = db.LightingSatisfactionFactor.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.FactorName = m.FactorName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult LoadManufacturerData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ManufacturerClass obj = new ManufacturerClass();
+            Manufacturer m = db.Manufacturer.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.ManufacturerName = m.ManufacturerName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+
+        public ActionResult LoadIncentiveTypeData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            IncentiveTypeClass obj = new IncentiveTypeClass();
+            IncentiveType m = db.IncentiveType.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        public ActionResult LoadProjectStatusData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ProjectStatusClass obj = new ProjectStatusClass();
+            ProjectStatus m = db.ProjectStatus.Find(SelectID);
+            obj.ProjectStatusKey = m.ProjectStatusKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();
