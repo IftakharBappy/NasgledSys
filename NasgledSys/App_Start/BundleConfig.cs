@@ -26,8 +26,8 @@ namespace NasgledSys
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                     "~/Content/assets/js/plugins/loaders/pace.min.js",
-                   //"~/Content/assets/js/core/libraries/jquery.min.js",
-                   "~/Scripts/jquery-3.1.1.min.js",
+                   "~/Content/assets/js/core/libraries/jquery.min.js",
+                      //"~/Scripts/jquery-3.1.1.min.js",
                       "~/Content/assets/js/core/libraries/bootstrap.min.js",
                        "~/Content/assets/js/plugins/loaders/blockui.min.js",
                         "~/Content/assets/js/plugins/ui/nicescroll.min.js",

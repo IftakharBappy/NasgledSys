@@ -3,7 +3,13 @@
 @{ 
     Layout = null;
 }
+ 
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#StateCode").select2();
+    })
+</script>
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -28,8 +34,9 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label" })
                       
-
-                            @Html.DropDownList("StateCode", null, string.Empty, new { @required = "required", id = "StateCode", @class = "form-control" })
+                        @*@Html.EditorFor(model => model.StateCode, new { htmlAttributes = new { @required = "required", @class = "form-control" } })*@
+                            @*@Html.DropDownList("StateCode", null, string.Empty, new { @required = "required", id = "StateCode", @class = "form-control" })*@
+                        @Html.DropDownList("StateCode", null, string.Empty, new { @required = "required", id = "StateCode", @class = "select select-search" })
                           
                             @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
                        
