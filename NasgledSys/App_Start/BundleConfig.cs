@@ -26,16 +26,18 @@ namespace NasgledSys
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                     "~/Content/assets/js/plugins/loaders/pace.min.js",
-                   "~/Content/assets/js/core/libraries/jquery.min.js",
-                      //"~/Scripts/jquery-3.1.1.min.js",
+                  "~/Content/assets/js/core/libraries/jquery.min.js",
+                     // "~/Scripts/jquery-3.1.1.min.js",
                       "~/Content/assets/js/core/libraries/bootstrap.min.js",
                        "~/Content/assets/js/plugins/loaders/blockui.min.js",
                         "~/Content/assets/js/plugins/ui/nicescroll.min.js",
                          "~/Content/assets/js/plugins/ui/drilldown.js",
                            "~/Content/assets/js/core/libraries/jquery_ui/interactions.min.js",
                           "~/Content/assets/js/plugins/tables/datatables/datatables.min.js",
-                          
 
+ 
+                           "~/Content/assets/js/plugins/forms/selects/select2.min.js",
+                           "~/Content/assets/js/pages/form_select2.js",
                           "~/Content/assets/js/plugins/visualization/d3/d3.min.js",
                            "~/Content/assets/js/plugins/visualization/d3/d3_tooltip.js",
                             "~/Content/assets/js/plugins/forms/styling/switchery.min.js",
