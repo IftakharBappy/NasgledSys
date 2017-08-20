@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtCoolingSystemType
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<CoolingSystemTypeClass> ListAll()
+        public List<CoolingSystemTypeViewModel> ListAll()
         {
-            List<CoolingSystemTypeClass> obj = new List<CoolingSystemTypeClass>();
+            List<CoolingSystemTypeViewModel> obj = new List<CoolingSystemTypeViewModel>();
             var temp = (from x in db.CoolingSystemType
                         where x.IsDelete == false
-                        select new CoolingSystemTypeClass
+                        select new CoolingSystemTypeViewModel
                         {
                             PKey = x.PKey,
                             Description = x.Description,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(CoolingSystemTypeClass obj)
+        public int Add(CoolingSystemTypeViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(CoolingSystemTypeClass obj)
+        public int Update(CoolingSystemTypeViewModel obj)
         {
             int i = 1;
             try

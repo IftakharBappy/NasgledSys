@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.CoolingEfficiencyTypeClass
+﻿@model NasgledSys.Models.CoolingEfficiencyTypeViewModel
 
 @{
     ViewBag.Title = "List";
@@ -63,7 +63,7 @@
             <thead><tr><th>Name</th><th>Description</th><th>Action</th></tr></thead>
             <tbody>
                
-               @foreach (var item in Model.CoolingEfficiencyTypeList)
+               @foreach (var item in Model.CoolingEfficiencyTypeViewModelList)
             {
                     <tr>
                         <td>
@@ -88,7 +88,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title" id="myModalLabel">Add New CoolingEfficiencyType</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add New Cooling Efficiency Type</h4>
                 </div>
                 <div class="modal-body">
                     <form>

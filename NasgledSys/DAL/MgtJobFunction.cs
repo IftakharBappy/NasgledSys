@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtJobFunction
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<JobFunctionClass> ListAll()
+        public List<JobFunctionViewModel> ListAll()
         {
-            List<JobFunctionClass> obj = new List<JobFunctionClass>();
+            List<JobFunctionViewModel> obj = new List<JobFunctionViewModel>();
             var temp = (from x in db.JobFunction
                         where x.IsDelete == false
-                        select new JobFunctionClass
+                        select new JobFunctionViewModel
                         {
                             JobFunctionKey = x.JobFunctionKey,
                             FunctionName = x.FunctionName,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(JobFunctionClass obj)
+        public int Add(JobFunctionViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(JobFunctionClass obj)
+        public int Update(JobFunctionViewModel obj)
         {
             int i = 1;
             try

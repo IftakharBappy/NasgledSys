@@ -18,9 +18,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                HeatingSystemTypeClass obj = new HeatingSystemTypeClass();
-                obj.HeatingSystemTypeList = new List<HeatingSystemTypeClass>();
-                obj.HeatingSystemTypeList = manage.ListAll();
+                HeatingSystemTypeViewModel obj = new HeatingSystemTypeViewModel();
+                obj.HeatingSystemTypeViewModelList = new List<HeatingSystemTypeViewModel>();
+                obj.HeatingSystemTypeViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "Home", "Index"));
             }
         }
-        public JsonResult Add(HeatingSystemTypeClass HeatingSystemType)
+        public JsonResult Add(HeatingSystemTypeViewModel HeatingSystemType)
         {
             return Json(manage.Add(HeatingSystemType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(HeatingSystemTypeClass HeatingSystemType)
+        public JsonResult Update(HeatingSystemTypeViewModel HeatingSystemType)
         {
             return Json(manage.Update(HeatingSystemType), JsonRequestBehavior.AllowGet);
         }

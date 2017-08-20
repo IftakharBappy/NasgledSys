@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtIndustryType
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<IndustryTypeClass> ListAll()
+        public List<IndustryTypeViewModel> ListAll()
         {
-            List<IndustryTypeClass> obj = new List<IndustryTypeClass>();
+            List<IndustryTypeViewModel> obj = new List<IndustryTypeViewModel>();
             var temp = (from x in db.IndustryType
                         where x.IsDelete == false
-                        select new IndustryTypeClass
+                        select new IndustryTypeViewModel
                         {
                             IndustryKey = x.IndustryKey,
                             TypeName = x.TypeName,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(IndustryTypeClass obj)
+        public int Add(IndustryTypeViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(IndustryTypeClass obj)
+        public int Update(IndustryTypeViewModel obj)
         {
             int i = 1;
             try

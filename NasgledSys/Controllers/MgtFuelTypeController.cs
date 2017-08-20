@@ -19,9 +19,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                FuelTypeClass obj = new FuelTypeClass();
-                obj.FuelTypeClassList = new List<FuelTypeClass>();
-                obj.FuelTypeClassList = manage.ListAll();
+                FuelTypeViewModel obj = new FuelTypeViewModel();
+                obj.FuelTypeViewModelList = new List<FuelTypeViewModel>();
+                obj.FuelTypeViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -30,12 +30,12 @@ namespace NasgledSys.Controllers
             }
             
         }
-        public JsonResult Add(FuelTypeClass FuelType)
+        public JsonResult Add(FuelTypeViewModel FuelType)
         {
             return Json(manage.Add(FuelType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(FuelTypeClass FuelType)
+        public JsonResult Update(FuelTypeViewModel FuelType)
         {
             return Json(manage.Update(FuelType), JsonRequestBehavior.AllowGet);
         }

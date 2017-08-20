@@ -17,9 +17,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                IncentiveTypeClass obj = new IncentiveTypeClass();
-                obj.IncentiveTypeList = new List<IncentiveTypeClass>();
-                obj.IncentiveTypeList = manage.ListAll();
+                IncentiveTypeViewModel obj = new IncentiveTypeViewModel();
+                obj.IncentiveTypeViewModelList = new List<IncentiveTypeViewModel>();
+                obj.IncentiveTypeViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
             }
 
         }
-        public JsonResult Add(IncentiveTypeClass IncentiveType)
+        public JsonResult Add(IncentiveTypeViewModel IncentiveType)
         {
             return Json(manage.Add(IncentiveType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(IncentiveTypeClass IncentiveType)
+        public JsonResult Update(IncentiveTypeViewModel IncentiveType)
         {
             return Json(manage.Update(IncentiveType), JsonRequestBehavior.AllowGet);
         }

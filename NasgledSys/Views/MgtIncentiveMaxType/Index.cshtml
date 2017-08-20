@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.IncentiveMaxTypeClass
+﻿@model NasgledSys.Models.IncentiveMaxTypeViewModel
 
 @{
     ViewBag.Title = "List";
@@ -63,7 +63,7 @@
             <thead><tr><th>Name</th><th>Description</th><th>Action</th></tr></thead>
             <tbody>
 
-                @foreach (var item in Model.IncentiveMaxTypeList)
+                @foreach (var item in Model.IncentiveMaxTypeViewModelList)
             {
                     <tr>
                         <td>

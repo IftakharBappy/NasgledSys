@@ -17,9 +17,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                IncentiveMaxTypeClass obj = new IncentiveMaxTypeClass();
-                obj.IncentiveMaxTypeList = new List<IncentiveMaxTypeClass>();
-                obj.IncentiveMaxTypeList = manage.ListAll();
+                IncentiveMaxTypeViewModel obj = new IncentiveMaxTypeViewModel();
+                obj.IncentiveMaxTypeViewModelList = new List<IncentiveMaxTypeViewModel>();
+                obj.IncentiveMaxTypeViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
             }
 
         }
-        public JsonResult Add(IncentiveMaxTypeClass IncentiveMaxType)
+        public JsonResult Add(IncentiveMaxTypeViewModel IncentiveMaxType)
         {
             return Json(manage.Add(IncentiveMaxType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(IncentiveMaxTypeClass IncentiveMaxType)
+        public JsonResult Update(IncentiveMaxTypeViewModel IncentiveMaxType)
         {
             return Json(manage.Update(IncentiveMaxType), JsonRequestBehavior.AllowGet);
         }

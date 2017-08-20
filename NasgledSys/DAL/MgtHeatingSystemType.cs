@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtHeatingSystemType
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<HeatingSystemTypeClass> ListAll()
+        public List<HeatingSystemTypeViewModel> ListAll()
         {
-            List<HeatingSystemTypeClass> obj = new List<HeatingSystemTypeClass>();
+            List<HeatingSystemTypeViewModel> obj = new List<HeatingSystemTypeViewModel>();
             var temp = (from x in db.HeatingSystemType
                         where x.IsDelete == false
-                        select new HeatingSystemTypeClass
+                        select new HeatingSystemTypeViewModel
                         {
                             PKey = x.PKey,
                             Description = x.Description,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(HeatingSystemTypeClass obj)
+        public int Add(HeatingSystemTypeViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(HeatingSystemTypeClass obj)
+        public int Update(HeatingSystemTypeViewModel obj)
         {
             int i = 1;
             try

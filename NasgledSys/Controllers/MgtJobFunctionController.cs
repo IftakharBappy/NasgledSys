@@ -17,9 +17,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                JobFunctionClass obj = new JobFunctionClass();
-                obj.JobFunctionClassList = new List<JobFunctionClass>();
-                obj.JobFunctionClassList = manage.ListAll();
+                JobFunctionViewModel obj = new JobFunctionViewModel();
+                obj.JobFunctionViewModelList = new List<JobFunctionViewModel>();
+                obj.JobFunctionViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
             }
 
         }
-        public JsonResult Add(JobFunctionClass modelClass)
+        public JsonResult Add(JobFunctionViewModel modelClass)
         {
             return Json(manage.Add(modelClass), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(JobFunctionClass modelClass)
+        public JsonResult Update(JobFunctionViewModel modelClass)
         {
             return Json(manage.Update(modelClass), JsonRequestBehavior.AllowGet);
         }

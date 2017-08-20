@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtIncentiveType
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<IncentiveTypeClass> ListAll()
+        public List<IncentiveTypeViewModel> ListAll()
         {
-            List<IncentiveTypeClass> obj = new List<IncentiveTypeClass>();
+            List<IncentiveTypeViewModel> obj = new List<IncentiveTypeViewModel>();
             var temp = (from x in db.IncentiveType
                         where x.IsDelete == false
-                        select new IncentiveTypeClass
+                        select new IncentiveTypeViewModel
                         {
                             PKey = x.PKey,
                             Description = x.Description,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(IncentiveTypeClass obj)
+        public int Add(IncentiveTypeViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(IncentiveTypeClass obj)
+        public int Update(IncentiveTypeViewModel obj)
         {
             int i = 1;
             try

@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtManufacturer
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<ManufacturerClass> ListAll()
+        public List<ManufacturerViewModel> ListAll()
         {
-            List<ManufacturerClass> obj = new List<ManufacturerClass>();
+            List<ManufacturerViewModel> obj = new List<ManufacturerViewModel>();
             var temp = (from x in db.Manufacturer
                         where x.IsDelete == false
-                        select new ManufacturerClass
+                        select new ManufacturerViewModel
                         {
                             PKey = x.PKey,
                             ManufacturerName = x.ManufacturerName,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(ManufacturerClass obj)
+        public int Add(ManufacturerViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(ManufacturerClass obj)
+        public int Update(ManufacturerViewModel obj)
         {
             int i = 1;
             try

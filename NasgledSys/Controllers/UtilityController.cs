@@ -29,7 +29,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadCoolingEfficiencyTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            CoolingEfficiencyTypeClass obj = new CoolingEfficiencyTypeClass();
+            CoolingEfficiencyTypeViewModel obj = new CoolingEfficiencyTypeViewModel();
             CoolingEfficientyType m = db.CoolingEfficientyType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -42,7 +42,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadCoolingSystemTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            CoolingSystemTypeClass obj = new CoolingSystemTypeClass();
+            CoolingSystemTypeViewModel obj = new CoolingSystemTypeViewModel();
             CoolingSystemType m = db.CoolingSystemType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -54,7 +54,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadIndustryTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            IndustryTypeClass obj = new IndustryTypeClass();
+            IndustryTypeViewModel obj = new IndustryTypeViewModel();
             IndustryType m = db.IndustryType.Find(SelectID);
             obj.IndustryKey = m.IndustryKey;
             obj.TypeName = m.TypeName;
@@ -66,7 +66,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadItemCategoryTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            ItemCategoryClass obj = new ItemCategoryClass();
+            ItemCategoryViewModel obj = new ItemCategoryViewModel();
             ItemCategory m = db.ItemCategory.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -79,7 +79,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadFuelTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            FuelTypeClass obj = new FuelTypeClass();
+            FuelTypeViewModel obj = new FuelTypeViewModel();
             FuelType m = db.FuelType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -92,7 +92,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadHeatingEfficiencyTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            HeatingEfficiencyTypeClass obj = new HeatingEfficiencyTypeClass();
+            HeatingEfficiencyTypeViewModel obj = new HeatingEfficiencyTypeViewModel();
             HeatingEfficiencyType m = db.HeatingEfficiencyType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -104,7 +104,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadHeatingSystemTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            HeatingSystemTypeClass obj = new HeatingSystemTypeClass();
+            HeatingSystemTypeViewModel obj = new HeatingSystemTypeViewModel();
             HeatingSystemType m = db.HeatingSystemType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -116,7 +116,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadItemCatelogueData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            ItemCatelogueClass obj = new ItemCatelogueClass();
+            ItemCatelogueViewModel obj = new ItemCatelogueViewModel();
             ItemCatelogue m = db.ItemCatelogue.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -128,7 +128,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadItemSubcategoryData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            ItemSubcategoryClass obj = new ItemSubcategoryClass();
+            ItemSubcategoryViewModel obj = new ItemSubcategoryViewModel();
             ItemSubcategory m = db.ItemSubcategory.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -140,7 +140,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadItemTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            ItemTypeClass obj = new ItemTypeClass();
+            ItemTypeViewModel obj = new ItemTypeViewModel();
             ItemType m = db.ItemType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -153,7 +153,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadJobFunctionData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            JobFunctionClass obj = new JobFunctionClass();
+            JobFunctionViewModel obj = new JobFunctionViewModel();
             JobFunction m = db.JobFunction.Find(SelectID);
             obj.JobFunctionKey = m.JobFunctionKey;
             obj.FunctionName = m.FunctionName;
@@ -166,7 +166,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadIncentiveMaxTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            IncentiveMaxTypeClass obj = new IncentiveMaxTypeClass();
+            IncentiveMaxTypeViewModel obj = new IncentiveMaxTypeViewModel();
             IncentiveMaxType m = db.IncentiveMaxType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -178,7 +178,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadLightingSatisfactionFactorData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            LightingSatisfactionFactorClass obj = new LightingSatisfactionFactorClass();
+            LightingSatisfactionFactorViewModel obj = new LightingSatisfactionFactorViewModel();
             LightingSatisfactionFactor m = db.LightingSatisfactionFactor.Find(SelectID);
             obj.PKey = m.PKey;
             obj.FactorName = m.FactorName;
@@ -190,7 +190,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadManufacturerData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            ManufacturerClass obj = new ManufacturerClass();
+            ManufacturerViewModel obj = new ManufacturerViewModel();
             Manufacturer m = db.Manufacturer.Find(SelectID);
             obj.PKey = m.PKey;
             obj.ManufacturerName = m.ManufacturerName;
@@ -203,7 +203,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadIncentiveTypeData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            IncentiveTypeClass obj = new IncentiveTypeClass();
+            IncentiveTypeViewModel obj = new IncentiveTypeViewModel();
             IncentiveType m = db.IncentiveType.Find(SelectID);
             obj.PKey = m.PKey;
             obj.TypeName = m.TypeName;
@@ -215,7 +215,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadProjectStatusData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            ProjectStatusClass obj = new ProjectStatusClass();
+            ProjectStatusViewModel obj = new ProjectStatusViewModel();
             ProjectStatus m = db.ProjectStatus.Find(SelectID);
             obj.ProjectStatusKey = m.ProjectStatusKey;
             obj.TypeName = m.TypeName;

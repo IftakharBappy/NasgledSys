@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.CoolingSystemTypeClass
+﻿@model NasgledSys.Models.CoolingSystemTypeViewModel
 
 @{
     ViewBag.Title = "List";
@@ -58,7 +58,7 @@
     <table class="table datatable-show-all">
         <thead><tr><th> Name</th><th>Description</th><th>Action</th></tr></thead>
         <tbody>
-            @foreach (var item in Model.CoolingSystemTypeList)
+            @foreach (var item in Model.CoolingSystemTypeViewModelList)
             {
                 <tr>
                     <td>

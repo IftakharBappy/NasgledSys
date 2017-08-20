@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.IncentiveTypeClass
+﻿@model NasgledSys.Models.IncentiveTypeViewModel
 
 @{
     ViewBag.Title = "List";
@@ -63,7 +63,7 @@
             <thead><tr><th>Name</th><th>Description</th><th>Action</th></tr></thead>
             <tbody>
 
-                @foreach (var item in Model.IncentiveTypeList)
+                @foreach (var item in Model.IncentiveTypeViewModelList)
             {
                     <tr>
                         <td>

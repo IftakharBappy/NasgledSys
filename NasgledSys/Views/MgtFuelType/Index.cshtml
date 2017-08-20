@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.FuelTypeClass
+﻿@model NasgledSys.Models.FuelTypeViewModel
 
 @{
     ViewBag.Title = "List";
@@ -64,7 +64,7 @@
             <thead><tr><th>Name</th><th>Description</th><th>Unit</th><th>Action</th></tr></thead>
             <tbody>
 
-                @foreach (var item in Model.FuelTypeClassList)
+                @foreach (var item in Model.FuelTypeViewModelList)
             {
                     <tr>
                         <td>

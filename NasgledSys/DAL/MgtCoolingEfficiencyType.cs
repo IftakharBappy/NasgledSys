@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtCoolingEfficiencyType
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<CoolingEfficiencyTypeClass> ListAll()
+        public List<CoolingEfficiencyTypeViewModel> ListAll()
         {
-            List<CoolingEfficiencyTypeClass> obj = new List<CoolingEfficiencyTypeClass>();
+            List<CoolingEfficiencyTypeViewModel> obj = new List<CoolingEfficiencyTypeViewModel>();
             var temp = (from x in db.CoolingEfficientyType
                         where x.IsDelete == false 
-                        select new CoolingEfficiencyTypeClass
+                        select new CoolingEfficiencyTypeViewModel
                         {
                             PKey = x.PKey,
                             Description = x.Description,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(CoolingEfficiencyTypeClass obj)
+        public int Add(CoolingEfficiencyTypeViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(CoolingEfficiencyTypeClass obj)
+        public int Update(CoolingEfficiencyTypeViewModel obj)
         {
             int i = 1;
             try

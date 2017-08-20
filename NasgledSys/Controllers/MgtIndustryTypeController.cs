@@ -17,9 +17,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                IndustryTypeClass obj = new IndustryTypeClass();
-                obj.IndustryTypeClassList = new List<IndustryTypeClass>();
-                obj.IndustryTypeClassList = manage.ListAll();
+                IndustryTypeViewModel obj = new IndustryTypeViewModel();
+                obj.IndustryTypeViewModelList = new List<IndustryTypeViewModel>();
+                obj.IndustryTypeViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
             }
             
         }
-        public JsonResult Add(IndustryTypeClass modelClass)
+        public JsonResult Add(IndustryTypeViewModel modelClass)
         {
             return Json(manage.Add(modelClass), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(IndustryTypeClass modelClass)
+        public JsonResult Update(IndustryTypeViewModel modelClass)
         {
             return Json(manage.Update(modelClass), JsonRequestBehavior.AllowGet);
         }
