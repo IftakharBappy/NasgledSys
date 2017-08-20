@@ -59,12 +59,18 @@ namespace NasgledSys.Controllers
 
         public ActionResult Edit(int id)
         {
+
+            
             var asset = db.CityList.FirstOrDefault(x => x.CityKey == id);
 
             CityViewModel assetViewModel = EM_City.ConvertToModel(asset);
 
             if (Request.IsAjaxRequest())
+            {
+                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName", assetViewModel.StateCode);
                 return PartialView("_EditPartial", assetViewModel);
+            }
+            
             return View(assetViewModel);
         }
 

@@ -21,7 +21,7 @@
             <div class="panel-heading list-panel-heading">
                 <h1 class="panel-title list-panel-title">City</h1>
                 
-                <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-url="@Url.Action("Create","City")" id="btnCreateCity">
+                <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-url="@Url.Action("Create","City")" id="btnCreateCity" data-target="#modal_default">
                     <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Add City
                 </button>
             </div>
@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="createCityModal" tabindex="-1" role="dialog" aria-labelledby="CreateCityModal" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="createCityModal"  role="dialog" aria-labelledby="CreateCityModal" aria-hidden="true" data-backdrop="static">
     <div id="createCityContainer">
         <div class="panel-body">
            
@@ -120,6 +120,7 @@
                     $('#createCityContainer').html(data);
 
                     $('#createCityModal').modal('show');
+                    $("#StateCode").select2("val", "");
                 });
 
             });
