@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtProjectStatus
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<ProjectStatusClass> ListAll()
+        public List<ProjectStatusViewModel> ListAll()
         {
-            List<ProjectStatusClass> obj = new List<ProjectStatusClass>();
+            List<ProjectStatusViewModel> obj = new List<ProjectStatusViewModel>();
             var temp = (from x in db.ProjectStatus
                         where x.IsDelete == false
-                        select new ProjectStatusClass
+                        select new ProjectStatusViewModel
                         {
                             ProjectStatusKey = x.ProjectStatusKey,
                             Description = x.Description,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(ProjectStatusClass obj)
+        public int Add(ProjectStatusViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(ProjectStatusClass obj)
+        public int Update(ProjectStatusViewModel obj)
         {
             int i = 1;
             try

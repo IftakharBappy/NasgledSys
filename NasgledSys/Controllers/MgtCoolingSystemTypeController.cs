@@ -16,9 +16,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                CoolingSystemTypeClass obj = new CoolingSystemTypeClass();
-                obj.CoolingSystemTypeList = new List<CoolingSystemTypeClass>();
-                obj.CoolingSystemTypeList = manage.ListAll();
+                CoolingSystemTypeViewModel obj = new CoolingSystemTypeViewModel();
+                obj.CoolingSystemTypeViewModelList = new List<CoolingSystemTypeViewModel>();
+                obj.CoolingSystemTypeViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -27,12 +27,12 @@ namespace NasgledSys.Controllers
             }
             
         }
-        public JsonResult Add(CoolingSystemTypeClass CoolingSystemType)
+        public JsonResult Add(CoolingSystemTypeViewModel CoolingSystemType)
         {
             return Json(manage.Add(CoolingSystemType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(CoolingSystemTypeClass CoolingSystemType)
+        public JsonResult Update(CoolingSystemTypeViewModel CoolingSystemType)
         {
             return Json(manage.Update(CoolingSystemType), JsonRequestBehavior.AllowGet);
         }

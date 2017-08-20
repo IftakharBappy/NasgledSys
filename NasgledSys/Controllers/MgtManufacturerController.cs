@@ -17,9 +17,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                ManufacturerClass obj = new ManufacturerClass();
-                obj.ManufacturerClassList = new List<ManufacturerClass>();
-                obj.ManufacturerClassList = manage.ListAll();
+                ManufacturerViewModel obj = new ManufacturerViewModel();
+                obj.ManufacturerViewModelList = new List<ManufacturerViewModel>();
+                obj.ManufacturerViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
             }
 
         }
-        public JsonResult Add(ManufacturerClass modelClass)
+        public JsonResult Add(ManufacturerViewModel modelClass)
         {
             return Json(manage.Add(modelClass), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(ManufacturerClass modelClass)
+        public JsonResult Update(ManufacturerViewModel modelClass)
         {
             return Json(manage.Update(modelClass), JsonRequestBehavior.AllowGet);
         }

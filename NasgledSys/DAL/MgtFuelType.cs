@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtFuelType
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<FuelTypeClass> ListAll()
+        public List<FuelTypeViewModel> ListAll()
         {
-            List<FuelTypeClass> obj = new List<FuelTypeClass>();
+            List<FuelTypeViewModel> obj = new List<FuelTypeViewModel>();
             var temp = (from x in db.FuelType
                         where x.IsDelete == false
-                        select new FuelTypeClass
+                        select new FuelTypeViewModel
                         {
                             PKey = x.PKey,
                             Description = x.Description,
@@ -26,7 +26,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(FuelTypeClass obj)
+        public int Add(FuelTypeViewModel obj)
         {
             int i = 1;
             try
@@ -48,7 +48,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(FuelTypeClass obj)
+        public int Update(FuelTypeViewModel obj)
         {
             int i = 1;
             try

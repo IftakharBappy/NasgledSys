@@ -127,7 +127,7 @@ namespace NasgledSys.Models
         public List<CityClass> CityList { get; set; }
     }
 
-    public class CoolingEfficiencyTypeClass
+    public class CoolingEfficiencyTypeViewModel
     {
         public System.Guid PKey { get; set; }
         [Display(Name = "Type*")]
@@ -135,19 +135,19 @@ namespace NasgledSys.Models
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<CoolingEfficiencyTypeClass> CoolingEfficiencyTypeList { get; set; }
+        public List<CoolingEfficiencyTypeViewModel> CoolingEfficiencyTypeViewModelList { get; set; }
     }
 
-    public class CoolingSystemTypeClass
+    public class CoolingSystemTypeViewModel
     {
         public System.Guid PKey { get; set; }
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<CoolingSystemTypeClass> CoolingSystemTypeList { get; set; }
+        public List<CoolingSystemTypeViewModel> CoolingSystemTypeViewModelList { get; set; }
     }
 
-    public class IndustryTypeClass
+    public class IndustryTypeViewModel
     {
         public System.Guid IndustryKey { get; set; }
         [Display(Name = "Type*")]
@@ -155,9 +155,9 @@ namespace NasgledSys.Models
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<IndustryTypeClass> IndustryTypeClassList { get; set; }
+        public List<IndustryTypeViewModel> IndustryTypeViewModelList { get; set; }
     }
-    public  class ItemCategoryClass
+    public  class ItemCategoryViewModel
     {
         public System.Guid PKey { get; set; }
         [Display(Name = "Type*")]
@@ -165,28 +165,28 @@ namespace NasgledSys.Models
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<ItemCategoryClass> ItemCategoryClassList { get; set; }
+        public List<ItemCategoryViewModel> ItemCategoryViewModelList { get; set; }
     }
-    public class FuelTypeClass
+    public class FuelTypeViewModel
     {
         public System.Guid PKey { get; set; }
         public string TypeName { get; set; }
         public string Description { get; set; }
         public string Unit { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<FuelTypeClass> FuelTypeClassList { get; set; }
+        public List<FuelTypeViewModel> FuelTypeViewModelList { get; set; }
     }
 
-    public class HeatingEfficiencyTypeClass
+    public class HeatingEfficiencyTypeViewModel
     {
         public System.Guid PKey { get; set; }
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<HeatingEfficiencyTypeClass> HeatingEfficiencyTypeList { get; set; }
+        public List<HeatingEfficiencyTypeViewModel> HeatingEfficiencyTypeViewModelList { get; set; }
     }
 
-    public class HeatingSystemTypeClass
+    public class HeatingSystemTypeViewModel
     {
         public System.Guid PKey { get; set; }
         [Display(Name = "Type*")]
@@ -194,9 +194,9 @@ namespace NasgledSys.Models
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<HeatingSystemTypeClass> HeatingSystemTypeList { get; set; }
+        public List<HeatingSystemTypeViewModel> HeatingSystemTypeViewModelList { get; set; }
     }
-    public class ItemCatelogueClass
+    public class ItemCatelogueViewModel
     {
         public System.Guid PKey { get; set; }
         [Display(Name = "Catelogue*")]
@@ -204,10 +204,10 @@ namespace NasgledSys.Models
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<ItemCatelogueClass> ItemCatelogueClassList { get; set; }
+        public List<ItemCatelogueViewModel> ItemCatelogueViewModelList { get; set; }
 
     }
-    public class ItemSubcategoryClass
+    public class ItemSubcategoryViewModel
     {
         public System.Guid PKey { get; set; }
         [Display(Name = "Subcategory*")]
@@ -215,10 +215,10 @@ namespace NasgledSys.Models
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<ItemSubcategoryClass> ItemSubcategoryClassList { get; set; }
+        public List<ItemSubcategoryViewModel> ItemSubcategoryViewModelList { get; set; }
 
     }
-    public class ItemTypeClass
+    public class ItemTypeViewModel
     {
         public System.Guid PKey { get; set; }
         [Display(Name = "Type*")]
@@ -226,9 +226,9 @@ namespace NasgledSys.Models
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<ItemTypeClass> ItemTypeClassList { get; set; }
+        public List<ItemTypeViewModel> ItemTypeViewModelList { get; set; }
     }
-    public class JobFunctionClass
+    public class JobFunctionViewModel
     {
         public System.Guid JobFunctionKey { get; set; }
         [Display(Name = "Function*")]
@@ -236,10 +236,10 @@ namespace NasgledSys.Models
         public string FunctionName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<JobFunctionClass> JobFunctionClassList { get; set; }
+        public List<JobFunctionViewModel> JobFunctionViewModelList { get; set; }
     }
 
-    public class IncentiveMaxTypeClass
+    public class IncentiveMaxTypeViewModel
     {
         public System.Guid PKey { get; set; }
         [Display(Name = "Type*")]
@@ -247,9 +247,9 @@ namespace NasgledSys.Models
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<IncentiveMaxTypeClass> IncentiveMaxTypeList { get; set; }
+        public List<IncentiveMaxTypeViewModel> IncentiveMaxTypeViewModelList { get; set; }
     }
-    public class LightingSatisfactionFactorClass
+    public class LightingSatisfactionFactorViewModel
     {
 
         public System.Guid PKey { get; set; }
@@ -258,10 +258,10 @@ namespace NasgledSys.Models
         public string FactorName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<LightingSatisfactionFactorClass> LightingSatisfactionFactorClassList { get; set; }
+        public List<LightingSatisfactionFactorViewModel> LightingSatisfactionFactorViewModelList { get; set; }
 
     }
-    public class ManufacturerClass
+    public class ManufacturerViewModel
     {
 
         public System.Guid PKey { get; set; }
@@ -271,27 +271,27 @@ namespace NasgledSys.Models
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
 
-        public virtual List<ManufacturerClass> ManufacturerClassList { get; set; }
+        public virtual List<ManufacturerViewModel> ManufacturerViewModelList { get; set; }
     }
 
-    public  class IncentiveTypeClass
+    public  class IncentiveTypeViewModel
     {
 
         public System.Guid PKey { get; set; }
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<IncentiveTypeClass> IncentiveTypeList { get; set; }
+        public List<IncentiveTypeViewModel> IncentiveTypeViewModelList { get; set; }
 
     }
 
-    public class ProjectStatusClass
+    public class ProjectStatusViewModel
     {
 
         public System.Guid ProjectStatusKey { get; set; }
         public string TypeName { get; set; }
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
-        public List<ProjectStatusClass> ProjectStatusList { get; set; }
+        public List<ProjectStatusViewModel> ProjectStatusViewModelList { get; set; }
     }
 }

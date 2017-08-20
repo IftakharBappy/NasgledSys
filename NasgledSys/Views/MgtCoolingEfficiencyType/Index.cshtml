@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.CoolingEfficiencyTypeClass
+﻿@model NasgledSys.Models.CoolingEfficiencyTypeViewModel
 
 @{
     ViewBag.Title = "List";
@@ -63,7 +63,7 @@
             <thead><tr><th>Name</th><th>Description</th><th>Action</th></tr></thead>
             <tbody>
                
-               @foreach (var item in Model.CoolingEfficiencyTypeList)
+               @foreach (var item in Model.CoolingEfficiencyTypeViewModelList)
             {
                     <tr>
                         <td>

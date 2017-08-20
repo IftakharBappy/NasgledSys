@@ -17,9 +17,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                ProjectStatusClass obj = new ProjectStatusClass();
-                obj.ProjectStatusList = new List<ProjectStatusClass>();
-                obj.ProjectStatusList = manage.ListAll();
+                ProjectStatusViewModel obj = new ProjectStatusViewModel();
+                obj.ProjectStatusViewModelList = new List<ProjectStatusViewModel>();
+                obj.ProjectStatusViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
             }
 
         }
-        public JsonResult Add(ProjectStatusClass ProjectStatus)
+        public JsonResult Add(ProjectStatusViewModel ProjectStatus)
         {
             return Json(manage.Add(ProjectStatus), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(ProjectStatusClass ProjectStatus)
+        public JsonResult Update(ProjectStatusViewModel ProjectStatus)
         {
             return Json(manage.Update(ProjectStatus), JsonRequestBehavior.AllowGet);
         }

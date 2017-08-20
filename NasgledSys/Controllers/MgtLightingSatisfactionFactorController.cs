@@ -17,9 +17,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                LightingSatisfactionFactorClass obj = new LightingSatisfactionFactorClass();
-                obj.LightingSatisfactionFactorClassList = new List<LightingSatisfactionFactorClass>();
-                obj.LightingSatisfactionFactorClassList = manage.ListAll();
+                LightingSatisfactionFactorViewModel obj = new LightingSatisfactionFactorViewModel();
+                obj.LightingSatisfactionFactorViewModelList = new List<LightingSatisfactionFactorViewModel>();
+                obj.LightingSatisfactionFactorViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
             }
 
         }
-        public JsonResult Add(LightingSatisfactionFactorClass modelClass)
+        public JsonResult Add(LightingSatisfactionFactorViewModel modelClass)
         {
             return Json(manage.Add(modelClass), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(LightingSatisfactionFactorClass modelClass)
+        public JsonResult Update(LightingSatisfactionFactorViewModel modelClass)
         {
             return Json(manage.Update(modelClass), JsonRequestBehavior.AllowGet);
         }

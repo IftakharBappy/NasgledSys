@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtHeatingEfficiencyType
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<HeatingEfficiencyTypeClass> ListAll()
+        public List<HeatingEfficiencyTypeViewModel> ListAll()
         {
-            List<HeatingEfficiencyTypeClass> obj = new List<HeatingEfficiencyTypeClass>();
+            List<HeatingEfficiencyTypeViewModel> obj = new List<HeatingEfficiencyTypeViewModel>();
             var temp = (from x in db.HeatingEfficiencyType
                         where x.IsDelete == false
-                        select new HeatingEfficiencyTypeClass
+                        select new HeatingEfficiencyTypeViewModel
                         {
                             PKey = x.PKey,
                             Description = x.Description,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(HeatingEfficiencyTypeClass obj)
+        public int Add(HeatingEfficiencyTypeViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(HeatingEfficiencyTypeClass obj)
+        public int Update(HeatingEfficiencyTypeViewModel obj)
         {
             int i = 1;
             try

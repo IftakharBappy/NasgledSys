@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.HeatingSystemTypeClass
+﻿@model NasgledSys.Models.HeatingSystemTypeViewModel
 
 @{
     ViewBag.Title = "List";
@@ -63,7 +63,7 @@
             <thead><tr><th>Name</th><th>Description</th><th>Action</th></tr></thead>
             <tbody>
 
-                @foreach (var item in Model.HeatingSystemTypeList)
+                @foreach (var item in Model.HeatingSystemTypeViewModelList)
             {
                     <tr>
                         <td>

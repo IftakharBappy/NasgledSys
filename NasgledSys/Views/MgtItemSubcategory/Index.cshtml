@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.ItemSubcategoryClass
+﻿@model NasgledSys.Models.ItemSubcategoryViewModel
 
 @{
     ViewBag.Title = "List";
@@ -58,7 +58,7 @@
     <table class="table table-bordered table-hover datatable-highlight" id="ctable">
         <thead><tr><th> Name</th><th>Description</th><th>Action</th></tr></thead>
         <tbody>
-            @foreach (var item in Model.ItemSubcategoryClassList)
+            @foreach (var item in Model.ItemSubcategoryViewModelList)
             {
                 <tr>
                     <td>

@@ -17,9 +17,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                ItemCatelogueClass obj = new ItemCatelogueClass();
-                obj.ItemCatelogueClassList = new List<ItemCatelogueClass>();
-                obj.ItemCatelogueClassList = manage.ListAll();
+                ItemCatelogueViewModel obj = new ItemCatelogueViewModel();
+                obj.ItemCatelogueViewModelList = new List<ItemCatelogueViewModel>();
+                obj.ItemCatelogueViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
             }
 
         }
-        public JsonResult Add(ItemCatelogueClass modelClass)
+        public JsonResult Add(ItemCatelogueViewModel modelClass)
         {
             return Json(manage.Add(modelClass), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(ItemCatelogueClass modelClass)
+        public JsonResult Update(ItemCatelogueViewModel modelClass)
         {
             return Json(manage.Update(modelClass), JsonRequestBehavior.AllowGet);
         }

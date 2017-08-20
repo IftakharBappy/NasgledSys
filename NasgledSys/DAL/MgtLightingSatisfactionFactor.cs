@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtLightingSatisfactionFactor
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<LightingSatisfactionFactorClass> ListAll()
+        public List<LightingSatisfactionFactorViewModel> ListAll()
         {
-            List<LightingSatisfactionFactorClass> obj = new List<LightingSatisfactionFactorClass>();
+            List<LightingSatisfactionFactorViewModel> obj = new List<LightingSatisfactionFactorViewModel>();
             var temp = (from x in db.LightingSatisfactionFactor
                         where x.IsDelete == false
-                        select new LightingSatisfactionFactorClass
+                        select new LightingSatisfactionFactorViewModel
                         {
                             PKey = x.PKey,
                             FactorName = x.FactorName,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(LightingSatisfactionFactorClass obj)
+        public int Add(LightingSatisfactionFactorViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(LightingSatisfactionFactorClass obj)
+        public int Update(LightingSatisfactionFactorViewModel obj)
         {
             int i = 1;
             try

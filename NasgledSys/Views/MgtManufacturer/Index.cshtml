@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.ManufacturerClass
+﻿@model NasgledSys.Models.ManufacturerViewModel
 
 @{
     ViewBag.Title = "List";
@@ -58,7 +58,7 @@
     <table class="table table-bordered table-hover datatable-highlight" id="ctable">
         <thead><tr><th> Name</th><th>Description</th><th>Action</th></tr></thead>
         <tbody>
-            @foreach (var item in Model.ManufacturerClassList)
+            @foreach (var item in Model.ManufacturerViewModelList)
             {
                 <tr>
                     <td>

@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtIncentiveMaxType
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<IncentiveMaxTypeClass> ListAll()
+        public List<IncentiveMaxTypeViewModel> ListAll()
         {
-            List<IncentiveMaxTypeClass> obj = new List<IncentiveMaxTypeClass>();
+            List<IncentiveMaxTypeViewModel> obj = new List<IncentiveMaxTypeViewModel>();
             var temp = (from x in db.IncentiveMaxType
                         where x.IsDelete == false
-                        select new IncentiveMaxTypeClass
+                        select new IncentiveMaxTypeViewModel
                         {
                             PKey = x.PKey,
                             Description = x.Description,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(IncentiveMaxTypeClass obj)
+        public int Add(IncentiveMaxTypeViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(IncentiveMaxTypeClass obj)
+        public int Update(IncentiveMaxTypeViewModel obj)
         {
             int i = 1;
             try

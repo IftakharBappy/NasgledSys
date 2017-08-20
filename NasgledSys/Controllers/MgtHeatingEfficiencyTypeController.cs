@@ -17,9 +17,9 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                HeatingEfficiencyTypeClass obj = new HeatingEfficiencyTypeClass();
-                obj.HeatingEfficiencyTypeList = new List<HeatingEfficiencyTypeClass>();
-                obj.HeatingEfficiencyTypeList = manage.ListAll();
+                HeatingEfficiencyTypeViewModel obj = new HeatingEfficiencyTypeViewModel();
+                obj.HeatingEfficiencyTypeViewModelList = new List<HeatingEfficiencyTypeViewModel>();
+                obj.HeatingEfficiencyTypeViewModelList = manage.ListAll();
                 return View(obj);
             }
             catch (Exception e)
@@ -28,12 +28,12 @@ namespace NasgledSys.Controllers
             }
             
         }
-        public JsonResult Add(HeatingEfficiencyTypeClass HeatingEfficiencyType)
+        public JsonResult Add(HeatingEfficiencyTypeViewModel HeatingEfficiencyType)
         {
             return Json(manage.Add(HeatingEfficiencyType), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update(HeatingEfficiencyTypeClass HeatingEfficiencyType)
+        public JsonResult Update(HeatingEfficiencyTypeViewModel HeatingEfficiencyType)
         {
             return Json(manage.Update(HeatingEfficiencyType), JsonRequestBehavior.AllowGet);
         }

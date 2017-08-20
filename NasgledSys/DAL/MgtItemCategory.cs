@@ -9,12 +9,12 @@ namespace NasgledSys.DAL
     public class MgtItemCategory
     {
         private NasgledDBEntities db = new NasgledDBEntities();
-        public List<ItemCategoryClass> ListAll()
+        public List<ItemCategoryViewModel> ListAll()
         {
-            List<ItemCategoryClass> obj = new List<ItemCategoryClass>();
+            List<ItemCategoryViewModel> obj = new List<ItemCategoryViewModel>();
             var temp = (from x in db.ItemCategory
                         where x.IsDelete == false
-                        select new ItemCategoryClass
+                        select new ItemCategoryViewModel
                         {
                             PKey = x.PKey,
                             TypeName = x.TypeName,
@@ -25,7 +25,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Add(ItemCategoryClass obj)
+        public int Add(ItemCategoryViewModel obj)
         {
             int i = 1;
             try
@@ -46,7 +46,7 @@ namespace NasgledSys.DAL
             return i;
         }
 
-        public int Update(ItemCategoryClass obj)
+        public int Update(ItemCategoryViewModel obj)
         {
             int i = 1;
             try
