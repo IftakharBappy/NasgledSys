@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using NasgledSys.Models;
 using System.Web.Security;
+using System.Web.Mail;
 
 namespace NasgledSys.Controllers
 {
@@ -61,15 +62,207 @@ namespace NasgledSys.Controllers
                 }
 
             }
-            catch (DivideByZeroException e)
+            catch (Exception e)
             {
                 return View("Error", new HandleErrorInfo(e, "Home", "Login"));
             }
         }
-        public ActionResult UserLogin()
+        public ActionResult Register()
         {
+            Session.Abandon();
+            Session.Clear();
+            Session.RemoveAll();
+            RegisterViewModel model = new RegisterViewModel();
+           
+            return View(model);
+        }
+        public ActionResult ForgotPassword()
+        {          
 
             return View();
+        }
+      
+        public ActionResult PasswordRecovery(string Username)
+        {
+            JsonResult result = new JsonResult();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                   
+                    UserProfile member = db.UserProfile.FirstOrDefault(m=>m.Username==Username);
+                    if (member == null)
+                    {
+                        result.Data = "Invalid Username.";
+                      
+                    }
+                    else
+                    {
+                        try
+                        {
+                            DefaultEmail email = db.DefaultEmail.FirstOrDefault();
+                            string HostIP = email.SMTPServer.ToString();
+                            string From = email.EmailAddress.ToString();
+                            int PortNumber = int.Parse(email.SMTPPort);
+                            string smtpUserName = email.SMTPUsername.ToString();
+                            string smtpPassword = email.SMTPPassword.ToString();
+                            string SSL = email.IsSMTPssl.ToString();
+
+
+                            MailMessage Mail = new MailMessage();
+                            Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserver"] = HostIP;
+                            Mail.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 2;
+
+                            Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverport"] = PortNumber;
+
+                            Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpusessl"] = SSL;
+
+                            Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpauthenticate"] = 1;
+
+                            Mail.Fields["http://schemas.microsoft.com/cdo/configuration/sendusername"] = smtpUserName;
+                            Mail.Fields["http://schemas.microsoft.com/cdo/configuration/sendpassword"] = smtpPassword;
+                            Mail.Body = "Sir/Madam" + "<br/><br/>" + email.SenderName + "<br/>" + email.Detail+"<br/>Password : "+member.Password;
+                            Mail.BodyFormat = MailFormat.Html;
+
+                            Mail.To = member.Email;
+                            Mail.From = From;
+                            Mail.Subject = "Password Recovery for Nasgled login profile";
+
+
+                            SmtpMail.SmtpServer = HostIP;
+                            SmtpMail.Send(Mail);
+                            string ThisMessge = "Email Sent";
+                            result.Data = "Please Check your email";
+                        }
+                        catch(Exception ex)
+                        {
+                            result.Data = ex.Message.ToString();
+                        }
+
+                       
+                    }
+                       
+                    result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    result.Data= "Unable to send email due to" + ex.Message.ToString();
+                    result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                    return result;
+                }
+
+            }
+            else
+            {
+                return result;
+            }
+        }
+        [HttpPost]
+        public ActionResult Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    UserProfile profile = new UserProfile();
+                    profile.ProfileKey = Guid.NewGuid();
+                    profile.FirstName = "-";
+                    profile.LastName = "-";
+                    profile.CompanyName = "-";
+                    profile.JobTitle = "-";
+                    profile.Username = model.Username;
+                    profile.Password = model.Password;
+                    profile.Email = model.Email;
+                    profile.UserStatus = true;
+                    profile.RoleKey = (from x in db.UserRole where x.IsDelete == false select x).OrderByDescending(m => m.Rlevel).FirstOrDefault().RoleKey;
+                    db.UserProfile.Add(profile);db.SaveChanges();
+                    GlobalClass.MasterSession = true;
+                    GlobalClass.ProfileUser = profile;
+
+                    
+                    return RedirectToAction("Index", "MgtProfile");
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError("", "Unable to Create Profile due to"+ex.Message.ToString());
+                    return View(model);
+                }
+
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+        public ActionResult Userhome()
+        {
+           try
+            {
+               
+                return View();
+            }
+            catch(Exception e)
+            {
+               
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        public ActionResult UserLogin()
+        {
+            Session.Abandon();
+            Session.Clear();
+            Session.RemoveAll();
+            LoginViewModel model = new LoginViewModel();
+            if (Request.Cookies["PLogin"] != null)
+            {
+                model.Username = Request.Cookies["PLogin"].Values["Username"];
+                model.Password = Request.Cookies["PLogin"].Values["Password"];
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult UserLogin(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string temp = "Successfully Logged in";
+                    UserProfile obj = db.UserProfile.SingleOrDefault(m => m.Username == model.Username && m.Password == model.Password);
+                    if (obj == null)
+                    {
+                        Exception e = new Exception("Incorrect user access. Unauthorized Access.");
+                        temp = e.Message.ToString();
+                    }
+                    else
+                    {
+                        if (model.RememberMe)
+                        {
+                            HttpCookie cookie = new HttpCookie("PLogin");
+                            cookie.Values.Add("Username", model.Username);
+                            cookie.Values.Add("Password", model.Password);
+                            cookie.Expires = DateTime.Now.AddDays(715);
+                            Response.Cookies.Add(cookie);
+
+                        }
+                        GlobalClass.MasterSession = true;
+                        GlobalClass.ProfileUser = obj;
+                      
+                        RedirectToAction("Userhome", "Home");
+                        return Json(null);
+                    }
+                    return Json(new { status = "error", message = temp });
+                }
+                catch (Exception e)
+                {
+                    return Json(new { status = "error", message = e.Message.ToString() });
+                }
+            }
+            else
+            {
+                return Json(model);
+            }
         }
         public ActionResult Index()
         {

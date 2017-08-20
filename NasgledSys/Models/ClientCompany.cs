@@ -25,6 +25,7 @@ namespace NasgledSys.Models
         public string CompanyName { get; set; }
         public string Description { get; set; }
         public Nullable<System.Guid> IndustryTypeKey { get; set; }
+        public Nullable<System.Guid> ProfileKey { get; set; }
     
         public virtual IndustryType IndustryType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

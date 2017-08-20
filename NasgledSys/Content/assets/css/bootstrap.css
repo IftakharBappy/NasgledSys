@@ -19,7 +19,7 @@
  *
  * ---------------------------------------------------------------------------- */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-@import url('fonts/font.css/css?family=Saira+Semi+Condensed');
+@import url('fonts/font.css?family=Saira+Semi+Condensed');
 
 html {
   font-family: 'Saira Semi Condensed', sans-serif;

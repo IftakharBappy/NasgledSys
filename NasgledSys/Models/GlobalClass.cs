@@ -66,5 +66,24 @@ namespace NasgledSys.Models
                 HttpContext.Current.Session[GlobalClass._LoginUser] = value;
             }
         }
+        static private string _ProfileUser = "ProfileUser";
+        public static UserProfile ProfileUser
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._ProfileUser] == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (UserProfile)(HttpContext.Current.Session[GlobalClass._ProfileUser]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._ProfileUser] = value;
+            }
+        }
     }
 }

@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<script type="text/javascript">
+   
+</script>
+@section SideBar{
+    <h4>
+        <span class="heading-text pull-right">
+            <i class="icon-download10 position-left"></i> > Registration > <a href="@Url.Action("Index","MgtRole")">Role ></a><a href="@Url.Action("GetAllProfile","MgtProfile")">Profile ></a><a href="@Url.Action("Index","MgtCCompany")">Company</a>
+        </span>
+    </h4>
+}
+@section CenterTitle{
+    Company
+}
+<div class="panel panel-flat">
+    <div class="panel-heading">
+
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <h3>Create a Company</h3><h4>If you are the first person in your company, then create the button below to create a new company</h4>
+       
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                <a href="@Url.Action("AddCompany","MgtProfile")" class="btn btn-success btn-xlg" >Create a new Company</a>
+            </div>
+           
+            <h3>Join a Company</h3><h4>To join an existing company, please contact someone from that company and ask them to add you as a team member</h4>
+            <div class="form-group">
+                <a href="@Url.Action("JoinCompany","MgtProfile")" class="btn btn-success btn-xlg" >Get Started</a>
+            </div>
+        </div>
+
+    </div>
+   
+
+</div>

@@ -207,6 +207,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\DefaultEmailConfigController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\MgtAdminItemController.cs" />
     <Compile Include="Controllers\MgtHeatingEfficiencyTypeController.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Controllers\MgtLightingSatisfactionFactorController.cs" />
     <Compile Include="Controllers\MgtManufacturerController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
+    <Compile Include="Controllers\MgtProfileController.cs" />
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
@@ -256,6 +258,7 @@
     <Compile Include="DAL\MgtProjectStatus.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
+    <Compile Include="EM\EM_Profile.cs" />
     <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -331,6 +334,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DefaultEmail.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Forms.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -395,6 +401,7 @@
     <Compile Include="Models\OperatingSchedule.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProfileClass.cs" />
     <Compile Include="Models\ProfileProduct.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3049,6 +3056,7 @@
     <Content Include="Content\datatables\images\sort_desc_disabled.png" />
     <Content Include="Content\datatables\jquery.dataTables.js" />
     <Content Include="Content\datatables\swf\flashExport.swf" />
+    <Content Include="Content\loader4.gif" />
     <Content Include="Content\starters\1_col.html" />
     <Content Include="Content\starters\2_col.html" />
     <Content Include="Content\starters\3_col_double.html" />
@@ -3670,6 +3678,12 @@
     <Content Include="Views\MgtProjectStatus\Index.cshtml" />
     <Content Include="Views\MgtLightingSatisfactionFactor\Index.cshtml" />
     <Content Include="Views\MgtManufacturer\Index.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Userhome.cshtml" />
+    <Content Include="Views\DefaultEmailConfig\Index.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Views\MgtProfile\Index.cshtml" />
+    <Content Include="Views\MgtProfile\Company.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

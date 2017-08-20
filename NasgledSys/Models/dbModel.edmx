@@ -170,6 +170,7 @@
           <Property Name="CompanyName" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IndustryTypeKey" Type="uniqueidentifier" />
+          <Property Name="ProfileKey" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="ClientContact">
           <Key>
@@ -253,6 +254,26 @@
           <Property Name="TypeName" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="DefaultEmail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar(max)" />
+          <Property Name="SenderName" Type="nvarchar(max)" />
+          <Property Name="SMTPServer" Type="nvarchar(max)" />
+          <Property Name="SMTPPort" Type="nvarchar(max)" />
+          <Property Name="SMTPUsername" Type="nvarchar(max)" />
+          <Property Name="SMTPPassword" Type="nvarchar(max)" />
+          <Property Name="IsSMTPssl" Type="bit" />
+          <Property Name="POPServer" Type="nvarchar(max)" />
+          <Property Name="IncomingPort" Type="nvarchar(max)" />
+          <Property Name="POPUsername" Type="nvarchar(max)" />
+          <Property Name="POPpassword" Type="nvarchar(max)" />
+          <Property Name="IsPOPssl" Type="bit" />
+          <Property Name="Fullname" Type="nvarchar(max)" />
+          <Property Name="Detail" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Forms">
           <Key>
@@ -1703,6 +1724,7 @@
           <EntitySet Name="CoolingEfficientyType" EntityType="Self.CoolingEfficientyType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CoolingSystem" EntityType="Self.CoolingSystem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CoolingSystemType" EntityType="Self.CoolingSystemType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DefaultEmail" EntityType="Self.DefaultEmail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Forms" EntityType="Self.Forms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FuelType" EntityType="Self.FuelType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HeatingEfficiencyType" EntityType="Self.HeatingEfficiencyType" Schema="dbo" store:Type="Tables" />
@@ -2585,6 +2607,7 @@
             <End Role="Usergroup" EntitySet="Usergroup" />
             <End Role="UserGroupModule" EntitySet="UserGroupModule" />
           </AssociationSet>
+          <EntitySet Name="DefaultEmail" EntityType="NasgledDBModel.DefaultEmail" />
         </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -2786,6 +2809,7 @@
           <NavigationProperty Name="IndustryType" Relationship="NasgledDBModel.FK_ClientCompany_IndustryType" FromRole="ClientCompany" ToRole="IndustryType" />
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_ClientCompany" FromRole="ClientCompany" ToRole="Project" />
           <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_ClientCompany" FromRole="ClientCompany" ToRole="Team" />
+          <Property Name="ProfileKey" Type="Guid" />
         </EntityType>
         <EntityType Name="ClientContact">
           <Key>
@@ -4293,6 +4317,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DefaultEmail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SenderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPServer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPPort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsSMTPssl" Type="Boolean" />
+          <Property Name="POPServer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IncomingPort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="POPUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="POPpassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsPOPssl" Type="Boolean" />
+          <Property Name="Fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4546,6 +4590,7 @@
           <EntitySetMapping Name="ClientCompany">
             <EntityTypeMapping TypeName="NasgledDBModel.ClientCompany">
               <MappingFragment StoreEntitySet="ClientCompany">
+                <ScalarProperty Name="ProfileKey" ColumnName="ProfileKey" />
                 <ScalarProperty Name="IndustryTypeKey" ColumnName="IndustryTypeKey" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -5059,6 +5104,27 @@
                 <ScalarProperty Name="ModuleKey" ColumnName="ModuleKey" />
                 <ScalarProperty Name="UserGroupKey" ColumnName="UserGroupKey" />
                 <ScalarProperty Name="UserGroupModuleKey" ColumnName="UserGroupModuleKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DefaultEmail">
+            <EntityTypeMapping TypeName="NasgledDBModel.DefaultEmail">
+              <MappingFragment StoreEntitySet="DefaultEmail">
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="IsPOPssl" ColumnName="IsPOPssl" />
+                <ScalarProperty Name="POPpassword" ColumnName="POPpassword" />
+                <ScalarProperty Name="POPUsername" ColumnName="POPUsername" />
+                <ScalarProperty Name="IncomingPort" ColumnName="IncomingPort" />
+                <ScalarProperty Name="POPServer" ColumnName="POPServer" />
+                <ScalarProperty Name="IsSMTPssl" ColumnName="IsSMTPssl" />
+                <ScalarProperty Name="SMTPPassword" ColumnName="SMTPPassword" />
+                <ScalarProperty Name="SMTPUsername" ColumnName="SMTPUsername" />
+                <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
+                <ScalarProperty Name="SMTPServer" ColumnName="SMTPServer" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

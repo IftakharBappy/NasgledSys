@@ -1,0 +1,100 @@
+﻿@model NasgledSys.Models.RegisterViewModel
+@using NasgledSys.Models
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+<script type="text/javascript">
+        function OnSuccess(response) {
+           
+            alert("You have been Registered Successfully.");
+        }
+        function OnFailure(response) {
+            alert("Error occured.");
+        }
+        $(document).ready(function () {
+            $("#Username").blur(function () {
+                var user = "#Username";
+                var url = '@Url.Content("~/")' + "Utility/CheckProfileUsernameCreate";
+                $.getJSON(url, { user: $(user).val() }, function (data) {
+                    if (data == "1") {
+
+                    }
+                    else {
+                        alert("Duplicate Username");
+                        $("#Username").val("");
+                    }
+                });
+            });
+        });
+</script>
+<div class="tabbable panel login-form width-400">
+    <ul class="nav nav-tabs nav-justified">
+      
+        <li><a href="@Url.Action("UserLogin","Home")"><h6 class="text-semibold">Sign in</h6></a></li>
+        <li class="active"><a href="#basic-tab1" data-toggle="tab"><h6 class="text-semibold">Register</h6></a></li>
+    </ul>
+    <div class="tab-content panel-body">
+        <div class="tab-pane fade in active" id="basic-tab1">
+            <div id="progress" class="modal fade">
+                <div class="center">
+                    <img src="~/Content/loader4.gif" />
+                </div>
+                </div>
+
+               @using (Html.BeginForm("Register", "Home", FormMethod.Post, null))
+               {
+                    @Html.ValidationSummary()
+                    <div class="text-center">
+                        <div class="icon-object border-success text-success"><i class="icon-plus3"></i></div>
+                        <h5 class="content-group">Create new account <small class="display-block">All fields are required</small></h5>
+                    </div>
+                    <div class="form-group has-feedback has-feedback-left">
+
+                        @Html.TextBoxFor(model => model.Username, new {id= "Username", @placeholder = "Username", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        <div class="form-control-feedback">
+                            <i class="icon-user text-muted"></i>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback has-feedback-left">
+
+                        @Html.PasswordFor(model => model.Password, new { @placeholder = "Password", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        <div class="form-control-feedback">
+                            <i class="icon-lock2 text-muted"></i>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback has-feedback-left">
+
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { @placeholder = "ConfirmPassword", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                        <div class="form-control-feedback">
+                            <i class="icon-lock2 text-muted"></i>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback has-feedback-left">
+
+                        @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        <div class="form-control-feedback">
+                            <i class="icon-mail5 text-muted"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn bg-pink-400 btn-block">Register <i class="icon-arrow-right14 position-right"></i></button>
+                    </div>
+                }
+
+
+            </div>
+
+
+        
+    </div>
+</div>

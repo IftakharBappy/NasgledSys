@@ -235,6 +235,16 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        public ActionResult CheckProfileUsernameCreate(string user)
+        {
+            JsonResult result = new JsonResult();
+            var temp = from x in db.UserProfile where x.Username == user select x;
+            if (temp.Count() > 0) result.Data = 99;
+            else
+                result.Data = 1;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult CheckUsernameEdit(string user,Guid per)
         {
             JsonResult result = new JsonResult();

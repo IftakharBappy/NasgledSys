@@ -80,5 +80,6 @@ namespace NasgledSys.Models
         public virtual DbSet<ZIPList> ZIPList { get; set; }
         public virtual DbSet<UserGroupForm> UserGroupForm { get; set; }
         public virtual DbSet<UserGroupModule> UserGroupModule { get; set; }
+        public virtual DbSet<DefaultEmail> DefaultEmail { get; set; }
     }
 }

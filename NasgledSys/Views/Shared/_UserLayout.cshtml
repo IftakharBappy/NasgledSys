@@ -10,20 +10,35 @@
 
 </head>
 
-<body>
+<body class="navbar-top">
     @RenderSection("scripts", required: false)
     @using NasgledSys.Models
 
     <!-- Main navbar -->
-    <div class="navbar navbar-inverse bg-indigo">
+    <div class="navbar navbar-inverse bg-indigo navbar-fixed-top">
         <div class="navbar-header">
-            <a class="navbar-brand" href="@Url.Action("Index","Home")">
+            <a class="navbar-brand" href="@Url.Action("Userhome","Home")">
                 <img src="~/Content/assets/images/logo_light.png" alt="" />
             </a>
             <ul class="nav navbar-nav pull-right visible-xs-block">
                 <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
             </ul>
-        </div>
+        </div> 
+        <center>
+            <div class="navbar-header center">
+                <ul class="nav navbar-nav center-block">
+                    <li class="dropdown dropdown-user">
+                        @RenderSection("CenterTitle", required: true)
+                    </li>
+                </ul>
+            </div>    
+        </center>     
+           
+        <div class="nav navbar-nav navbar-right">
+            <a href="@Url.Action("Index","MgtContact")">
+                <i class="icon-address-book2"></i>
+            </a>
+        </div>    
         <div class="navbar-collapse collapse" id="navbar-mobile">
 
             <ul class="nav navbar-nav navbar-right">
@@ -32,17 +47,17 @@
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
 
-                        <img src="~/Content/assets/images/placeholder.jpg" alt="" />
-                        <span>@Html.DisplayFor(m => GlobalClass.LoginUser.PName)</span>
-                        <i class="caret"></i>
+                        
+                        <span>@Html.DisplayFor(m => GlobalClass.ProfileUser.FirstName)</span>
+                      
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="@Url.Action("MyProfile","MgtStaff")"><i class="icon-user-plus"></i> My profile</a></li>
+                        <li><a href="@Url.Action("MyProfile","MgtUserProfile")"><i class="icon-user"></i> My profile</a></li>
 
 
                         <li class="divider"></li>
 
-                        <li><a href="@Url.Action("Logout","Home")"><i class="icon-switch2"></i> Logout</a></li>
+                        <li><a href="@Url.Action("UserLogin","Home")"><i class="icon-switch2"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -56,7 +71,7 @@
         </ul>
         <div class="navbar-collapse collapse" id="navbar-second-toggle">
             <ul class="nav navbar-nav navbar-nav-material">
-                <li class="active"><a href="@Url.Action("Index","Home")"><i class="icon-display4 position-left"></i> Dashboard</a></li>
+                <li class="active"><a href="@Url.Action("Userhome","Home")"><i class="icon-display4 position-left"></i> Dashboard</a></li>
                 <li class="dropdown mega-menu mega-menu-wide">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-puzzle4 position-left"></i> Menu <span class="caret"></span></a>
                     <div class="dropdown-menu dropdown-content">
@@ -101,16 +116,16 @@
 
                                     </ul>
                                 </div>
-                            
+
                             </div>
                         </div>
                     </div>
                 </li>
-                
-                
-                
+
+
+
             </ul>
-            
+
         </div>
     </div>
     <!-- /second navbar -->
@@ -126,17 +141,19 @@
                 else
                 {
                     <h4>
-                        <i class="icon-arrow-left52 position-left"></i>
-                        <span class="text-semibold">Home</span> - Dashboard
-                        <small class="display-block">Good morning, Victoria Baker!</small>
+                        <span class="heading-text pull-right">
+
+                            <span class="position-left"><a href="@Url.Action("Userhome","Home")">Home<<</a></span>
+                            <span class="position-left">Hello , @Html.DisplayFor(m => GlobalClass.ProfileUser.FirstName)</span>
+                        </span>
+
                     </h4>
                 }
             </div>
+
             <div class="heading-elements">
-                <div class="heading-btn-group">
-                    <a href="#" class="btn btn-link btn-float has-text text-size-small"><i class="icon-bars-alt text-indigo-400"></i><span>Statistics</span></a>
-                    <a href="#" class="btn btn-link btn-float has-text text-size-small"><i class="icon-calculator text-indigo-400"></i> <span>Invoices</span></a>
-                    <a href="#" class="btn btn-link btn-float has-text text-size-small"><i class="icon-calendar5 text-indigo-400"></i> <span>Schedule</span></a>
+                <div class="heading-btn-group" id="ConfirmationMessegeSlot">
+                   
                 </div>
             </div>
         </div>

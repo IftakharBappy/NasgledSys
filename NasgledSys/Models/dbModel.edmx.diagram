@@ -141,6 +141,7 @@
         <AssociationConnector Association="NasgledDBModel.FK_UserGroupModule_Modules" />
         <AssociationConnector Association="NasgledDBModel.FK_UserGroupForm_Usergroup" />
         <AssociationConnector Association="NasgledDBModel.FK_UserGroupModule_Usergroup" />
+        <EntityTypeShape EntityType="NasgledDBModel.DefaultEmail" Width="1.5" PointX="7.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

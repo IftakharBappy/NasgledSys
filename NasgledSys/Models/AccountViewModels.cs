@@ -48,11 +48,11 @@ namespace NasgledSys.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Username")]
         [Display(Name = "Username")]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Password")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -60,15 +60,19 @@ namespace NasgledSys.Models
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
+   
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Username")]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+        [Required(ErrorMessage = "Please Enter your Email Address")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Password")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

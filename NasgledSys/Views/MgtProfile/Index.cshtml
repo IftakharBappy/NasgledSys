@@ -1,0 +1,99 @@
+﻿@model NasgledSys.Models.ProfileClass
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/form_select2.js"></script>
+<script type="text/javascript">
+    function Add() {
+       
+      
+        var empObj = {
+            FirstName: $('#FirstName').val(),
+            LastName: $('#LastName').val(),
+            CompanyName: $('#CompanyName').val(),
+            CityKey: $('#CityKey').val(),
+            JobTitle: $('#JobTitle').val()
+        };
+        $.ajax({
+            url: "/MgtProfile/AddProfile",
+            data: JSON.stringify(empObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+               
+                $('#ConfirmationMessegeSlot').html(result);
+               // window.location.href = '/MgtProfile/Company/' + id;
+                window.location.href = '/MgtProfile/Company/' + id;
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+</script>
+@section SideBar{
+    <h4>
+        <span class="heading-text pull-left">
+            <i class="icon-download10 position-left"></i> > Registration > <a href="@Url.Action("Index","MgtRole")">Role ></a><a href="@Url.Action("GetAllProfile","MgtProfile")">Profile ></a>Company
+            </span>
+</h4>
+}
+@section CenterTitle{
+    Profile
+    }
+<div class="panel panel-flat col-lg-6 center-block center">
+    <div class="panel-heading">
+        <h3>Profile Setup</h3>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+    
+    <div class="panel-body">
+        <h4>Please Create Your Profile Below</h4>
+        @Html.ValidationSummary()
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName)              
+                @Html.TextBoxFor(model => model.FirstName, new { placeholder = " First Name", id = "FirstName", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new { placeholder = " Last Name", id = "LastName", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CompanyName)
+                @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Company Name", id = "CompanyName", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location)
+                @Html.DropDownList("CityKey", null, string.Empty, new { @required = "required", id = "CityKey", @class = "select select-search" })
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.JobTitle)
+                @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "Job Title", id = "JobTitle", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-success btn-xlg" id="btnAdd" onclick="return Add();">Next</button>
+    </div>
+    
+</div>
+
+
