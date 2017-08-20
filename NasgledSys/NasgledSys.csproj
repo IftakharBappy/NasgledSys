@@ -307,6 +307,7 @@
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CompanyClass.cs" />
+    <Compile Include="Models\CoolingEfficiencyTypeViewModel.cs" />
     <Compile Include="Models\CoolingEfficientyType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -316,6 +317,7 @@
     <Compile Include="Models\CoolingSystemType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CoolingSystemTypeViewModel.cs" />
     <Compile Include="Models\dbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -337,16 +339,19 @@
     <Compile Include="Models\FuelType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FuelTypeViewModel.cs" />
     <Compile Include="Models\GlobalClass.cs" />
     <Compile Include="Models\HeatingEfficiencyType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HeatingEfficiencyTypeViewModel.cs" />
     <Compile Include="Models\HeatingSystem.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HeatingSystemType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HeatingSystemTypeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageFile.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -354,31 +359,40 @@
     <Compile Include="Models\IncentiveMaxType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IncentiveMaxTypeViewModel.cs" />
     <Compile Include="Models\IncentiveType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IncentiveTypeViewModel.cs" />
     <Compile Include="Models\IndustryType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IndustryTypeViewModel.cs" />
     <Compile Include="Models\ItemCategory.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ItemCategoryViewModel.cs" />
     <Compile Include="Models\ItemCatelogue.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ItemCatelogueViewModel.cs" />
     <Compile Include="Models\ItemSubcategory.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ItemSubcategoryViewModel.cs" />
     <Compile Include="Models\ItemType.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ItemTypeViewModel.cs" />
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\JobFunction.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\JobFunctionViewModel.cs" />
     <Compile Include="Models\LightingSatisfactionFactor.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LightingSatisfactionFactorViewModel.cs" />
     <Compile Include="Models\MainProduct.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -386,6 +400,7 @@
     <Compile Include="Models\Manufacturer.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ManufacturerViewModel.cs" />
     <Compile Include="Models\Modules.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -404,6 +419,7 @@
     <Compile Include="Models\ProjectStatus.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProjectStatusViewModel.cs" />
     <Compile Include="Models\Proposal.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
