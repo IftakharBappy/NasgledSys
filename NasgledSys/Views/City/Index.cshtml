@@ -13,6 +13,9 @@
 <script src="~/Content/datatables/jquery.dataTables.js"></script>
 <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
+@*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
 
 
 <div class="row">
@@ -182,9 +185,18 @@
             $('#createCityContainer').html(data);
             return;
         }
-        $('#createCityModal').modal('hide');
-        $('#createCityContainer').html("");
-        CityListVM.refresh();
+        clearTextBox();
+        $('#msgSuccess').show();
+
+        setTimeout(function () {
+
+            $('#createCityModal').modal('hide');
+            $('#createCityContainer').html("");
+            CityListVM.refresh();
+
+        }, 2000);
+
+       
 
     }
 
@@ -214,6 +226,15 @@
         $('#deleteCityContainer').html("");
         CityListVM.refresh();
 
+    }
+
+   /**** Clear Textbox ********/
+
+    function clearTextBox() {
+
+        $('#CityName').val("");
+        $('#StateName').val("");
+        $('#StateCode').val("");
     }
 
 
