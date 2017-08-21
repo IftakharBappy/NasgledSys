@@ -210,6 +210,7 @@
     <Compile Include="Controllers\DefaultEmailConfigController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\MgtAdminItemController.cs" />
+    <Compile Include="Controllers\MgtAnnualSalesRevenueSetupController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
     <Compile Include="Controllers\MgtHeatingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Controllers\tcityController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\ManageMainProduct.cs" />
+    <Compile Include="DAL\MgtAnnualSalesRevenueSetup.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
     <Compile Include="DAL\MgtCoolingEfficiencyType.cs" />
     <Compile Include="DAL\MgtCoolingSystemType.cs" />
@@ -270,6 +272,7 @@
     <Compile Include="Models\AnnualSalesRevenueSetup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnnualSalesRevenueSetupViewModel.cs" />
     <Compile Include="Models\AppRoles.cs" />
     <Compile Include="Models\Area.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -3127,6 +3130,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AngularController\jsInstituteController.js" />
+    <Content Include="Scripts\AutoComplete\scAnnualSalesRevenueSetup.js" />
     <Content Include="Scripts\AutoComplete\scHeatingEfficiencyType.js" />
     <Content Include="Scripts\AutoComplete\scCity.js" />
     <Content Include="Scripts\AutoComplete\scCoolingEfficiencyType.js" />
@@ -3716,9 +3720,11 @@
     <Content Include="Views\MgtProject\Index.cshtml" />
     <Content Include="Views\MgtClientCompany\Index.cshtml" />
     <Content Include="Views\MgtClientCompany\Create.cshtml" />
+    <Content Include="Views\MgtAnnualSalesRevenueSetup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AnnualSalesRevenueSetup\" />
     <Folder Include="Views\DropdownUtility\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
