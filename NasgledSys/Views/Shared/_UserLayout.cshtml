@@ -16,6 +16,17 @@
     transform: translateX(25%);
 }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ConfirmationMessegeSlot').hide();
+
+            setTimeout(function () {
+                $('#ConfirmationMessegeSlot').show();
+            }, 2000);
+            $('#ConfirmationMessegeSlot').hide();
+        });
+
+    </script>
 </head>
 
 <body class="navbar-top">
@@ -97,7 +108,10 @@
 
             <div class="heading-elements">
                 <div class="heading-btn-group" id="ConfirmationMessegeSlot">
-                   
+                   @if (Session["GlobalMessege"].ToString() == "")
+                   {
+                       <h3 class="alert alert-info">@Html.DisplayFor(m=>Session["GlobalMessege"])</h3>
+                   }
                 </div>
             </div>
         </div>

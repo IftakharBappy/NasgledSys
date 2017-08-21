@@ -228,6 +228,7 @@ namespace NasgledSys.Controllers
             {
                 try
                 {
+                    Session["GlobalMessege"] = "";
                     string temp = "Successfully Logged in";
                     Exception e = new Exception();
                     UserProfile obj = db.UserProfile.SingleOrDefault(m => m.Username == model.Username && m.Password == model.Password);
