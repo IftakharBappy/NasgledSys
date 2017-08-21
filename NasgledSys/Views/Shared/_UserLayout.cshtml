@@ -15,7 +15,7 @@
     @using NasgledSys.Models
 
     <!-- Main navbar -->
-    <div class="navbar navbar-inverse bg-indigo navbar-fixed-top">
+    <div class="navbar navbar-inverse bg-blue navbar-fixed-top">
         <div class="navbar-header">
             <a class="navbar-brand" href="@Url.Action("Userhome","Home")">
                 <img src="~/Content/assets/images/logo_light.png" alt="" />
@@ -24,19 +24,18 @@
                 <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
             </ul>
         </div> 
-        <center>
-            <div class="navbar-header center">
-                <ul class="nav navbar-nav center-block">
-                    <li class="dropdown dropdown-user">
-                        @RenderSection("CenterTitle", required: true)
-                    </li>
-                </ul>
-            </div>    
-        </center>     
-           
+        <div class="nav navbar-nav navbar-left">
+            <ul class="nav navbar-nav navbar-nav-material">
+                <li class="active"><a href="@Url.Action("Userhome","Home")"><i class="icon-display4 position-left"></i> Dashboard</a></li>
+            </ul>
+
+        </div>
+           <div class="navbar-nav navbar-center">@RenderSection("CenterTitle", required: false)</div>
         <div class="nav navbar-nav navbar-right">
             <a href="@Url.Action("Index","MgtContact")">
-                <i class="icon-address-book2"></i>
+                <img src="~/Content/12_-_Address_book-256.png" height="50px" width="45px" />
+               
+              
             </a>
         </div>    
         <div class="navbar-collapse collapse" id="navbar-mobile">
@@ -62,73 +61,10 @@
                 </li>
             </ul>
         </div>
+     
     </div>
     <!-- /main navbar -->
-    <!-- Second navbar -->
-    <div class="navbar navbar-default" id="navbar-second">
-        <ul class="nav navbar-nav no-border visible-xs-block">
-            <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
-        </ul>
-        <div class="navbar-collapse collapse" id="navbar-second-toggle">
-            <ul class="nav navbar-nav navbar-nav-material">
-                <li class="active"><a href="@Url.Action("Userhome","Home")"><i class="icon-display4 position-left"></i> Dashboard</a></li>
-                <li class="dropdown mega-menu mega-menu-wide">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-puzzle4 position-left"></i> Menu <span class="caret"></span></a>
-                    <div class="dropdown-menu dropdown-content">
-                        <div class="dropdown-content-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <span class="menu-heading underlined">Setup Forms</span>
-                                    <ul class="menu-list">
-                                        <li>
-                                            <a href="#"><i class="icon-pencil3"></i>GIS</a>
-                                            <ul>
-                                                <li><a href="@Url.Action("Index","MgtCity")">State</a></li>
-
-                                                <li><a href="@Url.Action("Index","MgtCity")">City</a></li>
-                                                <li><a href="form_controls_extended.html">Zipcode</a></li>
-                                                <li><a href="@Url.Action("Index","MgtCoolingEfficiencyType")">Cooling Efficiency Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtCoolingSystemType")">Cooling System Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtIndustryType")">Industry Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtFuelType")">Fuel Type</a></li>
-
-
-
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="icon-file-css"></i>System</a>
-                                            <ul>
-                                                <li><a href="@Url.Action("Index","MgtRole")">User Role</a></li>
-                                                <li><a href="@Url.Action("Index","tcity")">Test City</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            @*Menu Set DO NOT DISTURB--------------------------------------- NAHID*@
-                                            <a href="#"><i class="icon-footprint"></i> Configuration</a>
-                                            <ul>
-                                                <li><a href="@Url.Action("DIndex","MgtUsergroup")">User group</a></li>
-                                                <li><a href="@Url.Action("DIndex","MgtStaff")">User</a></li>
-                                                <li><a href="@Url.Action("UserEdit", "MgtInstitute")">Company Info</a></li>
-                                            </ul>
-                                        </li>
-
-
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-
-
-            </ul>
-
-        </div>
-    </div>
-    <!-- /second navbar -->
+   
     <!-- Page header -->
     <div class="page-header">
         <div class="page-header-content">
@@ -141,7 +77,7 @@
                 else
                 {
                     <h4>
-                        <span class="heading-text pull-right">
+                        <span class="heading-text pull-left">
 
                             <span class="position-left"><a href="@Url.Action("Userhome","Home")">Home<<</a></span>
                             <span class="position-left">Hello , @Html.DisplayFor(m => GlobalClass.ProfileUser.FirstName)</span>
@@ -166,6 +102,7 @@
             <!-- Main content -->
             <div class="content-wrapper">
                 @RenderBody()
+              
             </div>
             <!-- /main content -->
         </div>

@@ -222,17 +222,18 @@ namespace NasgledSys.Controllers
             return View(model);
         }
         [HttpPost]
-        public JsonResult UserLogin(LoginViewModel model)
+        public ActionResult UserLogin(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     string temp = "Successfully Logged in";
+                    Exception e = new Exception();
                     UserProfile obj = db.UserProfile.SingleOrDefault(m => m.Username == model.Username && m.Password == model.Password);
                     if (obj == null)
                     {
-                        Exception e = new Exception("Incorrect user access. Unauthorized Access.");
+                         e = new Exception("Incorrect user access. Unauthorized Access.");
                         temp = e.Message.ToString();
                     }
                     else
@@ -249,19 +250,19 @@ namespace NasgledSys.Controllers
                         GlobalClass.MasterSession = true;
                         GlobalClass.ProfileUser = obj;
                       
-                        RedirectToAction("Userhome", "Home");
-                        return Json(null);
+                        
+                        return RedirectToAction("Userhome", "Home");
                     }
-                    return Json(new { status = "error", message = temp });
+                    return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
                 }
                 catch (Exception e)
                 {
-                    return Json(new { status = "error", message = e.Message.ToString() });
+                    return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
                 }
             }
             else
             {
-                return Json(model);
+                return View(model);
             }
         }
         public ActionResult Index()

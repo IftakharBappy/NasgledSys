@@ -344,6 +344,77 @@ namespace NasgledSys.Controllers
             }
         }
 
+        public ActionResult EditMyProfile()
+        {
+            try
+            {
+                StaffList staffList = db.StaffList.Find(GlobalClass.LoginUser.PersonnelKey);
+                ViewBag.mess = "";
+
+                ViewBag.Usergr = new SelectList(db.Usergroup, "UserGroupKey", "GroupName", staffList.Usergr);
+                return View(staffList);
+            }
+            catch (Exception e)
+            {
+                return View("Error", new HandleErrorInfo(e, "Home", "DIndex"));
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditMyProfile(StaffList staffList, HttpPostedFileBase file)
+        {
+            try
+            {
+                ViewBag.mess = "";
+                bool flag = true;
+                if (string.IsNullOrEmpty(staffList.PID))
+                {
+
+                }
+                else
+                {
+                    var uid = from x in db.StaffList where x.PID == staffList.PID && x.PersonnelKey != staffList.PersonnelKey && x.CompanyKey == GlobalClass.Company.CompanyKey select x;
+                    if (uid.Count() > 0)
+                    {
+                        ViewBag.mess = "Duplicate ID";
+                        flag = false;
+                    }
+                    else { }
+                }
+                if (flag == true)
+                {
+                    StaffList model = db.StaffList.Find(staffList.PersonnelKey);
+                    if (file != null)
+                    {
+                        byte[] data = null;
+
+                        data = BufferFromImage(file, 50, 80);
+                        model.Pic = data;
+                        model.PicType = file.ContentType;
+                    }
+                    model.PID = staffList.PID;
+                    model.PName = staffList.PName;
+                    model.Mobile = staffList.Mobile;
+                    model.Department = staffList.Department;
+                    model.Designation = staffList.Designation;
+                    model.Username = staffList.Username;
+                    model.Password = staffList.Password;
+                    model.Mail = staffList.Mail;
+                    db.SaveChanges();
+                    return RedirectToAction("DIndex");
+                }
+
+                ViewBag.Usergr = new SelectList(db.Usergroup, "UserGroupKey", "GroupName", staffList.Usergr);
+                return View(staffList);
+            }
+            catch (Exception e)
+            {
+                return View("Error", new HandleErrorInfo(e, "Home", "DIndex"));
+            }
+        }
+
 
         public ActionResult DEdit(Guid? id)
         {

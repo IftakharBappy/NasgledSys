@@ -479,6 +479,8 @@
     <Compile Include="Validation\UniqueIDCreator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\12_-_Address_book-256.png" />
+    <Content Include="Content\Address-Book-icon.png" />
     <Content Include="Content\assets\css\bootstrap.css" />
     <Content Include="Content\assets\css\bootstrap.min.css" />
     <Content Include="Content\assets\css\colors.css" />
@@ -3700,6 +3702,7 @@
     <Content Include="Views\Home\ForgotPassword.cshtml" />
     <Content Include="Views\MgtProfile\Index.cshtml" />
     <Content Include="Views\MgtProfile\Company.cshtml" />
+    <Content Include="Views\MgtStaff\EditMyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
