@@ -231,6 +231,7 @@ th {
   }
   thead {
     display: table-header-group;
+    font-weight:bold;
   }
   tr,
   img {
