@@ -8,6 +8,14 @@
     @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/bootstrap")
 
+    <style type="text/css">
+        .CenterPanel {
+   
+   
+    left: 50%;
+    transform: translateX(25%);
+}
+    </style>
 </head>
 
 <body class="navbar-top">
@@ -100,7 +108,7 @@
         <!-- Page content -->
         <div class="page-content">
             <!-- Main content -->
-            <div class="content-wrapper">
+            <div class="content-wrapper CenterPanel">
                 @RenderBody()
               
             </div>
