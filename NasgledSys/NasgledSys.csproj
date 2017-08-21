@@ -210,6 +210,7 @@
     <Compile Include="Controllers\DefaultEmailConfigController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\MgtAdminItemController.cs" />
+    <Compile Include="Controllers\MgtAnnualSalesRevenueSetupController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
     <Compile Include="Controllers\MgtHeatingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -235,12 +236,14 @@
     <Compile Include="Controllers\MgtProjectController.cs" />
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
+    <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
     <Compile Include="Controllers\tcityController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\ManageMainProduct.cs" />
+    <Compile Include="DAL\MgtAnnualSalesRevenueSetup.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
     <Compile Include="DAL\MgtCoolingEfficiencyType.cs" />
     <Compile Include="DAL\MgtCoolingSystemType.cs" />
@@ -258,6 +261,7 @@
     <Compile Include="DAL\MgtLightingSatisfactionFactor.cs" />
     <Compile Include="DAL\MgtManufacturer.cs" />
     <Compile Include="DAL\MgtProjectStatus.cs" />
+    <Compile Include="DAL\MgtSalesReachSetup.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
@@ -270,6 +274,7 @@
     <Compile Include="Models\AnnualSalesRevenueSetup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnnualSalesRevenueSetupViewModel.cs" />
     <Compile Include="Models\AppRoles.cs" />
     <Compile Include="Models\Area.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -453,6 +458,7 @@
     <Compile Include="Models\SalesReachSetup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalesReachSetupViewModel.cs" />
     <Compile Include="Models\StaffList.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3127,6 +3133,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AngularController\jsInstituteController.js" />
+    <Content Include="Scripts\AutoComplete\scAnnualSalesRevenueSetup.js" />
     <Content Include="Scripts\AutoComplete\scHeatingEfficiencyType.js" />
     <Content Include="Scripts\AutoComplete\scCity.js" />
     <Content Include="Scripts\AutoComplete\scCoolingEfficiencyType.js" />
@@ -3143,6 +3150,7 @@
     <Content Include="Scripts\AutoComplete\scJobFunction.js" />
     <Content Include="Scripts\AutoComplete\scLightingSatisfactionFactor.js" />
     <Content Include="Scripts\AutoComplete\scProjectStatus.js" />
+    <Content Include="Scripts\AutoComplete\scSalesReachSetup.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
     <Content Include="Scripts\AutoComplete\scManufacturer.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -3716,9 +3724,12 @@
     <Content Include="Views\MgtProject\Index.cshtml" />
     <Content Include="Views\MgtClientCompany\Index.cshtml" />
     <Content Include="Views\MgtClientCompany\Create.cshtml" />
+    <Content Include="Views\MgtAnnualSalesRevenueSetup\Index.cshtml" />
+    <Content Include="Views\MgtSalesReachSetup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AnnualSalesRevenueSetup\" />
     <Folder Include="Views\DropdownUtility\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />

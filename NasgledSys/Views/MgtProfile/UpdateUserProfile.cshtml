@@ -1,0 +1,107 @@
+﻿@model NasgledSys.Models.ProfileClass
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#CityKey").select2();
+        $("#PrimaryBusinessType").select2();
+    });
+</script>
+@section SideBar{
+    <center>
+        <h4>
+            <span class="heading-text">
+                <i class="icon-download10 position-left"></i> > Registration > <a href="@Url.Action("Index","MgtRole")">Role ></a><a href="@Url.Action("GetAllProfile","MgtProfile")">Profile ></a>Company
+            </span>
+        </h4>
+    </center>
+}
+
+@section CenterTitle{
+    Profile
+}
+@using (Html.BeginForm("Index", "MgtProfile", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="panel panel-default col-lg-6">
+        <div class="panel-heading">
+            <h3>Profile Update</h3>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="panel-heading">
+            <h3>Contact Information</h3>
+        </div>
+        <div class="panel-body">
+            @Html.ValidationSummary()
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName)
+                @Html.TextBoxFor(model => model.FirstName, new { placeholder = " First Name", id = "FirstName", @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new { placeholder = " Last Name", id = "LastName", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { placeholder = "Email Address", id = "Email", @class = "form-control" })
+                <span class="small text-muted"> We do not provide your Email Address to outside parties.</span>
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+
+        </div>
+        <div class="panel-heading">
+            <h3>Professional Information</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CompanyName)
+                @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Company Name", id = "CompanyName", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PrimaryRole)
+                @*@Html.DropDownList("PrimaryBusinessType", null, string.Empty, new { placeholder = "Select", id = "PrimaryBusinessType", @class = "select select-search" })*@
+                @Html.DropDownListFor(model => model.RoleKey, ViewBag.Divisions as SelectList, new { placeholder = "Select", @class = "select select-search" })
+                @Html.ValidationMessageFor(model => model.PrimaryRole, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location)
+                @*@Html.DropDownList("CityKey", null, string.Empty, new { placeholder = "enter City, State", @required = "required", id = "CityKey", @class = "select select-search" })*@
+                @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AnnualSalesRevenue)
+                @*@Html.DropDownList("AnnualSalesRevenue", null, string.Empty, new { placeholder = "Select", id = "AnnualSalesRevenue", @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.AnnualSalesRevenue, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.JobTitle)
+                @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "Job Title", id = "JobTitle", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <center><button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Next</button></center>
+            <h2>@ViewBag.mess</h2>
+        </div>
+
+    </div>
+}
+
