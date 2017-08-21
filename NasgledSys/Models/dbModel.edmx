@@ -439,7 +439,6 @@
           <Property Name="ItemTypeKey" Type="uniqueidentifier" />
           <Property Name="CategoryKey" Type="uniqueidentifier" />
           <Property Name="SubcategoryKey" Type="uniqueidentifier" />
-          <Property Name="CatelogueKey" Type="uniqueidentifier" />
           <Property Name="ManufacturerKey" Type="uniqueidentifier" />
           <Property Name="ProductName" Type="nvarchar(max)" />
           <Property Name="ModelNo" Type="nvarchar(max)" />
@@ -459,6 +458,7 @@
           <Property Name="FileType" Type="nvarchar(max)" />
           <Property Name="FileName" Type="nvarchar(max)" />
           <Property Name="LampLife" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TypeCount" Type="int" />
         </EntityType>
         <EntityType Name="Manufacturer">
           <Key>
@@ -533,6 +533,7 @@
           <Property Name="FileType" Type="nvarchar(max)" />
           <Property Name="FileName" Type="nvarchar(max)" />
           <Property Name="LampLife" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TypeCount" Type="int" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -1299,18 +1300,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MainProduct_ItemCatelogue">
-          <End Role="ItemCatelogue" Type="Self.ItemCatelogue" Multiplicity="0..1" />
-          <End Role="MainProduct" Type="Self.MainProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ItemCatelogue">
-              <PropertyRef Name="PKey" />
-            </Principal>
-            <Dependent Role="MainProduct">
-              <PropertyRef Name="CatelogueKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MainProduct_ItemSubcategory">
           <End Role="ItemSubcategory" Type="Self.ItemSubcategory" Multiplicity="0..1" />
           <End Role="MainProduct" Type="Self.MainProduct" Multiplicity="*" />
@@ -1970,10 +1959,6 @@
             <End Role="ItemCategory" EntitySet="ItemCategory" />
             <End Role="MainProduct" EntitySet="MainProduct" />
           </AssociationSet>
-          <AssociationSet Name="FK_MainProduct_ItemCatelogue" Association="Self.FK_MainProduct_ItemCatelogue">
-            <End Role="ItemCatelogue" EntitySet="ItemCatelogue" />
-            <End Role="MainProduct" EntitySet="MainProduct" />
-          </AssociationSet>
           <AssociationSet Name="FK_MainProduct_ItemSubcategory" Association="Self.FK_MainProduct_ItemSubcategory">
             <End Role="ItemSubcategory" EntitySet="ItemSubcategory" />
             <End Role="MainProduct" EntitySet="MainProduct" />
@@ -2302,7 +2287,6 @@
           <EntitySet Name="ItemType" EntityType="NasgledDBModel.ItemType" />
           <EntitySet Name="JobFunction" EntityType="NasgledDBModel.JobFunction" />
           <EntitySet Name="LightingSatisfactionFactor" EntityType="NasgledDBModel.LightingSatisfactionFactor" />
-          <EntitySet Name="MainProduct" EntityType="NasgledDBModel.MainProduct" />
           <EntitySet Name="Manufacturer" EntityType="NasgledDBModel.Manufacturer" />
           <EntitySet Name="NewRateSchedule" EntityType="NasgledDBModel.NewRateSchedule" />
           <EntitySet Name="OperatingSchedule" EntityType="NasgledDBModel.OperatingSchedule" />
@@ -2494,33 +2478,17 @@
             <End Role="Project" EntitySet="Project" />
             <End Role="HeatingSystem" EntitySet="HeatingSystem" />
           </AssociationSet>
-          <AssociationSet Name="FK_MainProduct_ItemCategory" Association="NasgledDBModel.FK_MainProduct_ItemCategory">
-            <End Role="ItemCategory" EntitySet="ItemCategory" />
-            <End Role="MainProduct" EntitySet="MainProduct" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProfileProduct_ItemCategory" Association="NasgledDBModel.FK_ProfileProduct_ItemCategory">
             <End Role="ItemCategory" EntitySet="ItemCategory" />
             <End Role="ProfileProduct" EntitySet="ProfileProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MainProduct_ItemCatelogue" Association="NasgledDBModel.FK_MainProduct_ItemCatelogue">
-            <End Role="ItemCatelogue" EntitySet="ItemCatelogue" />
-            <End Role="MainProduct" EntitySet="MainProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfileProduct_ItemCatelogue" Association="NasgledDBModel.FK_ProfileProduct_ItemCatelogue">
             <End Role="ItemCatelogue" EntitySet="ItemCatelogue" />
             <End Role="ProfileProduct" EntitySet="ProfileProduct" />
           </AssociationSet>
-          <AssociationSet Name="FK_MainProduct_ItemSubcategory" Association="NasgledDBModel.FK_MainProduct_ItemSubcategory">
-            <End Role="ItemSubcategory" EntitySet="ItemSubcategory" />
-            <End Role="MainProduct" EntitySet="MainProduct" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProfileProduct_ItemSubcategory" Association="NasgledDBModel.FK_ProfileProduct_ItemSubcategory">
             <End Role="ItemSubcategory" EntitySet="ItemSubcategory" />
             <End Role="ProfileProduct" EntitySet="ProfileProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MainProduct_ItemType" Association="NasgledDBModel.FK_MainProduct_ItemType">
-            <End Role="ItemType" EntitySet="ItemType" />
-            <End Role="MainProduct" EntitySet="MainProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfileProduct_ItemType" Association="NasgledDBModel.FK_ProfileProduct_ItemType">
             <End Role="ItemType" EntitySet="ItemType" />
@@ -2529,10 +2497,6 @@
           <AssociationSet Name="FK_Team_JobFunction" Association="NasgledDBModel.FK_Team_JobFunction">
             <End Role="JobFunction" EntitySet="JobFunction" />
             <End Role="Team" EntitySet="Team" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MainProduct_Manufacturer" Association="NasgledDBModel.FK_MainProduct_Manufacturer">
-            <End Role="Manufacturer" EntitySet="Manufacturer" />
-            <End Role="MainProduct" EntitySet="MainProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfileProduct_Manufacturer" Association="NasgledDBModel.FK_ProfileProduct_Manufacturer">
             <End Role="Manufacturer" EntitySet="Manufacturer" />
@@ -2637,7 +2601,24 @@
           <EntitySet Name="DefaultEmail" EntityType="NasgledDBModel.DefaultEmail" />
           <EntitySet Name="AnnualSalesRevenueSetup" EntityType="NasgledDBModel.AnnualSalesRevenueSetup" />
           <EntitySet Name="SalesReachSetup" EntityType="NasgledDBModel.SalesReachSetup" />
-        </EntityContainer>
+          <EntitySet Name="MainProduct" EntityType="NasgledDBModel.MainProduct" />
+          <AssociationSet Name="FK_MainProduct_ItemCategory" Association="NasgledDBModel.FK_MainProduct_ItemCategory">
+            <End Role="ItemCategory" EntitySet="ItemCategory" />
+            <End Role="MainProduct" EntitySet="MainProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MainProduct_ItemSubcategory" Association="NasgledDBModel.FK_MainProduct_ItemSubcategory">
+            <End Role="ItemSubcategory" EntitySet="ItemSubcategory" />
+            <End Role="MainProduct" EntitySet="MainProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MainProduct_ItemType" Association="NasgledDBModel.FK_MainProduct_ItemType">
+            <End Role="ItemType" EntitySet="ItemType" />
+            <End Role="MainProduct" EntitySet="MainProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MainProduct_Manufacturer" Association="NasgledDBModel.FK_MainProduct_Manufacturer">
+            <End Role="Manufacturer" EntitySet="Manufacturer" />
+            <End Role="MainProduct" EntitySet="MainProduct" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Area">
           <Key>
             <PropertyRef Name="AreaKey" />
@@ -3002,8 +2983,8 @@
           <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDelete" Type="Boolean" />
-          <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemCategory" FromRole="ItemCategory" ToRole="MainProduct" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_ItemCategory" FromRole="ItemCategory" ToRole="ProfileProduct" />
+          <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemCategory" FromRole="ItemCategory" ToRole="MainProduct" />
         </EntityType>
         <EntityType Name="ItemCatelogue">
           <Key>
@@ -3013,7 +2994,6 @@
           <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDelete" Type="Boolean" />
-          <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemCatelogue" FromRole="ItemCatelogue" ToRole="MainProduct" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_ItemCatelogue" FromRole="ItemCatelogue" ToRole="ProfileProduct" />
         </EntityType>
         <EntityType Name="ItemSubcategory">
@@ -3024,8 +3004,8 @@
           <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDelete" Type="Boolean" />
-          <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemSubcategory" FromRole="ItemSubcategory" ToRole="MainProduct" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_ItemSubcategory" FromRole="ItemSubcategory" ToRole="ProfileProduct" />
+          <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemSubcategory" FromRole="ItemSubcategory" ToRole="MainProduct" />
         </EntityType>
         <EntityType Name="ItemType">
           <Key>
@@ -3035,8 +3015,8 @@
           <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDelete" Type="Boolean" />
-          <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemType" FromRole="ItemType" ToRole="MainProduct" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_ItemType" FromRole="ItemType" ToRole="ProfileProduct" />
+          <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemType" FromRole="ItemType" ToRole="MainProduct" />
         </EntityType>
         <EntityType Name="JobFunction">
           <Key>
@@ -3059,40 +3039,6 @@
           <NavigationProperty Name="AreaDetail" Relationship="NasgledDBModel.FK_AreaDetail_LightingSatisfactionFactor" FromRole="LightingSatisfactionFactor" ToRole="AreaDetail" />
           <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_LightingSatisfactionFactor" FromRole="LightingSatisfactionFactor" ToRole="AreaProductDetail" />
         </EntityType>
-        <EntityType Name="MainProduct">
-          <Key>
-            <PropertyRef Name="FixtureKey" />
-          </Key>
-          <Property Name="FixtureKey" Type="Guid" Nullable="false" />
-          <Property Name="ItemTypeKey" Type="Guid" />
-          <Property Name="CategoryKey" Type="Guid" />
-          <Property Name="SubcategoryKey" Type="Guid" />
-          <Property Name="CatelogueKey" Type="Guid" />
-          <Property Name="ManufacturerKey" Type="Guid" />
-          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ModelNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Watt" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ThermalEfficacy" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CRI" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Lumen" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="LightApparent" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Brand" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LightOutput" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CCT" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MountingBase" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ItemCategory" Relationship="NasgledDBModel.FK_MainProduct_ItemCategory" FromRole="MainProduct" ToRole="ItemCategory" />
-          <NavigationProperty Name="ItemCatelogue" Relationship="NasgledDBModel.FK_MainProduct_ItemCatelogue" FromRole="MainProduct" ToRole="ItemCatelogue" />
-          <NavigationProperty Name="ItemSubcategory" Relationship="NasgledDBModel.FK_MainProduct_ItemSubcategory" FromRole="MainProduct" ToRole="ItemSubcategory" />
-          <NavigationProperty Name="ItemType" Relationship="NasgledDBModel.FK_MainProduct_ItemType" FromRole="MainProduct" ToRole="ItemType" />
-          <NavigationProperty Name="Manufacturer" Relationship="NasgledDBModel.FK_MainProduct_Manufacturer" FromRole="MainProduct" ToRole="Manufacturer" />
-          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LampLife" Type="Decimal" Precision="18" Scale="2" />
-        </EntityType>
         <EntityType Name="Manufacturer">
           <Key>
             <PropertyRef Name="PKey" />
@@ -3101,8 +3047,8 @@
           <Property Name="ManufacturerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDelete" Type="Boolean" />
-          <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_Manufacturer" FromRole="Manufacturer" ToRole="MainProduct" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_Manufacturer" FromRole="Manufacturer" ToRole="ProfileProduct" />
+          <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_Manufacturer" FromRole="Manufacturer" ToRole="MainProduct" />
         </EntityType>
         <EntityType Name="NewRateSchedule">
           <Key>
@@ -3173,6 +3119,7 @@
           <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LampLife" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TypeCount" Type="Int32" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -3881,18 +3828,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MainProduct_ItemCategory">
-          <End Type="NasgledDBModel.ItemCategory" Role="ItemCategory" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ItemCategory">
-              <PropertyRef Name="PKey" />
-            </Principal>
-            <Dependent Role="MainProduct">
-              <PropertyRef Name="CategoryKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProfileProduct_ItemCategory">
           <End Type="NasgledDBModel.ItemCategory" Role="ItemCategory" Multiplicity="0..1" />
           <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="*" />
@@ -3902,18 +3837,6 @@
             </Principal>
             <Dependent Role="ProfileProduct">
               <PropertyRef Name="CategoryKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MainProduct_ItemCatelogue">
-          <End Type="NasgledDBModel.ItemCatelogue" Role="ItemCatelogue" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ItemCatelogue">
-              <PropertyRef Name="PKey" />
-            </Principal>
-            <Dependent Role="MainProduct">
-              <PropertyRef Name="CatelogueKey" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3929,18 +3852,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MainProduct_ItemSubcategory">
-          <End Type="NasgledDBModel.ItemSubcategory" Role="ItemSubcategory" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ItemSubcategory">
-              <PropertyRef Name="PKey" />
-            </Principal>
-            <Dependent Role="MainProduct">
-              <PropertyRef Name="SubcategoryKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProfileProduct_ItemSubcategory">
           <End Type="NasgledDBModel.ItemSubcategory" Role="ItemSubcategory" Multiplicity="0..1" />
           <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="*" />
@@ -3950,18 +3861,6 @@
             </Principal>
             <Dependent Role="ProfileProduct">
               <PropertyRef Name="SubcategoryKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MainProduct_ItemType">
-          <End Type="NasgledDBModel.ItemType" Role="ItemType" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ItemType">
-              <PropertyRef Name="PKey" />
-            </Principal>
-            <Dependent Role="MainProduct">
-              <PropertyRef Name="ItemTypeKey" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3986,18 +3885,6 @@
             </Principal>
             <Dependent Role="Team">
               <PropertyRef Name="JobFunctionKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MainProduct_Manufacturer">
-          <End Type="NasgledDBModel.Manufacturer" Role="Manufacturer" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Manufacturer">
-              <PropertyRef Name="PKey" />
-            </Principal>
-            <Dependent Role="MainProduct">
-              <PropertyRef Name="ManufacturerKey" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4391,7 +4278,88 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDelete" Type="Boolean" />
         </EntityType>
-      </Schema>
+        <EntityType Name="MainProduct">
+          <Key>
+            <PropertyRef Name="FixtureKey" />
+          </Key>
+          <Property Name="FixtureKey" Type="Guid" Nullable="false" />
+          <Property Name="ItemTypeKey" Type="Guid" />
+          <Property Name="CategoryKey" Type="Guid" />
+          <Property Name="SubcategoryKey" Type="Guid" />
+          <Property Name="ManufacturerKey" Type="Guid" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModelNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Watt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ThermalEfficacy" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CRI" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Lumen" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LightApparent" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Brand" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LightOutput" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CCT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MountingBase" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LampLife" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TypeCount" Type="Int32" />
+          <NavigationProperty Name="ItemCategory" Relationship="NasgledDBModel.FK_MainProduct_ItemCategory" FromRole="MainProduct" ToRole="ItemCategory" />
+          <NavigationProperty Name="ItemSubcategory" Relationship="NasgledDBModel.FK_MainProduct_ItemSubcategory" FromRole="MainProduct" ToRole="ItemSubcategory" />
+          <NavigationProperty Name="ItemType" Relationship="NasgledDBModel.FK_MainProduct_ItemType" FromRole="MainProduct" ToRole="ItemType" />
+          <NavigationProperty Name="Manufacturer" Relationship="NasgledDBModel.FK_MainProduct_Manufacturer" FromRole="MainProduct" ToRole="Manufacturer" />
+        </EntityType>
+        <Association Name="FK_MainProduct_ItemCategory">
+          <End Type="NasgledDBModel.ItemCategory" Role="ItemCategory" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemCategory">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="MainProduct">
+              <PropertyRef Name="CategoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MainProduct_ItemSubcategory">
+          <End Type="NasgledDBModel.ItemSubcategory" Role="ItemSubcategory" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemSubcategory">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="MainProduct">
+              <PropertyRef Name="SubcategoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MainProduct_ItemType">
+          <End Type="NasgledDBModel.ItemType" Role="ItemType" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemType">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="MainProduct">
+              <PropertyRef Name="ItemTypeKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MainProduct_Manufacturer">
+          <End Type="NasgledDBModel.Manufacturer" Role="Manufacturer" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="MainProduct">
+              <PropertyRef Name="ManufacturerKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -4854,36 +4822,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MainProduct">
-            <EntityTypeMapping TypeName="NasgledDBModel.MainProduct">
-              <MappingFragment StoreEntitySet="MainProduct">
-                <ScalarProperty Name="LampLife" ColumnName="LampLife" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="FileType" ColumnName="FileType" />
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="MountingBase" ColumnName="MountingBase" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
-                <ScalarProperty Name="CCT" ColumnName="CCT" />
-                <ScalarProperty Name="LightOutput" ColumnName="LightOutput" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="Source" ColumnName="Source" />
-                <ScalarProperty Name="LightApparent" ColumnName="LightApparent" />
-                <ScalarProperty Name="Lumen" ColumnName="Lumen" />
-                <ScalarProperty Name="CRI" ColumnName="CRI" />
-                <ScalarProperty Name="ThermalEfficacy" ColumnName="ThermalEfficacy" />
-                <ScalarProperty Name="Watt" ColumnName="Watt" />
-                <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ManufacturerKey" ColumnName="ManufacturerKey" />
-                <ScalarProperty Name="CatelogueKey" ColumnName="CatelogueKey" />
-                <ScalarProperty Name="SubcategoryKey" ColumnName="SubcategoryKey" />
-                <ScalarProperty Name="CategoryKey" ColumnName="CategoryKey" />
-                <ScalarProperty Name="ItemTypeKey" ColumnName="ItemTypeKey" />
-                <ScalarProperty Name="FixtureKey" ColumnName="FixtureKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Manufacturer">
             <EntityTypeMapping TypeName="NasgledDBModel.Manufacturer">
               <MappingFragment StoreEntitySet="Manufacturer">
@@ -4923,6 +4861,7 @@
           <EntitySetMapping Name="ProfileProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.ProfileProduct">
               <MappingFragment StoreEntitySet="ProfileProduct">
+                <ScalarProperty Name="TypeCount" ColumnName="TypeCount" />
                 <ScalarProperty Name="LampLife" ColumnName="LampLife" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="FileType" ColumnName="FileType" />
@@ -5206,6 +5145,36 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="PKey" ColumnName="PKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MainProduct">
+            <EntityTypeMapping TypeName="NasgledDBModel.MainProduct">
+              <MappingFragment StoreEntitySet="MainProduct">
+                <ScalarProperty Name="TypeCount" ColumnName="TypeCount" />
+                <ScalarProperty Name="LampLife" ColumnName="LampLife" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="MountingBase" ColumnName="MountingBase" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="CCT" ColumnName="CCT" />
+                <ScalarProperty Name="LightOutput" ColumnName="LightOutput" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="LightApparent" ColumnName="LightApparent" />
+                <ScalarProperty Name="Lumen" ColumnName="Lumen" />
+                <ScalarProperty Name="CRI" ColumnName="CRI" />
+                <ScalarProperty Name="ThermalEfficacy" ColumnName="ThermalEfficacy" />
+                <ScalarProperty Name="Watt" ColumnName="Watt" />
+                <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ManufacturerKey" ColumnName="ManufacturerKey" />
+                <ScalarProperty Name="SubcategoryKey" ColumnName="SubcategoryKey" />
+                <ScalarProperty Name="CategoryKey" ColumnName="CategoryKey" />
+                <ScalarProperty Name="ItemTypeKey" ColumnName="ItemTypeKey" />
+                <ScalarProperty Name="FixtureKey" ColumnName="FixtureKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

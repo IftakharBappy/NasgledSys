@@ -10,12 +10,12 @@ namespace NasgledSys.EM
         public static ItemViewModel ConvertToModel(MainProduct ent)
         {
             ItemViewModel bo = new ItemViewModel();
-
+            bo.TypeCount = ent.TypeCount;
             bo.FixtureKey = (Guid)ent.FixtureKey;
             bo.ItemTypeKey = ent.ItemTypeKey;
             bo.CategoryKey = ent.CategoryKey;
             bo.SubcategoryKey = ent.SubcategoryKey;
-            bo.CatelogueKey = ent.CatelogueKey;
+           // bo.CatelogueKey = ent.CatelogueKey;
             bo.ManufacturerKey = ent.ManufacturerKey;
             bo.ProductName = ent.ProductName;
             bo.ModelNo = ent.ModelNo;
@@ -44,7 +44,7 @@ namespace NasgledSys.EM
             bo.ItemTypeKey = ent.ItemTypeKey;
             bo.CategoryKey = ent.CategoryKey;
             bo.SubcategoryKey = ent.SubcategoryKey;
-            bo.CatelogueKey = ent.CatelogueKey;
+           // bo.CatelogueKey = ent.CatelogueKey;
             bo.ManufacturerKey = ent.ManufacturerKey;
             bo.ProductName = ent.ProductName;
             bo.ModelNo = ent.ModelNo;
@@ -61,7 +61,7 @@ namespace NasgledSys.EM
             bo.Size = ent.Size;
             bo.Location = ent.Location;
             bo.MountingBase = ent.MountingBase;
-
+            bo.TypeCount = ent.TypeCount;
             return bo;
         }
 
@@ -71,7 +71,8 @@ namespace NasgledSys.EM
             fromdb.ItemTypeKey = fromForm.ItemTypeKey;
             fromdb.CategoryKey = fromForm.CategoryKey;
             fromdb.SubcategoryKey = fromForm.SubcategoryKey;
-            fromdb.CatelogueKey = fromForm.CatelogueKey;
+            fromdb.TypeCount = fromForm.TypeCount;
+            //fromdb.CatelogueKey = fromForm.CatelogueKey;
             fromdb.ManufacturerKey = fromForm.ManufacturerKey;
             fromdb.ProductName = fromForm.ProductName;
             fromdb.ModelNo = fromForm.ModelNo;
