@@ -80,5 +80,14 @@ namespace NasgledSys.Validation
          
             return model;
         }
+        public ClientCompany ValidateClient(ClientCompany model)
+        {
+            if (String.IsNullOrEmpty(model.Description))
+                model.Description = "n/a";           
+                model.ProfileKey = GlobalClass.ProfileUser.ProfileKey;
+        
+
+            return model;
+        }
     }
 }

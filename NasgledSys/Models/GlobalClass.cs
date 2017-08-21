@@ -46,7 +46,25 @@ namespace NasgledSys.Models
                 HttpContext.Current.Session[GlobalClass._Company] = value;
             }
         }
-
+        static private string _ClientCompany = "CCompany";
+        public static ClientCompany CCompany
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._ClientCompany] == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (ClientCompany)(HttpContext.Current.Session[GlobalClass._ClientCompany]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._ClientCompany] = value;
+            }
+        }
         static private string _LoginUser = "LoginUser";
         public static StaffList LoginUser
         {
