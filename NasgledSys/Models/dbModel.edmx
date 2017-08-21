@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NasgledDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnnualSalesRevenueSetup">
+          <Key>
+            <PropertyRef Name="PKey" />
+          </Key>
+          <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
         <EntityType Name="Area">
           <Key>
             <PropertyRef Name="AreaKey" />
@@ -625,6 +634,15 @@
           <Property Name="TemplateKey" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FactorName" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="SalesReachSetup">
+          <Key>
+            <PropertyRef Name="PKey" />
+          </Key>
+          <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
         <EntityType Name="StaffList">
           <Key>
             <PropertyRef Name="PersonnelKey" />
@@ -697,20 +715,27 @@
             <PropertyRef Name="ProfileKey" />
           </Key>
           <Property Name="ProfileKey" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="CompanyName" Type="nvarchar(max)" />
           <Property Name="CityKey" Type="int" />
           <Property Name="StateKey" Type="int" />
-          <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobTitle" Type="nvarchar(max)" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
           <Property Name="UserStatus" Type="bit" />
           <Property Name="Photo" Type="image" />
-          <Property Name="FileType" Type="nvarchar" MaxLength="50" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileType" Type="nvarchar(max)" />
+          <Property Name="FileName" Type="nvarchar(max)" />
           <Property Name="RoleKey" Type="uniqueidentifier" />
+          <Property Name="PhoneNo" Type="nvarchar(max)" />
+          <Property Name="PrimaryBusinessType" Type="nvarchar(max)" />
+          <Property Name="HireOutsideAuditor" Type="nvarchar(max)" />
+          <Property Name="AnnualSalesRevenue" Type="nvarchar(max)" />
+          <Property Name="SalesReach" Type="nvarchar(max)" />
+          <Property Name="DirectManufacture" Type="nvarchar(max)" />
+          <Property Name="DirectDistributor" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -1707,6 +1732,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NasgledDBModelStoreContainer">
+          <EntitySet Name="AnnualSalesRevenueSetup" EntityType="Self.AnnualSalesRevenueSetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AreaDetail" EntityType="Self.AreaDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AreaDocument" EntityType="Self.AreaDocument" Schema="dbo" store:Type="Tables" />
@@ -1754,6 +1780,7 @@
           <EntitySet Name="ProposalNote" EntityType="Self.ProposalNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalTemplate" EntityType="Self.ProposalTemplate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReportTemplate" EntityType="Self.ReportTemplate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesReachSetup" EntityType="Self.SalesReachSetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StaffList" EntityType="Self.StaffList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StateList" EntityType="Self.StateList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
@@ -2608,6 +2635,8 @@
             <End Role="UserGroupModule" EntitySet="UserGroupModule" />
           </AssociationSet>
           <EntitySet Name="DefaultEmail" EntityType="NasgledDBModel.DefaultEmail" />
+          <EntitySet Name="AnnualSalesRevenueSetup" EntityType="NasgledDBModel.AnnualSalesRevenueSetup" />
+          <EntitySet Name="SalesReachSetup" EntityType="NasgledDBModel.SalesReachSetup" />
         </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -3283,19 +3312,19 @@
             <PropertyRef Name="ProfileKey" />
           </Key>
           <Property Name="ProfileKey" Type="Guid" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CityKey" Type="Int32" />
           <Property Name="StateKey" Type="Int32" />
-          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UserStatus" Type="Boolean" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="RoleKey" Type="Guid" />
           <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_UserProfile_CityList" FromRole="UserProfile" ToRole="CityList" />
           <NavigationProperty Name="ClientContact" Relationship="NasgledDBModel.FK_ClientContact_ClientContact" FromRole="UserProfile" ToRole="ClientContact" />
@@ -3305,6 +3334,13 @@
           <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_UserProfile_StateList" FromRole="UserProfile" ToRole="StateList" />
           <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_UserProfile" FromRole="UserProfile" ToRole="Team" />
           <NavigationProperty Name="UserRole" Relationship="NasgledDBModel.FK_UserProfile_UserRole" FromRole="UserProfile" ToRole="UserRole" />
+          <Property Name="PhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryBusinessType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HireOutsideAuditor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnnualSalesRevenue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SalesReach" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DirectManufacture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DirectDistributor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -4337,6 +4373,24 @@
           <Property Name="Fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="AnnualSalesRevenueSetup">
+          <Key>
+            <PropertyRef Name="PKey" />
+          </Key>
+          <Property Name="PKey" Type="Guid" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="SalesReachSetup">
+          <Key>
+            <PropertyRef Name="PKey" />
+          </Key>
+          <Property Name="PKey" Type="Guid" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5021,6 +5075,13 @@
           <EntitySetMapping Name="UserProfile">
             <EntityTypeMapping TypeName="NasgledDBModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="DirectDistributor" ColumnName="DirectDistributor" />
+                <ScalarProperty Name="DirectManufacture" ColumnName="DirectManufacture" />
+                <ScalarProperty Name="SalesReach" ColumnName="SalesReach" />
+                <ScalarProperty Name="AnnualSalesRevenue" ColumnName="AnnualSalesRevenue" />
+                <ScalarProperty Name="HireOutsideAuditor" ColumnName="HireOutsideAuditor" />
+                <ScalarProperty Name="PrimaryBusinessType" ColumnName="PrimaryBusinessType" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
                 <ScalarProperty Name="RoleKey" ColumnName="RoleKey" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="FileType" ColumnName="FileType" />
@@ -5125,6 +5186,26 @@
                 <ScalarProperty Name="SenderName" ColumnName="SenderName" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnnualSalesRevenueSetup">
+            <EntityTypeMapping TypeName="NasgledDBModel.AnnualSalesRevenueSetup">
+              <MappingFragment StoreEntitySet="AnnualSalesRevenueSetup">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="PKey" ColumnName="PKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesReachSetup">
+            <EntityTypeMapping TypeName="NasgledDBModel.SalesReachSetup">
+              <MappingFragment StoreEntitySet="SalesReachSetup">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="PKey" ColumnName="PKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

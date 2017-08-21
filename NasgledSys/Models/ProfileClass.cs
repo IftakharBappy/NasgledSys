@@ -27,6 +27,27 @@ namespace NasgledSys.Models
         [Required(ErrorMessage = "Please Enter your Job Title")]
         [Display(Name = "Job Title*..")]
         public string JobTitle { get; set; }
-       
+        [Display(Name = "Phone No*..")]
+        [Required(ErrorMessage = "Please Enter your Phone No")]
+        public string PhoneNo { get; set; }
+
+
+        [Display(Name = "Primary Business Type")]
+        public string PrimaryBusinessType { get; set; }
+
+        [Display(Name = "Does Your Company Hire Outside Auditors?")]
+        public string HireOutsideAuditor { get; set; }
+        [Display(Name = "Annual Sales Revenue")]
+        public string AnnualSalesRevenue { get; set; }
+
+        [Display(Name = "Sales Reach")]
+        public string SalesReach { get; set; }
+        [Display(Name = "Manufaterers With Whom You Have A Direct Relation:")]
+        public string DirectManufacture { get; set; }
+        [Display(Name = "Distributors Through Which You Buy Lighting Products:")]
+        public string DirectDistributor { get; set; }
+
+
+
     }
 }

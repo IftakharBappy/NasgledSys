@@ -62,5 +62,23 @@ namespace NasgledSys.Validation
                 model.ContactPersonNo = "n/a";
             return model;
         }
+
+        public ProfileClass ValidateProfileRegistration(ProfileClass model)
+        {
+            if (String.IsNullOrEmpty(model.PrimaryBusinessType))
+                model.PrimaryBusinessType = "n/a";
+            if (String.IsNullOrEmpty(model.HireOutsideAuditor))
+                model.HireOutsideAuditor = "No";
+            if (String.IsNullOrEmpty(model.AnnualSalesRevenue))
+                model.AnnualSalesRevenue = "n/a";
+            if (String.IsNullOrEmpty(model.SalesReach))
+                model.SalesReach = "Local";
+            if (String.IsNullOrEmpty(model.DirectManufacture))
+                model.DirectManufacture = "n/a";
+            if (String.IsNullOrEmpty(model.DirectDistributor))
+                model.DirectDistributor = "n/a";
+         
+            return model;
+        }
     }
 }

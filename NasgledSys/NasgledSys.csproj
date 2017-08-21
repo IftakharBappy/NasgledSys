@@ -265,6 +265,9 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdvancedSearchViewModel.cs" />
+    <Compile Include="Models\AnnualSalesRevenueSetup.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AppRoles.cs" />
     <Compile Include="Models\Area.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -443,6 +446,9 @@
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReportTemplate.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesReachSetup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StaffList.cs">

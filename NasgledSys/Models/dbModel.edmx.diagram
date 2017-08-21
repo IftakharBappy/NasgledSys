@@ -142,6 +142,8 @@
         <AssociationConnector Association="NasgledDBModel.FK_UserGroupForm_Usergroup" />
         <AssociationConnector Association="NasgledDBModel.FK_UserGroupModule_Usergroup" />
         <EntityTypeShape EntityType="NasgledDBModel.DefaultEmail" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="NasgledDBModel.AnnualSalesRevenueSetup" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="NasgledDBModel.SalesReachSetup" Width="1.5" PointX="2.75" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

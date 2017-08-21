@@ -39,6 +39,13 @@ namespace NasgledSys.Models
         public string FileType { get; set; }
         public string FileName { get; set; }
         public Nullable<System.Guid> RoleKey { get; set; }
+        public string PhoneNo { get; set; }
+        public string PrimaryBusinessType { get; set; }
+        public string HireOutsideAuditor { get; set; }
+        public string AnnualSalesRevenue { get; set; }
+        public string SalesReach { get; set; }
+        public string DirectManufacture { get; set; }
+        public string DirectDistributor { get; set; }
     
         public virtual CityList CityList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
