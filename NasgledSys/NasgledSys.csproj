@@ -3726,10 +3726,10 @@
     <Content Include="Views\MgtClientCompany\Create.cshtml" />
     <Content Include="Views\MgtAnnualSalesRevenueSetup\Index.cshtml" />
     <Content Include="Views\MgtSalesReachSetup\Index.cshtml" />
+    <Content Include="Views\MgtProfile\UpdateUserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AnnualSalesRevenueSetup\" />
     <Folder Include="Views\DropdownUtility\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />

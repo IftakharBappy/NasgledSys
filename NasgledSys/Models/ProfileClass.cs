@@ -24,6 +24,13 @@ namespace NasgledSys.Models
         [Required(ErrorMessage = "Please Select Location")]
         [Display(Name = "Location*..")]
         public Nullable<int> CityKey { get; set; }
+
+        [Display(Name = "Primary Role*..")]
+        public string PrimaryRole { get; set; }
+        [Required(ErrorMessage = "Please Select Primary Role")]
+        [Display(Name = "Primary Role*..")]
+        public Nullable<int> RoleKey { get; set; }
+
         [Required(ErrorMessage = "Please Enter your Job Title")]
         [Display(Name = "Job Title*..")]
         public string JobTitle { get; set; }
@@ -31,6 +38,9 @@ namespace NasgledSys.Models
         [Required(ErrorMessage = "Please Enter your Phone No")]
         public string PhoneNo { get; set; }
 
+        [Display(Name = "Email Add*..")]
+        [Required(ErrorMessage = "Please Enter your Email Address")]
+        public string Email { get; set; }
 
         [Display(Name = "Primary Business Type")]
         public string PrimaryBusinessType { get; set; }
@@ -46,7 +56,8 @@ namespace NasgledSys.Models
         public string DirectManufacture { get; set; }
         [Display(Name = "Distributors Through Which You Buy Lighting Products:")]
         public string DirectDistributor { get; set; }
-
+        [Display(Name = "Photo:")]
+        public byte[] Photo { get; set; }
 
 
     }
