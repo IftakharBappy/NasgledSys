@@ -29,7 +29,7 @@
             return true;
         }
         $(document).ready(function (e) {
-            $("#CatelogueKey").select2();
+           // $("#CatelogueKey").select2();
             $("#ManufacturerKey").select2();
             $("#ItemTypeKey").select2();
             $("#CategoryKey").select2();
@@ -155,6 +155,12 @@
                         <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
                     </div>
                     <div class="form-group">
+                        @Html.LabelFor(model => model.TypeCount, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.TypeCount, new { placeholder = "Type Count", @onkeypress = "return isNumberKey(event)", type = "number", id = "TypeCount", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TypeCount, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
                         @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label" })
                         @Html.DropDownList("CategoryKey", null, string.Empty, new { @required = "required", id = "CategoryKey", @class = "select select-search" })
                         @Html.ValidationMessageFor(model => model.CategoryKey, "", new { @class = "text-danger" })
@@ -164,11 +170,11 @@
                         @Html.DropDownList("SubcategoryKey", null, string.Empty, new { id = "SubcategoryKey", @class = "select select-search" })
                         @Html.ValidationMessageFor(model => model.SubcategoryKey, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group">
+                    @*<div class="form-group">
                         @Html.LabelFor(model => model.Catelogue, htmlAttributes: new { @class = "control-label" })
                         @Html.DropDownList("CatelogueKey", null, string.Empty, new { @required = "required", id = "CatelogueKey", @class = "select select-search" })
                         @Html.ValidationMessageFor(model => model.CatelogueKey, "", new { @class = "text-danger" })
-                    </div>
+                    </div>*@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label" })
                         @Html.DropDownList("ItemTypeKey", null, string.Empty, new { @required = "required", id = "ItemTypeKey", @class = "select select-search" })

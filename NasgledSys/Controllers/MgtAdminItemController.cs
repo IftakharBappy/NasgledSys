@@ -27,7 +27,7 @@ namespace NasgledSys.Controllers
                 ViewBag.ItemTypeKey = new SelectList(db.ItemType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.CategoryKey = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.SubcategoryKey = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
-                ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
+              //  ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.ManufacturerKey = new SelectList(db.Manufacturer.Where(m => m.IsDelete == false).OrderBy(m => m.ManufacturerName), "PKey", "ManufacturerName");
                 return View();
             }
@@ -77,7 +77,7 @@ namespace NasgledSys.Controllers
                 ViewBag.ItemTypeKey = new SelectList(db.ItemType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName",model.ItemTypeKey);
                 ViewBag.CategoryKey = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName",model.CategoryKey);
                 ViewBag.SubcategoryKey = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName",model.SubcategoryKey);
-                ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName",model.CatelogueKey);
+               // ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName",model.CatelogueKey);
                 ViewBag.ManufacturerKey = new SelectList(db.Manufacturer.Where(m => m.IsDelete == false).OrderBy(m => m.ManufacturerName), "PKey", "ManufacturerName",model.ManufacturerKey);
                 return View(model);
             }
@@ -96,7 +96,7 @@ namespace NasgledSys.Controllers
                 ViewBag.ItemTypeKey = new SelectList(db.ItemType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.ItemTypeKey);
                 ViewBag.CategoryKey = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.CategoryKey);
                 ViewBag.SubcategoryKey = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.SubcategoryKey);
-                ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.CatelogueKey);
+               // ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.CatelogueKey);
                 ViewBag.ManufacturerKey = new SelectList(db.Manufacturer.Where(m => m.IsDelete == false).OrderBy(m => m.ManufacturerName), "PKey", "ManufacturerName", model.ManufacturerKey);
                 return View(model);
             }
@@ -158,7 +158,7 @@ namespace NasgledSys.Controllers
                 ViewBag.ItemTypeKey = new SelectList(db.ItemType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.ItemTypeKey);
                 ViewBag.CategoryKey = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.CategoryKey);
                 ViewBag.SubcategoryKey = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.SubcategoryKey);
-                ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.CatelogueKey);
+              //  ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", model.CatelogueKey);
                 ViewBag.ManufacturerKey = new SelectList(db.Manufacturer.Where(m => m.IsDelete == false).OrderBy(m => m.ManufacturerName), "PKey", "ManufacturerName", model.ManufacturerKey);
                 return View(model);
             }
@@ -179,7 +179,7 @@ namespace NasgledSys.Controllers
                 ViewBag.ItemTypeKey = new SelectList(db.ItemType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.CategoryKey = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.SubcategoryKey = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
-                ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
+               // ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.ManufacturerKey = new SelectList(db.Manufacturer.Where(m => m.IsDelete == false).OrderBy(m => m.ManufacturerName), "PKey", "ManufacturerName");
                 return View(model);
             }
@@ -214,15 +214,15 @@ namespace NasgledSys.Controllers
                     model.ItemList = model.ItemList.Where(m => m.CategoryKey == model.CategoryKey).ToList();
                     mess = mess + ". Filtered by " + db.ItemCategory.Find(model.CategoryKey).TypeName;
                 }
-                if (model.CatelogueKey != null)
-                {
-                    model.ItemList = model.ItemList.Where(m => m.CatelogueKey == model.CatelogueKey).ToList();
-                    mess = mess + ". Filtered by " + db.ItemCatelogue.Find(model.CatelogueKey).TypeName;
-                }
+                //if (model.CatelogueKey != null)
+                //{
+                //    model.ItemList = model.ItemList.Where(m => m.CatelogueKey == model.CatelogueKey).ToList();
+                //    mess = mess + ". Filtered by " + db.ItemCatelogue.Find(model.CatelogueKey).TypeName;
+                //}
                 ViewBag.ItemTypeKey = new SelectList(db.ItemType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.CategoryKey = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.SubcategoryKey = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
-                ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
+               // ViewBag.CatelogueKey = new SelectList(db.ItemCatelogue.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.ManufacturerKey = new SelectList(db.Manufacturer.Where(m => m.IsDelete == false).OrderBy(m => m.ManufacturerName), "PKey", "ManufacturerName");
                 ViewBag.mess = mess;
                 return View(model);
@@ -251,7 +251,7 @@ namespace NasgledSys.Controllers
                 ItemTypeKey = asset.ItemTypeKey,
                 CategoryKey = asset.CategoryKey,
                 SubcategoryKey = asset.SubcategoryKey,
-                CatelogueKey = asset.CatelogueKey,
+                TypeCount = asset.TypeCount,
                 ManufacturerKey = asset.ManufacturerKey,
                 ProductName = asset.ProductName,
                 ModelNo = asset.ModelNo,
@@ -269,7 +269,7 @@ namespace NasgledSys.Controllers
                 Location = asset.Location,
                 MountingBase = asset.MountingBase,
                 Category = asset.ItemCategory.TypeName,
-                Catelogue = asset.ItemCatelogue.TypeName,
+               // Catelogue = asset.ItemCatelogue.TypeName,
                 Subcategory = asset.SubcategoryKey == null ? " " : asset.ItemSubcategory.TypeName,
                 Type = asset.ItemType.TypeName,
                 Manufacturer = asset.Manufacturer.ManufacturerName
@@ -296,7 +296,7 @@ namespace NasgledSys.Controllers
                 ItemTypeKey = asset.ItemTypeKey,
                 CategoryKey = asset.CategoryKey,
                 SubcategoryKey = asset.SubcategoryKey,
-                CatelogueKey = asset.CatelogueKey,
+                TypeCount = asset.TypeCount,
                 ManufacturerKey = asset.ManufacturerKey,
                 ProductName = asset.ProductName,
                 ModelNo = asset.ModelNo,
@@ -313,7 +313,7 @@ namespace NasgledSys.Controllers
                 Location = asset.Location,
                 MountingBase = asset.MountingBase,
                 Category = asset.ItemCategory.TypeName,
-                Catelogue = asset.ItemCatelogue.TypeName,
+               // Catelogue = asset.ItemCatelogue.TypeName,
                 Subcategory = asset.SubcategoryKey==null?" ":asset.ItemSubcategory.TypeName,
                 Type = asset.ItemType.TypeName,
                 Manufacturer = asset.Manufacturer.ManufacturerName

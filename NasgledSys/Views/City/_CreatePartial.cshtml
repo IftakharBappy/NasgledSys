@@ -8,6 +8,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#StateCode").select2();
+        $('#msgSuccess').hide();
     })
 </script>
 
@@ -33,19 +34,17 @@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label" })
-                      
-                        @*@Html.EditorFor(model => model.StateCode, new { htmlAttributes = new { @required = "required", @class = "form-control" } })*@
-                            @*@Html.DropDownList("StateCode", null, string.Empty, new { @required = "required", id = "StateCode", @class = "form-control" })*@
+                        
                         @Html.DropDownList("StateCode", null, string.Empty, new { @required = "required", id = "StateCode", @class = "select select-search" })
                           
                             @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
                        
                     </div>
 
-                    
-
-
                 </div>
+
+                <div class="form-group" id="msgSuccess"><h4 class="alert alert-success">Data is successfully Saved on database.</h4></div>
+
             </div>
             <div class="modal-footer">
                 <div class="form-group">

@@ -17,7 +17,6 @@ namespace NasgledSys.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ItemCatelogue()
         {
-            this.MainProduct = new HashSet<MainProduct>();
             this.ProfileProduct = new HashSet<ProfileProduct>();
         }
     
@@ -26,8 +25,6 @@ namespace NasgledSys.Models
         public string Description { get; set; }
         public Nullable<bool> IsDelete { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MainProduct> MainProduct { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfileProduct> ProfileProduct { get; set; }
     }

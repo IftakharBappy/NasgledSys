@@ -43,7 +43,6 @@
         <EntityTypeShape EntityType="NasgledDBModel.ItemType" Width="1.5" PointX="17.125" PointY="26.75" />
         <EntityTypeShape EntityType="NasgledDBModel.JobFunction" Width="1.5" PointX="19.375" PointY="22.875" />
         <EntityTypeShape EntityType="NasgledDBModel.LightingSatisfactionFactor" Width="1.5" PointX="29.125" PointY="32.625" />
-        <EntityTypeShape EntityType="NasgledDBModel.MainProduct" Width="1.5" PointX="22.375" PointY="22.125" />
         <EntityTypeShape EntityType="NasgledDBModel.Manufacturer" Width="1.5" PointX="17.125" PointY="23.875" />
         <EntityTypeShape EntityType="NasgledDBModel.NewRateSchedule" Width="1.5" PointX="18.625" PointY="43.625" />
         <EntityTypeShape EntityType="NasgledDBModel.OperatingSchedule" Width="1.5" PointX="18.625" PointY="47.125" />
@@ -103,16 +102,11 @@
         <AssociationConnector Association="NasgledDBModel.FK_HeatingSystem_HeatingEfficiencyType" />
         <AssociationConnector Association="NasgledDBModel.FK_HeatingSystem_HeatingSystemType" />
         <AssociationConnector Association="NasgledDBModel.FK_HeatingSystem_Project" />
-        <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemCategory" />
         <AssociationConnector Association="NasgledDBModel.FK_ProfileProduct_ItemCategory" />
-        <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemCatelogue" />
         <AssociationConnector Association="NasgledDBModel.FK_ProfileProduct_ItemCatelogue" />
-        <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemSubcategory" />
         <AssociationConnector Association="NasgledDBModel.FK_ProfileProduct_ItemSubcategory" />
-        <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemType" />
         <AssociationConnector Association="NasgledDBModel.FK_ProfileProduct_ItemType" />
         <AssociationConnector Association="NasgledDBModel.FK_Team_JobFunction" />
-        <AssociationConnector Association="NasgledDBModel.FK_MainProduct_Manufacturer" />
         <AssociationConnector Association="NasgledDBModel.FK_ProfileProduct_Manufacturer" />
         <AssociationConnector Association="NasgledDBModel.FK_NewRateSchedule_Project" />
         <AssociationConnector Association="NasgledDBModel.FK_OperatingSchedule_Project" />
@@ -144,6 +138,11 @@
         <EntityTypeShape EntityType="NasgledDBModel.DefaultEmail" Width="1.5" PointX="7.375" PointY="8.75" />
         <EntityTypeShape EntityType="NasgledDBModel.AnnualSalesRevenueSetup" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="NasgledDBModel.SalesReachSetup" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="NasgledDBModel.MainProduct" Width="1.5" PointX="22.375" PointY="22.875" />
+        <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemCategory" />
+        <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemSubcategory" />
+        <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemType" />
+        <AssociationConnector Association="NasgledDBModel.FK_MainProduct_Manufacturer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
