@@ -236,6 +236,7 @@
     <Compile Include="Controllers\MgtProjectController.cs" />
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
+    <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="DAL\MgtLightingSatisfactionFactor.cs" />
     <Compile Include="DAL\MgtManufacturer.cs" />
     <Compile Include="DAL\MgtProjectStatus.cs" />
+    <Compile Include="DAL\MgtSalesReachSetup.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
@@ -456,6 +458,7 @@
     <Compile Include="Models\SalesReachSetup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalesReachSetupViewModel.cs" />
     <Compile Include="Models\StaffList.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3147,6 +3150,7 @@
     <Content Include="Scripts\AutoComplete\scJobFunction.js" />
     <Content Include="Scripts\AutoComplete\scLightingSatisfactionFactor.js" />
     <Content Include="Scripts\AutoComplete\scProjectStatus.js" />
+    <Content Include="Scripts\AutoComplete\scSalesReachSetup.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
     <Content Include="Scripts\AutoComplete\scManufacturer.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -3721,6 +3725,7 @@
     <Content Include="Views\MgtClientCompany\Index.cshtml" />
     <Content Include="Views\MgtClientCompany\Create.cshtml" />
     <Content Include="Views\MgtAnnualSalesRevenueSetup\Index.cshtml" />
+    <Content Include="Views\MgtSalesReachSetup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

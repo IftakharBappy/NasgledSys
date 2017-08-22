@@ -237,6 +237,18 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+        public ActionResult LoadSalesReachSetupData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            SalesReachSetupViewModel obj = new SalesReachSetupViewModel();
+            SalesReachSetup m = db.SalesReachSetup.Find(SelectID);
+            obj.PKey = m.PKey;
+            obj.TypeName = m.TypeName;
+            obj.Description = m.Description;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
 
         public ActionResult CheckUsernameCreate(string user)
         {
