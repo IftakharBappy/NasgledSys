@@ -18,7 +18,6 @@ namespace NasgledSys.Models
         public Nullable<System.Guid> ItemTypeKey { get; set; }
         public Nullable<System.Guid> CategoryKey { get; set; }
         public Nullable<System.Guid> SubcategoryKey { get; set; }
-        public Nullable<System.Guid> CatelogueKey { get; set; }
         public Nullable<System.Guid> ManufacturerKey { get; set; }
         public string ProductName { get; set; }
         public string ModelNo { get; set; }
@@ -38,9 +37,9 @@ namespace NasgledSys.Models
         public string FileType { get; set; }
         public string FileName { get; set; }
         public Nullable<decimal> LampLife { get; set; }
+        public Nullable<int> TypeCount { get; set; }
     
         public virtual ItemCategory ItemCategory { get; set; }
-        public virtual ItemCatelogue ItemCatelogue { get; set; }
         public virtual ItemSubcategory ItemSubcategory { get; set; }
         public virtual ItemType ItemType { get; set; }
         public virtual Manufacturer Manufacturer { get; set; }

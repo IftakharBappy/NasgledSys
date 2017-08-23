@@ -60,7 +60,6 @@ namespace NasgledSys.Models
         public virtual DbSet<ItemType> ItemType { get; set; }
         public virtual DbSet<JobFunction> JobFunction { get; set; }
         public virtual DbSet<LightingSatisfactionFactor> LightingSatisfactionFactor { get; set; }
-        public virtual DbSet<MainProduct> MainProduct { get; set; }
         public virtual DbSet<Manufacturer> Manufacturer { get; set; }
         public virtual DbSet<NewRateSchedule> NewRateSchedule { get; set; }
         public virtual DbSet<OperatingSchedule> OperatingSchedule { get; set; }
@@ -83,5 +82,6 @@ namespace NasgledSys.Models
         public virtual DbSet<DefaultEmail> DefaultEmail { get; set; }
         public virtual DbSet<AnnualSalesRevenueSetup> AnnualSalesRevenueSetup { get; set; }
         public virtual DbSet<SalesReachSetup> SalesReachSetup { get; set; }
+        public virtual DbSet<MainProduct> MainProduct { get; set; }
     }
 }

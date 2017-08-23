@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -101,6 +103,84 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
             }
         }
+        public ActionResult UpdateUserProfile()
+        {
+            UserProfile userProfile = db.UserProfile.Find(GlobalClass.ProfileUser.ProfileKey);
+            ProfileClass model = new ProfileClass();
+            model.ProfileKey = userProfile.ProfileKey;
+            model.FirstName = userProfile.FirstName;
+            model.LastName = userProfile.LastName;
+            model.Email = userProfile.Email;
+            model.CompanyName = userProfile.CompanyName;
+            model.Photo = userProfile.Photo;
+            model.JobTitle = userProfile.JobTitle;
+            model.PhoneNo = userProfile.PhoneNo;
+            model.PrimaryBusinessType = userProfile.PrimaryBusinessType;
+            model.HireOutsideAuditor = userProfile.HireOutsideAuditor;
+            model.AnnualSalesRevenue = userProfile.AnnualSalesRevenue;
+            model.SalesReach = userProfile.SalesReach;
+            model.DirectManufacture = userProfile.DirectManufacture;
+            model.DirectDistributor = userProfile.DirectDistributor;
+            
+            ViewBag.RoleKeys = new SelectList(db.UserRole, "RoleKey", "RoleName", userProfile.RoleKey);
+
+            List<SelectListItem> CityKeys = new List<SelectListItem>();
+            var cityList = (from city in db.CityList
+                            join state in db.StateList on city.StateCode equals state.PKey
+                            select new {
+                                Text = city.CityName+","+state.StateName,
+                                Value = city.CityKey.ToString(),
+                            }
+                            ).ToList();
+            ViewBag.CityKeys = new SelectList(cityList, "Value", "Text", userProfile.CityKey);
+
+            ViewBag.AnnualSalesRevenues = new SelectList(db.AnnualSalesRevenueSetup, "TypeName", "TypeName", userProfile.AnnualSalesRevenue);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateUserProfile(FormCollection form, HttpPostedFileBase Photo)
+        {
+            
+            string _email = form["Email"];
+            if (_email != "")
+            {
+                EmailAddressAttribute e = new EmailAddressAttribute();
+                if (! e.IsValid(_email))
+                {
+                    TempData["mess"] = "Email address has an invalid format. User Profile is not updated.";
+                    return RedirectToAction("UpdateUserProfile");
+                }
+            }
+
+            UserProfile userProfile = db.UserProfile.Find(GlobalClass.ProfileUser.ProfileKey);
+            if (userProfile == null)
+            {
+                userProfile = new UserProfile();
+            }
+            userProfile.FirstName = form["FirstName"];
+            userProfile.LastName = form["LastName"];
+            userProfile.Email = form["Email"];
+            userProfile.CompanyName = form["CompanyName"];
+            userProfile.RoleKey = Guid.Parse(form["RoleKey"]);
+            userProfile.CityKey = Convert.ToInt32(form["CityKey"]);
+            userProfile.AnnualSalesRevenue = form["AnnualSalesRevenue"];
+            userProfile.JobTitle = form["JobTitle"];
+            
+            
+            if (Photo != null && Photo.ContentLength > 0)
+            {
+                byte[] imgBinaryData = new byte[Photo.ContentLength];
+                int readresult = Photo.InputStream.Read(imgBinaryData, 0, Photo.ContentLength);
+                userProfile.Photo = imgBinaryData;
+            }
+            db.UserProfile.Attach(userProfile);
+            db.Entry(userProfile).State = EntityState.Modified;
+            db.SaveChanges();
+            TempData["mess"] = "User Profile is successfully updated.";
+            return RedirectToAction("UpdateUserProfile");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

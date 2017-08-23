@@ -74,6 +74,9 @@ namespace NasgledSys.Models
         [Display(Name = "Manufacturer*")]
       
         public string Manufacturer { get; set; }
+        [Display(Name = "Type Count*")]
+        [Required(ErrorMessage = "Please enter the Type Count")]
+        public int? TypeCount { get; set; }
 
         public List<ItemViewModel> ItemList { get; set; }
     }
