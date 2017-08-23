@@ -5174,9 +5174,12 @@ ul.dropdown-menu .dropdown-content-heading:first-child {
 *
 * ---------------------------------------------------------------------------- */
 .thumbnail {
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  height:350px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    height: 250px;
+    position: relative;
+    padding: 0px;
+    margin-bottom: 10px;
 }
 .thumbnail > a {
   display: block;
@@ -5193,6 +5196,7 @@ a.thumbnail.active {
 .thumbnail .caption {
   padding: 17px;
   padding-top: 20px;
+  font-weight:bold;
 }
 .thumbnail .caption i.pull-right,
 .thumbnail .caption .icons-list.pull-right {

@@ -211,6 +211,7 @@
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\MgtAdminItemController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
+    <Compile Include="Controllers\MgtClientContactController.cs" />
     <Compile Include="Controllers\MgtHeatingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\ManageMainProduct.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
+    <Compile Include="DAL\MgtClientContact.cs" />
     <Compile Include="DAL\MgtCoolingEfficiencyType.cs" />
     <Compile Include="DAL\MgtCoolingSystemType.cs" />
     <Compile Include="DAL\MgtFuelType.cs" />
@@ -311,6 +313,7 @@
     <Compile Include="Models\ClientContact.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClientContactClass.cs" />
     <Compile Include="Models\Company.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3127,6 +3130,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AngularController\jsInstituteController.js" />
+    <Content Include="Scripts\AutoComplete\scClientContact.js" />
     <Content Include="Scripts\AutoComplete\scHeatingEfficiencyType.js" />
     <Content Include="Scripts\AutoComplete\scCity.js" />
     <Content Include="Scripts\AutoComplete\scCoolingEfficiencyType.js" />
@@ -3716,6 +3720,10 @@
     <Content Include="Views\MgtProject\Index.cshtml" />
     <Content Include="Views\MgtClientCompany\Index.cshtml" />
     <Content Include="Views\MgtClientCompany\Create.cshtml" />
+    <Content Include="Views\MgtClientContact\Index.cshtml" />
+    <Content Include="Views\MgtClientContact\Create.cshtml" />
+    <Content Include="Views\MgtClientContact\Details.cshtml" />
+    <Content Include="Views\MgtClientContact\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

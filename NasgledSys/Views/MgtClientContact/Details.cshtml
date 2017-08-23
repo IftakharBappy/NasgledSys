@@ -1,0 +1,180 @@
+﻿@model NasgledSys.Models.ClientContact
+@{
+    ViewBag.Title = "Details Contact";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<script type="text/javascript" src="~/Content/assets/js/pages/datatables_advanced.js"></script>
+
+
+@using (Html.BeginForm("Details", "MgtClientContact", FormMethod.Get, new { @class = "details" }))
+{
+    <div class="col-lg-6">
+
+
+        <div class="panel-body">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills" id="myTab">
+                        <li class="active">
+                            <a href="#first" data-toggle="tab">Profile</a>
+                        </li>
+                        <li>
+                            <a href="#second" data-toggle="tab">Contact</a>
+                        </li>
+                        <li>
+                            <a href="#third" data-toggle="tab">Address</a>
+                        </li>
+                        <li>
+                            <a href="#fourth" data-toggle="tab">Notes</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content">
+
+                <div class="tab-pane fade in active" id="first">
+                    <div class="panel panel-default ">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstName, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LastName, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.JobTitle, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.JobTitle, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.WebAddress, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.WebAddress, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="second">
+                    <div class="panel panel-default ">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Email, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.OfficePhone, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.OfficePhone, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CellPhone, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.CellPhone, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FaxPhone, new { @class = "col-sm-4 control-label" })
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.FaxPhone, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        </div>
+                                    </div>
+                                    <a href="#first" data-toggle="pill">Back</a>
+                                    </div>
+                                    
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="third">
+                    <div class="panel panel-default ">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Address, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Address2, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CityKey, "City", new { @class = "col-sm-1 control-label" })
+                                    <div class="col-md-3">
+                                       @Html.DropDownList("CityKey", null, new { @required = "required", id = "CityKey", @class = "form-control", @disabled = "disabled" })
+                                    </div>
+                                    @Html.LabelFor(model => model.StateKey, "State", new { @class = "col-sm-1 control-label" })
+                                    <div class="col-md-3">
+                                        
+                                        @Html.DropDownList("StateKey",null, new { @required = "required", id = "StateKey", @class = "form-control", @disabled = "disabled" })
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Zipcode, new { @class = "col-sm-2 control-label" })
+                                    <div class="col-md-3">
+                                        @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    </div>
+                                </div>
+
+                                <a href="#secound" data-toggle="pill">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="fourth">
+                    <div class="panel panel-default ">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.InternalNote, new { @class = "col-sm-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.InternalNote, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.GeneralNote, new { @class = "col-sm-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.GeneralNote, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    </div>
+                                </div>
+                                <a href="#third" data-toggle="pill">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-footer">
+                <button type="button" class="btn btn-primary" data-toggle="" data-target="" onclick="location.href='@Url.Action("Index","MgtClientContact")'">Back To The List</button>
+            </div>
+        </div>
+    </div>
+}
+
