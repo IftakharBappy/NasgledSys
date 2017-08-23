@@ -29,7 +29,7 @@ namespace NasgledSys.Models
         public string PrimaryRole { get; set; }
         [Required(ErrorMessage = "Please Select Primary Role")]
         [Display(Name = "Primary Role*..")]
-        public Nullable<int> RoleKey { get; set; }
+        public Nullable<Guid> RoleKey { get; set; }
 
         [Required(ErrorMessage = "Please Enter your Job Title")]
         [Display(Name = "Job Title*..")]

@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -140,6 +141,18 @@ namespace NasgledSys.Controllers
         [HttpPost]
         public ActionResult UpdateUserProfile(FormCollection form, HttpPostedFileBase Photo)
         {
+            
+            string _email = form["Email"];
+            if (_email != "")
+            {
+                EmailAddressAttribute e = new EmailAddressAttribute();
+                if (! e.IsValid(_email))
+                {
+                    TempData["mess"] = "Email address has an invalid format. User Profile is not updated.";
+                    return RedirectToAction("UpdateUserProfile");
+                }
+            }
+
             UserProfile userProfile = db.UserProfile.Find(GlobalClass.ProfileUser.ProfileKey);
             if (userProfile == null)
             {
@@ -153,9 +166,9 @@ namespace NasgledSys.Controllers
             userProfile.CityKey = Convert.ToInt32(form["CityKey"]);
             userProfile.AnnualSalesRevenue = form["AnnualSalesRevenue"];
             userProfile.JobTitle = form["JobTitle"];
-
-            string keepImage = form["keepImage"];
-            if (keepImage == null && Photo != null && Photo.ContentLength > 0)
+            
+            
+            if (Photo != null && Photo.ContentLength > 0)
             {
                 byte[] imgBinaryData = new byte[Photo.ContentLength];
                 int readresult = Photo.InputStream.Read(imgBinaryData, 0, Photo.ContentLength);
