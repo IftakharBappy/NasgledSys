@@ -6,6 +6,7 @@
 
 @using (Html.BeginForm("Edit", "MgtClientContact", FormMethod.Post))
 {
+    @Html.HiddenFor(model => model.ContactKey, new { id= "ContactKey" })
     <div class="col-lg-6">
 
 

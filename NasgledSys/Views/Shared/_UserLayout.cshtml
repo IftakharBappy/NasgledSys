@@ -58,21 +58,28 @@
             <ul class="nav navbar-nav navbar-right">
 
 
-                <li class="dropdown dropdown-user">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
+               
 
-                        
-                        <span>@Html.DisplayFor(m => GlobalClass.ProfileUser.FirstName)</span>
-                      
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="@Url.Action("MyProfile","MgtUserProfile")"><i class="icon-user"></i> My profile</a></li>
+                <li class="dropdown mega-menu mega-menu-wide">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user-lock"></i><span>@Html.DisplayFor(m => GlobalClass.ProfileUser.FirstName)</span></a>
+                    <div class="dropdown-menu dropdown-content">
+                        <div class="dropdown-content-body">
+                            <div class="row">
+                                
+                                    <span class="menu-heading underlined">Settings</span>
+                                <div class="col-md-3"><a href="@Url.Action("UpdateUserProfile","MgtProfile")"><i class="icon-user"></i> My profile</a></div>
+                                <div class="col-md-3"><a href="@Url.Action("Index","MgtClientContact")"><i class="icon-users"></i>Contacts</a></div>
+                                <div class="col-md-3"><a href="@Url.Action("Index","MgtClientCompany")"><i class="icon-meter-fast"></i>Company</a></div>
+                               
+                                </div>
+                            <div class="row divider"></div>
+                            <div class="row">
 
-
-                        <li class="divider"></li>
-
-                        <li><a href="@Url.Action("UserLogin","Home")"><i class="icon-switch2"></i> Logout</a></li>
-                    </ul>
+                                <div class="col-md-3"><a href="@Url.Action("UserLogin","Home")"><i class="icon-switch2"></i> Logout</a></div>
+                            
+                            </div>
+                            </div>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -118,7 +125,7 @@
         <div class="page-content">
             <!-- Main content -->
             <div class="content-wrapper">
-                <div class="CenterPanel">@RenderBody()</div>
+               @RenderBody()
               
               
             </div>

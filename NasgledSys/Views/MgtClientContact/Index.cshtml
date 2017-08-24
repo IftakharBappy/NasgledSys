@@ -22,9 +22,24 @@
 @section CenterTitle{
     Profile
 }
-@using (Html.BeginForm("Index", "MgtClientContact", FormMethod.Post, new { @class = "form-horizontal" }))
-{
-            <div class="panel panel-primary col-lg-8">
+<div class="row">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+    @using (Html.BeginForm("Index", "MgtClientContact", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        
+        <div class="panel panel-primary col-md-8">
+            <div class="panel-body">
+                <h4>
+                    <span class="heading-text pull-left">
+                        <i class="icon-download10 position-left"></i>
+                        <span class="position-left"><a href="@Url.Action("Index","MgtClientContact")">Contact > </a></span>
+
+                    </span>
+
+                </h4>
+                </div>
                 <div class="panel-heading">
                     <h3>Contact Setup</h3>
                 </div>
@@ -55,5 +70,8 @@
 
             </div>
 
-}
-
+    }
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+</div>

@@ -15,7 +15,7 @@ namespace NasgledSys.DAL
         {
             List<ClientContactClass> obj = new List<ClientContactClass>();
             var temp = (from x in db.ClientContact
-                        where x.IsActive == true
+                        where x.IsActive == true && x.ProfileKey==GlobalClass.ProfileUser.ProfileKey
                         select new ClientContactClass
                         {
                             ContactKey = x.ContactKey,

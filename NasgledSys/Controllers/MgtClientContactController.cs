@@ -35,65 +35,118 @@ namespace NasgledSys.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName");
-            ViewBag.StateKey = new SelectList(db.StateList.OrderBy(m => m.StateName), "Pkey", "StateName");
-            ViewBag.ProfileKey = new SelectList(db.UserProfile.OrderBy(m => m.Email), "ProfileKey");
-            return View();
+            try
+            {
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName");
+                ViewBag.StateKey = new SelectList(db.StateList.OrderBy(m => m.StateName), "Pkey", "StateName");
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View("Error", new HandleErrorInfo(e, "MgtClientContact", "Index"));
+            }
         }
 
         [HttpPost]
         public JsonResult Create(ClientContactClass ClientContact)
         {
-            return Json(manage.Create(ClientContact), JsonRequestBehavior.AllowGet);
+            
+                return Json(manage.Create(ClientContact), JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult Details(Guid? ContactKey)
         {
-            if (ContactKey == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (ContactKey == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ClientContact ClientContact = db.ClientContact.Find(ContactKey);
+                if (ClientContact == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false && m.CityKey == ClientContact.CityKey).OrderBy(m => m.CityName), "CityKey", "CityName");
+                ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false && m.PKey == ClientContact.StateKey).OrderBy(m => m.StateName), "Pkey", "StateName");
+
+                return View(ClientContact);
             }
-            ClientContact ClientContact = db.ClientContact.Find(ContactKey);
-            if (ClientContact == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                return View("Error", new HandleErrorInfo(e, "MgtClientContact", "Index"));
             }
-            ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false && m.CityKey == ClientContact.CityKey).OrderBy(m => m.CityName), "CityKey", "CityName");
-            ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false && m.PKey == ClientContact.StateKey).OrderBy(m => m.StateName), "Pkey", "StateName");
-            ViewBag.ProfileKey = new SelectList(db.UserProfile.OrderBy(m => m.Email), "ProfileKey");
-            return View(ClientContact);
         }
         public ActionResult Edit(Guid? ContactKey)
         {
-            if (ContactKey == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (ContactKey == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ClientContact ClientContact = db.ClientContact.Find(ContactKey);
+                if (ClientContact == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName", ClientContact.CityKey);
+                ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "Pkey", "StateName", ClientContact.StateKey);
+                return View(ClientContact);
             }
-            ClientContact ClientContact = db.ClientContact.Find(ContactKey);
-            if (ClientContact == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                return View("Error", new HandleErrorInfo(e, "MgtClientContact", "Index"));
             }
-            ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false && m.CityKey == ClientContact.CityKey).OrderBy(m => m.CityName), "CityKey", "CityName");
-            ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false && m.PKey == ClientContact.StateKey).OrderBy(m => m.StateName), "Pkey", "StateName");
-            ViewBag.ProfileKey = new SelectList(db.UserProfile.OrderBy(m => m.Email), "ProfileKey");
-            return View(ClientContact);
         }
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit(ClientContact ClientContact)
+        public ActionResult Edit(ClientContact obj)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(ClientContact).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", new { id = ClientContact.ContactKey });
+                if (ModelState.IsValid)
+                {
+                    ClientContact model = db.ClientContact.Find(obj.ContactKey);
+                    model.FirstName = obj.FirstName;
+                    model.LastName = obj.LastName;
+                    model.Email = obj.Email;
+                    model.WebAddress = obj.WebAddress;
+                    model.CityKey = obj.CityKey;
+                    model.Address = obj.Address;
+                    model.Address2 = obj.Address2;
+                    model.JobTitle = obj.JobTitle;
+                    model.StateKey = obj.StateKey;
+
+                    model.CellPhone = obj.CellPhone;
+                    model.OfficePhone = obj.OfficePhone;
+                    model.InternalNote = obj.InternalNote;
+                    model.GeneralNote = obj.GeneralNote;
+                    model.Zipcode = obj.Zipcode;
+                    model.FaxPhone = obj.FaxPhone;
+                    db.SaveChanges();
+                    Session["GlobalMessege"] = "Contact Info is Updated";
+                    return RedirectToAction("Index", new { id = obj.ContactKey });
+                }
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName", obj.CityKey);
+                ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "Pkey", "StateName", obj.StateKey);
+
+                return View(obj);
             }
-            ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false && m.CityKey == ClientContact.CityKey).OrderBy(m => m.CityName), "CityKey", "CityName");
-            ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false && m.PKey == ClientContact.StateKey).OrderBy(m => m.StateName), "Pkey", "StateName");
-            ViewBag.ProfileKey = new SelectList(db.UserProfile.OrderBy(m => m.Email), "ProfileKey");
-            return View(ClientContact);
+            catch (Exception e)
+            {
+                return View("Error", new HandleErrorInfo(e, "MgtClientContact", "Index"));
+            }
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
