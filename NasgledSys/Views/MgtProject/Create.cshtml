@@ -1,0 +1,125 @@
+﻿@model NasgledSys.Models.ProjectClass
+@{
+    ViewBag.Title = "Create Project";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@section SideBar{
+    <center>
+        <h4>
+            <span class="heading-text">
+                <i class="icon-download10 position-left"></i>  <a href="@Url.Action("Index","MgtProject")">>Projects</a>
+            </span>
+        </h4>
+       
+    </center>
+
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+       
+           
+            var url = '@Url.Content("~/")' + "DropdownUtility/GetClient";
+            $.getJSON(url, function (data) {
+                var data = data;
+                $('#ContactName').select2({
+                    data: data
+                })
+            });
+       
+    });
+       
+</script>
+@using (Html.BeginForm("Create", "MgtProject", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="panel panel-default col-lg-6">
+
+        <div class="panel-heading">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="#tab-demo1" data-toggle="tab">General</a></li>
+                <li><a href="#tab-demo2" data-toggle="tab">Location</a></li>
+                <li><a href="#tab-demo3" data-toggle="tab">Costs</a></li>
+                <li><a href="#tab-demo4" data-toggle="tab">Incentives</a></li>
+                <li><a href="#tab-demo5" data-toggle="tab">Notes</a></li>
+
+            </ul>
+        </div>
+        <div class="panel-body">
+
+            @Html.ValidationSummary()
+
+
+
+
+
+
+            <!-- /tabbed navigation -->
+            <!-- Tabbed navigation content -->
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="tab-demo1">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProjectName)
+                        @Html.TextBoxFor(model => model.ProjectName, new { placeholder = "Project Name", @required = "required", id = "ProjectName", @class = "form-control" })
+
+                        @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+                    </div>
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.ProjectStatusKey)
+                        @Html.DropDownList("ProjectStatusKey", null, "Select", new { @required = "required", id = "ProjectStatusKey", @class = "select select-search" })
+                        @Html.ValidationMessageFor(model => model.ProjectStatusKey, "", new { @class = "text-danger" })
+                    </div>*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactName)
+                        @Html.TextBoxFor(model => model.ContactName, new { placeholder = "Primary Client Contact",  id = "ContactName", @class = "form-control" })
+                        @Html.HiddenFor(model => model.PrimaryContactKey, new {  id = "PrimaryContactKey" })
+                        @Html.ValidationMessageFor(model => model.ContactName, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.PrimaryContactKey, "", new { @class = "text-danger" })
+                        <span class="small text-muted">Any documents for this client will use this Contact's Information.</span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PreparedByDetail)
+                        @Html.TextBoxFor(model => model.PreparedByDetail, new { placeholder = "Prepared By User", id = "PreparedByDetail", @class = "form-control" })
+                        @Html.HiddenFor(model => model.PreparedBy, new { id = "PreparedBy" })
+                        @Html.ValidationMessageFor(model => model.PreparedByDetail, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.PreparedBy, "", new { @class = "text-danger" })
+                       
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExpectedClosingMonth)
+                        @Html.TextBoxFor(model => model.ExpectedClosingMonth, new { placeholder = "Month", id = "ExpectedClosingMonth", @class = "form-control" })
+                        @Html.TextBoxFor(model => model.EspectedClosingYear, new { placeholder = "Year", id = "EspectedClosingYear", @class = "form-control" })
+                        <span class="small text-muted">The Date you estimate this project will complete</span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProbabilityOfCompletion)
+                        @Html.TextBoxFor(model => model.ProbabilityOfCompletion, new { placeholder = "Probability the project will be completed (%)",type="number", id = "ProbabilityOfCompletion", @class = "form-control" })
+                  
+                        @Html.ValidationMessageFor(model => model.ProbabilityOfCompletion, "", new { @class = "text-danger" })
+                        <span class="small text-muted">Enter whole number without % (i.e. enter 6 for 6% not 0.06)</span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsAccessableByOthers)
+                        @Html.CheckBoxFor(model => model.IsAccessableByOthers, new {  id = "IsAccessableByOthers", @class = "form-control" })                       
+                       
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="tab-demo2">Tab 2 content</div>
+                <div class="tab-pane fade" id="tab-demo3">Tab 3 content</div>
+                <div class="tab-pane fade" id="tab-demo4">Tab 4 content</div>
+                <div class="tab-pane fade" id="tab-demo5">Tab 5 content</div>
+            </div>
+
+        </div>
+
+
+        <div class="panel-footer">
+            <center><a href="@Url.Action("Index","MgtProject")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;
+            <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Create</button></center>
+            <h2>@ViewBag.mess</h2>
+        </div>
+
+    </div>
+}
+
+

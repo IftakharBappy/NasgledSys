@@ -11,9 +11,8 @@
     <style type="text/css">
         .CenterPanel {
    
-   
     left: 50%;
-    transform: translateX(25%);
+        transform: translate(25%);
 }
     </style>
     <script type="text/javascript">
@@ -118,8 +117,9 @@
         <!-- Page content -->
         <div class="page-content">
             <!-- Main content -->
-            <div class="content-wrapper CenterPanel">
-                @RenderBody()
+            <div class="content-wrapper">
+                <div class="CenterPanel">@RenderBody()</div>
+              
               
             </div>
             <!-- /main content -->

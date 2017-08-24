@@ -433,6 +433,7 @@
     <Compile Include="Models\Project.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProjectClass.cs" />
     <Compile Include="Models\ProjectStatus.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3726,6 +3727,8 @@
     <Content Include="Views\MgtClientCompany\Create.cshtml" />
     <Content Include="Views\MgtAnnualSalesRevenueSetup\Index.cshtml" />
     <Content Include="Views\MgtSalesReachSetup\Index.cshtml" />
+    <Content Include="Views\MgtProfile\UpdateUserProfile.cshtml" />
+    <Content Include="Views\MgtProject\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

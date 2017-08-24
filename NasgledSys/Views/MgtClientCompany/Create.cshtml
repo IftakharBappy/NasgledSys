@@ -28,15 +28,7 @@
 {
     <div class="panel panel-default col-lg-6">
 
-
-        <div class="panel-body">
-
-            @Html.ValidationSummary()
-
-
-
-
-
+        <div class="panel-heading">
             <ul class="nav nav-pills">
                 <li class="active"><a href="#tab-demo1" data-toggle="tab">About</a></li>
                 <li><a href="#tab-demo2" data-toggle="tab">Contact</a></li>
@@ -45,6 +37,16 @@
                 <li><a href="#tab-demo5" data-toggle="tab">Markup</a></li>
 
             </ul>
+        </div>
+        <div class="panel-body">
+
+            @Html.ValidationSummary()
+
+
+
+
+
+            
             <!-- /tabbed navigation -->
             <!-- Tabbed navigation content -->
             <div class="tab-content">
