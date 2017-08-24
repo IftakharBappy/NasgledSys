@@ -250,6 +250,29 @@ namespace NasgledSys.Controllers
             return result;
         }
 
+        public ActionResult LoadClientContactData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            ClientContactClass obj = new ClientContactClass();
+            ClientContact m = db.ClientContact.Find(SelectID);
+            obj.ContactKey = m.ContactKey;
+            obj.FirstName = m.FirstName;
+            obj.LastName = m.LastName;
+            obj.JobTitle = m.JobTitle;
+            obj.WebAddress = m.WebAddress;
+            obj.Email = m.Email;
+            obj.Address = m.Address;
+            obj.Address2 = m.Address2;
+            obj.GeneralNote = m.GeneralNote;
+            obj.InternalNote = m.InternalNote;
+            obj.OfficePhone = m.OfficePhone;
+            obj.CellPhone = m.CellPhone;
+            obj.FaxPhone = m.FaxPhone;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();
