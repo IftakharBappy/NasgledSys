@@ -134,12 +134,12 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Email)
                                             @Html.TextBoxFor(model => model.Email, new { placeholder = " Email", id = "Email", @class = "form-control" })
-
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="form-group" id="txtNumber">
+                                        <div class="form-group">
                                             @Html.LabelFor(model => model.OfficePhone)
                                             @Html.TextBoxFor(model => model.OfficePhone, new { placeholder = " Office Phone", id = "OfficePhone", @class = "form-control" })
-
+                                           
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.CellPhone)

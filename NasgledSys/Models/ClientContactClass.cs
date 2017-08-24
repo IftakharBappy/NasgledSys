@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,9 @@ namespace NasgledSys.Models
         public System.Guid ContactKey { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        [Display(Name = "Email Address")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         public string Email { get; set; }
         public string OfficePhone { get; set; }
         public string Address { get; set; }
