@@ -3,6 +3,11 @@
     ViewBag.Title = "Edit Contact";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#City").select2();
+    })
+</script>
 
 @using (Html.BeginForm("Edit", "MgtClientContact", FormMethod.Post))
 {
@@ -121,14 +126,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.CityKey, "City", new { @class = "col-sm-1 control-label" })
+                                    @Html.LabelFor(model => model.CityKey, new { @class = "col-sm-1 control-label" })
                                     <div class="col-md-3">
-                                        @Html.DropDownList("CityKey", null, string.Empty, new { @required = "required", id = "CityKey", @class = "select select-search" })
+                                       @Html.DropDownList("City", null, string.Empty, new { @required = "required", id = "CityKey", @class = "select select-search" })
+                                        @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
                                     </div>
                                     @Html.LabelFor(model => model.StateKey, "State", new { @class = "col-sm-1 control-label" })
                                     <div class="col-md-3">
 
-                                        @Html.DropDownList("StateKey", null, "Select", new { @required = "required", id = "StateKey", @class = "select select-search" })
+                                        @Html.DropDownList("StateKey", null, string.Empty, new { @required = "required", id = "StateKey", @class = "select select-search" })
+                                        @Html.ValidationMessageFor(model => model.StateKey, "", new { @class = "text-danger" })
                                     </div>
 
                                 </div>
@@ -168,10 +175,12 @@
             </div>
 
 
-            <div class="panel-footer">
-                <a href="@Url.Action("Edit","MgtClientContact", new { ContactKey = Model.ContactKey })" class="btn btn-primary btn-rounded btn-xlg col-lg-10">Update</a>
-                 @*<input type="submit" value="Save" class="btn btn-default" />*@
-            </div>
+            <center>
+                <div class="panel-footer">
+                    @*<a href="@Url.Action("Edit","MgtClientContact", new { ContactKey = Model.ContactKey })" class="btn btn-primary btn-rounded btn-xlg col-lg-3">Update</a>*@
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </center>
         </div>
     </div>
 }

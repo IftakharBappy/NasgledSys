@@ -74,9 +74,11 @@ namespace NasgledSys.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false && m.CityKey == ClientContact.CityKey).OrderBy(m => m.CityName), "CityKey", "CityName");
-            ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false && m.PKey == ClientContact.StateKey).OrderBy(m => m.StateName), "Pkey", "StateName");
+            ViewBag.City = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName");
+            ViewBag.StateKey = new SelectList(db.StateList.OrderBy(m => m.StateName), "Pkey", "StateName");
             ViewBag.ProfileKey = new SelectList(db.UserProfile.OrderBy(m => m.Email), "ProfileKey");
+
+            
             return View(ClientContact);
         }
 
@@ -90,10 +92,12 @@ namespace NasgledSys.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", new { id = ClientContact.ContactKey });
             }
-            ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false && m.CityKey == ClientContact.CityKey).OrderBy(m => m.CityName), "CityKey", "CityName");
-            ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false && m.PKey == ClientContact.StateKey).OrderBy(m => m.StateName), "Pkey", "StateName");
+            ViewBag.City = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName");
+            ViewBag.StateKey = new SelectList(db.StateList.OrderBy(m => m.StateName), "Pkey", "StateName");
             ViewBag.ProfileKey = new SelectList(db.UserProfile.OrderBy(m => m.Email), "ProfileKey");
             return View(ClientContact);
+
+            
         }
     }
 }
