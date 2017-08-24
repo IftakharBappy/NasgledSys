@@ -11,6 +11,21 @@ namespace NasgledSys.Controllers
     {
         // GET: DropdownUtility
         private NasgledDBEntities db = new NasgledDBEntities();
+        public ActionResult GetClient(string query)
+        {
+            var users = (from u in db.ClientContact
+                         
+
+                         where ((u.FirstName.ToUpper()+u.LastName.ToUpper()).Contains(query.ToUpper())) && u.ProfileKey==GlobalClass.ProfileUser.ProfileKey
+                         orderby u.FirstName
+                         select new
+                         {
+                             text = u.FirstName + " " + u.LastName + " " + " " + u.Email + " ",
+                             id = u.ContactKey
+
+                         }).ToList();
+            return Json(users, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult GetCity(int stateId)
         {

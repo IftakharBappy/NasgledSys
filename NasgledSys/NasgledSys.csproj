@@ -436,6 +436,7 @@
     <Compile Include="Models\Project.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProjectClass.cs" />
     <Compile Include="Models\ProjectStatus.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3735,9 +3736,11 @@
     <Content Include="Views\MgtClientContact\Create.cshtml" />
     <Content Include="Views\MgtClientContact\Details.cshtml" />
     <Content Include="Views\MgtClientContact\Edit.cshtml" />
+    <Content Include="Views\MgtProject\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AnnualSalesRevenueSetup\" />
     <Folder Include="Views\DropdownUtility\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
