@@ -8,16 +8,20 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Data.Entity;
 using NasgledSys.EM;
+using NLog;
 
 namespace NasgledSys.Controllers
 {
     public class CityController : Controller
     {
         private NasgledDBEntities db = new NasgledDBEntities();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         // GET: City
         public ActionResult Index()
         {
             ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
+            
+            logger.Info("City Controller Index() invoked");
             return View();
         }
 
@@ -43,7 +47,10 @@ namespace NasgledSys.Controllers
 
             db.CityList.Add(asset);
             var task = db.SaveChangesAsync();
+           
             await task;
+
+          
 
             if (task.Exception != null)
             {
