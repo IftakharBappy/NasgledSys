@@ -47,13 +47,16 @@ namespace NasgledSys.Controllers
 
             db.CityList.Add(asset);
             var task = db.SaveChangesAsync();
-           
+
+            db.Database.Log = s => logger.Info(s);
+
             await task;
 
           
 
             if (task.Exception != null)
             {
+                logger.Error(task.Exception);
                 ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
                 ModelState.AddModelError("", "Unable to add the City");
                 return View("_CreatePartial", cityVM);
