@@ -24,65 +24,77 @@
 @section CenterTitle{
     Add Company
 }
-@using (Html.BeginForm("Create", "MgtClientCompany", FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    <div class="panel panel-default col-lg-6">
+<div class="row">
+    <div class="col-md-3">
+        &nbsp;
 
-        <div class="panel-heading">
-            <ul class="nav nav-pills">
-                <li class="active"><a href="#tab-demo1" data-toggle="tab">About</a></li>
-                <li><a href="#tab-demo2" data-toggle="tab">Contact</a></li>
-                <li><a href="#tab-demo3" data-toggle="tab">Billing</a></li>
-                <li><a href="#tab-demo4" data-toggle="tab">Proposal Defaults</a></li>
-                <li><a href="#tab-demo5" data-toggle="tab">Markup</a></li>
+    </div>
+    @using (Html.BeginForm("Create", "MgtClientCompany", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-default">
 
-            </ul>
-        </div>
-        <div class="panel-body">
+                    <div class="panel-heading">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#tab-demo1" data-toggle="tab">About</a></li>
+                            <li><a href="#tab-demo2" data-toggle="tab">Contact</a></li>
+                            <li><a href="#tab-demo3" data-toggle="tab">Billing</a></li>
+                            <li><a href="#tab-demo4" data-toggle="tab">Proposal Defaults</a></li>
+                            <li><a href="#tab-demo5" data-toggle="tab">Markup</a></li>
 
-            @Html.ValidationSummary()
-
-
-
-
-
-            
-            <!-- /tabbed navigation -->
-            <!-- Tabbed navigation content -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="tab-demo1">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CompanyName, "Name")
-                        @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Name", @required = "required", id = "CompanyName", @class = "form-control" })
-
-                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                        </ul>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.IndustryTypeKey, "Industry Type")
-                        @Html.DropDownList("IndustryTypeKey", null, "Select", new { @required = "required", id = "IndustryTypeKey", @class = "select select-search" })
-                        @Html.ValidationMessageFor(model => model.IndustryTypeKey, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Description, "Description")
-                        @Html.TextAreaFor(model => model.Description, new { placeholder = "Description", id = "Description", @class = "form-control" })
+                    <div class="panel-body">
 
+                        @Html.ValidationSummary()
+
+
+
+
+
+
+                        <!-- /tabbed navigation -->
+                        <!-- Tabbed navigation content -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="tab-demo1">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CompanyName, "Name")
+                                    @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Name", @required = "required", id = "CompanyName", @class = "form-control" })
+
+                                    @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IndustryTypeKey, "Industry Type")
+                                    @Html.DropDownList("IndustryTypeKey", null, "Select", new { @required = "required", id = "IndustryTypeKey", @class = "select select-search" })
+                                    @Html.ValidationMessageFor(model => model.IndustryTypeKey, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description, "Description")
+                                    @Html.TextAreaFor(model => model.Description, new { placeholder = "Description", id = "Description", @class = "form-control" })
+
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="tab-demo2">Tab 2 content</div>
+                            <div class="tab-pane fade" id="tab-demo3">Tab 3 content</div>
+                            <div class="tab-pane fade" id="tab-demo4">Tab 4 content</div>
+                            <div class="tab-pane fade" id="tab-demo5">Tab 5 content</div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel-footer">
+                        <center><a href="@Url.Action("UserHome","Home")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;<button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Create</button></center>
+                        <h2>@ViewBag.mess</h2>
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="tab-demo2">Tab 2 content</div>
-                <div class="tab-pane fade" id="tab-demo3">Tab 3 content</div>
-                <div class="tab-pane fade" id="tab-demo4">Tab 4 content</div>
-                <div class="tab-pane fade" id="tab-demo5">Tab 5 content</div>
+                </div>
             </div>
-
-        </div>
-
-
-        <div class="panel-footer">
-            <center><a href="@Url.Action("UserHome","Home")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;<button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Create</button></center>
-            <h2>@ViewBag.mess</h2>
-        </div>
-
-    </div>
-}
-
+                }
+                <div class="col-md-3">
+                    &nbsp;
+                </div>
+            </div>
