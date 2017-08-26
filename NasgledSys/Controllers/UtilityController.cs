@@ -253,7 +253,7 @@ namespace NasgledSys.Controllers
         public ActionResult LoadClientContactData(Guid SelectID)
         {
             JsonResult result = new JsonResult();
-            ClientContactClass obj = new ClientContactClass();
+            ClientContactViewModel obj = new ClientContactViewModel();
             ClientContact m = db.ClientContact.Find(SelectID);
             obj.ContactKey = m.ContactKey;
             obj.FirstName = m.FirstName;

@@ -218,6 +218,7 @@
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\DefaultEmailConfigController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MgtAdminItemController.cs" />
     <Compile Include="Controllers\MgtAnnualSalesRevenueSetupController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
@@ -421,6 +422,9 @@
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LightingSatisfactionFactorViewModel.cs" />
+    <Compile Include="Models\Logs.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MainProduct.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -481,6 +485,9 @@
     <Compile Include="Models\Team.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Helper.cs" />
+    <Compile Include="Models\ThumbnailModel.cs" />
+    <Compile Include="Models\ThumbnailViewModel.cs" />
     <Compile Include="Models\Usergroup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3147,7 +3154,6 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AngularController\jsInstituteController.js" />
     <Content Include="Scripts\AutoComplete\scAnnualSalesRevenueSetup.js" />
-    <Content Include="Scripts\AutoComplete\scClientContact.js" />
     <Content Include="Scripts\AutoComplete\scHeatingEfficiencyType.js" />
     <Content Include="Scripts\AutoComplete\scCity.js" />
     <Content Include="Scripts\AutoComplete\scCoolingEfficiencyType.js" />
@@ -3752,6 +3758,11 @@
     <Content Include="Views\MgtClientContact\Details.cshtml" />
     <Content Include="Views\MgtClientContact\Edit.cshtml" />
     <Content Include="Views\MgtProject\Create.cshtml" />
+    <Content Include="Views\Logs\Create.cshtml" />
+    <Content Include="Views\Logs\Delete.cshtml" />
+    <Content Include="Views\Logs\Details.cshtml" />
+    <Content Include="Views\Logs\Edit.cshtml" />
+    <Content Include="Views\Logs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

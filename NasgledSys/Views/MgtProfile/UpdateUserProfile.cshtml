@@ -75,7 +75,7 @@
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Location)
-                            @Html.DropDownListFor(model => model.CityKey, ViewBag.CityKeys as SelectList, new { placeholder = "Select", @class = "select select-search" })
+                            <select name="CityKey" placeholder = "Select" class = "select select-search"></select>
                             @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
                         </div>
 
@@ -119,3 +119,28 @@
     </div>
 }
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        var select = $('select[name=CityKey]');
+        //var res = "<option value='volvo'>Volvo</option>< option value= 'saab' > Saab</option><option value='mercedes'>Mercedes</option><option value='audi'>Audi</option>";
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtProfile/GetCityList/",
+            //data: JSON.stringify({ barcode: barcode_text }),
+            success: function (data) {
+                var res = "";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + " >" + data[i].Text +"</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+        
+    });
+</script>

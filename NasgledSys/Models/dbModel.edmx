@@ -431,6 +431,22 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IsDelete" Type="bit" />
         </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventDateTime" Type="datetime" Nullable="false" />
+          <Property Name="EventLevel" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MachineName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EventMessage" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ErrorSource" Type="nvarchar" MaxLength="100" />
+          <Property Name="ErrorClass" Type="nvarchar" MaxLength="500" />
+          <Property Name="ErrorMethod" Type="nvarchar(max)" />
+          <Property Name="ErrorMessage" Type="nvarchar(max)" />
+          <Property Name="InnerErrorMessage" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="MainProduct">
           <Key>
             <PropertyRef Name="FixtureKey" />
@@ -1755,6 +1771,7 @@
           <EntitySet Name="ItemType" EntityType="Self.ItemType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobFunction" EntityType="Self.JobFunction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LightingSatisfactionFactor" EntityType="Self.LightingSatisfactionFactor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MainProduct" EntityType="Self.MainProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
@@ -2618,6 +2635,7 @@
             <End Role="Manufacturer" EntitySet="Manufacturer" />
             <End Role="MainProduct" EntitySet="MainProduct" />
           </AssociationSet>
+          <EntitySet Name="Logs" EntityType="NasgledDBModel.Logs" />
           </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -4359,6 +4377,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventLevel" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MachineName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EventMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorSource" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorClass" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorMethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InnerErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5175,6 +5209,23 @@
                 <ScalarProperty Name="CategoryKey" ColumnName="CategoryKey" />
                 <ScalarProperty Name="ItemTypeKey" ColumnName="ItemTypeKey" />
                 <ScalarProperty Name="FixtureKey" ColumnName="FixtureKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="NasgledDBModel.Logs">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="InnerErrorMessage" ColumnName="InnerErrorMessage" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+                <ScalarProperty Name="ErrorMethod" ColumnName="ErrorMethod" />
+                <ScalarProperty Name="ErrorClass" ColumnName="ErrorClass" />
+                <ScalarProperty Name="ErrorSource" ColumnName="ErrorSource" />
+                <ScalarProperty Name="EventMessage" ColumnName="EventMessage" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="EventLevel" ColumnName="EventLevel" />
+                <ScalarProperty Name="EventDateTime" ColumnName="EventDateTime" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
