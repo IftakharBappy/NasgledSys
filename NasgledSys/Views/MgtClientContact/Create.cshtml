@@ -44,6 +44,11 @@
             $(window).unbind("beforeunload");
         });
     });
+
+    $('#Phone').focusin(function () {
+        $('#Phone').mask("999-999-9999");
+    });
+
    
 </script>
 <div class="row">
@@ -104,22 +109,22 @@
                                                 @Html.LabelFor(model => model.FirstName)
                                                 @Html.HiddenFor(model => model.ContactKey, new { id = "ContactKey" })
                                                 @Html.TextBoxFor(model => model.FirstName, new { placeholder = " First Name", id = "FirstName", @class = "form-control" })
-
+                                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.LastName)
                                                 @Html.TextBoxFor(model => model.LastName, new { placeholder = " Last Name", id = "LastName", @class = "form-control" })
-
+                                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.JobTitle)
                                                 @Html.TextBoxFor(model => model.JobTitle, new { placeholder = " Job Title", id = "JobTitle", @class = "form-control" })
-
+                                                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.WebAddress)
                                                 @Html.TextBoxFor(model => model.WebAddress, new { placeholder = " Web Address", id = "WebAddress", @class = "form-control" })
-
+                                                @Html.ValidationMessageFor(model => model.WebAddress, "", new { @class = "text-danger" })
                                             </div>
 
                                         </div>
@@ -138,18 +143,18 @@
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.OfficePhone)
-                                            @Html.TextBoxFor(model => model.OfficePhone, new { placeholder = " Office Phone", id = "OfficePhone", @class = "form-control" })
-                                           
+                                            @Html.TextBoxFor(model => model.OfficePhone, new { placeholder = " Office Phone", id = "Phone", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.CellPhone)
                                             @Html.TextBoxFor(model => model.CellPhone, new { placeholder = " Cell Phone", id = "CellPhone", @class = "form-control" })
-
+                                            @Html.ValidationMessageFor(model => model.CellPhone, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.FaxPhone)
                                             @Html.TextBoxFor(model => model.FaxPhone, new { placeholder = " Fax Phone", id = "FaxPhone", @class = "form-control" })
-
+                                            @Html.ValidationMessageFor(model => model.FaxPhone, "", new { @class = "text-danger" })
                                         </div>
                                         <a href="#first" data-toggle="pill">Back</a>
                                     </div>
@@ -163,12 +168,12 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Address)
                                             @Html.TextBoxFor(model => model.Address, new { placeholder = " Address", id = "Address", @class = "form-control" })
-
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Address2)
                                             @Html.TextBoxFor(model => model.Address2, new { placeholder = " Address2", id = "Address2", @class = "form-control" })
-
+                                            @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-3">
@@ -184,7 +189,7 @@
                                             <div class="col-md-3">
                                                 @Html.LabelFor(model => model.Zipcode)
                                                 @Html.TextBoxFor(model => model.Zipcode, new { placeholder = " Zip code", id = "Zipcode", @class = "form-control" })
-
+                                                @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
@@ -218,19 +223,12 @@
                 <center>
 
                     <div class="panel-footer">
-                        <div class="form-group" id="msgSuccess"><h4 class="alert alert-success">Data is successfully Saved on database.</h4></div>
-                        @*<div class="form-group">
-                            <button type="button" id="btnAdd" class="btn btn-success btn-xlg col-md-4" onclick="return Create();">Create</button> &nbsp;
+                        <div class="form-group" id="msgSuccess"><h4 class="alert alert-danger">Data is successfully Saved on database.</h4></div>
+                        <div class="form-group">
+                            <button style="margin-right:5em;" type="button" id="btnAdd" class="btn btn-success btn-xlg col-md-4" onclick="return Create();">Create</button> &nbsp;
                             @Html.ActionLink("Cancel", "Index", "MgtClientContact", null, new { @class = "btn btn-success btn-xlg col-md-4" })
+                        </div>
 
-                           
-
-                        </div>*@
-
-                        <center>
-                            <a href="@Url.Action("Index","MgtClientContact")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;
-                            <button type="submit" class="btn btn-primary btn-xlg col-lg-4" onclick="return Create();" id="btnAdd">Create</button>
-                        </center>
                     </div>
                 </center>
             </div>
