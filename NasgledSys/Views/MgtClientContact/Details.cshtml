@@ -56,25 +56,25 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.FirstName, new { @class = "col-sm-4 control-label" })
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.LastName, new { @class = "col-sm-4 control-label" })
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.JobTitle, new { @class = "col-sm-4 control-label" })
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.JobTitle, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @Html.EditorFor(model => model.JobTitle, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.WebAddress, new { @class = "col-sm-4 control-label" })
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.WebAddress, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @Html.EditorFor(model => model.WebAddress, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                             </div>
                                         </div>
 
@@ -91,25 +91,25 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Email, new { @class = "col-sm-4 control-label" })
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.OfficePhone, new { @class = "col-sm-4 control-label" })
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.OfficePhone, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @Html.EditorFor(model => model.OfficePhone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.CellPhone, new { @class = "col-sm-4 control-label" })
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.CellPhone, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @Html.EditorFor(model => model.CellPhone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.FaxPhone, new { @class = "col-sm-4 control-label" })
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.FaxPhone, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @Html.EditorFor(model => model.FaxPhone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                             </div>
                                         </div>
                                         <a href="#first" data-toggle="pill">Back</a>
@@ -126,31 +126,31 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Address, new { @class = "col-sm-2 control-label" })
                                         <div class="col-md-8">
-                                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Address2, new { @class = "col-sm-2 control-label" })
                                         <div class="col-md-8">
-                                            @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                            @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.CityKey, "City", new { @class = "col-sm-1 control-label" })
                                         <div class="col-md-3">
-                                            @Html.DropDownList("CityKey", null, new { @required = "required", id = "CityKey", @class = "form-control", @disabled = "disabled" })
+                                            @Html.DropDownList("CityKey", null, new { @required = "required", id = "CityKey", @class = "form-control", @readonly = "readonly" })
                                         </div>
                                         @Html.LabelFor(model => model.StateKey, "State", new { @class = "col-sm-1 control-label" })
                                         <div class="col-md-3">
 
-                                            @Html.DropDownList("StateKey",null, new { @required = "required", id = "StateKey", @class = "form-control", @disabled = "disabled" })
+                                            @Html.DropDownList("StateKey",null, new { @required = "required", id = "StateKey", @class = "form-control", @readonly = "readonly" })
                                         </div>
 
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Zipcode, new { @class = "col-sm-2 control-label" })
                                         <div class="col-md-3">
-                                            @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                            @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                         </div>
                                     </div>
 
@@ -166,13 +166,13 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.InternalNote, new { @class = "col-sm-4 control-label" })
                                         <div class="col-md-8">
-                                            @Html.EditorFor(model => model.InternalNote, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                            @Html.EditorFor(model => model.InternalNote, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.GeneralNote, new { @class = "col-sm-4 control-label" })
                                         <div class="col-md-8">
-                                            @Html.EditorFor(model => model.GeneralNote, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                            @Html.EditorFor(model => model.GeneralNote, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                         </div>
                                     </div>
                                     <a href="#third" data-toggle="pill">Back</a>
