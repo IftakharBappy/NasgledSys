@@ -123,17 +123,7 @@ namespace NasgledSys.Controllers
             model.DirectDistributor = userProfile.DirectDistributor;
             
             ViewBag.RoleKeys = new SelectList(db.UserRole, "RoleKey", "RoleName", userProfile.RoleKey);
-
-            List<SelectListItem> CityKeys = new List<SelectListItem>();
-            var cityList = (from city in db.CityList
-                            join state in db.StateList on city.StateCode equals state.PKey
-                            select new {
-                                Text = city.CityName+","+state.StateName,
-                                Value = city.CityKey.ToString(),
-                            }
-                            ).ToList();
-            ViewBag.CityKeys = new SelectList(cityList, "Value", "Text", userProfile.CityKey);
-
+            
             ViewBag.AnnualSalesRevenues = new SelectList(db.AnnualSalesRevenueSetup, "TypeName", "TypeName", userProfile.AnnualSalesRevenue);
             return View(model);
         }
@@ -179,6 +169,21 @@ namespace NasgledSys.Controllers
             db.SaveChanges();
             TempData["mess"] = "User Profile is successfully updated.";
             return RedirectToAction("UpdateUserProfile");
+        }
+        public JsonResult GetCityList()
+        {
+            UserProfile userProfile = db.UserProfile.Find(GlobalClass.ProfileUser.ProfileKey);
+            var cityList = (from city in db.CityList
+                            join state in db.StateList on city.StateCode equals state.PKey
+                            orderby city.CityName
+                            select new
+                            {
+                                Text = city.CityName + "," + state.StateName,
+                                Value = city.CityKey.ToString(),
+                                Selected = city.CityKey == userProfile.CityKey ? "selected" : ""
+                            }
+                            ).ToList();
+            return Json(cityList,JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
