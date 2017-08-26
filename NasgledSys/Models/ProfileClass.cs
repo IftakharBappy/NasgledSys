@@ -39,6 +39,7 @@ namespace NasgledSys.Models
         public string PhoneNo { get; set; }
 
         [Display(Name = "Email Add*..")]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail Format is not valid")]
         [Required(ErrorMessage = "Please Enter your Email Address")]
         public string Email { get; set; }
 
