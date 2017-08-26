@@ -12,8 +12,7 @@ namespace NasgledSys.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Diagnostics;
-
+    
     public partial class NasgledDBEntities : DbContext
     {
         public NasgledDBEntities()
@@ -23,7 +22,7 @@ namespace NasgledSys.Models
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.Log = (query) => Debug.Write(query);
+            throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<CityList> CityList { get; set; }
@@ -84,5 +83,6 @@ namespace NasgledSys.Models
         public virtual DbSet<AnnualSalesRevenueSetup> AnnualSalesRevenueSetup { get; set; }
         public virtual DbSet<SalesReachSetup> SalesReachSetup { get; set; }
         public virtual DbSet<MainProduct> MainProduct { get; set; }
+        public virtual DbSet<Logs> Logs { get; set; }
     }
 }

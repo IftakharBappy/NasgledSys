@@ -1,5 +1,6 @@
 ﻿using NasgledSys.DAL;
 using NasgledSys.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace NasgledSys.Controllers
 {
     public class MgtManufacturerController : Controller
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private NasgledDBEntities db = new NasgledDBEntities();
         private MgtManufacturer manage = new MgtManufacturer();
@@ -17,19 +19,22 @@ namespace NasgledSys.Controllers
         {
             try
             {
+                logger.Info("Mgt Manufacturer Index() invoked by :  "+ GlobalClass.LoginUser.PName);
                 ManufacturerViewModel obj = new ManufacturerViewModel();
                 obj.ManufacturerViewModelList = new List<ManufacturerViewModel>();
                 obj.ManufacturerViewModelList = manage.ListAll();
                 return View(obj);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+                logger.Error(ex);
+                return View("Error", new HandleErrorInfo(ex, "Home", "Index"));
             }
 
         }
         public JsonResult Add(ManufacturerViewModel modelClass)
         {
+            logger.Info("Mgt Manufacturer Add invoked by :  " + GlobalClass.LoginUser.PName);
             return Json(manage.Add(modelClass), JsonRequestBehavior.AllowGet);
         }
 

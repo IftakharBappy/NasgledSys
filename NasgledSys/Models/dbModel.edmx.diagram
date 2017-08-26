@@ -143,6 +143,7 @@
         <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemSubcategory" />
         <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemType" />
         <AssociationConnector Association="NasgledDBModel.FK_MainProduct_Manufacturer" />
+        <EntityTypeShape EntityType="NasgledDBModel.Logs" Width="1.5" PointX="11.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
