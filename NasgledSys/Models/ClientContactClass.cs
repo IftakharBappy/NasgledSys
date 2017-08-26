@@ -6,13 +6,14 @@ using System.Web;
 
 namespace NasgledSys.Models
 {
-    public class ClientContactClass
+    public class ClientContactViewModel
     {
         public System.Guid ContactKey { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Required(ErrorMessage = "Your must provide a valid Email")]
         [Display(Name = "Email Address")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
@@ -47,6 +48,6 @@ namespace NasgledSys.Models
         public virtual UserProfile UserProfile { get; set; }
         public virtual StateList StateList { get; set; }
 
-        public List<ClientContactClass> ClientContactList { get; set; }
+        public List<ClientContactViewModel> ClientContactViewModelList { get; set; }
     }
 }

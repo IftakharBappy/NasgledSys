@@ -481,6 +481,9 @@
     <Compile Include="Models\Team.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Helper.cs" />
+    <Compile Include="Models\ThumbnailModel.cs" />
+    <Compile Include="Models\ThumbnailViewModel.cs" />
     <Compile Include="Models\Usergroup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3147,7 +3150,6 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AngularController\jsInstituteController.js" />
     <Content Include="Scripts\AutoComplete\scAnnualSalesRevenueSetup.js" />
-    <Content Include="Scripts\AutoComplete\scClientContact.js" />
     <Content Include="Scripts\AutoComplete\scHeatingEfficiencyType.js" />
     <Content Include="Scripts\AutoComplete\scCity.js" />
     <Content Include="Scripts\AutoComplete\scCoolingEfficiencyType.js" />

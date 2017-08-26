@@ -1,5 +1,6 @@
 ﻿using NasgledSys.DAL;
 using NasgledSys.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,47 +17,144 @@ namespace NasgledSys.Controllers
     {
         private MgtClientContact manage = new MgtClientContact();
         private NasgledDBEntities db = new NasgledDBEntities();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         // GET: MgtClientContact
         public ActionResult Index()
         {
             try
             {
-                ClientContactClass obj = new ClientContactClass();
-                obj.ClientContactList = new List<ClientContactClass>();
-                obj.ClientContactList = manage.ListAll();
-                
-                return View(obj);
+                logger.Info("Mgt Client Contact Index() invoked by:"+GlobalClass.LoginUser.PName);
+
+                ClientContactViewModel obj = new ClientContactViewModel();
+                obj.ClientContactViewModelList = new List<ClientContactViewModel>();
+                obj.ClientContactViewModelList = manage.ListAll();
+
+                // Tab Data
+                ThumbnailViewModel model = new ThumbnailViewModel();
+                model.ThumbnailModelList = new List<ThumbnailModel>();
+
+                // batch your List data for tab view i want batch by 2 you can set your value
+
+                var listOfBatches = obj.ClientContactViewModelList.Batch(2);
+
+                int tabNo = 1;
+
+                foreach (var batchItem in listOfBatches)
+                {
+                    // Generating tab
+                    ThumbnailModel thumbObj = new ThumbnailModel();
+                    thumbObj.ThumbnailLabel = "Lebel" + tabNo;
+                    thumbObj.ThumbnailTabId = "tab" + tabNo;
+                    thumbObj.ThumbnailTabNo = tabNo;
+                    thumbObj.Thumbnail_Aria_Controls = "tab" + tabNo;
+                    thumbObj.Thumbnail_Href = "#tab" + tabNo;
+
+                    // batch details
+
+                    thumbObj.ClientContactDetailsList = new List<ClientContactViewModel>();
+
+                    foreach (var item in batchItem)
+                    {
+                        ClientContactViewModel detailsObj = new ClientContactViewModel();
+                        detailsObj = item;
+                        thumbObj.ClientContactDetailsList.Add(detailsObj);
+                    }
+
+                    model.ThumbnailModelList.Add(thumbObj);
+
+                    tabNo++;
+                }
+
+                // Getting first tab data
+                var first = model.ThumbnailModelList.FirstOrDefault();
+
+                // Getting first tab data
+                var last = model.ThumbnailModelList.LastOrDefault();
+
+                foreach (var item in model.ThumbnailModelList)
+                {
+                    if (item.ThumbnailTabNo == first.ThumbnailTabNo)
+                    {
+                        item.Thumbnail_ItemPosition = "first";
+                    }
+
+                    if (item.ThumbnailTabNo == last.ThumbnailTabNo)
+                    {
+                        item.Thumbnail_ItemPosition = "last";
+                    }
+
+                }
+
+                return View(model);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+                logger.Error(ex, "Index");
+                return View("Error", new HandleErrorInfo(ex, "Home", "Index"));
             }
         }
 
         public ActionResult Create()
         {
-            try
-            {
+            logger.Info("Mgt Client Contact Create get invoked by:" + GlobalClass.LoginUser.PName);
+            try {
+                var model = new ClientContactViewModel();
                 ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName");
                 ViewBag.StateKey = new SelectList(db.StateList.OrderBy(m => m.StateName), "Pkey", "StateName");
-
-                return View();
+                return View("Create", model);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(e, "MgtClientContact", "Index"));
+                logger.Error(ex, "Create Get");
+                return View("Error", new HandleErrorInfo(ex, "MgtClientContact", "Index"));
             }
         }
 
-        [HttpPost]
-        public JsonResult Create(ClientContactClass ClientContact)
+      [HttpPost]
+        public ActionResult Create(ClientContactViewModel obj)
         {
-            
-                return Json(manage.Create(ClientContact), JsonRequestBehavior.AllowGet);
+            logger.Info("Mgt Client Contact Create Post invoked by:" + GlobalClass.LoginUser.PName);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ClientContact model = new ClientContact();
+                    model.ContactKey = Guid.NewGuid();
+                    model.FirstName = obj.FirstName;
+                    model.LastName = obj.LastName;
+                    model.Email = obj.Email;
+                    model.WebAddress = obj.WebAddress;
+                    model.CityKey = obj.CityKey;
+                    model.Address = obj.Address;
+                    model.Address2 = obj.Address2;
+                    model.JobTitle = obj.JobTitle;
+                    model.StateKey = obj.StateKey;
+                    model.ProfileKey = GlobalClass.ProfileUser.ProfileKey;
+                    model.CellPhone = obj.CellPhone;
+                    model.OfficePhone = obj.OfficePhone;
+                    model.InternalNote = obj.InternalNote;
+                    model.GeneralNote = obj.GeneralNote;
+                    model.Zipcode = obj.Zipcode;
+                    model.FaxPhone = obj.FaxPhone;
+                    model.IsActive = true;
+                    db.ClientContact.Add(model);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName", obj.CityKey);
+                ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "Pkey", "StateName", obj.StateKey);
 
+                return View(obj);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Create Post");
+                return View("Error", new HandleErrorInfo(ex, "MgtClientContact", "Index"));
+            }
         }
         public ActionResult Details(Guid? ContactKey)
         {
+            logger.Info("Mgt Client Contact Details Post invoked by:" + GlobalClass.LoginUser.PName);
             try
             {
                 if (ContactKey == null)
@@ -73,42 +171,51 @@ namespace NasgledSys.Controllers
 
                 return View(ClientContact);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(e, "MgtClientContact", "Index"));
+                logger.Error(ex, "Details Get");
+                return View("Error", new HandleErrorInfo(ex, "MgtClientContact", "Index"));
             }
         }
         public ActionResult Edit(Guid? ContactKey)
         {
             try
             {
+                logger.Info("Mgt Client Contact Edit Get invoked by:" + GlobalClass.LoginUser.PName);
+
                 if (ContactKey == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                ClientContact ClientContact = db.ClientContact.Find(ContactKey);
+                var ClientContact = db.ClientContact.Find(ContactKey);
+
+                ClientContactViewModel ClientContactViewModel = MgtClientContact.ConvertToModel(ClientContact);
+
                 if (ClientContact == null)
                 {
                     return HttpNotFound();
                 }
                 ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName", ClientContact.CityKey);
                 ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "Pkey", "StateName", ClientContact.StateKey);
-                return View(ClientContact);
+                return View(ClientContactViewModel);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(e, "MgtClientContact", "Index"));
+                logger.Error(ex, "Edit Get");
+                return View("Error", new HandleErrorInfo(ex, "MgtClientContact", "Index"));
             }
         }
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit(ClientContact obj)
+        public ActionResult Edit(ClientContactViewModel obj)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    logger.Info("Mgt Client Contact Edit Post invoked by:" + GlobalClass.LoginUser.PName);
+
                     ClientContact model = db.ClientContact.Find(obj.ContactKey);
                     model.FirstName = obj.FirstName;
                     model.LastName = obj.LastName;
@@ -135,9 +242,10 @@ namespace NasgledSys.Controllers
 
                 return View(obj);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(e, "MgtClientContact", "Index"));
+                logger.Error(ex, "Edit Post");
+                return View("Error", new HandleErrorInfo(ex, "MgtClientContact", "Index"));
             }
         }
         protected override void Dispose(bool disposing)

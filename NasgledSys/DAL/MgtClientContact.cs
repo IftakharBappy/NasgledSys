@@ -11,12 +11,12 @@ namespace NasgledSys.DAL
     {
         private NasgledDBEntities db = new NasgledDBEntities();
 
-        public List<ClientContactClass> ListAll()
+        public List<ClientContactViewModel> ListAll()
         {
-            List<ClientContactClass> obj = new List<ClientContactClass>();
+            List<ClientContactViewModel> obj = new List<ClientContactViewModel>();
             var temp = (from x in db.ClientContact
                         where x.IsActive == true && x.ProfileKey==GlobalClass.ProfileUser.ProfileKey
-                        select new ClientContactClass
+                        select new ClientContactViewModel
                         {
                             ContactKey = x.ContactKey,
                             FirstName = x.FirstName,
@@ -29,7 +29,7 @@ namespace NasgledSys.DAL
             return obj;
         }
 
-        public int Create(ClientContactClass obj)
+        public int Create(ClientContactViewModel obj)
         {
             int i = 1;
             try
@@ -63,6 +63,32 @@ namespace NasgledSys.DAL
                 i = 0;
             }
             return i;
+        }
+
+        public static ClientContactViewModel ConvertToModel(ClientContact ent)
+        {
+            ClientContactViewModel bo = new ClientContactViewModel();
+
+            bo.ContactKey = ent.ContactKey;
+            bo.FirstName = ent.FirstName;
+            bo.LastName = ent.LastName;
+            bo.Email = ent.Email;
+            bo.WebAddress = ent.WebAddress;
+            bo.CityKey = ent.CityKey;
+            bo.Address = ent.Address;
+            bo.Address2 = ent.Address2;
+            bo.JobTitle = ent.JobTitle;
+            bo.StateKey = ent.StateKey;
+            bo.ProfileKey = GlobalClass.ProfileUser.ProfileKey;
+            bo.CellPhone = ent.CellPhone;
+            bo.OfficePhone = ent.OfficePhone;
+            bo.InternalNote = ent.InternalNote;
+            bo.GeneralNote = ent.GeneralNote;
+            bo.Zipcode = ent.Zipcode;
+            bo.FaxPhone = ent.FaxPhone;
+            bo.IsActive = ent.IsActive;
+
+            return bo;
         }
 
     }
