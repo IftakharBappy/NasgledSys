@@ -180,6 +180,24 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IndustryTypeKey" Type="uniqueidentifier" />
           <Property Name="ProfileKey" Type="uniqueidentifier" />
+          <Property Name="NoOfSalesPerson" Type="int" />
+          <Property Name="OfficePhone" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Address2" Type="nvarchar(max)" />
+          <Property Name="CityKey" Type="uniqueidentifier" />
+          <Property Name="StateKey" Type="uniqueidentifier" />
+          <Property Name="Zipcode" Type="nvarchar(max)" />
+          <Property Name="BillingContactName" Type="nvarchar(max)" />
+          <Property Name="BillingContactEMail" Type="nvarchar(max)" />
+          <Property Name="IsAddressSameAsOffice" Type="bit" />
+          <Property Name="ProposalIntro" Type="nvarchar(max)" />
+          <Property Name="ProposalTeam" Type="nvarchar(max)" />
+          <Property Name="ProposalLegal" Type="nvarchar(max)" />
+          <Property Name="ProposalDisclaimer" Type="nvarchar(max)" />
+          <Property Name="ProposalReference" Type="nvarchar(max)" />
+          <Property Name="EstimateFooter" Type="nvarchar(max)" />
+          <Property Name="MarkupOrMargin" Type="nvarchar(max)" />
+          <Property Name="MarkupOrMarginPercentage" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ClientContact">
           <Key>
@@ -2838,6 +2856,24 @@
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_ClientCompany" FromRole="ClientCompany" ToRole="Project" />
           <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_ClientCompany" FromRole="ClientCompany" ToRole="Team" />
           <Property Name="ProfileKey" Type="Guid" />
+          <Property Name="NoOfSalesPerson" Type="Int32" />
+          <Property Name="OfficePhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CityKey" Type="Guid" />
+          <Property Name="StateKey" Type="Guid" />
+          <Property Name="Zipcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BillingContactName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BillingContactEMail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAddressSameAsOffice" Type="Boolean" />
+          <Property Name="ProposalIntro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalTeam" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalLegal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalDisclaimer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EstimateFooter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MarkupOrMargin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MarkupOrMarginPercentage" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ClientContact">
           <Key>
@@ -4646,6 +4682,24 @@
           <EntitySetMapping Name="ClientCompany">
             <EntityTypeMapping TypeName="NasgledDBModel.ClientCompany">
               <MappingFragment StoreEntitySet="ClientCompany">
+                <ScalarProperty Name="MarkupOrMarginPercentage" ColumnName="MarkupOrMarginPercentage" />
+                <ScalarProperty Name="MarkupOrMargin" ColumnName="MarkupOrMargin" />
+                <ScalarProperty Name="EstimateFooter" ColumnName="EstimateFooter" />
+                <ScalarProperty Name="ProposalReference" ColumnName="ProposalReference" />
+                <ScalarProperty Name="ProposalDisclaimer" ColumnName="ProposalDisclaimer" />
+                <ScalarProperty Name="ProposalLegal" ColumnName="ProposalLegal" />
+                <ScalarProperty Name="ProposalTeam" ColumnName="ProposalTeam" />
+                <ScalarProperty Name="ProposalIntro" ColumnName="ProposalIntro" />
+                <ScalarProperty Name="IsAddressSameAsOffice" ColumnName="IsAddressSameAsOffice" />
+                <ScalarProperty Name="BillingContactEMail" ColumnName="BillingContactEMail" />
+                <ScalarProperty Name="BillingContactName" ColumnName="BillingContactName" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="StateKey" ColumnName="StateKey" />
+                <ScalarProperty Name="CityKey" ColumnName="CityKey" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="OfficePhone" ColumnName="OfficePhone" />
+                <ScalarProperty Name="NoOfSalesPerson" ColumnName="NoOfSalesPerson" />
                 <ScalarProperty Name="ProfileKey" ColumnName="ProfileKey" />
                 <ScalarProperty Name="IndustryTypeKey" ColumnName="IndustryTypeKey" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
