@@ -7,8 +7,7 @@ namespace NasgledSys.Models
 {
     public static class Helper
     {
-        public static IEnumerable<IEnumerable<T>> Batch<T>(
-   this IEnumerable<T> source, int batchSize)
+        public static IEnumerable<IEnumerable<T>> Batch<T>(this IEnumerable<T> source, int batchSize)
         {
             List<T> buffer = new List<T>(batchSize);
 
