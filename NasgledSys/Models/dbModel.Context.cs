@@ -42,7 +42,6 @@ namespace NasgledSys.Models
         public virtual DbSet<AreaProductDocument> AreaProductDocument { get; set; }
         public virtual DbSet<AreaProductNote> AreaProductNote { get; set; }
         public virtual DbSet<AreaProductPhoto> AreaProductPhoto { get; set; }
-        public virtual DbSet<ClientCompany> ClientCompany { get; set; }
         public virtual DbSet<ClientContact> ClientContact { get; set; }
         public virtual DbSet<CoolingEfficientyType> CoolingEfficientyType { get; set; }
         public virtual DbSet<CoolingSystem> CoolingSystem { get; set; }
@@ -84,5 +83,6 @@ namespace NasgledSys.Models
         public virtual DbSet<SalesReachSetup> SalesReachSetup { get; set; }
         public virtual DbSet<MainProduct> MainProduct { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
+        public virtual DbSet<ClientCompany> ClientCompany { get; set; }
     }
 }

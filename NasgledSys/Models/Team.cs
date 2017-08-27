@@ -22,10 +22,10 @@ namespace NasgledSys.Models
         public Nullable<bool> Status { get; set; }
         public Nullable<System.Guid> ProjectKey { get; set; }
     
-        public virtual ClientCompany ClientCompany { get; set; }
         public virtual JobFunction JobFunction { get; set; }
         public virtual Project Project { get; set; }
         public virtual UserProfile UserProfile { get; set; }
         public virtual UserRole UserRole { get; set; }
+        public virtual ClientCompany ClientCompany { get; set; }
     }
 }
