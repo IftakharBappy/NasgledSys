@@ -26,6 +26,24 @@ namespace NasgledSys.Models
         public string Description { get; set; }
         public Nullable<System.Guid> IndustryTypeKey { get; set; }
         public Nullable<System.Guid> ProfileKey { get; set; }
+        public Nullable<int> NoOfSalesPerson { get; set; }
+        public string OfficePhone { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public Nullable<System.Guid> CityKey { get; set; }
+        public Nullable<System.Guid> StateKey { get; set; }
+        public string Zipcode { get; set; }
+        public string BillingContactName { get; set; }
+        public string BillingContactEMail { get; set; }
+        public Nullable<bool> IsAddressSameAsOffice { get; set; }
+        public string ProposalIntro { get; set; }
+        public string ProposalTeam { get; set; }
+        public string ProposalLegal { get; set; }
+        public string ProposalDisclaimer { get; set; }
+        public string ProposalReference { get; set; }
+        public string EstimateFooter { get; set; }
+        public string MarkupOrMargin { get; set; }
+        public Nullable<decimal> MarkupOrMarginPercentage { get; set; }
     
         public virtual IndustryType IndustryType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
