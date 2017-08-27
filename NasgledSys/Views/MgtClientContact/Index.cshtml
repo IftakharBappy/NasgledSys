@@ -65,51 +65,14 @@
 
 
                     <div class="container">
-                        <div class="col-xs-12 col-md-6 col-xs-offset-1 col-md-offset-3">
-
-
-                            <div class="row">
-                                <nav aria-label="...">
-                                    <ul class="pager" role="tablist">
-                                        <li class="previous" onclick="goTo(1);"><a href="#"><span aria-hidden="true">←</span> Previous</a></li>
-                                        @{
-                                            foreach (var item in Model.ThumbnailModelList)
-                                            {
-                                                if (item.Thumbnail_ItemPosition == "first")
-                                                {
-                                                    <li class="active" id="@item.Thumbnail_ItemPosition">
-                                                        <a aria-controls="@item.Thumbnail_Aria_Controls" data-toggle="tab" href="@item.Thumbnail_Href" role="tab">@item.ThumbnailTabNo</a>
-                                                    </li>
-                                                }
-
-
-                                                else if (item.Thumbnail_ItemPosition == "last")
-                                                {
-                                                    <li id="@item.Thumbnail_ItemPosition">
-                                                        <a aria-controls="@item.Thumbnail_Aria_Controls" data-toggle="tab" href="@item.Thumbnail_Href" role="tab">@item.ThumbnailTabNo</a>
-                                                    </li>
-                                                }
-                                                else
-                                                {
-                                                    <li>
-                                                        <a aria-controls="@item.Thumbnail_Aria_Controls" data-toggle="tab" href="@item.Thumbnail_Href" role="tab">@item.ThumbnailTabNo</a>
-                                                    </li>
-                                                }
-
-                                            }
-                                        }
-                                        <li class="next" onclick="goTo(2);"><a href="#">Next <span aria-hidden="true">→</span></a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-
-                            <!-- Tab panes -->
+                       
+                        <div class="col-xs-12 col-md-10">
                             <div class="tab-content">
 
                                 @{
                                     foreach (var item in Model.ThumbnailModelList)
                                     {
-                                        if (item.Thumbnail_ItemPosition == "first")
+                                        if (item.Thumbnail_ItemPosition == "First")
                                         {
 
                                             <div class="tab-pane active" id="@item.ThumbnailTabId" role="tabpanel">
@@ -118,24 +81,24 @@
 
                                                     foreach (var detailsitem in item.ClientContactDetailsList)
                                                     {
-                                                        <div class="col-sm-6">
-                                                           
-                                                            <div class="thumbnail">
-                                                                <div class="caption">
-                                                                    @Html.DisplayFor(modelItem => detailsitem.FirstName) @Html.DisplayFor(modelItem => detailsitem.LastName)
-                                                                </div>
-                                                                <div class="description">
-                                                                    <span class="glyphicon glyphicon-envelope" style="color:orangered;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Email) </span>
-                                                                    <span class="glyphicon glyphicon-home" style="color:indianred;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Address) </span>
-                                                                </div>
-                                                                <div class="modal-footer" style="margin-top:5em;">
-                                                                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Details","MgtClientContact" , new { ContactKey = detailsitem.ContactKey })'">View</button>
-                                                                    <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtClientContact", new { ContactKey = detailsitem.ContactKey })'">Edit</button>
-                                                                </div>
-                                                            </div>
+                                                <div class="col-sm-4">
 
-
+                                                    <div class="thumbnail">
+                                                        <div class="caption">
+                                                            @Html.DisplayFor(modelItem => detailsitem.FirstName) @Html.DisplayFor(modelItem => detailsitem.LastName)
                                                         </div>
+                                                        <div class="description">
+                                                            <span class="glyphicon glyphicon-envelope" style="color:orangered;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Email) </span>
+                                                            <span class="glyphicon glyphicon-home" style="color:indianred;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Address) </span>
+                                                        </div>
+                                                        <div class="modal-footer" style="margin-top:5em;">
+                                                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Details","MgtClientContact" , new { ContactKey = detailsitem.ContactKey })'">View</button>
+                                                            <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtClientContact", new { ContactKey = detailsitem.ContactKey })'">Edit</button>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
                                                     }
                                                 }
 
@@ -150,21 +113,21 @@
 
                                                                 foreach (var detailsitem in item.ClientContactDetailsList)
                                                                 {
-                                                                    <div class="col-sm-6">
-                                                                        <div class="thumbnail">
-                                                                            <div class="caption">
-                                                                                @Html.DisplayFor(modelItem => detailsitem.FirstName) @Html.DisplayFor(modelItem => detailsitem.LastName)
-                                                                            </div>
-                                                                            <div class="description">
-                                                                                <span class="glyphicon glyphicon-envelope" style="color:orangered;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Email) </span>
-                                                                                <span class="glyphicon glyphicon-home" style="color:indianred;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Address) </span>
-                                                                            </div>
-                                                                            <div class="modal-footer" style="margin-top:5em;">
-                                                                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Details","MgtClientContact" , new { ContactKey = detailsitem.ContactKey })'">View</button>
-                                                                                <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtClientContact", new { ContactKey = detailsitem.ContactKey })'">Edit</button>
-                                                                            </div>
-                                                                        </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="thumbnail">
+                                                                    <div class="caption">
+                                                                        @Html.DisplayFor(modelItem => detailsitem.FirstName) @Html.DisplayFor(modelItem => detailsitem.LastName)
                                                                     </div>
+                                                                    <div class="description">
+                                                                        <span class="glyphicon glyphicon-envelope" style="color:orangered;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Email) </span>
+                                                                        <span class="glyphicon glyphicon-home" style="color:indianred;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Address) </span>
+                                                                    </div>
+                                                                    <div class="modal-footer" style="margin-top:5em;">
+                                                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Details","MgtClientContact" , new { ContactKey = detailsitem.ContactKey })'">View</button>
+                                                                        <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtClientContact", new { ContactKey = detailsitem.ContactKey })'">Edit</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                                 }
                                                             }
 
@@ -178,6 +141,46 @@
                             </div>
 
 
+                        </div>
+                        <br />
+                        <div class="col-xs-12 col-md-6 col-xs-offset-1 col-md-offset-3">
+
+                            <div class="row">
+                                <nav aria-label="...">
+                                    <ul class="pager" role="tablist">
+                                        <li class="previous" onclick="goTo(1);"><a href="#"><span aria-hidden="true">←</span> Previous</a></li>
+                                        @{
+                                            foreach (var item in Model.ThumbnailModelList)
+                                            {
+                                                if (item.Thumbnail_ItemPosition == "First")
+                                                {
+                                                    <li class="active" id="@item.Thumbnail_ItemPosition">
+                                                        <a aria-controls="@item.Thumbnail_Aria_Controls" data-toggle="tab" href="@item.Thumbnail_Href" role="tab">@item.ThumbnailTabNo</a>
+                                                    </li>
+                                                }
+
+
+                                                else if (item.Thumbnail_ItemPosition == "Last")
+                                                {
+                                                    <li id="@item.Thumbnail_ItemPosition">
+                                                        <a aria-controls="@item.Thumbnail_Aria_Controls" data-toggle="tab" href="@item.Thumbnail_Href" role="tab">@item.ThumbnailTabNo</a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li>
+                                                        <a aria-controls="@item.Thumbnail_Aria_Controls" data-toggle="tab" href="@item.Thumbnail_Href" role="tab">@item.ThumbnailTabNo</a>
+                                                    </li>
+                                                }
+
+                                            }
+                                        }
+                                        @*<li class="next" onclick="goTo(2);"><a href="#">Next <span aria-hidden="true">→</span></a></li>*@
+                                    </ul>
+                                </nav>
+                            </div>
+
+                            <!-- Tab panes -->
                         </div>
                     </div>
 
@@ -221,11 +224,11 @@
         } else {
             $('ul.pager li:eq(0)').attr("class", "disabled");
         }
-        if (number < 5) {
-            $('ul.pager li:eq(6)').attr("onclick", "goTo(" + (number + 1) + ")");
-            $('ul.pager li:eq(6)').attr("class", "next");
+        if (number < 11) {
+            $('ul.pager li:eq(12)').attr("onclick", "goTo(" + (number + 1) + ")");
+            $('ul.pager li:eq(12)').attr("class", "next");
         } else {
-            $('ul.pager li:eq(6)').attr("class", "disabled");
+            $('ul.pager li:eq(12)').attr("class", "disabled");
         }
     }
     $(document).ready(function () {
