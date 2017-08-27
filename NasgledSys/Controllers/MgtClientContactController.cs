@@ -23,7 +23,7 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                logger.Info("Mgt Client Contact Index() invoked by:"+GlobalClass.LoginUser.PName);
+                logger.Info("Mgt Client Contact Index() invoked by:"+GlobalClass.ProfileUser.FirstName);
 
                 ClientContactViewModel obj = new ClientContactViewModel();
                 obj.ClientContactViewModelList = new List<ClientContactViewModel>();
@@ -35,7 +35,7 @@ namespace NasgledSys.Controllers
 
                 // batch your List data for tab view i want batch by 2 you can set your value
 
-                var listOfBatches = obj.ClientContactViewModelList.Batch(2);
+               var listOfBatches = obj.ClientContactViewModelList.Batch(4);
 
                 int tabNo = 1;
 
@@ -96,7 +96,7 @@ namespace NasgledSys.Controllers
 
         public ActionResult Create()
         {
-            logger.Info("Mgt Client Contact Create get invoked by:" + GlobalClass.LoginUser.PName);
+            logger.Info("Mgt Client Contact Create get invoked by:" + GlobalClass.ProfileUser.FirstName);
             try {
                 var model = new ClientContactViewModel();
                 ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName");
@@ -113,7 +113,7 @@ namespace NasgledSys.Controllers
       [HttpPost]
         public ActionResult Create(ClientContactViewModel obj)
         {
-            logger.Info("Mgt Client Contact Create Post invoked by:" + GlobalClass.LoginUser.PName);
+            logger.Info("Mgt Client Contact Create Post invoked by:" + GlobalClass.ProfileUser.FirstName);
             try
             {
                 if (ModelState.IsValid)
@@ -154,7 +154,7 @@ namespace NasgledSys.Controllers
         }
         public ActionResult Details(Guid? ContactKey)
         {
-            logger.Info("Mgt Client Contact Details Post invoked by:" + GlobalClass.LoginUser.PName);
+            logger.Info("Mgt Client Contact Details Post invoked by:" + GlobalClass.ProfileUser.FirstName);
             try
             {
                 if (ContactKey == null)
@@ -181,7 +181,7 @@ namespace NasgledSys.Controllers
         {
             try
             {
-                logger.Info("Mgt Client Contact Edit Get invoked by:" + GlobalClass.LoginUser.PName);
+                logger.Info("Mgt Client Contact Edit Get invoked by:" + GlobalClass.ProfileUser.FirstName);
 
                 if (ContactKey == null)
                 {
@@ -214,7 +214,7 @@ namespace NasgledSys.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    logger.Info("Mgt Client Contact Edit Post invoked by:" + GlobalClass.LoginUser.PName);
+                    logger.Info("Mgt Client Contact Edit Post invoked by:" + GlobalClass.ProfileUser.FirstName);
 
                     ClientContact model = db.ClientContact.Find(obj.ContactKey);
                     model.FirstName = obj.FirstName;
