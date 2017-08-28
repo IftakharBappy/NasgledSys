@@ -3,20 +3,38 @@
     ViewBag.Title = "Contact Details";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/pages/datatables_advanced.js"></script>
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"> </link>
 
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Content/assets/js/pages/form_select2.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-      
+
+        $( "#searchTerm" ).autocomplete({
+            serviceUrl: '/MgtClientContact/getAjaxResult/'
+            });
     });
 </script>
-@section SideBar{
-    <div class="panel-body">
-        <button type="button" class="btn btn-primary" data-toggle="" data-target="" onclick="location.href='@Url.Action("Create","MgtClientContact")'">Add New Contact Info</button>
-    
-</div>
 
+@section SideBar{
+    <div class="panel-body col-md-12">
+        <button type="button" class="btn btn-primary" data-toggle="" data-target="" onclick="location.href='@Url.Action("Create","MgtClientContact")'">Add New Contact Info</button>
+        
+
+    <div class="from-group col-md-6" style="margin-left:20em;">
+            @using (Html.BeginForm("Search", "MgtClientContact", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <div class="col-md-3">
+                    <input type="text" name="searchTerm" id="searchTerm" class="form-control" value="" size="10" maxlength="30" />
+                </div>
+                <div class="col-md-3">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            }
+   </div>
+</div>
 }
 
 @section CenterTitle{
@@ -26,9 +44,9 @@
     <div class="col-md-2">
         &nbsp;
     </div>
-    @using (Html.BeginForm("Index", "MgtClientContact", FormMethod.Post, new { @class = "form-horizontal" }))
+    @using (Html.BeginForm("Index", "MgtClientContact", FormMethod.Get, new { @class = "form-horizontal" }))
     {
-        
+
         <div class="panel panel-primary col-md-8">
             <div class="panel-body">
                 <h4>
@@ -40,10 +58,13 @@
 
                 </h4>
                 </div>
+            <div>
+            </div>
                 <div class="panel-heading">
                     <h3>Contact Setup</h3>
                 </div>
                 <div class="panel-body">
+
                     @*@foreach (var item in Model.ClientContactList)
                 {
                         <div class="col-xs-18 col-sm-6 col-md-3">
@@ -65,7 +86,7 @@
 
 
                     <div class="container">
-                       
+
                         <div class="col-xs-12 col-md-10">
                             <div class="tab-content">
 
@@ -113,7 +134,7 @@
 
                                                                 foreach (var detailsitem in item.ClientContactDetailsList)
                                                                 {
-                                                            <div class="col-sm-6">
+                                                            <div class="col-sm-4">
                                                                 <div class="thumbnail">
                                                                     <div class="caption">
                                                                         @Html.DisplayFor(modelItem => detailsitem.FirstName) @Html.DisplayFor(modelItem => detailsitem.LastName)

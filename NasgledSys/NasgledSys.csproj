@@ -3173,6 +3173,7 @@
     <Content Include="Scripts\AutoComplete\scSalesReachSetup.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
     <Content Include="Scripts\AutoComplete\scManufacturer.js" />
+    <Content Include="Scripts\AutoComplete\searchable.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
