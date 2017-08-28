@@ -184,8 +184,6 @@
           <Property Name="OfficePhone" Type="nvarchar(max)" />
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="Address2" Type="nvarchar(max)" />
-          <Property Name="CityKey" Type="uniqueidentifier" />
-          <Property Name="StateKey" Type="uniqueidentifier" />
           <Property Name="Zipcode" Type="nvarchar(max)" />
           <Property Name="BillingContactName" Type="nvarchar(max)" />
           <Property Name="BillingContactEMail" Type="nvarchar(max)" />
@@ -198,6 +196,8 @@
           <Property Name="EstimateFooter" Type="nvarchar(max)" />
           <Property Name="MarkupOrMargin" Type="nvarchar(max)" />
           <Property Name="MarkupOrMarginPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CityKey" Type="int" />
+          <Property Name="StateKey" Type="int" />
         </EntityType>
         <EntityType Name="ClientContact">
           <Key>
@@ -1142,6 +1142,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClientCompany_ClientCompany">
+          <End Role="CityList" Type="Self.CityList" Multiplicity="0..1" />
+          <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityList">
+              <PropertyRef Name="CityKey" />
+            </Principal>
+            <Dependent Role="ClientCompany">
+              <PropertyRef Name="CityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ClientCompany_IndustryType">
           <End Role="IndustryType" Type="Self.IndustryType" Multiplicity="0..1" />
           <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="*" />
@@ -1151,6 +1163,18 @@
             </Principal>
             <Dependent Role="ClientCompany">
               <PropertyRef Name="IndustryTypeKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCompany_StateList">
+          <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+          <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateList">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="ClientCompany">
+              <PropertyRef Name="StateKey" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1930,8 +1954,16 @@
             <End Role="StateList" EntitySet="StateList" />
             <End Role="CityList" EntitySet="CityList" />
           </AssociationSet>
+          <AssociationSet Name="FK_ClientCompany_ClientCompany" Association="Self.FK_ClientCompany_ClientCompany">
+            <End Role="CityList" EntitySet="CityList" />
+            <End Role="ClientCompany" EntitySet="ClientCompany" />
+          </AssociationSet>
           <AssociationSet Name="FK_ClientCompany_IndustryType" Association="Self.FK_ClientCompany_IndustryType">
             <End Role="IndustryType" EntitySet="IndustryType" />
+            <End Role="ClientCompany" EntitySet="ClientCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCompany_StateList" Association="Self.FK_ClientCompany_StateList">
+            <End Role="StateList" EntitySet="StateList" />
             <End Role="ClientCompany" EntitySet="ClientCompany" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientContact_CityList" Association="Self.FK_ClientContact_CityList">
@@ -2152,6 +2184,7 @@
           <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_UserProfile_CityList" FromRole="CityList" ToRole="UserProfile" />
           <NavigationProperty Name="Company" Relationship="NasgledDBModel.FK_Company_CityList" FromRole="CityList" ToRole="Company" />
           <NavigationProperty Name="ZIPList" Relationship="NasgledDBModel.FK_ZIPList_CityList" FromRole="CityList" ToRole="ZIPList" />
+          <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_ClientCompany_ClientCompany" FromRole="CityList" ToRole="ClientCompany" />
         </EntityType>
         <EntityType Name="Forms">
           <Key>
@@ -2224,6 +2257,7 @@
           <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_UserProfile_StateList" FromRole="StateList" ToRole="UserProfile" />
           <NavigationProperty Name="Company" Relationship="NasgledDBModel.FK_Company_StateList" FromRole="StateList" ToRole="Company" />
           <NavigationProperty Name="ZIPList" Relationship="NasgledDBModel.FK_ZIPList_StateList" FromRole="StateList" ToRole="ZIPList" />
+          <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_ClientCompany_StateList" FromRole="StateList" ToRole="ClientCompany" />
         </EntityType>
         <EntityType Name="Usergroup">
           <Key>
@@ -2304,7 +2338,6 @@
           <EntitySet Name="AreaProductDocument" EntityType="NasgledDBModel.AreaProductDocument" />
           <EntitySet Name="AreaProductNote" EntityType="NasgledDBModel.AreaProductNote" />
           <EntitySet Name="AreaProductPhoto" EntityType="NasgledDBModel.AreaProductPhoto" />
-          <EntitySet Name="ClientCompany" EntityType="NasgledDBModel.ClientCompany" />
           <EntitySet Name="ClientContact" EntityType="NasgledDBModel.ClientContact" />
           <EntitySet Name="CoolingEfficientyType" EntityType="NasgledDBModel.CoolingEfficientyType" />
           <EntitySet Name="CoolingSystem" EntityType="NasgledDBModel.CoolingSystem" />
@@ -2456,18 +2489,6 @@
           <AssociationSet Name="FK_UserProfile_CityList" Association="NasgledDBModel.FK_UserProfile_CityList">
             <End Role="CityList" EntitySet="CityList" />
             <End Role="UserProfile" EntitySet="UserProfile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClientCompany_IndustryType" Association="NasgledDBModel.FK_ClientCompany_IndustryType">
-            <End Role="IndustryType" EntitySet="IndustryType" />
-            <End Role="ClientCompany" EntitySet="ClientCompany" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Project_ClientCompany" Association="NasgledDBModel.FK_Project_ClientCompany">
-            <End Role="ClientCompany" EntitySet="ClientCompany" />
-            <End Role="Project" EntitySet="Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Team_ClientCompany" Association="NasgledDBModel.FK_Team_ClientCompany">
-            <End Role="ClientCompany" EntitySet="ClientCompany" />
-            <End Role="Team" EntitySet="Team" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientContact_ClientContact" Association="NasgledDBModel.FK_ClientContact_ClientContact">
             <End Role="UserProfile" EntitySet="UserProfile" />
@@ -2654,6 +2675,27 @@
             <End Role="MainProduct" EntitySet="MainProduct" />
           </AssociationSet>
           <EntitySet Name="Logs" EntityType="NasgledDBModel.Logs" />
+          <EntitySet Name="ClientCompany" EntityType="NasgledDBModel.ClientCompany" />
+          <AssociationSet Name="FK_ClientCompany_ClientCompany" Association="NasgledDBModel.FK_ClientCompany_ClientCompany">
+            <End Role="CityList" EntitySet="CityList" />
+            <End Role="ClientCompany" EntitySet="ClientCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCompany_IndustryType" Association="NasgledDBModel.FK_ClientCompany_IndustryType">
+            <End Role="IndustryType" EntitySet="IndustryType" />
+            <End Role="ClientCompany" EntitySet="ClientCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCompany_StateList" Association="NasgledDBModel.FK_ClientCompany_StateList">
+            <End Role="StateList" EntitySet="StateList" />
+            <End Role="ClientCompany" EntitySet="ClientCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_ClientCompany" Association="NasgledDBModel.FK_Project_ClientCompany">
+            <End Role="ClientCompany" EntitySet="ClientCompany" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Team_ClientCompany" Association="NasgledDBModel.FK_Team_ClientCompany">
+            <End Role="ClientCompany" EntitySet="ClientCompany" />
+            <End Role="Team" EntitySet="Team" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -2843,37 +2885,6 @@
           <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductPhoto_Area" FromRole="AreaProductPhoto" ToRole="Area" />
           <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProductPhoto_AreaProduct" FromRole="AreaProductPhoto" ToRole="AreaProduct" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProductPhoto_ProfileProduct" FromRole="AreaProductPhoto" ToRole="ProfileProduct" />
-        </EntityType>
-        <EntityType Name="ClientCompany">
-          <Key>
-            <PropertyRef Name="ClientCompanyKey" />
-          </Key>
-          <Property Name="ClientCompanyKey" Type="Guid" Nullable="false" />
-          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IndustryTypeKey" Type="Guid" />
-          <NavigationProperty Name="IndustryType" Relationship="NasgledDBModel.FK_ClientCompany_IndustryType" FromRole="ClientCompany" ToRole="IndustryType" />
-          <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_ClientCompany" FromRole="ClientCompany" ToRole="Project" />
-          <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_ClientCompany" FromRole="ClientCompany" ToRole="Team" />
-          <Property Name="ProfileKey" Type="Guid" />
-          <Property Name="NoOfSalesPerson" Type="Int32" />
-          <Property Name="OfficePhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CityKey" Type="Guid" />
-          <Property Name="StateKey" Type="Guid" />
-          <Property Name="Zipcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BillingContactName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BillingContactEMail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsAddressSameAsOffice" Type="Boolean" />
-          <Property Name="ProposalIntro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProposalTeam" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProposalLegal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProposalDisclaimer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProposalReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EstimateFooter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MarkupOrMargin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MarkupOrMarginPercentage" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ClientContact">
           <Key>
@@ -3191,7 +3202,6 @@
           <Property Name="CompanyKey" Type="Guid" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_Project" FromRole="Project" ToRole="Area" />
-          <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_Project_ClientCompany" FromRole="Project" ToRole="ClientCompany" />
           <NavigationProperty Name="ClientContact" Relationship="NasgledDBModel.FK_Project_ClientContact" FromRole="Project" ToRole="ClientContact" />
           <NavigationProperty Name="CoolingSystem" Relationship="NasgledDBModel.FK_CoolingSystem_Project" FromRole="Project" ToRole="CoolingSystem" />
           <NavigationProperty Name="HeatingSystem" Relationship="NasgledDBModel.FK_HeatingSystem_Project" FromRole="Project" ToRole="HeatingSystem" />
@@ -3201,6 +3211,7 @@
           <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_Project_UserProfile" FromRole="Project" ToRole="UserProfile" />
           <NavigationProperty Name="Proposal" Relationship="NasgledDBModel.FK_Proposal_Project" FromRole="Project" ToRole="Proposal" />
           <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_Project" FromRole="Project" ToRole="Team" />
+          <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_Project_ClientCompany" FromRole="Project" ToRole="ClientCompany" />
         </EntityType>
         <EntityType Name="ProjectStatus">
           <Key>
@@ -3302,11 +3313,11 @@
           <Property Name="JobFunctionKey" Type="Guid" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="ProjectKey" Type="Guid" />
-          <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_Team_ClientCompany" FromRole="Team" ToRole="ClientCompany" />
           <NavigationProperty Name="JobFunction" Relationship="NasgledDBModel.FK_Team_JobFunction" FromRole="Team" ToRole="JobFunction" />
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Team_Project" FromRole="Team" ToRole="Project" />
           <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_Team_UserProfile" FromRole="Team" ToRole="UserProfile" />
           <NavigationProperty Name="UserRole" Relationship="NasgledDBModel.FK_Team_UserRole" FromRole="Team" ToRole="UserRole" />
+          <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_Team_ClientCompany" FromRole="Team" ToRole="ClientCompany" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -3711,42 +3722,6 @@
             </Principal>
             <Dependent Role="UserProfile">
               <PropertyRef Name="CityKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClientCompany_IndustryType">
-          <End Type="NasgledDBModel.IndustryType" Role="IndustryType" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="IndustryType">
-              <PropertyRef Name="IndustryKey" />
-            </Principal>
-            <Dependent Role="ClientCompany">
-              <PropertyRef Name="IndustryTypeKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Project_ClientCompany">
-          <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ClientCompany">
-              <PropertyRef Name="ClientCompanyKey" />
-            </Principal>
-            <Dependent Role="Project">
-              <PropertyRef Name="CompanyKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Team_ClientCompany">
-          <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="1" />
-          <End Type="NasgledDBModel.Team" Role="Team" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ClientCompany">
-              <PropertyRef Name="ClientCompanyKey" />
-            </Principal>
-            <Dependent Role="Team">
-              <PropertyRef Name="ClientCompanyKey" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4429,6 +4404,99 @@
           <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="InnerErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ClientCompany">
+          <Key>
+            <PropertyRef Name="ClientCompanyKey" />
+          </Key>
+          <Property Name="ClientCompanyKey" Type="Guid" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IndustryTypeKey" Type="Guid" />
+          <Property Name="ProfileKey" Type="Guid" />
+          <Property Name="NoOfSalesPerson" Type="Int32" />
+          <Property Name="OfficePhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Zipcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BillingContactName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BillingContactEMail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAddressSameAsOffice" Type="Boolean" />
+          <Property Name="ProposalIntro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalTeam" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalLegal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalDisclaimer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EstimateFooter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MarkupOrMargin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MarkupOrMarginPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CityKey" Type="Int32" />
+          <Property Name="StateKey" Type="Int32" />
+          <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_ClientCompany_ClientCompany" FromRole="ClientCompany" ToRole="CityList" />
+          <NavigationProperty Name="IndustryType" Relationship="NasgledDBModel.FK_ClientCompany_IndustryType" FromRole="ClientCompany" ToRole="IndustryType" />
+          <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_ClientCompany_StateList" FromRole="ClientCompany" ToRole="StateList" />
+          <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_ClientCompany" FromRole="ClientCompany" ToRole="Project" />
+          <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_ClientCompany" FromRole="ClientCompany" ToRole="Team" />
+        </EntityType>
+        <Association Name="FK_ClientCompany_ClientCompany">
+          <End Type="NasgledDBModel.CityList" Role="CityList" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityList">
+              <PropertyRef Name="CityKey" />
+            </Principal>
+            <Dependent Role="ClientCompany">
+              <PropertyRef Name="CityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCompany_IndustryType">
+          <End Type="NasgledDBModel.IndustryType" Role="IndustryType" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryType">
+              <PropertyRef Name="IndustryKey" />
+            </Principal>
+            <Dependent Role="ClientCompany">
+              <PropertyRef Name="IndustryTypeKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCompany_StateList">
+          <End Type="NasgledDBModel.StateList" Role="StateList" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateList">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="ClientCompany">
+              <PropertyRef Name="StateKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_ClientCompany">
+          <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientCompany">
+              <PropertyRef Name="ClientCompanyKey" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CompanyKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Team_ClientCompany">
+          <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="1" />
+          <End Type="NasgledDBModel.Team" Role="Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientCompany">
+              <PropertyRef Name="ClientCompanyKey" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="ClientCompanyKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4676,35 +4744,6 @@
                 <ScalarProperty Name="FixtureKey" ColumnName="FixtureKey" />
                 <ScalarProperty Name="AreaKey" ColumnName="AreaKey" />
                 <ScalarProperty Name="PhotoKey" ColumnName="PhotoKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ClientCompany">
-            <EntityTypeMapping TypeName="NasgledDBModel.ClientCompany">
-              <MappingFragment StoreEntitySet="ClientCompany">
-                <ScalarProperty Name="MarkupOrMarginPercentage" ColumnName="MarkupOrMarginPercentage" />
-                <ScalarProperty Name="MarkupOrMargin" ColumnName="MarkupOrMargin" />
-                <ScalarProperty Name="EstimateFooter" ColumnName="EstimateFooter" />
-                <ScalarProperty Name="ProposalReference" ColumnName="ProposalReference" />
-                <ScalarProperty Name="ProposalDisclaimer" ColumnName="ProposalDisclaimer" />
-                <ScalarProperty Name="ProposalLegal" ColumnName="ProposalLegal" />
-                <ScalarProperty Name="ProposalTeam" ColumnName="ProposalTeam" />
-                <ScalarProperty Name="ProposalIntro" ColumnName="ProposalIntro" />
-                <ScalarProperty Name="IsAddressSameAsOffice" ColumnName="IsAddressSameAsOffice" />
-                <ScalarProperty Name="BillingContactEMail" ColumnName="BillingContactEMail" />
-                <ScalarProperty Name="BillingContactName" ColumnName="BillingContactName" />
-                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
-                <ScalarProperty Name="StateKey" ColumnName="StateKey" />
-                <ScalarProperty Name="CityKey" ColumnName="CityKey" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="OfficePhone" ColumnName="OfficePhone" />
-                <ScalarProperty Name="NoOfSalesPerson" ColumnName="NoOfSalesPerson" />
-                <ScalarProperty Name="ProfileKey" ColumnName="ProfileKey" />
-                <ScalarProperty Name="IndustryTypeKey" ColumnName="IndustryTypeKey" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="ClientCompanyKey" ColumnName="ClientCompanyKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5280,6 +5319,35 @@
                 <ScalarProperty Name="EventLevel" ColumnName="EventLevel" />
                 <ScalarProperty Name="EventDateTime" ColumnName="EventDateTime" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientCompany">
+            <EntityTypeMapping TypeName="NasgledDBModel.ClientCompany">
+              <MappingFragment StoreEntitySet="ClientCompany">
+                <ScalarProperty Name="StateKey" ColumnName="StateKey" />
+                <ScalarProperty Name="CityKey" ColumnName="CityKey" />
+                <ScalarProperty Name="MarkupOrMarginPercentage" ColumnName="MarkupOrMarginPercentage" />
+                <ScalarProperty Name="MarkupOrMargin" ColumnName="MarkupOrMargin" />
+                <ScalarProperty Name="EstimateFooter" ColumnName="EstimateFooter" />
+                <ScalarProperty Name="ProposalReference" ColumnName="ProposalReference" />
+                <ScalarProperty Name="ProposalDisclaimer" ColumnName="ProposalDisclaimer" />
+                <ScalarProperty Name="ProposalLegal" ColumnName="ProposalLegal" />
+                <ScalarProperty Name="ProposalTeam" ColumnName="ProposalTeam" />
+                <ScalarProperty Name="ProposalIntro" ColumnName="ProposalIntro" />
+                <ScalarProperty Name="IsAddressSameAsOffice" ColumnName="IsAddressSameAsOffice" />
+                <ScalarProperty Name="BillingContactEMail" ColumnName="BillingContactEMail" />
+                <ScalarProperty Name="BillingContactName" ColumnName="BillingContactName" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="OfficePhone" ColumnName="OfficePhone" />
+                <ScalarProperty Name="NoOfSalesPerson" ColumnName="NoOfSalesPerson" />
+                <ScalarProperty Name="ProfileKey" ColumnName="ProfileKey" />
+                <ScalarProperty Name="IndustryTypeKey" ColumnName="IndustryTypeKey" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ClientCompanyKey" ColumnName="ClientCompanyKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

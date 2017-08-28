@@ -30,8 +30,6 @@ namespace NasgledSys.Models
         public string OfficePhone { get; set; }
         public string Address { get; set; }
         public string Address2 { get; set; }
-        public Nullable<System.Guid> CityKey { get; set; }
-        public Nullable<System.Guid> StateKey { get; set; }
         public string Zipcode { get; set; }
         public string BillingContactName { get; set; }
         public string BillingContactEMail { get; set; }
@@ -44,8 +42,12 @@ namespace NasgledSys.Models
         public string EstimateFooter { get; set; }
         public string MarkupOrMargin { get; set; }
         public Nullable<decimal> MarkupOrMarginPercentage { get; set; }
+        public Nullable<int> CityKey { get; set; }
+        public Nullable<int> StateKey { get; set; }
     
+        public virtual CityList CityList { get; set; }
         public virtual IndustryType IndustryType { get; set; }
+        public virtual StateList StateList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Project> Project { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

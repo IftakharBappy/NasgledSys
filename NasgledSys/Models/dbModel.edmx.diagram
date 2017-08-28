@@ -25,7 +25,6 @@
         <EntityTypeShape EntityType="NasgledDBModel.AreaProductDocument" Width="1.5" PointX="34.375" PointY="15.25" />
         <EntityTypeShape EntityType="NasgledDBModel.AreaProductNote" Width="1.5" PointX="31.375" PointY="15.25" />
         <EntityTypeShape EntityType="NasgledDBModel.AreaProductPhoto" Width="1.5" PointX="31.375" PointY="19.25" />
-        <EntityTypeShape EntityType="NasgledDBModel.ClientCompany" Width="1.5" PointX="14.125" PointY="16.125" />
         <EntityTypeShape EntityType="NasgledDBModel.ClientContact" Width="1.5" PointX="11.125" PointY="6.125" />
         <EntityTypeShape EntityType="NasgledDBModel.CoolingEfficientyType" Width="1.5" PointX="22.375" PointY="19.25" />
         <EntityTypeShape EntityType="NasgledDBModel.CoolingSystem" Width="1.5" PointX="24.625" PointY="6.75" />
@@ -88,9 +87,6 @@
         <AssociationConnector Association="NasgledDBModel.FK_AreaProductPhoto_ProfileProduct" />
         <AssociationConnector Association="NasgledDBModel.FK_ClientContact_CityList" />
         <AssociationConnector Association="NasgledDBModel.FK_UserProfile_CityList" />
-        <AssociationConnector Association="NasgledDBModel.FK_ClientCompany_IndustryType" />
-        <AssociationConnector Association="NasgledDBModel.FK_Project_ClientCompany" />
-        <AssociationConnector Association="NasgledDBModel.FK_Team_ClientCompany" />
         <AssociationConnector Association="NasgledDBModel.FK_ClientContact_ClientContact" />
         <AssociationConnector Association="NasgledDBModel.FK_ClientContact_StateList" />
         <AssociationConnector Association="NasgledDBModel.FK_Project_ClientContact" />
@@ -144,6 +140,12 @@
         <AssociationConnector Association="NasgledDBModel.FK_MainProduct_ItemType" />
         <AssociationConnector Association="NasgledDBModel.FK_MainProduct_Manufacturer" />
         <EntityTypeShape EntityType="NasgledDBModel.Logs" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NasgledDBModel.ClientCompany" Width="1.5" PointX="14.125" PointY="0.75" />
+        <AssociationConnector Association="NasgledDBModel.FK_ClientCompany_ClientCompany" />
+        <AssociationConnector Association="NasgledDBModel.FK_ClientCompany_IndustryType" />
+        <AssociationConnector Association="NasgledDBModel.FK_ClientCompany_StateList" />
+        <AssociationConnector Association="NasgledDBModel.FK_Project_ClientCompany" />
+        <AssociationConnector Association="NasgledDBModel.FK_Team_ClientCompany" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
