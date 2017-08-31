@@ -1,4 +1,5 @@
-﻿using NasgledSys.DAL;
+﻿using Microsoft.Ajax.Utilities;
+using NasgledSys.DAL;
 using NasgledSys.Models;
 using NLog;
 using System;
@@ -97,7 +98,7 @@ namespace NasgledSys.Controllers
 
         public ActionResult Create()
         {
-            logger.Info("Mgt Client Contact Create get invoked by:"+GlobalClass.ProfileUser.FirstName + " " + GlobalClass.ProfileUser.LastName);
+            logger.Info("Mgt Client Contact Create get invoked by:" + GlobalClass.ProfileUser.FirstName + " " + GlobalClass.ProfileUser.LastName);
             try {
                 var model = new ClientContactViewModel();
                 ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName");
@@ -247,6 +248,101 @@ namespace NasgledSys.Controllers
             {
                 logger.Error(ex, "Edit Post");
                 return View("Error", new HandleErrorInfo(ex, "MgtClientContact", "Index"));
+            }
+        }
+
+        public ActionResult getAjaxResult(string pName)
+        {
+
+            string searchResult = string.Empty;
+
+            var client = (from a in db.ClientContact
+                           where a.FirstName.Contains(pName)
+                           orderby a.FirstName
+                          select a).Take(10);
+
+            foreach (ClientContact a in client)
+            {
+                searchResult += string.Format("{0}|\r\n", a.FirstName);
+            }
+
+            return Content(searchResult);
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Search(string searchTerm)
+        {
+            try
+            {
+                logger.Info("Mgt Client Contact Search() invoked by:" + GlobalClass.ProfileUser.FirstName + " " + GlobalClass.ProfileUser.LastName);
+
+                ClientContactViewModel obj = new ClientContactViewModel();
+                obj.ClientContactViewModelList = new List<ClientContactViewModel>();
+                obj.ClientContactViewModelList = manage.SearchList(searchTerm);
+
+
+                ThumbnailViewModel model = new ThumbnailViewModel();
+                model.ThumbnailModelList = new List<ThumbnailModel>();
+
+                List<ClientContactViewModel> batchList = new List<ClientContactViewModel>();
+
+                batchList = obj.ClientContactViewModelList;
+
+                var listOfBatches = batchList.Batch(1);
+
+                int tabNo = 1;
+
+                foreach (var batchItem in listOfBatches)
+                {
+                    // Generating tab
+                    ThumbnailModel thumbObj = new ThumbnailModel();
+                    thumbObj.ThumbnailLabel = "Lebel" + tabNo;
+                    thumbObj.ThumbnailTabId = "tab" + tabNo;
+                    thumbObj.ThumbnailTabNo = tabNo;
+                    thumbObj.Thumbnail_Aria_Controls = "tab" + tabNo;
+                    thumbObj.Thumbnail_Href = "#tab" + tabNo;
+
+                    // batch details
+
+                    thumbObj.ClientContactDetailsList = new List<ClientContactViewModel>();
+
+                    foreach (var item in batchItem)
+                    {
+                        ClientContactViewModel detailsObj = new ClientContactViewModel();
+                        detailsObj = item;
+                        thumbObj.ClientContactDetailsList.Add(detailsObj);
+                    }
+
+                    model.ThumbnailModelList.Add(thumbObj);
+
+                    tabNo++;
+                }
+
+                // Getting first tab data
+                var first = model.ThumbnailModelList.FirstOrDefault();
+
+                // Getting first tab data
+                var last = model.ThumbnailModelList.LastOrDefault();
+
+                foreach (var item in model.ThumbnailModelList)
+                {
+                    if (item.ThumbnailTabNo == first.ThumbnailTabNo)
+                    {
+                        item.Thumbnail_ItemPosition = "First";
+                    }
+
+                    if (item.ThumbnailTabNo == last.ThumbnailTabNo)
+                    {
+                        item.Thumbnail_ItemPosition = "Last";
+                    }
+
+                }
+
+                return View("Index",model);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Index");
+                return View("Error", new HandleErrorInfo(ex, "Home", "UserHome"));
             }
         }
         protected override void Dispose(bool disposing)
