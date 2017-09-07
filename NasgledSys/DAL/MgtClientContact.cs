@@ -90,6 +90,23 @@ namespace NasgledSys.DAL
 
             return bo;
         }
+        public List<ClientContactViewModel> SearchList(String searchTerm)
+        {
+            List<ClientContactViewModel> obj = new List<ClientContactViewModel>();
+            var temp = (from x in db.ClientContact
+                        where x.FirstName.Contains(searchTerm)
+                        select new ClientContactViewModel
+                        {
+                            ContactKey = x.ContactKey,
+                            FirstName = x.FirstName,
+                            LastName = x.LastName,
+                            Email = x.Email,
+                            Address = x.Address,
+                            IsActive = x.IsActive
+                        }).OrderBy(m => m.Email);
+            obj = temp.ToList();
+            return obj;
+        }
 
     }
 }

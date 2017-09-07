@@ -325,6 +325,7 @@
     <Compile Include="Models\ClientCompany.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClientCompanyViewModel.cs" />
     <Compile Include="Models\ClientContact.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3173,6 +3174,7 @@
     <Content Include="Scripts\AutoComplete\scSalesReachSetup.js" />
     <Content Include="Scripts\AutoComplete\scStateCity.js" />
     <Content Include="Scripts\AutoComplete\scManufacturer.js" />
+    <Content Include="Scripts\AutoComplete\searchable.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -3763,6 +3765,10 @@
     <Content Include="Views\Logs\Details.cshtml" />
     <Content Include="Views\Logs\Edit.cshtml" />
     <Content Include="Views\Logs\Index.cshtml" />
+    <Content Include="Views\MgtClientCompany\CreateClientCompany.cshtml" />
+    <Content Include="Views\MgtClientCompany\EditClientCompany.cshtml" />
+    <Content Include="Views\MgtClientCompany\ViewClientCompany.cshtml" />
+    <Content Include="Views\MgtClientCompany\IndexClientCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
