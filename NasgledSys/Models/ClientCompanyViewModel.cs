@@ -22,6 +22,8 @@ namespace NasgledSys.Models
         public Nullable<int> NoOfSalesPerson { get; set; }
         [Display(Name = "Office Phone*")]
         [Required(ErrorMessage = "Office Phone is required")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string OfficePhone { get; set; }
         [Display(Name = "Address*")]
         [Required(ErrorMessage = "Address is required")]
@@ -32,7 +34,10 @@ namespace NasgledSys.Models
         public string Zipcode { get; set; }
         [Display(Name = "Billing Contact Name")]
         public string BillingContactName { get; set; }
+       
         [Display(Name = "Billing Contact EMail")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         public string BillingContactEMail { get; set; }
         [Display(Name = "Billing Address Same As Office")]
         public bool IsAddressSameAsOffice { get; set; } = false;

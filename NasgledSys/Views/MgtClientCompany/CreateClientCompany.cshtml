@@ -8,7 +8,61 @@
 <script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
 <script src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
-
+<script src="~/Scripts/jquery.maskedinput.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadCityDropDown_ToCreate();
+        LoadStateDropDown_ToCreate();
+    });
+    $(function () {
+        $('[mask]').each(function (e) {
+            $(this).mask($(this).attr('mask'));
+        });
+    });
+    function LoadCityDropDown_ToCreate() {
+        var select = $('select[name=CityKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtClientCompany/loadCityDropDown_ToCreate/",
+            //data: JSON.stringify({ barcode: barcode_text }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].CityKey + "'>" + data[i].CityName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadStateDropDown_ToCreate() {
+        var select = $('select[name=StateKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtClientCompany/LoadStateDropDown_ToCreate/",
+            //data: JSON.stringify({ barcode: barcode_text }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "'>" + data[i].StateName + "</option>";
+                }
+                select.html(res);
+             
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+</script>
 @section SideBar{
     <center>
         <h4>
@@ -64,7 +118,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.NoOfSalesPerson)
                                 @Html.TextBoxFor(model => model.NoOfSalesPerson, new { placeholder = "Number of Sales Person", id = "NoOfSalesPerson", @class = "form-control" })
-                                <span class="small text-muted">How many salespeople are in your company, regardless of whether or not they are on ######?</span>
+                                <span class="small text-muted">How many sales person are in your company, regardless of whether or not they are on ######?</span>
                                 @Html.ValidationMessageFor(model => model.NoOfSalesPerson, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
@@ -79,7 +133,7 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.OfficePhone)
-                                @Html.TextBoxFor(model => model.OfficePhone, new { placeholder = "Office Phone", id = "OfficePhone", @class = "form-control" })
+                                @Html.TextBoxFor(model => model.OfficePhone, new { mask = "(999) 999-9999", placeholder = "Office Phone", id = "OfficePhone", @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
@@ -219,51 +273,4 @@
         &nbsp;
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        LoadCityDropDown_ToCreate();
-        LoadStateDropDown_ToCreate();
-    });
-    function LoadCityDropDown_ToCreate() {
-        var select = $('select[name=CityKey]');
-        $.ajax({
-            traditional: true,
-            type: "post",
-            dataType: "json",
-            contentType: "application/json",
-            url: "/MgtClientCompany/loadCityDropDown_ToCreate/",
-            //data: JSON.stringify({ barcode: barcode_text }),
-            success: function (data) {
-                var res = "<option>Select</option>";
-                for (var i = 0; i < data.length; i++) {
-                    res = res + "<option value='" + data[i].CityKey + "'>" + data[i].CityName + "</option>";
-                }
-                select.html(res);
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log("Error on ajax call");
-            }
-        });
-    }
-    function LoadStateDropDown_ToCreate() {
-        var select = $('select[name=StateKey]');
-        $.ajax({
-            traditional: true,
-            type: "post",
-            dataType: "json",
-            contentType: "application/json",
-            url: "/MgtClientCompany/LoadStateDropDown_ToCreate/",
-            //data: JSON.stringify({ barcode: barcode_text }),
-            success: function (data) {
-                var res = "<option>Select</option>";
-                for (var i = 0; i < data.length; i++) {
-                    res = res + "<option value='" + data[i].PKey + "'>" + data[i].StateName + "</option>";
-                }
-                select.html(res);
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log("Error on ajax call");
-            }
-        });
-    }
-</script>
+

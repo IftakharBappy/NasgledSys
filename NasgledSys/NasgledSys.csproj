@@ -512,6 +512,7 @@
     <Compile Include="Validation\FormValidation.cs" />
     <Compile Include="Validation\MgtInstituteInfo.cs" />
     <Compile Include="Validation\UniqueIDCreator.cs" />
+    <Compile Include="Validation\ValidateClientCompany.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\12_-_Address_book-256.png" />
@@ -3639,6 +3640,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.maskedinput.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

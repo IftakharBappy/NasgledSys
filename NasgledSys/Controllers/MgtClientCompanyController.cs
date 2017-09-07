@@ -22,64 +22,91 @@ namespace NasgledSys.Controllers
         // GET: MgtClientCompany
         private NasgledDBEntities db = new NasgledDBEntities();
         private FormValidation validate = new FormValidation();
+        private ValidateClientCompany val = new ValidateClientCompany();
         public ActionResult Create()
         {
-            logger.Info("MgtClientCompany Create() invoked by :  " + GlobalClass.LoginUser.PName);
-            try
+            if (GlobalClass.MasterSession)
             {
-                ViewBag.mess = "";
-                ViewBag.IndustryTypeKey = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "IndustryKey", "TypeName");
+                // logger.Info("MgtClientCompany Create() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
+                try
+                {
+                    ViewBag.mess = "";
+                    ViewBag.IndustryTypeKey = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "IndustryKey", "TypeName");
 
-                return View();
+                    return View();
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
             }
-            catch (Exception e)
+            else
             {
-
-                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                Exception e = new Exception("Session Expired");               
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }
         [HttpPost]
         public ActionResult Create(ClientCompany modelClass)
         {
-            logger.Info("MgtClientCompany HttpPost Create() invoked by :  " + GlobalClass.LoginUser.PName);
-            ViewBag.mess = "";
-
-            if (ModelState.IsValid)
+            if (GlobalClass.MasterSession)
             {
 
-                try
-                {
-                    modelClass = validate.ValidateClient(modelClass);
 
-                    ClientCompany pf = new ClientCompany();
-                    pf.ClientCompanyKey = Guid.NewGuid();
+                //logger.Info("MgtClientCompany HttpPost Create() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
+                ViewBag.mess = "";
 
-                    pf.CompanyName = modelClass.CompanyName;
-                    pf.Description = modelClass.Description;
-                    pf.IndustryTypeKey = modelClass.IndustryTypeKey;
-                    pf.ProfileKey = modelClass.ProfileKey;
-                    db.ClientCompany.Add(pf);
-                    db.SaveChanges();
-                    GlobalClass.CCompany = pf;
-                    Session["GlobalMessege"] = "Company is Created";
-                    return RedirectToAction("Index", "MgtProject");
-                }
-                catch (Exception e)
+                if (ModelState.IsValid)
                 {
 
-                    ViewBag.mess = e.Message.ToString();
+                    try
+                    {
+                        modelClass = validate.ValidateClient(modelClass);
+
+                        ClientCompany pf = new ClientCompany();
+                        pf.ClientCompanyKey = Guid.NewGuid();
+
+                        pf.CompanyName = modelClass.CompanyName;
+                        pf.Description = modelClass.Description;
+                        pf.IndustryTypeKey = modelClass.IndustryTypeKey;
+                        pf.ProfileKey = modelClass.ProfileKey;
+                        db.ClientCompany.Add(pf);
+                        db.SaveChanges();
+                        GlobalClass.CCompany = pf;
+                        Session["GlobalMessege"] = "Company is Created";
+                        return RedirectToAction("Index", "MgtProject");
+                    }
+                    catch (Exception e)
+                    {
+
+                        ViewBag.mess = e.Message.ToString();
+                    }
                 }
+                ViewBag.IndustryTypeKey = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "IndustryKey", "TypeName");
+
+                return View(modelClass);
             }
-            ViewBag.IndustryTypeKey = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "IndustryKey", "TypeName");
-
-            return View(modelClass);
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
         }
 
         //# to Index
         public ActionResult IndexClientCompany()
         {
-            logger.Info("MgtClientCompany IndexClientCompany() invoked by :  " + GlobalClass.LoginUser.PName);
-            return View();
+            if (GlobalClass.MasterSession)
+            {
+                //logger.Info("MgtClientCompany IndexClientCompany() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
+                return View();
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
         }
         public JsonResult GetClientCompanyListData() {
             var list = (from cc in db.ClientCompany
@@ -94,136 +121,59 @@ namespace NasgledSys.Controllers
         //# to create
         public ActionResult CreateClientCompany()
         {
-            logger.Info("MgtClientCompany CreateClientCompany() invoked by :  " + GlobalClass.LoginUser.PName);
-            ViewBag.IndustryTyepeSelectList = new SelectList(db.IndustryType, "IndustryKey", "TypeName");
-            return View();
+            if (GlobalClass.MasterSession)
+            {
+                // logger.Info("MgtClientCompany CreateClientCompany() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
+                ViewBag.IndustryTyepeSelectList = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "IndustryKey", "TypeName");
+                return View();
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
         }
         [HttpPost]
         public ActionResult CreateClientCompany(ClientCompanyViewModel viewModel)
         {
-            logger.Info("MgtClientCompany HttpPost CreateClientCompany() invoked by :  " + GlobalClass.LoginUser.PName);
-            
-            if (ModelState.IsValid)
+            if (GlobalClass.MasterSession)
             {
-                if (viewModel.BillingContactEMail != "")
+                //logger.Info("MgtClientCompany HttpPost CreateClientCompany() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
+
+                if (ModelState.IsValid)
                 {
-                    EmailAddressAttribute e = new EmailAddressAttribute();
-                    if (!e.IsValid(viewModel.BillingContactEMail))
+                    if (viewModel.BillingContactEMail != "")
                     {
-                        TempData["mess"] = "Email address has an invalid format. Could not save.";
-                        return RedirectToAction("CreateClientCompany");
+                        EmailAddressAttribute e = new EmailAddressAttribute();
+                        if (!e.IsValid(viewModel.BillingContactEMail))
+                        {
+                            TempData["mess"] = "Email address has an invalid format. Could not save.";
+                            return RedirectToAction("CreateClientCompany");
+                        }
+                    }
+                    try
+                    {
+                        ClientCompany model = val.ConvertVIewModelToEntityMOdelFOrCreate(viewModel);                      
+                        db.ClientCompany.Add(model);
+                        db.SaveChanges();
+                        TempData["mess"] = "Saved Successfully";
+                    }
+                    catch (Exception e)
+                    {
+                        return View("Error", new HandleErrorInfo(e, "Home", "Index"));
                     }
                 }
-                try
+                else
                 {
-                    ClientCompany model = new ClientCompany();
-                    model.ClientCompanyKey = Guid.NewGuid();
-                    //# convert to model
-                    model.CompanyName = viewModel.CompanyName;
-                    model.IndustryTypeKey = viewModel.IndustryTypeKey;
-                    model.NoOfSalesPerson = viewModel.NoOfSalesPerson;
-                    if (string.IsNullOrEmpty(viewModel.Description))
-                    {
-                        model.Description = "N/A";
-                    }
-                    else
-                    {
-                        model.Description = viewModel.Description;
-                    }
-                    model.OfficePhone = viewModel.OfficePhone;
-                    model.Address = viewModel.Address;
-                    if (string.IsNullOrEmpty(viewModel.Address2))
-                    {
-                        model.Address2 = "N/A";
-                    }
-                    else
-                    {
-                        model.Address2 = viewModel.Address2;
-                    }
-                    model.CityKey = viewModel.CityKey;
-                    model.StateKey = viewModel.StateKey;
-                    model.Zipcode = viewModel.Zipcode;
-                    if (string.IsNullOrEmpty(viewModel.BillingContactName))
-                    {
-                        model.BillingContactName = "N/A";
-                    }
-                    else
-                    {
-                        model.BillingContactName = viewModel.BillingContactName;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.BillingContactEMail))
-                    {
-                        model.BillingContactEMail = "N/A";
-                    }
-                    else
-                    {
-                        model.BillingContactEMail = viewModel.BillingContactEMail;
-                    }
-                    model.IsAddressSameAsOffice = viewModel.IsAddressSameAsOffice;
-                    if (string.IsNullOrEmpty(viewModel.ProposalIntro))
-                    {
-                        model.ProposalIntro = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalIntro = viewModel.ProposalIntro;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.ProposalTeam))
-                    {
-                        model.ProposalTeam = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalTeam = viewModel.ProposalTeam;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.ProposalLegal))
-                    {
-                        model.ProposalLegal = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalLegal = viewModel.ProposalLegal;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.ProposalDisclaimer))
-                    {
-                        model.ProposalDisclaimer = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalDisclaimer = viewModel.ProposalDisclaimer;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.ProposalReference))
-                    {
-                        model.ProposalReference = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalReference = viewModel.ProposalReference;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.EstimateFooter))
-                    {
-                        model.EstimateFooter = "N/A";
-                    }
-                    else
-                    {
-                        model.EstimateFooter = viewModel.EstimateFooter;
-                    }
-                    model.MarkupOrMargin = viewModel.MarkupOrMargin;
-                    model.MarkupOrMarginPercentage = viewModel.MarkupOrMarginPercentage;
-                    db.ClientCompany.Add(model);
-                    db.SaveChanges();
-                    TempData["mess"] = "Saved Successfully";
+                    TempData["mess"] = "Mandatory fileds(field with *) are empty, Could not save.";
                 }
-                catch (Exception e)
-                {
-                    return View("Error", new HandleErrorInfo(e, "Home", "Index"));
-                }
+                return RedirectToAction("CreateClientCompany");
             }
             else
             {
-                TempData["mess"] = "Mandatory fileds(field with *) are empty, Could not save.";
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
-            return RedirectToAction("CreateClientCompany");
         }
         public JsonResult loadCityDropDown_ToCreate()
         {
@@ -239,170 +189,92 @@ namespace NasgledSys.Controllers
         //# to edit
         public ActionResult EditClientCompany(Guid clientCompanyKey)
         {
-            logger.Info("MgtClientCompany EditClientCompany() invoked by :  " + GlobalClass.LoginUser.PName);
-            
-            ClientCompany clientCompany = db.ClientCompany.Where(cc => cc.ClientCompanyKey == clientCompanyKey).FirstOrDefault();
-            
-            //# convert to viewmodel
-            ClientCompanyViewModel clientCompanyViewModel = new ClientCompanyViewModel();
-            clientCompanyViewModel.ClientCompanyKey = clientCompany.ClientCompanyKey;
-            clientCompanyViewModel.CompanyName = clientCompany.CompanyName;
-            clientCompanyViewModel.Description = clientCompany.Description;
-
-            clientCompanyViewModel.NoOfSalesPerson = clientCompany.NoOfSalesPerson;
-            clientCompanyViewModel.OfficePhone = clientCompany.OfficePhone;
-            clientCompanyViewModel.Address = clientCompany.Address;
-            clientCompanyViewModel.Address2 = clientCompany.Address2;
-            clientCompanyViewModel.Zipcode = clientCompany.Zipcode;
-            clientCompanyViewModel.BillingContactName = clientCompany.BillingContactName;
-            clientCompanyViewModel.BillingContactEMail = clientCompany.BillingContactEMail;
-            if (clientCompany.IsAddressSameAsOffice == true)
+            if (GlobalClass.MasterSession)
             {
-                clientCompanyViewModel.IsAddressSameAsOffice = true;
+                // logger.Info("MgtClientCompany EditClientCompany() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
+
+                ClientCompany clientCompany = db.ClientCompany.Where(cc => cc.ClientCompanyKey == clientCompanyKey).FirstOrDefault();
+
+                //# convert to viewmodel
+                ClientCompanyViewModel clientCompanyViewModel = new ClientCompanyViewModel();
+                clientCompanyViewModel.ClientCompanyKey = clientCompany.ClientCompanyKey;
+                clientCompanyViewModel.CompanyName = clientCompany.CompanyName;
+                clientCompanyViewModel.Description = clientCompany.Description;
+
+                clientCompanyViewModel.NoOfSalesPerson = clientCompany.NoOfSalesPerson;
+                clientCompanyViewModel.OfficePhone = clientCompany.OfficePhone;
+                clientCompanyViewModel.Address = clientCompany.Address;
+                clientCompanyViewModel.Address2 = clientCompany.Address2;
+                clientCompanyViewModel.Zipcode = clientCompany.Zipcode;
+                clientCompanyViewModel.BillingContactName = clientCompany.BillingContactName;
+                clientCompanyViewModel.BillingContactEMail = clientCompany.BillingContactEMail;
+                if (clientCompany.IsAddressSameAsOffice == true)
+                {
+                    clientCompanyViewModel.IsAddressSameAsOffice = true;
+                }
+                else
+                {
+                    clientCompanyViewModel.IsAddressSameAsOffice = false;
+                }
+                clientCompanyViewModel.ProposalIntro = clientCompany.ProposalIntro;
+                clientCompanyViewModel.ProposalTeam = clientCompany.ProposalTeam;
+                clientCompanyViewModel.ProposalLegal = clientCompany.ProposalLegal;
+                clientCompanyViewModel.ProposalDisclaimer = clientCompany.ProposalDisclaimer;
+                clientCompanyViewModel.ProposalReference = clientCompany.ProposalReference;
+                clientCompanyViewModel.EstimateFooter = clientCompany.EstimateFooter;
+                clientCompanyViewModel.MarkupOrMargin = clientCompany.MarkupOrMargin;
+                clientCompanyViewModel.MarkupOrMarginPercentage = clientCompany.MarkupOrMarginPercentage;
+                ViewBag.IndustryTyepeSelectList = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "IndustryKey", "TypeName", clientCompany.IndustryTypeKey);
+                return View(clientCompanyViewModel);
             }
             else
             {
-                clientCompanyViewModel.IsAddressSameAsOffice = false;
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
-            clientCompanyViewModel.ProposalIntro = clientCompany.ProposalIntro;
-            clientCompanyViewModel.ProposalTeam = clientCompany.ProposalTeam;
-            clientCompanyViewModel.ProposalLegal = clientCompany.ProposalLegal;
-            clientCompanyViewModel.ProposalDisclaimer = clientCompany.ProposalDisclaimer;
-            clientCompanyViewModel.ProposalReference = clientCompany.ProposalReference;
-            clientCompanyViewModel.EstimateFooter = clientCompany.EstimateFooter;
-            clientCompanyViewModel.MarkupOrMargin = clientCompany.MarkupOrMargin;
-            clientCompanyViewModel.MarkupOrMarginPercentage = clientCompany.MarkupOrMarginPercentage;
-            ViewBag.IndustryTyepeSelectList = new SelectList(db.IndustryType, "IndustryKey", "TypeName", clientCompany.IndustryTypeKey);
-            return View(clientCompanyViewModel);
         }
         [HttpPost]
         public ActionResult EditClientCompany(ClientCompanyViewModel viewModel)
         {
-            logger.Info("MgtClientCompany HttpPost EditClientCompany() invoked by :  " + GlobalClass.LoginUser.PName);
-
-            if (ModelState.IsValid)
+            if (GlobalClass.MasterSession)
             {
-                try
+                //logger.Info("MgtClientCompany HttpPost EditClientCompany() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
+
+                if (ModelState.IsValid)
                 {
-                    if (viewModel.BillingContactEMail != "" || viewModel.BillingContactEMail != "N/A")
+                    try
                     {
-                        EmailAddressAttribute e = new EmailAddressAttribute();
-                        if (!e.IsValid(viewModel.BillingContactEMail))
+                        if (viewModel.BillingContactEMail != "" || viewModel.BillingContactEMail != "N/A")
                         {
-                            TempData["mess"] = "Email address has an invalid format. Could not update.";
-                            return RedirectToAction("EditClientCompany", new { clientCompanyKey = viewModel.ClientCompanyKey });
+                            EmailAddressAttribute e = new EmailAddressAttribute();
+                            if (!e.IsValid(viewModel.BillingContactEMail))
+                            {
+                                TempData["mess"] = "Email address has an invalid format. Could not update.";
+                                return RedirectToAction("EditClientCompany", new { clientCompanyKey = viewModel.ClientCompanyKey });
+                            }
                         }
-                    }
 
-                    ClientCompany model = db.ClientCompany.Where(cc => cc.ClientCompanyKey == viewModel.ClientCompanyKey).FirstOrDefault();
-
-                    model.CompanyName = viewModel.CompanyName;
-                    model.IndustryTypeKey = viewModel.IndustryTypeKey;
-                    model.NoOfSalesPerson = viewModel.NoOfSalesPerson;
-                    if (string.IsNullOrEmpty(viewModel.Description))
-                    {
-                        model.Description = "N/A";
+                        ClientCompany model = db.ClientCompany.Where(cc => cc.ClientCompanyKey == viewModel.ClientCompanyKey).FirstOrDefault();
+                        model = val.ConvertVIewModelToEntityMOdelFOrEdit(model,viewModel);
+                        db.SaveChanges();
+                        TempData["mess"] = "Saved Successfully";
                     }
-                    else
+                    catch (Exception e)
                     {
-                        model.Description = viewModel.Description;
+                        return View("Error", new HandleErrorInfo(e, "Home", "Index"));
                     }
-                    model.OfficePhone = viewModel.OfficePhone;
-                    model.Address = viewModel.Address;
-                    if (string.IsNullOrEmpty(viewModel.Address2))
-                    {
-                        model.Address2 = "N/A";
-                    }
-                    else
-                    {
-                        model.Address2 = viewModel.Address2;
-                    }
-                    model.CityKey = viewModel.CityKey;
-                    model.StateKey = viewModel.StateKey;
-                    model.Zipcode = viewModel.Zipcode;
-                    if (string.IsNullOrEmpty(viewModel.BillingContactName))
-                    {
-                        model.BillingContactName = "N/A";
-                    }
-                    else
-                    {
-                        model.BillingContactName = viewModel.BillingContactName;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.BillingContactEMail))
-                    {
-                        model.BillingContactEMail = "N/A";
-                    }
-                    else
-                    {
-                        model.BillingContactEMail = viewModel.BillingContactEMail;
-                    }
-                    model.IsAddressSameAsOffice = viewModel.IsAddressSameAsOffice;
-                    if (string.IsNullOrEmpty(viewModel.ProposalIntro))
-                    {
-                        model.ProposalIntro = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalIntro = viewModel.ProposalIntro;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.ProposalTeam))
-                    {
-                        model.ProposalTeam = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalTeam = viewModel.ProposalTeam;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.ProposalLegal))
-                    {
-                        model.ProposalLegal = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalLegal = viewModel.ProposalLegal;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.ProposalDisclaimer))
-                    {
-                        model.ProposalDisclaimer = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalDisclaimer = viewModel.ProposalDisclaimer;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.ProposalReference))
-                    {
-                        model.ProposalReference = "N/A";
-                    }
-                    else
-                    {
-                        model.ProposalReference = viewModel.ProposalReference;
-                    }
-                    if (string.IsNullOrEmpty(viewModel.EstimateFooter))
-                    {
-                        model.EstimateFooter = "N/A";
-                    }
-                    else
-                    {
-                        model.EstimateFooter = viewModel.EstimateFooter;
-                    }
-                    model.MarkupOrMargin = viewModel.MarkupOrMargin;
-                    model.MarkupOrMarginPercentage = viewModel.MarkupOrMarginPercentage;
-
-                    db.ClientCompany.Attach(model);
-                    db.Entry(model).State = EntityState.Modified;
-                    db.SaveChanges();
-                    TempData["mess"] = "Saved Successfully";
                 }
-                catch (Exception e)
+                else
                 {
-                    return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+                    TempData["mess"] = "Mandatory fileds(field with *) are empty, Could not update.";
                 }
+                return RedirectToAction("EditClientCompany", new { clientCompanyKey = viewModel.ClientCompanyKey });
             }
             else
             {
-                TempData["mess"] = "Mandatory fileds(field with *) are empty, Could not update.";
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
-            return RedirectToAction("EditClientCompany", new { clientCompanyKey = viewModel.ClientCompanyKey });
         }
         public JsonResult loadCityDropDown_ToEdit(Guid clientCompanyKey)
         {
@@ -431,46 +303,52 @@ namespace NasgledSys.Controllers
         //# to view
         public ActionResult ViewClientCompany(Guid clientCompanyKey)
         {
-            logger.Info("MgtClientCompany ViewClientCompany() invoked by :  " + GlobalClass.LoginUser.PName);
-            
-            ClientCompany clientCompany = db.ClientCompany.Where(cc => cc.ClientCompanyKey == clientCompanyKey).FirstOrDefault();
-
-            //# convert to viewmodel
-            ClientCompanyViewModel clientCompanyViewModel = new ClientCompanyViewModel();
-            clientCompanyViewModel.ClientCompanyKey = clientCompany.ClientCompanyKey;
-            clientCompanyViewModel.CompanyName = clientCompany.CompanyName;
-            clientCompanyViewModel.Description = clientCompany.Description;
-
-            clientCompanyViewModel.NoOfSalesPerson = clientCompany.NoOfSalesPerson;
-            clientCompanyViewModel.OfficePhone = clientCompany.OfficePhone;
-            clientCompanyViewModel.Address = clientCompany.Address;
-            clientCompanyViewModel.Address2 = clientCompany.Address2;
-            clientCompanyViewModel.Zipcode = clientCompany.Zipcode;
-            clientCompanyViewModel.BillingContactName = clientCompany.BillingContactName;
-            clientCompanyViewModel.BillingContactEMail = clientCompany.BillingContactEMail;
-            if (clientCompany.IsAddressSameAsOffice == true)
+            if (GlobalClass.MasterSession)
             {
-                clientCompanyViewModel.IsAddressSameAsOffice = true;
+                //logger.Info("MgtClientCompany ViewClientCompany() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
+
+                ClientCompany clientCompany = db.ClientCompany.Where(cc => cc.ClientCompanyKey == clientCompanyKey).FirstOrDefault();
+
+                //# convert to viewmodel
+                ClientCompanyViewModel clientCompanyViewModel = new ClientCompanyViewModel();
+                clientCompanyViewModel.ClientCompanyKey = clientCompany.ClientCompanyKey;
+                clientCompanyViewModel.CompanyName = clientCompany.CompanyName;
+                clientCompanyViewModel.Description = clientCompany.Description;
+
+                clientCompanyViewModel.NoOfSalesPerson = clientCompany.NoOfSalesPerson;
+                clientCompanyViewModel.OfficePhone = clientCompany.OfficePhone;
+                clientCompanyViewModel.Address = clientCompany.Address;
+                clientCompanyViewModel.Address2 = clientCompany.Address2;
+                clientCompanyViewModel.Zipcode = clientCompany.Zipcode;
+                clientCompanyViewModel.BillingContactName = clientCompany.BillingContactName;
+                clientCompanyViewModel.BillingContactEMail = clientCompany.BillingContactEMail;
+                if (clientCompany.IsAddressSameAsOffice == true)
+                {
+                    clientCompanyViewModel.IsAddressSameAsOffice = true;
+                }
+                else
+                {
+                    clientCompanyViewModel.IsAddressSameAsOffice = false;
+                }
+                clientCompanyViewModel.ProposalIntro = clientCompany.ProposalIntro;
+                clientCompanyViewModel.ProposalTeam = clientCompany.ProposalTeam;
+                clientCompanyViewModel.ProposalLegal = clientCompany.ProposalLegal;
+                clientCompanyViewModel.ProposalDisclaimer = clientCompany.ProposalDisclaimer;
+                clientCompanyViewModel.ProposalReference = clientCompany.ProposalReference;
+                clientCompanyViewModel.EstimateFooter = clientCompany.EstimateFooter;
+                clientCompanyViewModel.MarkupOrMargin = clientCompany.MarkupOrMargin;
+                clientCompanyViewModel.MarkupOrMarginPercentage = clientCompany.MarkupOrMarginPercentage;
+                ViewBag.IndustryTyepeSelectList = new SelectList(db.IndustryType.Where(x => x.IndustryKey == clientCompany.IndustryTypeKey), "IndustryKey", "TypeName", clientCompany.IndustryTypeKey);
+                ViewBag.CityListSelectList = new SelectList(db.CityList.Where(x => x.CityKey == clientCompany.CityKey), "CityKey", "CityName", clientCompany.CityKey);
+                ViewBag.StateListSelectList = new SelectList(db.StateList.Where(x => x.PKey == clientCompany.StateKey), "PKey", "StateName", clientCompany.CityKey);
+
+                return View(clientCompanyViewModel);
             }
             else
             {
-                clientCompanyViewModel.IsAddressSameAsOffice = false;
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
-            clientCompanyViewModel.ProposalIntro = clientCompany.ProposalIntro;
-            clientCompanyViewModel.ProposalTeam = clientCompany.ProposalTeam;
-            clientCompanyViewModel.ProposalLegal = clientCompany.ProposalLegal;
-            clientCompanyViewModel.ProposalDisclaimer = clientCompany.ProposalDisclaimer;
-            clientCompanyViewModel.ProposalReference = clientCompany.ProposalReference;
-            clientCompanyViewModel.EstimateFooter = clientCompany.EstimateFooter;
-            clientCompanyViewModel.MarkupOrMargin = clientCompany.MarkupOrMargin;
-            clientCompanyViewModel.MarkupOrMarginPercentage = clientCompany.MarkupOrMarginPercentage;
-            ViewBag.IndustryTyepeSelectList = new SelectList(db.IndustryType.Where(x=>x.IndustryKey== clientCompany.IndustryTypeKey), "IndustryKey", "TypeName", clientCompany.IndustryTypeKey);
-            ViewBag.CityListSelectList = new SelectList(db.CityList.Where(x=>x.CityKey==clientCompany.CityKey), "CityKey", "CityName", clientCompany.CityKey);
-            ViewBag.StateListSelectList = new SelectList(db.StateList.Where(x=>x.PKey==clientCompany.StateKey), "PKey", "StateName", clientCompany.CityKey);
-
-
-
-            return View(clientCompanyViewModel);
         }
 
 

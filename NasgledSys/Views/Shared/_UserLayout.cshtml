@@ -8,13 +8,7 @@
     @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/bootstrap")
 
-    <style type="text/css">
-        .CenterPanel {
-   
-    left: 50%;
-        transform: translate(25%);
-}
-    </style>
+    
     <script type="text/javascript">
         $(document).ready(function () {
          
@@ -60,16 +54,16 @@
 
                
 
-                <li class="dropdown mega-menu mega-menu-wide">
+                <li class="dropdown mega-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user-lock"></i><span>@Html.DisplayFor(m => GlobalClass.ProfileUser.FirstName)</span></a>
                     <div class="dropdown-menu dropdown-content">
                         <div class="dropdown-content-body">
                             <div class="row">
                                 
                                     <span class="menu-heading underlined">Settings</span>
-                                <div class="col-md-3"><a href="@Url.Action("UpdateUserProfile","MgtProfile")"><i class="icon-user"></i> My profile</a></div>
-                                <div class="col-md-3"><a href="@Url.Action("Index","MgtClientContact")"><i class="icon-users"></i>Contacts</a></div>
-                                <div class="col-md-3"><a href="@Url.Action("Create","MgtClientCompany")"><i class="icon-meter-fast"></i>Company</a></div>
+                                <div class="col-md-4"><a href="@Url.Action("UpdateUserProfile","MgtProfile")"><i class="icon-user"></i><br /> My profile</a></div>
+                                <div class="col-md-4"><a href="@Url.Action("Index","MgtClientContact")"><i class="icon-users"></i><br />Contacts</a></div>
+                                <div class="col-md-4"><a href="@Url.Action("IndexClientCompany","MgtClientCompany")"><i class="icon-meter-fast"></i><br />Company</a></div>
                                
                                 </div>
                             <div class="row divider"></div>

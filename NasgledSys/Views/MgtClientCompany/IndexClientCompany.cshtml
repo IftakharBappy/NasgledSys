@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "List";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 <style>
     .thumbnail {
@@ -12,39 +12,43 @@
 
 
 @section SideBar{
+<center>
     <h4>
         <i class="icon-arrow-left52 position-left"></i>
         <span class="text-semibold">List of Client Company</span>
     </h4>
+</center>
 }
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">List of Client Company</h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <a class="btn btn-primary" href="/MgtClientCompany/CreateClientCompany">Add New  Client Company</a>
-            </div>
-            <div class="col-md-3 col-md-offset-3">
-                <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()"/>
-            </div>
-        </div>
-    </div>
-    <br />
-    <br />
-    <div class="container" id="elementContainer">
-        
 
-    </div><!--/container -->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">List of Client Company</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class="btn btn-primary" href="/MgtClientCompany/CreateClientCompany">Add New  Client Company</a>
+                    </div>
+                    <div class="col-md-3">
+                        <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="container" id="elementContainer">
 
-</div>
+
+            </div><!--/container -->
+
+        </div>
+ 
 <script>
     var baseList = [];
     var filteredList = [];
@@ -57,9 +61,9 @@
         if (searchText == "") {
             filteredList = baseList;
             remakeGrid();
-        } 
+        }
         else {
-            baseList.forEach(function(item) {
+            baseList.forEach(function (item) {
                 if (item.CompanyName.toLowerCase().includes(searchText)) {
                     filteredList.push(item);
                 }
@@ -70,14 +74,14 @@
     function remakeGrid() {
         var res = "";
         $("#elementContainer").html("");
-        
+
         for (var i = 0; i < filteredList.length; i++) {
             res = res + "<div class='col-xs-18 col-sm-6 col-md-3'>"
                 + "<div class='thumbnail' >"
                 + "<div class='caption'>"
-                + "<h4>" + filteredList[i].CompanyName+"</h4>"
-                + "<p>" + filteredList[i].Address+"</p>"
-                + "<a href='/MgtClientCompany/ViewClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-default btn-xs' role='button'>View</a> <a href='/MgtClientCompany/EditClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey +"' class='btn btn-primary btn-xs' role='button'>Edit</a>"
+                + "<h4>" + filteredList[i].CompanyName + "</h4>"
+                + "<p>" + filteredList[i].Address + "</p>"
+                + "<a href='/MgtClientCompany/ViewClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-default btn-xs' role='button'>View</a> <a href='/MgtClientCompany/EditClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-primary btn-xs' role='button'>Edit</a>"
                 + "</div>"
                 + "</div >"
                 + "</div >";
