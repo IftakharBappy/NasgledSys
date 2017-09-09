@@ -3,50 +3,81 @@
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#CityKey").select2();
-        $("#PrimaryBusinessType").select2();
-    });
-</script>
+
 @section SideBar{
     <center>
     <h4>
         <span class="heading-text">
-            <i class="icon-download10 position-left"></i> > Registration > <a href="@Url.Action("Index","MgtRole")">Role ></a><a href="@Url.Action("GetAllProfile","MgtProfile")">Profile ></a>Company
+            <i class="icon-folder-download position-left"></i> > Registration > <a href="@Url.Action("Index","MgtRole")">Role ></a><a href="@Url.Action("GetAllProfile","MgtProfile")">Profile ></a>Company
         </span>
     </h4>
 </center>
 }
+<script type="text/javascript">
+    $(function () {
+        $('[mask]').each(function (e) {
+            $(this).mask($(this).attr('mask'));
+        });
+    });
 
+    $(document).ready(function () {
+        $('#btnAdd').click(function () {
+            $('#progress').modal({ show: true });
+        })
+        var select = $('select[name=CityKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtProfile/GetCityList/",
+
+            success: function (data) {
+                var res = "";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + " >" + data[i].Text +"</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+
+    });
+</script>
 @section CenterTitle{
     Profile
     }
-@using (Html.BeginForm("Index","MgtProfile",FormMethod.Post,new { @class= "form-horizontal" }))
-{
-    <div class="panel panel-default col-lg-6">
-        <div class="panel-heading">
-            <h3>Profile Setup</h3>
-            <div class="heading-elements">
-                <ul class="icons-list">
-                    <li><a data-action="collapse"></a></li>
-                    <li><a data-action="reload"></a></li>
+<div class="row">
+    <div class="col-md-3">
+        &nbsp;
+    </div>
+    @using (Html.BeginForm("Index", "MgtProfile", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="panel panel-default col-md-6">
+            <div class="panel-heading">
+                <h3>Profile Setup</h3>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="panel-body">
-            <h4>Please Create Your Profile Below</h4>
-            @Html.ValidationSummary()
-          
+            <div class="panel-body">
+                <h4>Please Create Your Profile Below</h4>
+                @Html.ValidationSummary()
+
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.FirstName)
                     @Html.TextBoxFor(model => model.FirstName, new { placeholder = " First Name", id = "FirstName", @class = "form-control" })
-                
+
                     @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
@@ -61,8 +92,8 @@
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Location)
-                    @Html.DropDownList("CityKey", null, string.Empty, new { placeholder = "enter City, State", @required = "required", id = "CityKey", @class = "select select-search" })
-                    @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                    <select name="CityKey" placeholder="Select" class="select select-search"></select>
+                    @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.JobTitle)
@@ -75,56 +106,60 @@
                     <span class="small text-muted"> We do not provide your Phone Number to outside parties.</span>
                     @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
                 </div>
-        
+
+
+            </div>
+            <div class="panel-heading">
+                <h3>Business Information</h3>
+            </div>
+            <div class="panel-body">
+                <h4>And please provide the following so we can tailor your experience</h4>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PrimaryBusinessType)
+                    @Html.DropDownList("PrimaryBusinessType", null, string.Empty, new { placeholder = "Select", id = "PrimaryBusinessType", @class = "select select-search" })
+                    @Html.ValidationMessageFor(model => model.PrimaryBusinessType, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HireOutsideAuditor)
+                    @Html.DropDownList("HireOutsideAuditor", null, string.Empty, new { placeholder = "Select", id = "HireOutsideAuditor", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.HireOutsideAuditor, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AnnualSalesRevenue)
+                    @Html.DropDownList("AnnualSalesRevenue", null, string.Empty, new { placeholder = "Select", id = "AnnualSalesRevenue", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AnnualSalesRevenue, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SalesReach)
+                    @Html.DropDownList("SalesReach", null, string.Empty, new { placeholder = "Select", id = "SalesReach", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SalesReach, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DirectManufacture)
+                    @Html.TextBoxFor(model => model.DirectManufacture, new { id = "DirectManufacture", @class = "form-control" })
+                    <span class="small text-muted">We use this information to identify manufacturers that our users would like to see</span>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DirectDistributor)
+                    @Html.TextBoxFor(model => model.DirectDistributor, new { id = "DirectDistributor", @class = "form-control" })
+                    <span class="small text-muted">We use this information to identify distributors that our users would like to see</span>
+                </div>
+
+
+            </div>
+            <div class="panel-footer">
+                <center><button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Next</button></center>
+
+                <button type="button" class="btn btn-primary" data-toggle="" data-target="" onclick="location.href='@Url.Action("UpdateUserProfile","MgtProfile")'">Update</button>
+                <h2>@ViewBag.mess</h2>
+            </div>
 
         </div>
-        <div class="panel-heading">
-            <h3>Business Information</h3>            
-        </div>
-        <div class="panel-body">
-            <h4>And please provide the following so we can tailor your experience</h4>
-          
-            <div class="form-group">
-                @Html.LabelFor(model => model.PrimaryBusinessType)
-                @Html.DropDownList("PrimaryBusinessType", null, string.Empty, new { placeholder = "Select", id = "PrimaryBusinessType", @class = "select select-search" })
-                @Html.ValidationMessageFor(model => model.PrimaryBusinessType, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.HireOutsideAuditor)
-                @Html.DropDownList("HireOutsideAuditor", null, string.Empty, new { placeholder = "Select", id = "HireOutsideAuditor", @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.HireOutsideAuditor, "", new { @class = "text-danger" })
-            </div>
+    }
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.AnnualSalesRevenue)
-                @Html.DropDownList("AnnualSalesRevenue", null, string.Empty, new { placeholder = "Select", id = "AnnualSalesRevenue", @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.AnnualSalesRevenue, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.SalesReach)
-                @Html.DropDownList("SalesReach", null, string.Empty, new { placeholder = "Select", id = "SalesReach", @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SalesReach, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DirectManufacture)
-                @Html.TextBoxFor(model => model.DirectManufacture, new { id = "DirectManufacture", @class = "form-control" })
-              <span class="small text-muted">We use this information to identify manufacturers that our users would like to see</span>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DirectDistributor)
-                @Html.TextBoxFor(model => model.DirectDistributor, new { id = "DirectDistributor", @class = "form-control" })
-                <span class="small text-muted">We use this information to identify distributors that our users would like to see</span>
-            </div>
-
-
-        </div>
-        <div class="panel-footer">
-            <center><button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Next</button></center>
-
-            <button type="button" class="btn btn-primary" data-toggle="" data-target="" onclick="location.href='@Url.Action("UpdateUserProfile","MgtProfile")'">Update</button>
-          <h2>@ViewBag.mess</h2>
-        </div>
-
+    <div class="col-md-3">
+        &nbsp;
     </div>
-}
-
+</div>

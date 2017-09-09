@@ -3,20 +3,8 @@
     ViewBag.Title = "Contact Details";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"> </link>
 
-<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
-<script src="~/Content/assets/js/pages/form_select2.js"></script>
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $( "#searchTerm" ).autocomplete({
-            serviceUrl: '/MgtClientContact/getAjaxResult/'
-            });
-    });
-</script>
 
 @section SideBar{
     <div class="panel-body col-md-12">

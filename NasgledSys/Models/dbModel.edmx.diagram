@@ -146,6 +146,7 @@
         <AssociationConnector Association="NasgledDBModel.FK_ClientCompany_StateList" />
         <AssociationConnector Association="NasgledDBModel.FK_Project_ClientCompany" />
         <AssociationConnector Association="NasgledDBModel.FK_Team_ClientCompany" />
+        <EntityTypeShape EntityType="NasgledDBModel.ClientCompanyProfileRequest" Width="1.5" PointX="0.75" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

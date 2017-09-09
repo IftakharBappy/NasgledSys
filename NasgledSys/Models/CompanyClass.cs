@@ -111,7 +111,17 @@ namespace NasgledSys.Models
     
      
     }
-   
+    public class CCompanyClass
+    {
+        public System.Guid ClientCompanyKey { get; set; }
+        public string CompanyName { get; set; }
+        public string Description { get; set; }
+       
+        public string OfficePhone { get; set; }
+        public string Address { get; set; }
+        public string IndustryType { get; set; }
+       
+    }
     public class CityClass
     {
         public int CityKey { get; set; }

@@ -10,8 +10,10 @@ namespace NasgledSys.Models
     {
         public System.Guid ContactKey { get; set; }
         [Display(Name = "First Name")]
+        [Required(ErrorMessage = "First Name is required.")]
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "Last Name is Required.")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "Your must provide a valid Email")]
         [Display(Name = "Email Address")]
@@ -23,9 +25,11 @@ namespace NasgledSys.Models
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string OfficePhone { get; set; }
+        [Required(ErrorMessage = "Address is Required.")]
         public string Address { get; set; }
         public Nullable<System.Guid> ProfileKey { get; set; }
         [Display(Name = "Job Title")]
+        [Required(ErrorMessage = "Job Title is Required.")]
         public string JobTitle { get; set; }
         [Display(Name = "Web Address")]
         [RegularExpression(@"^http(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$", ErrorMessage = "Your Url is not correct")]
@@ -35,7 +39,9 @@ namespace NasgledSys.Models
         [Display(Name = "Fax Phone")]
         public string FaxPhone { get; set; }
         public string Address2 { get; set; }
+        [Required(ErrorMessage = "City is Required.")]
         public Nullable<int> CityKey { get; set; }
+        [Required(ErrorMessage = "State Name is Required.")]
         public Nullable<int> StateKey { get; set; }
         [Display(Name = "Zip code")]
         public string Zipcode { get; set; }

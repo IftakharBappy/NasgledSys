@@ -325,6 +325,9 @@
     <Compile Include="Models\ClientCompany.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClientCompanyProfileRequest.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ClientCompanyViewModel.cs" />
     <Compile Include="Models\ClientContact.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -3771,6 +3774,8 @@
     <Content Include="Views\MgtClientCompany\EditClientCompany.cshtml" />
     <Content Include="Views\MgtClientCompany\ViewClientCompany.cshtml" />
     <Content Include="Views\MgtClientCompany\IndexClientCompany.cshtml" />
+    <Content Include="Views\MgtProfile\JoinCompany.cshtml" />
+    <Content Include="Views\MgtProfile\ChangeUsernamePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

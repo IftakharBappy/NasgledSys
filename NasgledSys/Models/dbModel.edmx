@@ -199,6 +199,19 @@
           <Property Name="CityKey" Type="int" />
           <Property Name="StateKey" Type="int" />
         </EntityType>
+        <EntityType Name="ClientCompanyProfileRequest">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientCompanyKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProfileKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequestDate" Type="datetime" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="AdminProfileKey" Type="uniqueidentifier" />
+          <Property Name="IsCancelled" Type="bit" />
+        </EntityType>
         <EntityType Name="ClientContact">
           <Key>
             <PropertyRef Name="ContactKey" />
@@ -1792,6 +1805,7 @@
           <EntitySet Name="AreaProductPhoto" EntityType="Self.AreaProductPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CityList" EntityType="Self.CityList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientCompany" EntityType="Self.ClientCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientCompanyProfileRequest" EntityType="Self.ClientCompanyProfileRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientContact" EntityType="Self.ClientContact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CoolingEfficientyType" EntityType="Self.CoolingEfficientyType" Schema="dbo" store:Type="Tables" />
@@ -2696,6 +2710,7 @@
             <End Role="ClientCompany" EntitySet="ClientCompany" />
             <End Role="Team" EntitySet="Team" />
           </AssociationSet>
+          <EntitySet Name="ClientCompanyProfileRequest" EntityType="NasgledDBModel.ClientCompanyProfileRequest" />
           </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -4497,6 +4512,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ClientCompanyProfileRequest">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="Guid" Nullable="false" />
+          <Property Name="ClientCompanyKey" Type="Guid" Nullable="false" />
+          <Property Name="ProfileKey" Type="Guid" Nullable="false" />
+          <Property Name="RequestDate" Type="DateTime" Precision="3" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdminProfileKey" Type="Guid" />
+          <Property Name="IsCancelled" Type="Boolean" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5348,6 +5376,20 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="ClientCompanyKey" ColumnName="ClientCompanyKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientCompanyProfileRequest">
+            <EntityTypeMapping TypeName="NasgledDBModel.ClientCompanyProfileRequest">
+              <MappingFragment StoreEntitySet="ClientCompanyProfileRequest">
+                <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
+                <ScalarProperty Name="AdminProfileKey" ColumnName="AdminProfileKey" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ProfileKey" ColumnName="ProfileKey" />
+                <ScalarProperty Name="ClientCompanyKey" ColumnName="ClientCompanyKey" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

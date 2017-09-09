@@ -48,44 +48,53 @@ namespace NasgledSys.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(ClientCompany modelClass)
+        public ActionResult Create(ClientCompanyViewModel viewModel)
         {
             if (GlobalClass.MasterSession)
             {
-
-
-                //logger.Info("MgtClientCompany HttpPost Create() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
-                ViewBag.mess = "";
-
+                //logger.Info("MgtClientCompany HttpPost CreateClientCompany() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
+                viewModel.OfficePhone = "(999) 999-9999";
+                viewModel.Address = "n/a";
+                viewModel.Address2 = "n/a";
+                viewModel.CityKey = 1;
+                viewModel.StateKey = 1;
+                viewModel.Zipcode = "n/a";
+                viewModel.BillingContactName = "n/a";
+                viewModel.BillingContactEMail = "BillingContactEMail@email.com";
+                viewModel.MarkupOrMargin = "Markup";
+                viewModel.MarkupOrMarginPercentage = 0;
                 if (ModelState.IsValid)
                 {
-
+                    if (viewModel.BillingContactEMail != "")
+                    {
+                        EmailAddressAttribute e = new EmailAddressAttribute();
+                        if (!e.IsValid(viewModel.BillingContactEMail))
+                        {
+                            TempData["mess"] = "Email address has an invalid format. Could not save.";
+                            return RedirectToAction("CreateClientCompany");
+                        }
+                    }
                     try
                     {
-                        modelClass = validate.ValidateClient(modelClass);
-
-                        ClientCompany pf = new ClientCompany();
-                        pf.ClientCompanyKey = Guid.NewGuid();
-
-                        pf.CompanyName = modelClass.CompanyName;
-                        pf.Description = modelClass.Description;
-                        pf.IndustryTypeKey = modelClass.IndustryTypeKey;
-                        pf.ProfileKey = modelClass.ProfileKey;
-                        db.ClientCompany.Add(pf);
+                        ClientCompany model = val.ConvertVIewModelToEntityMOdelFOrCreate(viewModel);
+                        db.ClientCompany.Add(model);
                         db.SaveChanges();
-                        GlobalClass.CCompany = pf;
-                        Session["GlobalMessege"] = "Company is Created";
-                        return RedirectToAction("Index", "MgtProject");
+                        GlobalClass.CCompany = model;
+                        Session["GlobalMessege"] = "Company Information is Saved successfully.";
+                        return RedirectToAction("Create", "MgtProject");
                     }
                     catch (Exception e)
                     {
-
-                        ViewBag.mess = e.Message.ToString();
+                        return View("Error", new HandleErrorInfo(e, "Home", "Index"));
                     }
                 }
-                ViewBag.IndustryTypeKey = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "IndustryKey", "TypeName");
+                else
+                {
+                    TempData["mess"] = "Mandatory fileds(field with *) are empty, Could not save.";
+                }
+                return RedirectToAction("CreateClientCompany");
 
-                return View(modelClass);
+
             }
             else
             {
@@ -139,35 +148,37 @@ namespace NasgledSys.Controllers
             if (GlobalClass.MasterSession)
             {
                 //logger.Info("MgtClientCompany HttpPost CreateClientCompany() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
-
-                if (ModelState.IsValid)
-                {
-                    if (viewModel.BillingContactEMail != "")
+             
+                    if (ModelState.IsValid)
                     {
-                        EmailAddressAttribute e = new EmailAddressAttribute();
-                        if (!e.IsValid(viewModel.BillingContactEMail))
+                        if (viewModel.BillingContactEMail != "")
                         {
-                            TempData["mess"] = "Email address has an invalid format. Could not save.";
-                            return RedirectToAction("CreateClientCompany");
+                            EmailAddressAttribute e = new EmailAddressAttribute();
+                            if (!e.IsValid(viewModel.BillingContactEMail))
+                            {
+                                TempData["mess"] = "Email address has an invalid format. Could not save.";
+                                return RedirectToAction("CreateClientCompany");
+                            }
+                        }
+                        try
+                        {
+                            ClientCompany model = val.ConvertVIewModelToEntityMOdelFOrCreate(viewModel);
+                            db.ClientCompany.Add(model);
+                            db.SaveChanges();
+                            TempData["mess"] = "Saved Successfully";
+                        }
+                        catch (Exception e)
+                        {
+                            return View("Error", new HandleErrorInfo(e, "Home", "Index"));
                         }
                     }
-                    try
+                    else
                     {
-                        ClientCompany model = val.ConvertVIewModelToEntityMOdelFOrCreate(viewModel);                      
-                        db.ClientCompany.Add(model);
-                        db.SaveChanges();
-                        TempData["mess"] = "Saved Successfully";
+                        TempData["mess"] = "Mandatory fileds(field with *) are empty, Could not save.";
                     }
-                    catch (Exception e)
-                    {
-                        return View("Error", new HandleErrorInfo(e, "Home", "Index"));
-                    }
-                }
-                else
-                {
-                    TempData["mess"] = "Mandatory fileds(field with *) are empty, Could not save.";
-                }
-                return RedirectToAction("CreateClientCompany");
+                    return RedirectToAction("CreateClientCompany");
+              
+               
             }
             else
             {
@@ -200,6 +211,8 @@ namespace NasgledSys.Controllers
                 clientCompanyViewModel.ClientCompanyKey = clientCompany.ClientCompanyKey;
                 clientCompanyViewModel.CompanyName = clientCompany.CompanyName;
                 clientCompanyViewModel.Description = clientCompany.Description;
+                clientCompanyViewModel.CityKey = clientCompany.CityKey;
+                clientCompanyViewModel.StateKey = clientCompany.StateKey;
 
                 clientCompanyViewModel.NoOfSalesPerson = clientCompany.NoOfSalesPerson;
                 clientCompanyViewModel.OfficePhone = clientCompany.OfficePhone;
@@ -276,26 +289,26 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }
-        public JsonResult loadCityDropDown_ToEdit(Guid clientCompanyKey)
+        public JsonResult loadCityDropDown_ToEdit(int CityKey)
         {
-            ClientCompany clientCompany = db.ClientCompany.Where(cc => cc.ClientCompanyKey == clientCompanyKey).FirstOrDefault();
+           // ClientCompany clientCompany = db.ClientCompany.Where(cc => cc.ClientCompanyKey == clientCompanyKey).FirstOrDefault();
             var list = (from city in db.CityList
                         select new
                         {
                             city.CityKey,
                             city.CityName,
-                            Selected = city.CityKey == clientCompany.CityKey ? "selected" : ""
+                            Selected = city.CityKey == CityKey ? "selected" : ""
                         }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult LoadStateDropDown_ToEdit(Guid clientCompanyKey)
+        public JsonResult LoadStateDropDown_ToEdit(int StateKey)
         {
-            ClientCompany clientCompany = db.ClientCompany.Where(cc => cc.ClientCompanyKey == clientCompanyKey).FirstOrDefault();
+            //ClientCompany clientCompany = db.ClientCompany.Where(cc => cc.ClientCompanyKey == clientCompanyKey).FirstOrDefault();
             var list = (from state in db.StateList
                         select new
                         { state.PKey,
                             state.StateName,
-                            Selected = state.PKey == clientCompany.StateKey ? "selected" : ""
+                            Selected = state.PKey == StateKey ? "selected" : ""
                         }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }

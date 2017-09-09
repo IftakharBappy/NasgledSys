@@ -8,12 +8,44 @@
 <script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
 <script src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
+<script src="~/Scripts/jquery.maskedinput.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('[mask]').each(function (e) {
+            $(this).mask($(this).attr('mask'));
+        });
+    });
+    $(document).ready(function () {
+        $('#btnAdd').click(function () {
+            $('#progress').modal({ show: true });
+        })
+        var select = $('select[name=CityKey]');
+         $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtProfile/GetCityList/",
+           // data: JSON.stringify({ CityKey: @Model.CityKey }),
+            success: function (data) {
+                var res = "";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + " >" + data[i].Text +"</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
 
+    });
+</script>
 @section SideBar{
     <center>
         <h4>
             <span class="heading-text">
-                <i class="icon-download10 position-left"></i> > <a href="@Url.Action("UserHome","Home")">Home </a>
+                <i class="icon-folder-download position-left"></i> > <a href="@Url.Action("UserHome","Home")">Home </a>
             </span>
         </h4>
     </center>
@@ -51,7 +83,7 @@
                             <h3>Contact Information</h3>
                         </div>
                         <div class="panel-body">
-                            @Html.ValidationSummary()
+                        
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.FirstName)
@@ -65,10 +97,21 @@
                                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
+                                @Html.LabelFor(model => model.JobTitle)
+                                @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "Job Title", id = "JobTitle", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
                                 @Html.LabelFor(model => model.Email)
                                 @Html.TextBoxFor(model => model.Email, new { placeholder = "Email Address", id = "Email", @class = "form-control" })
                                 <span class="small text-muted"> We do not provide your Email Address to outside parties.</span>
                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PhoneNo)
+                                @Html.TextBoxFor(model => model.PhoneNo, new { placeholder = "Phone Number", id = "PhoneNo", @class = "form-control" })
+                                <span class="small text-muted"> We do not provide your Phone Number to outside parties.</span>
+                                @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="panel-heading">
@@ -91,16 +134,48 @@
                                 @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
                             </div>
 
+                           
+                          
+                        </div>
+                        <div class="panel-heading">
+                            <h3>Business Information</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h4>And please provide the following so we can tailor your experience</h4>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PrimaryBusinessType)
+                                @Html.DropDownListFor(model => model.PrimaryBusinessType, ViewBag.PrimaryBusinessType as SelectList, new { placeholder = "Select", id = "PrimaryBusinessType", @class = "select select-search" })
+                                @Html.ValidationMessageFor(model => model.PrimaryBusinessType, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.HireOutsideAuditor)
+                                @Html.DropDownListFor(model=>model.HireOutsideAuditor, ViewBag.HireOutsideAuditor as SelectList, new { placeholder = "Select", id = "HireOutsideAuditor", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.HireOutsideAuditor, "", new { @class = "text-danger" })
+                            </div>
+
                             <div class="form-group">
                                 @Html.LabelFor(model => model.AnnualSalesRevenue)
                                 @Html.DropDownListFor(model => model.AnnualSalesRevenue, ViewBag.AnnualSalesRevenues as SelectList, new { placeholder = "Select", @class = "select select-search" })
                                 @Html.ValidationMessageFor(model => model.AnnualSalesRevenue, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(model => model.JobTitle)
-                                @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "Job Title", id = "JobTitle", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.SalesReach)
+                                @Html.DropDownListFor(model => model.SalesReach, ViewBag.SalesReach as SelectList, new { placeholder = "Select", id = "SalesReach", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SalesReach, "", new { @class = "text-danger" })
                             </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DirectManufacture)
+                                @Html.TextBoxFor(model => model.DirectManufacture, new { id = "DirectManufacture", @class = "form-control" })
+                                <span class="small text-muted">We use this information to identify manufacturers that our users would like to see</span>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DirectDistributor)
+                                @Html.TextBoxFor(model => model.DirectDistributor, new { id = "DirectDistributor", @class = "form-control" })
+                                <span class="small text-muted">We use this information to identify distributors that our users would like to see</span>
+                            </div>
+
+
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-demo2">
@@ -134,31 +209,4 @@
         &nbsp;
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#btnAdd').click(function () {
-            $('#progress').modal({ show: true });
-        })
-        var select = $('select[name=CityKey]');
-        //var res = "<option value='volvo'>Volvo</option>< option value= 'saab' > Saab</option><option value='mercedes'>Mercedes</option><option value='audi'>Audi</option>";
-        $.ajax({
-            traditional: true,
-            type: "post",
-            dataType: "json",
-            contentType: "application/json",
-            url: "/MgtProfile/GetCityList/",
-            //data: JSON.stringify({ barcode: barcode_text }),
-            success: function (data) {
-                var res = "";
-                for (var i = 0; i < data.length; i++) {
-                    res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + " >" + data[i].Text +"</option>";
-                }
-                select.html(res);
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log("Error on ajax call");
-            }
-        });
-        
-    });
-</script>
+

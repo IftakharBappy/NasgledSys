@@ -12,7 +12,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
          
-            $("#ConfirmationMessegeSlot").show().delay(1000).fadeOut();;
+            $("#ConfirmationMessegeSlot").show().delay(1000).fadeOut();
          
         });
 
@@ -61,15 +61,15 @@
                             <div class="row">
                                 
                                     <span class="menu-heading underlined">Settings</span>
-                                <div class="col-md-4"><a href="@Url.Action("UpdateUserProfile","MgtProfile")"><i class="icon-user"></i><br /> My profile</a></div>
-                                <div class="col-md-4"><a href="@Url.Action("Index","MgtClientContact")"><i class="icon-users"></i><br />Contacts</a></div>
-                                <div class="col-md-4"><a href="@Url.Action("IndexClientCompany","MgtClientCompany")"><i class="icon-meter-fast"></i><br />Company</a></div>
+                                <div class="col-md-4"><center><a href="@Url.Action("UpdateUserProfile","MgtProfile")"><i class="icon-user"></i><br /> My profile</a></center></div>
+                                <div class="col-md-4"><center><a href="@Url.Action("Index","MgtClientContact")"><i class="icon-users"></i><br />Contacts</a></center></div>
+                                <div class="col-md-4"><center><a href="@Url.Action("IndexClientCompany","MgtClientCompany")"><i class="icon-meter-fast"></i><br />Company</a></center></div>
                                
                                 </div>
                             <div class="row divider"></div>
                             <div class="row">
-
-                                <div class="col-md-3"><a href="@Url.Action("UserLogin","Home")"><i class="icon-switch2"></i> Logout</a></div>
+                                <div class="col-md-4"><a href="@Url.Action("ChangeUsernamePassword", "MgtProfile")"><i class="icon-lock2"></i> Change Password</a></div>
+                                <div class="col-md-4"><a href="@Url.Action("UserLogin","Home")"><i class="icon-switch2"></i> Logout</a></div>
                             
                             </div>
                             </div>
@@ -103,13 +103,7 @@
                 }
             </div>
 
-            <div class="heading-elements">
-                <div class="heading-btn-group" id="ConfirmationMessegeSlot">
-                  
-                       <h3 class="alert alert-info">@Html.DisplayFor(m=>Session["GlobalMessege"])</h3>
-                 
-                </div>
-            </div>
+           
         </div>
     </div>
     <!-- /page header -->
@@ -119,6 +113,13 @@
         <div class="page-content">
             <!-- Main content -->
             <div class="content-wrapper">
+               
+                    <div class="row" id="ConfirmationMessegeSlot">
+
+                        <h3 class="alert alert-info">@Html.DisplayFor(m => Session["GlobalMessege"])</h3>
+
+                    </div>
+                
                @RenderBody()
               
               

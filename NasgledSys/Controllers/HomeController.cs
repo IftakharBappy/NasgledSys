@@ -197,14 +197,22 @@ namespace NasgledSys.Controllers
         }
         public ActionResult Userhome()
         {
-           try
+            if (GlobalClass.MasterSession)
             {
-               
-                return View();
+                try
+                {
+
+                    return View();
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+                }
             }
-            catch(Exception e)
+            else
             {
-               
+                Exception e = new Exception("Session Expired");
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }

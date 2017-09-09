@@ -21,7 +21,7 @@ namespace NasgledSys.Models
        
         [Display(Name = "Location*..")]
         public string Location { get; set; }
-        [Required(ErrorMessage = "Please Select Location")]
+        [Required(ErrorMessage = "Please Select City")]
         [Display(Name = "Location*..")]
         public Nullable<int> CityKey { get; set; }
 
@@ -35,7 +35,9 @@ namespace NasgledSys.Models
         [Display(Name = "Job Title*..")]
         public string JobTitle { get; set; }
         [Display(Name = "Phone No*..")]
-        [Required(ErrorMessage = "Please Enter your Phone No")]
+        [Required(ErrorMessage = "Please Enter your Phone No")]        
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string PhoneNo { get; set; }
 
         [Display(Name = "Email Add*..")]
@@ -44,6 +46,7 @@ namespace NasgledSys.Models
         public string Email { get; set; }
 
         [Display(Name = "Primary Business Type")]
+        [Required(ErrorMessage = "Primary Business Type is required.")]
         public string PrimaryBusinessType { get; set; }
 
         [Display(Name = "Does Your Company Hire Outside Auditors?")]
@@ -59,7 +62,31 @@ namespace NasgledSys.Models
         public string DirectDistributor { get; set; }
         [Display(Name = "Photo:")]
         public byte[] Photo { get; set; }
+        public string FileType { get; set; }
+        public string FileName { get; set; }
 
+    }
 
+    public class UsernameClass
+    {
+        public Guid? ProfileKey { get; set; }
+        [Required(ErrorMessage = "Please Enter your First Name")]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Required(ErrorMessage = "Please Enter your Last Name")]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        [Required(ErrorMessage = "Please Enter your Username")]
+        [Display(Name = "Username*..")]
+        public string Username { get; set; }
+        [Required(ErrorMessage = "Please Enter the Password")]      
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+              
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        
     }
 }
