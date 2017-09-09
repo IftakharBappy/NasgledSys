@@ -201,37 +201,40 @@
                             <p class="big text-blue-600">For example, if you have standard legal text for every proposal, enter it below and each new proposal will be set with this text (and then can be eidted per proposal).</p>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ProposalIntro)
-                                @Html.TextBoxFor(model => model.ProposalIntro, new { placeholder = "Proposal Intro", id = "ProposalIntro", @class = "form-control" })
+                                @Html.TextAreaFor(model => model.ProposalIntro, new { placeholder = "Proposal Intro", id = "ProposalIntro", @class = "form-control" })
                                 <span class="small text-muted">Default text for the intro to a proposal</span>
                                 @Html.ValidationMessageFor(model => model.ProposalIntro, "", new { @class = "text-danger" })
+
+                               
                             </div>
+                            
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ProposalTeam)
-                                @Html.TextBoxFor(model => model.ProposalTeam, new { placeholder = "Proposal Team", id = "ProposalTeam", @class = "form-control" })
+                                @Html.TextAreaFor(model => model.ProposalTeam, new { placeholder = "Proposal Team", id = "ProposalTeam", @class = "form-control" })
                                 <span class="small text-muted">Default text about the team in a proposal</span>
                                 @Html.ValidationMessageFor(model => model.ProposalTeam, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ProposalLegal)
-                                @Html.TextBoxFor(model => model.ProposalLegal, new { placeholder = "Proposal Legal", id = "ProposalLegal", @class = "form-control" })
+                                @Html.TextAreaFor(model => model.ProposalLegal, new { placeholder = "Proposal Legal", id = "ProposalLegal", @class = "form-control" })
                                 <span class="small text-muted">Default text for #### in a proposal</span>
                                 @Html.ValidationMessageFor(model => model.ProposalLegal, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ProposalDisclaimer)
-                                @Html.TextBoxFor(model => model.ProposalDisclaimer, new { placeholder = "Proposal Disclaimer", id = "ProposalDisclaimer", @class = "form-control" })
+                                @Html.TextAreaFor(model => model.ProposalDisclaimer, new { placeholder = "Proposal Disclaimer", id = "ProposalDisclaimer", @class = "form-control" })
                                 <span class="small text-muted">Default text for disclaimers in a proposal</span>
                                 @Html.ValidationMessageFor(model => model.ProposalDisclaimer, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ProposalReference)
-                                @Html.TextBoxFor(model => model.ProposalReference, new { placeholder = "Proposal Reference", id = "ProposalReference", @class = "form-control" })
+                                @Html.TextAreaFor(model => model.ProposalReference, new { placeholder = "Proposal Reference", id = "ProposalReference", @class = "form-control" })
                                 <span class="small text-muted">Default text for reference in a proposal</span>
                                 @Html.ValidationMessageFor(model => model.ProposalReference, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(model => model.EstimateFooter)
-                                @Html.TextBoxFor(model => model.EstimateFooter, new { placeholder = "Estimate Footer", id = "EstimateFooter", @class = "form-control" })
+                                @Html.TextAreaFor(model => model.EstimateFooter, new { placeholder = "Estimate Footer", id = "EstimateFooter", @class = "form-control" })
                                 <span class="small text-muted">Default text to show at the end of estimates</span>
                                 @Html.ValidationMessageFor(model => model.EstimateFooter, "", new { @class = "text-danger" })
                             </div>

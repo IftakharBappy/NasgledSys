@@ -118,7 +118,7 @@ namespace NasgledSys.Controllers
             }
         }
         public JsonResult GetClientCompanyListData() {
-            var list = (from cc in db.ClientCompany
+            var list = (from cc in db.ClientCompany where cc.ProfileKey==GlobalClass.ProfileUser.ProfileKey
                         select new
                         {
                             cc.ClientCompanyKey,

@@ -85,5 +85,7 @@ namespace NasgledSys.Models
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<ClientCompany> ClientCompany { get; set; }
         public virtual DbSet<ClientCompanyProfileRequest> ClientCompanyProfileRequest { get; set; }
+        public virtual DbSet<EnvironmentalImpact> EnvironmentalImpact { get; set; }
+        public virtual DbSet<Unit> Unit { get; set; }
     }
 }

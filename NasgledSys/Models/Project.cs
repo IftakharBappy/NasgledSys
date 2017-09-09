@@ -37,6 +37,22 @@ namespace NasgledSys.Models
         public Nullable<bool> IsAccessableByOthers { get; set; }
         public Nullable<System.Guid> CompanyKey { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string Zipcode { get; set; }
+        public Nullable<int> CityKey { get; set; }
+        public Nullable<int> StateKey { get; set; }
+        public Nullable<decimal> MarkupPercentage { get; set; }
+        public Nullable<decimal> LaborCost { get; set; }
+        public Nullable<decimal> ShippingCost { get; set; }
+        public Nullable<decimal> MiscCost { get; set; }
+        public Nullable<decimal> TaxIncentives { get; set; }
+        public Nullable<decimal> ProductMargin { get; set; }
+        public string GeneralNote { get; set; }
+        public string InternalNotes { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
+        public Nullable<System.Guid> ProfileKey { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Area> Area { get; set; }
@@ -56,5 +72,7 @@ namespace NasgledSys.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Team> Team { get; set; }
         public virtual ClientCompany ClientCompany { get; set; }
+        public virtual CityList CityList { get; set; }
+        public virtual StateList StateList { get; set; }
     }
 }

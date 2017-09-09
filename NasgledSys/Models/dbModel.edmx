@@ -103,6 +103,7 @@
           <Property Name="ShipingCost" Type="decimal" Precision="18" Scale="2" />
           <Property Name="MiscCost" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsOn" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProjectKey" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="AreaProductDetail">
           <Key>
@@ -314,6 +315,19 @@
           <Property Name="IsPOPssl" Type="bit" />
           <Property Name="Fullname" Type="nvarchar(max)" />
           <Property Name="Detail" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="EnvironmentalImpact">
+          <Key>
+            <PropertyRef Name="FactorKey" />
+          </Key>
+          <Property Name="FactorKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FactorName" Type="nvarchar(max)" />
+          <Property Name="UnitName" Type="nvarchar(max)" />
+          <Property Name="QtyUsed" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="KilowattSaved" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Logo" Type="image" />
+          <Property Name="LogoType" Type="nvarchar(max)" />
+          <Property Name="Filename" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Forms">
           <Key>
@@ -597,6 +611,22 @@
           <Property Name="IsAccessableByOthers" Type="bit" />
           <Property Name="CompanyKey" Type="uniqueidentifier" />
           <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Address2" Type="nvarchar(max)" />
+          <Property Name="Zipcode" Type="nvarchar(max)" />
+          <Property Name="CityKey" Type="int" />
+          <Property Name="StateKey" Type="int" />
+          <Property Name="MarkupPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LaborCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ShippingCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="MiscCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TaxIncentives" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProductMargin" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GeneralNote" Type="nvarchar(max)" />
+          <Property Name="InternalNotes" Type="nvarchar(max)" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="ProfileKey" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="ProjectStatus">
           <Key>
@@ -731,6 +761,14 @@
           <Property Name="JobFunctionKey" Type="uniqueidentifier" />
           <Property Name="Status" Type="bit" />
           <Property Name="ProjectKey" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="UnitKey" />
+          </Key>
+          <Property Name="UnitKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UnitName" Type="nvarchar(max)" />
+          <Property Name="UnitShortname" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Usergroup">
           <Key>
@@ -1503,6 +1541,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Project_CityList">
+          <End Role="CityList" Type="Self.CityList" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityList">
+              <PropertyRef Name="CityKey" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Project_ClientCompany">
           <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="0..1" />
           <End Role="Project" Type="Self.Project" Multiplicity="*" />
@@ -1536,6 +1586,18 @@
             </Principal>
             <Dependent Role="Project">
               <PropertyRef Name="ProjectStatusKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_StateList">
+          <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateList">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="StateKey" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1812,6 +1874,7 @@
           <EntitySet Name="CoolingSystem" EntityType="Self.CoolingSystem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CoolingSystemType" EntityType="Self.CoolingSystemType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DefaultEmail" EntityType="Self.DefaultEmail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnvironmentalImpact" EntityType="Self.EnvironmentalImpact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Forms" EntityType="Self.Forms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FuelType" EntityType="Self.FuelType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HeatingEfficiencyType" EntityType="Self.HeatingEfficiencyType" Schema="dbo" store:Type="Tables" />
@@ -1846,6 +1909,7 @@
           <EntitySet Name="StaffList" EntityType="Self.StaffList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StateList" EntityType="Self.StateList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usergroup" EntityType="Self.Usergroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroupForm" EntityType="Self.UserGroupForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroupModule" EntityType="Self.UserGroupModule" Schema="dbo" store:Type="Tables" />
@@ -2084,6 +2148,10 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="ProfileProduct" EntitySet="ProfileProduct" />
           </AssociationSet>
+          <AssociationSet Name="FK_Project_CityList" Association="Self.FK_Project_CityList">
+            <End Role="CityList" EntitySet="CityList" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
           <AssociationSet Name="FK_Project_ClientCompany" Association="Self.FK_Project_ClientCompany">
             <End Role="ClientCompany" EntitySet="ClientCompany" />
             <End Role="Project" EntitySet="Project" />
@@ -2094,6 +2162,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Project_ProjectStatus" Association="Self.FK_Project_ProjectStatus">
             <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_StateList" Association="Self.FK_Project_StateList">
+            <End Role="StateList" EntitySet="StateList" />
             <End Role="Project" EntitySet="Project" />
           </AssociationSet>
           <AssociationSet Name="FK_Project_UserProfile" Association="Self.FK_Project_UserProfile">
@@ -2199,6 +2271,7 @@
           <NavigationProperty Name="Company" Relationship="NasgledDBModel.FK_Company_CityList" FromRole="CityList" ToRole="Company" />
           <NavigationProperty Name="ZIPList" Relationship="NasgledDBModel.FK_ZIPList_CityList" FromRole="CityList" ToRole="ZIPList" />
           <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_ClientCompany_ClientCompany" FromRole="CityList" ToRole="ClientCompany" />
+          <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_CityList" FromRole="CityList" ToRole="Project" />
         </EntityType>
         <EntityType Name="Forms">
           <Key>
@@ -2272,6 +2345,7 @@
           <NavigationProperty Name="Company" Relationship="NasgledDBModel.FK_Company_StateList" FromRole="StateList" ToRole="Company" />
           <NavigationProperty Name="ZIPList" Relationship="NasgledDBModel.FK_ZIPList_StateList" FromRole="StateList" ToRole="ZIPList" />
           <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_ClientCompany_StateList" FromRole="StateList" ToRole="ClientCompany" />
+          <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_StateList" FromRole="StateList" ToRole="Project" />
         </EntityType>
         <EntityType Name="Usergroup">
           <Key>
@@ -2711,6 +2785,16 @@
             <End Role="Team" EntitySet="Team" />
           </AssociationSet>
           <EntitySet Name="ClientCompanyProfileRequest" EntityType="NasgledDBModel.ClientCompanyProfileRequest" />
+          <EntitySet Name="EnvironmentalImpact" EntityType="NasgledDBModel.EnvironmentalImpact" />
+          <EntitySet Name="Unit" EntityType="NasgledDBModel.Unit" />
+          <AssociationSet Name="FK_Project_CityList" Association="NasgledDBModel.FK_Project_CityList">
+            <End Role="CityList" EntitySet="CityList" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_StateList" Association="NasgledDBModel.FK_Project_StateList">
+            <End Role="StateList" EntitySet="StateList" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Area">
           <Key>
@@ -2828,6 +2912,7 @@
           <NavigationProperty Name="AreaProductDocument" Relationship="NasgledDBModel.FK_AreaProductDocument_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductDocument" />
           <NavigationProperty Name="AreaProductNote" Relationship="NasgledDBModel.FK_AreaProductNote_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductNote" />
           <NavigationProperty Name="AreaProductPhoto" Relationship="NasgledDBModel.FK_AreaProductPhoto_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductPhoto" />
+          <Property Name="ProjectKey" Type="Guid" />
         </EntityType>
         <EntityType Name="AreaProductDetail">
           <Key>
@@ -3227,6 +3312,24 @@
           <NavigationProperty Name="Proposal" Relationship="NasgledDBModel.FK_Proposal_Project" FromRole="Project" ToRole="Proposal" />
           <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_Project" FromRole="Project" ToRole="Team" />
           <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_Project_ClientCompany" FromRole="Project" ToRole="ClientCompany" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Zipcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CityKey" Type="Int32" />
+          <Property Name="StateKey" Type="Int32" />
+          <Property Name="MarkupPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LaborCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ShippingCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MiscCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TaxIncentives" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductMargin" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InternalNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_Project_CityList" FromRole="Project" ToRole="CityList" />
+          <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_Project_StateList" FromRole="Project" ToRole="StateList" />
+          <Property Name="ProfileKey" Type="Guid" />
         </EntityType>
         <EntityType Name="ProjectStatus">
           <Key>
@@ -4525,6 +4628,51 @@
           <Property Name="AdminProfileKey" Type="Guid" />
           <Property Name="IsCancelled" Type="Boolean" />
         </EntityType>
+        <EntityType Name="EnvironmentalImpact">
+          <Key>
+            <PropertyRef Name="FactorKey" />
+          </Key>
+          <Property Name="FactorKey" Type="Guid" Nullable="false" />
+          <Property Name="FactorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UnitName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QtyUsed" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="KilowattSaved" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="LogoType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Filename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="UnitKey" />
+          </Key>
+          <Property Name="UnitKey" Type="Guid" Nullable="false" />
+          <Property Name="UnitName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UnitShortname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Project_CityList">
+          <End Type="NasgledDBModel.CityList" Role="CityList" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityList">
+              <PropertyRef Name="CityKey" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_StateList">
+          <End Type="NasgledDBModel.StateList" Role="StateList" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateList">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="StateKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4685,6 +4833,7 @@
           <EntitySetMapping Name="AreaProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.AreaProduct">
               <MappingFragment StoreEntitySet="AreaProduct">
+                <ScalarProperty Name="ProjectKey" ColumnName="ProjectKey" />
                 <ScalarProperty Name="IsOn" ColumnName="IsOn" />
                 <ScalarProperty Name="MiscCost" ColumnName="MiscCost" />
                 <ScalarProperty Name="ShipingCost" ColumnName="ShipingCost" />
@@ -5048,6 +5197,22 @@
           <EntitySetMapping Name="Project">
             <EntityTypeMapping TypeName="NasgledDBModel.Project">
               <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="ProfileKey" ColumnName="ProfileKey" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="InternalNotes" ColumnName="InternalNotes" />
+                <ScalarProperty Name="GeneralNote" ColumnName="GeneralNote" />
+                <ScalarProperty Name="ProductMargin" ColumnName="ProductMargin" />
+                <ScalarProperty Name="TaxIncentives" ColumnName="TaxIncentives" />
+                <ScalarProperty Name="MiscCost" ColumnName="MiscCost" />
+                <ScalarProperty Name="ShippingCost" ColumnName="ShippingCost" />
+                <ScalarProperty Name="LaborCost" ColumnName="LaborCost" />
+                <ScalarProperty Name="MarkupPercentage" ColumnName="MarkupPercentage" />
+                <ScalarProperty Name="StateKey" ColumnName="StateKey" />
+                <ScalarProperty Name="CityKey" ColumnName="CityKey" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CompanyKey" ColumnName="CompanyKey" />
                 <ScalarProperty Name="IsAccessableByOthers" ColumnName="IsAccessableByOthers" />
@@ -5390,6 +5555,29 @@
                 <ScalarProperty Name="ProfileKey" ColumnName="ProfileKey" />
                 <ScalarProperty Name="ClientCompanyKey" ColumnName="ClientCompanyKey" />
                 <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnvironmentalImpact">
+            <EntityTypeMapping TypeName="NasgledDBModel.EnvironmentalImpact">
+              <MappingFragment StoreEntitySet="EnvironmentalImpact">
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="LogoType" ColumnName="LogoType" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="KilowattSaved" ColumnName="KilowattSaved" />
+                <ScalarProperty Name="QtyUsed" ColumnName="QtyUsed" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="FactorName" ColumnName="FactorName" />
+                <ScalarProperty Name="FactorKey" ColumnName="FactorKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unit">
+            <EntityTypeMapping TypeName="NasgledDBModel.Unit">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="UnitShortname" ColumnName="UnitShortname" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="UnitKey" ColumnName="UnitKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

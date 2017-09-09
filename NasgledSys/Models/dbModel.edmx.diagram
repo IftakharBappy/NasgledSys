@@ -147,6 +147,10 @@
         <AssociationConnector Association="NasgledDBModel.FK_Project_ClientCompany" />
         <AssociationConnector Association="NasgledDBModel.FK_Team_ClientCompany" />
         <EntityTypeShape EntityType="NasgledDBModel.ClientCompanyProfileRequest" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="NasgledDBModel.EnvironmentalImpact" Width="1.5" PointX="16.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NasgledDBModel.Unit" Width="1.5" PointX="3.375" PointY="12.75" />
+        <AssociationConnector Association="NasgledDBModel.FK_Project_CityList" />
+        <AssociationConnector Association="NasgledDBModel.FK_Project_StateList" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

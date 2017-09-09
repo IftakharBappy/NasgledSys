@@ -23,6 +23,7 @@ namespace NasgledSys.Models
             this.Company = new HashSet<Company>();
             this.ZIPList = new HashSet<ZIPList>();
             this.ClientCompany = new HashSet<ClientCompany>();
+            this.Project = new HashSet<Project>();
         }
     
         public int PKey { get; set; }
@@ -42,5 +43,7 @@ namespace NasgledSys.Models
         public virtual ICollection<ZIPList> ZIPList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientCompany> ClientCompany { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Project> Project { get; set; }
     }
 }

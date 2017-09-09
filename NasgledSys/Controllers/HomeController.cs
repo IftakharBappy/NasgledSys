@@ -175,7 +175,7 @@ namespace NasgledSys.Controllers
                     profile.Password = model.Password;
                     profile.Email = model.Email;
                     profile.UserStatus = true;
-                    profile.RoleKey = (from x in db.UserRole where x.IsDelete == false select x).OrderByDescending(m => m.Rlevel).FirstOrDefault().RoleKey;
+                    profile.RoleKey = (from x in db.UserRole where x.IsDelete == false && x.Rlevel==1 select x).OrderByDescending(m => m.Rlevel).FirstOrDefault().RoleKey;
                     db.UserProfile.Add(profile);db.SaveChanges();
                     GlobalClass.MasterSession = true;
                     GlobalClass.ProfileUser = profile;
@@ -201,7 +201,6 @@ namespace NasgledSys.Controllers
             {
                 try
                 {
-
                     return View();
                 }
                 catch (Exception e)
@@ -215,6 +214,20 @@ namespace NasgledSys.Controllers
                 Exception e = new Exception("Session Expired");
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
+        }
+        public JsonResult GetProjectListData()
+        {
+            var list = (from cc in db.Project where cc.ProfileKey==GlobalClass.ProfileUser.ProfileKey
+                        select new ProjectThumbnailClass
+                        {
+                           ProjectName= cc.ProjectName,
+                           ProjectKey= cc.ProjectKey,
+                           CompanyName= cc.ClientCompany.CompanyName,
+                           AdminName=cc.UserProfile.FirstName+" "+ cc.UserProfile.LastName,
+                           AreaNum=db.Area.Where(m=>m.ProjectKey==cc.ProjectKey).Select(m=>m.SquareFeet).DefaultIfEmpty(0).Count(),
+                           ExsistingProduct= db.AreaProduct.Where(m => m.ProjectKey == cc.ProjectKey).Select(m=>m.Count).DefaultIfEmpty(0).Sum()
+                        }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult UserLogin()
         {
@@ -257,8 +270,21 @@ namespace NasgledSys.Controllers
 
                         }
                         GlobalClass.MasterSession = true;
-                        GlobalClass.ProfileUser = obj;
-                      
+                        GlobalClass.LoggedInUser = obj;
+                        if(obj.UserRole.Rlevel == 1)GlobalClass.ProfileUser=obj ;
+                        else
+                        {
+                            ClientCompanyProfileRequest probj = db.ClientCompanyProfileRequest.SingleOrDefault(m=>m.ProfileKey==obj.ProfileKey&& m.IsConfirmed==true && m.IsCancelled==false);
+                            if (probj == null)
+                            {
+                                e = new Exception("Incorrect user access. Unauthorized Access.");
+                                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+                            }
+                            else
+                            {
+                                GlobalClass.ProfileUser = db.UserProfile.SingleOrDefault(m=>m.ProfileKey==probj.AdminProfileKey);
+                            }
+                        }
                         
                         return RedirectToAction("Userhome", "Home");
                     }

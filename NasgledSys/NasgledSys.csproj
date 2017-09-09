@@ -366,6 +366,9 @@
     <Compile Include="Models\DefaultEmail.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EnvironmentalImpact.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Forms.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -458,6 +461,7 @@
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProjectStatusViewModel.cs" />
+    <Compile Include="Models\ProjectThumbnailClass.cs" />
     <Compile Include="Models\Proposal.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -492,6 +496,9 @@
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\ThumbnailModel.cs" />
     <Compile Include="Models\ThumbnailViewModel.cs" />
+    <Compile Include="Models\Unit.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Usergroup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>

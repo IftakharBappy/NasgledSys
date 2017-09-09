@@ -48,6 +48,7 @@ namespace NasgledSys.Models
         public Nullable<decimal> ShipingCost { get; set; }
         public Nullable<decimal> MiscCost { get; set; }
         public Nullable<decimal> IsOn { get; set; }
+        public Nullable<System.Guid> ProjectKey { get; set; }
     
         public virtual Area Area { get; set; }
         public virtual IncentiveMaxType IncentiveMaxType { get; set; }
