@@ -6,14 +6,14 @@
 
 @section scripts
 {
-  
+
     <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
     <script src="~/Content/datatables/jquery.dataTables.js"></script>
     <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript">
-       
-      
+
+
         var CityListVM;
         $(function () {
 
@@ -25,7 +25,7 @@
                         "serverSide": true,
                         "processing": true,
                         "ajax": {
-                            "url": "@Url.Action("GetProjectListData", "Home")",
+                            "url": "@Url.Action("GetProjectListDataByCompany", "Home")",
                             "data": function (data) {
 
                                 data.ProjectKey = $("#ProjectKey").val();
@@ -62,7 +62,7 @@
                 }
             }
 
-          
+
 
             // initialize the datatables
             CityListVM.init();
@@ -86,13 +86,13 @@
 
             //});
 
-          
 
-           
+
+
 
         });
 
-   
+
 
 
 
@@ -106,7 +106,7 @@
                 <i class="icon-folder-download position-left"></i>  <a href="@Url.Action("UserHome","Home")">Home></a><a href="@Url.Action("Index","MgtClientCompany")">Companies ></a>
             </span>
         </h4>
-       
+
     </center>
 
 }
@@ -115,27 +115,25 @@
     List View Of All Projects
 }
 
-    <div class="panel panel-default col-lg-6">
-        
-
-     
-        <div class="panel-body">
-           
-            <ul class="nav nav-pills">
-                <li class="active"><a href="@Url.Action("Userhome","Home")" data-toggle="tab">Back</a></li>
-                <li><a href="@Url.Action("SelectCompany","MgtProject")" data-toggle="tab">Add New Project</a></li>
-              
-            </ul>
+<div class="panel panel-default col-lg-6">
 
 
-        </div>
-       
 
-        <table class="table datatable-show-all" id="Citys-data-table">
-           
-        </table>
+    <div class="panel-body">
+
+        <ul class="nav nav-pills">
+            <li class="active"><a href="@Url.Action("Userhome","Home")" data-toggle="tab">Back</a></li>
+            <li><a href="@Url.Action("SelectCompany","MgtProject")" data-toggle="tab">Add New Project</a></li>
+
+        </ul>
+
 
     </div>
+
+
+    <table class="table datatable-show-all" id="Citys-data-table"></table>
+
+</div>
 
 
 

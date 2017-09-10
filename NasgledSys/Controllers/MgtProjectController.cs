@@ -29,7 +29,45 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
             }
         }
+        public ActionResult CIndex()
+        {
+            try
+            {
+                ViewBag.mess = "";
+                return View();
+            }
+            catch (Exception e)
+            {
 
+                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+            }
+        }
+        public ActionResult SelectCompany()
+        {
+            try
+            {
+                
+                return View();
+            }
+            catch (Exception e)
+            {
+
+                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+            }
+        }
+        public ActionResult GetCompanyForProject(Guid id)
+        {
+            try
+            {
+                GlobalClass.CCompany = db.ClientCompany.SingleOrDefault(m => m.ClientCompanyKey == id);
+                return RedirectToAction("Create","MgtProject");
+            }
+            catch (Exception e)
+            {
+
+                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+            }
+        }
         public ActionResult Create(Guid? id)
         {
             try

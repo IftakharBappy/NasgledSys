@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<style>
+    .thumbnail {
+        padding: 0;
+        height: auto;
+    }
+</style>
+
+@section CenterTitle{
+   Select Company For Project
+}
+@section SideBar{
+    <center>
+        <h4>
+            <i class="icon-arrow-small-right position-left"></i>
+            <span class="text-semibold">List of Company</span>
+        </h4>
+    </center>
+}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">List of Client Company</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-3">
+                <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="container" id="elementContainer">
+
+
+    </div><!--/container -->
+
+</div>
+
+<script>
+    var baseList = [];
+    var filteredList = [];
+    $(document).ready(function () {
+        GetClientCompanyListData();
+    });
+    function search() {
+        filteredList = [];
+        var searchText = $("#searchText").val().toLowerCase();
+        if (searchText == "") {
+            filteredList = baseList;
+            remakeGrid();
+        }
+        else {
+            baseList.forEach(function (item) {
+                if (item.CompanyName.toLowerCase().includes(searchText)) {
+                    filteredList.push(item);
+                }
+            });
+            remakeGrid();
+        }
+    }
+    function remakeGrid() {
+        var res = "";
+        $("#elementContainer").html("");
+
+        for (var i = 0; i < filteredList.length; i++) {
+            res = res + "<div class='col-xs-18 col-sm-6 col-md-3'>"
+                + "<div class='thumbnail' >"
+                + "<div class='caption'>"
+                + "<h4>" + filteredList[i].CompanyName + "</h4>"
+                + "<p>" + filteredList[i].Address + "</p>"
+                + "<a href='/MgtProject/GetCompanyForProject?id=" + filteredList[i].ClientCompanyKey + "' class='btn btn-default btn-xs' role='button'>Select</a>"
+                + "</div>"
+                + "</div >"
+                + "</div >";
+        }
+        $("#elementContainer").html(res);
+    }
+    function GetClientCompanyListData() {
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtClientCompany/GetClientCompanyListData/",
+            //data: JSON.stringify({ clientCompanyKey: '#' }),
+            success: function (data) {
+                baseList = data;
+                filteredList = data;
+                remakeGrid();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+</script>

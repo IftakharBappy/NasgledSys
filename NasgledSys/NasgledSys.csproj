@@ -3783,6 +3783,9 @@
     <Content Include="Views\MgtClientCompany\IndexClientCompany.cshtml" />
     <Content Include="Views\MgtProfile\JoinCompany.cshtml" />
     <Content Include="Views\MgtProfile\ChangeUsernamePassword.cshtml" />
+    <Content Include="Views\Home\ProjectByCompany.cshtml" />
+    <Content Include="Views\MgtProject\CIndex.cshtml" />
+    <Content Include="Views\MgtProject\SelectCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

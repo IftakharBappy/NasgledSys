@@ -1,4 +1,5 @@
 ﻿@model NasgledSys.Models.ProjectClass
+    @using NasgledSys.Models;
 @{
     ViewBag.Title = "Create Project";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -13,6 +14,9 @@
        
     </center>
 
+}
+@section CenterTitle{
+   Add Project for @Html.DisplayFor(m=>GlobalClass.CCompany.CompanyName)
 }
 <script type="text/javascript">
     $(document).ready(function () {

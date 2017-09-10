@@ -1,4 +1,4 @@
-﻿
+﻿@using NasgledSys.Models;
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -14,7 +14,7 @@
     var baseList = [];
     var filteredList = [];
     $(document).ready(function () {
-       
+
         $('#ViewBy').hide();
 
         $(".notice").click(function () {
@@ -23,7 +23,7 @@
             } else {
                 $('#ViewBy').show();
             }
-           
+
         });
         GetProjectListData();
         GetAllCompanyName();
@@ -66,14 +66,14 @@
         var res = "";
         res = res + "<div class='col-md-2'><a  href='/Home/Userhome'>All</a></div>";
 
-       
+
 
         for (var i = 0; i < filteredList.length; i++) {
             res = res + "<div class='col-md-3'>"
-             
-              
+
+
                 + "<a href='/Home/ProjectByCompany?id=" + filteredList[i].ClientCompanyKey + "' >" + filteredList[i].CompanyName + "</a>"
-               
+
                 + "</div >";
         }
         res = res + "<div class='col-md-2'><label>Select Company</label></div>";
@@ -88,9 +88,9 @@
                 + "<div class='thumbnail' >"
                 + "<div class='caption'>"
                 + "<h4>" + filteredList[i].ProjectName + "</h4>"
-                + "<p>" + filteredList[i].CompanyName + "</p><br/>" + filteredList[i].ProjectStatus + "<br/>" + filteredList[i].AdminName + "<br/>" + filteredList[i].AreaNum + " areas <br/>"
+                + "<p>" + filteredList[i].CompanyName + "</p><br/>" + filteredList[i].AdminName + "<br/>" + filteredList[i].AreaNum + " areas <br/>"
                 + filteredList[i].ExsistingProduct + " Existing Products <br/>"
-                + "<a href='/MgtClientCompany/ViewClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-default btn-xs' role='button'>View</a>" 
+                + "<a href='/MgtClientCompany/ViewClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-default btn-xs' role='button'>View</a>"
                 +"<a href='/MgtClientCompany/EditClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-primary btn-xs' role='button'>Edit</a>"
                 + "</div>"
                 + "</div >"
@@ -104,7 +104,7 @@
             type: "post",
             dataType: "json",
             contentType: "application/json",
-            url: "/Home/GetProjectListData/",
+            url: "/Home/GetProjectListDataByCompany/",
             //data: JSON.stringify({ clientCompanyKey: '#' }),
             success: function (data) {
                 baseList = data;
@@ -118,11 +118,11 @@
     }
 </script>
 @section CenterTitle{
-    My Projects
-    }
+    My Projects of @Html.DisplayFor(m=>GlobalClass.CCompany.CompanyName)
+}
 
 <div class="panel panel-flat">
-   
+
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-6">
@@ -133,34 +133,34 @@
             </div>
 
             <div class="col-md-3">
-                <a  href="/MgtProject/SelectCompany"><i class="icon-add"></i> Add New</a>
+                <a href="/MgtProject/SelectCompany"><i class="icon-add"></i> Add New</a>
             </div>
-            
+
         </div>
-        </div>
+    </div>
     <div class="row" id="ViewBy">
         <div class="panel-heading">
 
             <div class="col-md-3">
-                <a class="btn btn-primary" href="/Home/Userhome"><i class="add-on"></i> View as Card</a>
+                <a class="btn btn-primary" href="/Home/ProjectByCompany"><i class="add-on"></i> View as Card</a>
             </div>
             <div class="col-md-3">
-                <a class="btn btn-primary" href="/MgtProject/Index"><i class="add-on"></i>View as List</a>
+                <a class="btn btn-primary" href="/MgtProject/CIndex"><i class="add-on"></i>View as List</a>
             </div>
         </div>
     </div>
-    </div>
-   <hr />
-    <div class="panel panel-flat">
-        <div class="panel-heading">
-            <div class="row" id="comp">
+</div>
+<hr />
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <div class="row" id="comp">
 
 
-            </div>
         </div>
-        <div class="container" id="elementContainer">
-
-
-        </div><!--/container -->
-
     </div>
+    <div class="container" id="elementContainer">
+
+
+    </div><!--/container -->
+
+</div>
