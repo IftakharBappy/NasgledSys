@@ -11,6 +11,71 @@ namespace NasgledSys.Controllers
     {
         // GET: DropdownUtility
         private NasgledDBEntities db = new NasgledDBEntities();
+        public JsonResult loadProjectStatus(Guid? ProjectStatusKey)
+        {
+            if (ProjectStatusKey == Guid.Empty)
+            {
+                var list = (from city in db.ProjectStatus select new { city.ProjectStatusKey, city.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.ProjectStatus select new {
+                    city.ProjectStatusKey,
+                    city.TypeName,
+                    Selected = city.ProjectStatusKey == ProjectStatusKey ? "selected" : "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+           
+        }
+        public JsonResult loadPrimaryContact(Guid? PrimaryContactKey)
+        {
+            if (PrimaryContactKey == Guid.Empty)
+            {
+                var list = (from x in db.ClientContact
+                            where x.IsActive == true && x.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                            select new
+                            {
+                                Value = x.ContactKey,
+                                Text = x.FirstName + " " + x.LastName + " " + x.Email,
+                                Selected = ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from x in db.ClientContact where x.IsActive == true && x.ProfileKey == GlobalClass.ProfileUser.ProfileKey select new {
+                    Value=x.ContactKey,
+                    Text=x.FirstName+" "+x.LastName + " " + x.Email,
+                    Selected = x.ContactKey == PrimaryContactKey ? "selected" : ""
+                }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult loadCityDropDown_ToCreate(int? CityKey)
+        {
+            if (CityKey == -1) {
+                var list = (from city in db.CityList select new { city.CityKey, city.CityName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from x in db.CityList select new { x.CityKey, x.CityName, Selected = x.CityKey == CityKey ? "selected" : "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult LoadStateDropDown_ToCreate(int? StateKey)
+        {
+            if (StateKey == -1) {
+                var list = (from state in db.StateList select new { state.PKey, state.StateName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from x in db.StateList select new { x.PKey, x.StateName, Selected = x.PKey == StateKey ? "selected" : "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetClient(string query)
         {
             var users = (from u in db.ClientContact

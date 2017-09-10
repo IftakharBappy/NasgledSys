@@ -9,6 +9,9 @@ using System.Web.Mail;
 using System.Threading.Tasks;
 using NasgledSys.EM;
 using NasgledSys.Validation;
+using System.Globalization;
+using NasgledSys.EM;
+
 namespace NasgledSys.Controllers
 {
     public class MgtProjectController : Controller
@@ -18,69 +21,145 @@ namespace NasgledSys.Controllers
         private FormValidation validate = new FormValidation();
         public ActionResult Index()
         {
-            try
+            if (GlobalClass.MasterSession)
             {
-                ViewBag.mess = "";               
-                return View();
-            }
-            catch (Exception e)
-            {
+                try
+                {
+                    ViewBag.mess = "";
+                    return View();
+                }
+                catch (Exception e)
+                {
 
-                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }
         public ActionResult CIndex()
         {
-            try
+            if (GlobalClass.MasterSession)
             {
-                ViewBag.mess = "";
-                return View();
-            }
-            catch (Exception e)
-            {
+                try
+                {
+                    ViewBag.mess = "";
+                    return View();
+                }
+                catch (Exception e)
+                {
 
-                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }
         public ActionResult SelectCompany()
         {
-            try
+            if (GlobalClass.MasterSession)
             {
-                
-                return View();
-            }
-            catch (Exception e)
-            {
+                try
+                {
 
-                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                    return View();
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }
         public ActionResult GetCompanyForProject(Guid id)
         {
-            try
+            if (GlobalClass.MasterSession)
             {
-                GlobalClass.CCompany = db.ClientCompany.SingleOrDefault(m => m.ClientCompanyKey == id);
-                return RedirectToAction("Create","MgtProject");
-            }
-            catch (Exception e)
-            {
+                try
+                {
+                    GlobalClass.CCompany = db.ClientCompany.SingleOrDefault(m => m.ClientCompanyKey == id);
+                    return RedirectToAction("Create","MgtProject");
+                }
+                catch (Exception e)
+                {
 
-                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }
         public ActionResult Create(Guid? id)
         {
-            try
+            if (GlobalClass.MasterSession)
             {
-                Session["GlobalMessege"] = "";
-                ViewBag.mess = "";
-                return View();
-            }
-            catch (Exception e)
-            {
+                try
+                {
+                    ProjectClass model = new ProjectClass();
+                    if (id == null || id == Guid.Empty)
+                    {
+                        model.CityKey = -1;
+                        model.StateKey= - 1;
+                        model.PrimaryContactKey = Guid.Empty;
+                        model.ProjectStatusKey = Guid.Empty;
+                        ViewBag.ExpectedClosingMonth = new SelectList(Enumerable.Range(1, 12).Select(x => new SelectListItem()
+                        {
+                            Text = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedMonthNames[x - 1] + " (" + x + ")",
+                            Value = x.ToString()
 
-                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                        }), "Value", "Text");
+
+                        ViewBag.EspectedClosingYear = new SelectList(Enumerable.Range(DateTime.Today.Year, 50).Select(x => new SelectListItem()
+                        {
+                            Text = x.ToString(),
+                            Value = x.ToString()
+                        }), "Value", "Text");
+                        model.PreparedByDetail = GlobalClass.LoggedInUser.FirstName + " " + GlobalClass.LoggedInUser.LastName + " " + GlobalClass.LoggedInUser.Email;
+                        model.PreparedBy = GlobalClass.LoggedInUser.ProfileKey;
+                        Session["GlobalMessege"] = "";
+                        ViewBag.mess = "";
+                        
+                    }
+                    else
+                    {
+                        Project project = db.Project.Find(id);
+                        model = EM_Project.ConvertToModel(project);
+                    }
+                    return View(model);
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
             }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

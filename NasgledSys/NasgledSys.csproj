@@ -278,6 +278,7 @@
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
+    <Compile Include="EM\EM_Project.cs" />
     <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
