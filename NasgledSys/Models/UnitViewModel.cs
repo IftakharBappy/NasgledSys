@@ -9,6 +9,7 @@ namespace NasgledSys.Models
     public class UnitViewModel
     {
         public System.Guid UnitKey { get; set; }
+        [Display(Name = "Unit name")]
         public string UnitName { get; set; }
 
         [Display(Name = "Unit Short name")]
