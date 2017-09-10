@@ -238,7 +238,7 @@ namespace NasgledSys.Controllers
         }
         public JsonResult GetProjectListData()
         {
-            var list = (from cc in db.Project where cc.ProfileKey==GlobalClass.ProfileUser.ProfileKey
+            var list = (from cc in db.Project where cc.ProfileKey==GlobalClass.ProfileUser.ProfileKey && cc.IsDelete==false
                         select new ProjectThumbnailClass
                         {
                            ProjectName= cc.ProjectName,
@@ -246,7 +246,7 @@ namespace NasgledSys.Controllers
                            ProjectStatus=cc.ProjectStatus.TypeName,
                            CompanyName= cc.ClientCompany.CompanyName,
                            AdminName=cc.UserProfile.FirstName+" "+ cc.UserProfile.LastName,
-                           AreaNum=db.Area.Where(m=>m.ProjectKey==cc.ProjectKey).Select(m=>m.SquareFeet).DefaultIfEmpty(0).Count(),
+                           AreaNum=db.Area.Where(m=>m.ProjectKey==cc.ProjectKey).Count(),
                            ExsistingProduct= db.AreaProduct.Where(m => m.ProjectKey == cc.ProjectKey).Select(m=>m.Count).DefaultIfEmpty(0).Sum()
                         }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
@@ -255,6 +255,7 @@ namespace NasgledSys.Controllers
         {
             var list = (from cc in db.Project
                         where cc.ProfileKey == GlobalClass.ProfileUser.ProfileKey && cc.CompanyKey==GlobalClass.CCompany.ClientCompanyKey
+                        && cc.IsDelete == false
                         select new ProjectThumbnailClass
                         {
                             ProjectName = cc.ProjectName,
@@ -262,7 +263,7 @@ namespace NasgledSys.Controllers
                             ProjectStatus = cc.ProjectStatus.TypeName,
                             CompanyName = cc.ClientCompany.CompanyName,
                             AdminName = cc.UserProfile.FirstName + " " + cc.UserProfile.LastName,
-                            AreaNum = db.Area.Where(m => m.ProjectKey == cc.ProjectKey).Select(m => m.SquareFeet).DefaultIfEmpty(0).Count(),
+                            AreaNum = db.Area.Where(m => m.ProjectKey == cc.ProjectKey).Count(),
                             ExsistingProduct = db.AreaProduct.Where(m => m.ProjectKey == cc.ProjectKey).Select(m => m.Count).DefaultIfEmpty(0).Sum()
                         }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);

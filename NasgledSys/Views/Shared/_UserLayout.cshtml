@@ -24,7 +24,7 @@
     @using NasgledSys.Models
 
     <!-- Main navbar -->
-    <div class="navbar navbar-inverse bg-blue navbar-fixed-top">
+    <div class="navbar navbar-inverse bg-grey-400 navbar-fixed-top">
         <div class="navbar-header">
             <a class="navbar-brand" href="@Url.Action("Userhome","Home")">
                 <img src="~/Content/assets/images/logo_light.png" alt="" />
@@ -61,15 +61,15 @@
                             <div class="row">
                                 
                                     <span class="menu-heading underlined">Settings</span>
-                                <div class="col-md-4"><center><a href="@Url.Action("UpdateUserProfile","MgtProfile")"><i class="icon-user"></i><br /> My profile</a></center></div>
-                                <div class="col-md-4"><center><a href="@Url.Action("Index","MgtClientContact")"><i class="icon-users"></i><br />Contacts</a></center></div>
-                                <div class="col-md-4"><center><a href="@Url.Action("IndexClientCompany","MgtClientCompany")"><i class="icon-meter-fast"></i><br />Company</a></center></div>
+                                <div class="col-md-4"><center><i class="icon-user"></i><a href="@Url.Action("UpdateUserProfile","MgtProfile")"><br /> My profile</a></center></div>
+                                <div class="col-md-4"><center><i class="icon-users"></i><a href="@Url.Action("Index","MgtClientContact")"><br />Contacts</a></center></div>
+                                <div class="col-md-4"><center><i class="icon-meter-fast"></i><a href="@Url.Action("IndexClientCompany","MgtClientCompany")"><br />Company</a></center></div>
                                
                                 </div>
                             <div class="row divider"></div>
                             <div class="row">
-                                <div class="col-md-4"><a href="@Url.Action("ChangeUsernamePassword", "MgtProfile")"><i class="icon-lock2"></i> Change Password</a></div>
-                                <div class="col-md-4"><a href="@Url.Action("UserLogin","Home")"><i class="icon-switch2"></i> Logout</a></div>
+                                <div class="col-md-4"><center><i class="icon-lock2"></i><a href="@Url.Action("ChangeUsernamePassword", "MgtProfile")"> Change Password</a></center></div>
+                                <div class="col-md-4"><center><i class="icon-switch2"></i><a href="@Url.Action("UserLogin","Home")"> Logout</a></center></div>
                             
                             </div>
                             </div>

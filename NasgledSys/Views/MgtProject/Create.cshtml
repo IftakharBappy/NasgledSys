@@ -1,5 +1,5 @@
 ﻿@model NasgledSys.Models.ProjectClass
-    @using NasgledSys.Models;
+@using NasgledSys.Models;
 @{
     ViewBag.Title = "Create Project";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -11,23 +11,40 @@
                 <i class="icon-folder-download position-left"></i>  <a href="@Url.Action("Index","MgtProject")">>Projects</a>
             </span>
         </h4>
-       
+
     </center>
 
 }
 @section CenterTitle{
-   Add Project for @Html.DisplayFor(m=>GlobalClass.CCompany.CompanyName)
+
+
+    @if (Model.ProjectKey != null && Model.ProjectKey != Guid.Empty)
+    {
+        <label>Edit @Html.DisplayFor(m => GlobalClass.Project.ProjectName)</label>
+    }
+    else
+    {
+        <label>Add Project for @Html.DisplayFor(m => GlobalClass.CCompany.CompanyName)</label>
+    }
+
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
 <script src="~/Scripts/jquery.maskedinput.js"></script>
 <script src="~/Content/assets/js/plugins/forms/inputs/formatter.min.js"></script>
 <script src="~/Content/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
+
         LoadCityDropDown_ToCreate();
         LoadStateDropDown_ToCreate();
         LoadProjectStatus();
         LoadPrimaryContact();
+        LoadMonth();
+        LoadYear();
     });
     $(function () {
         $('[mask]').each(function (e) {
@@ -38,9 +55,51 @@
         $('#PrimaryContactKey')
                 .select2()
                 .on('select2:open', () => {
-                    $(".select2-results:not(:has(a))").append('<a href="#" style="padding: 6px;height: 20px;display: inline-table;">Create new Primary Contact</a>');
+                    $(".select2-results:not(:has(a))").append('<a data-toggle="modal" data-target="#modal_default" style="padding: 6px;height: 20px;display: inline-table;">Create new Primary Contact</a>');
                 });
     });
+    function LoadYear() {
+        var select = $('select[name=EspectedClosingYear]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadYear/",
+            data: JSON.stringify({ Year: '@Model.EspectedClosingYear' }),
+            success: function (data) {
+                var res = "<option></option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadMonth() {
+        var select = $('select[name=ExpectedClosingMonth]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadMonth/",
+            data: JSON.stringify({ Month: '@Model.ExpectedClosingMonth' }),
+            success: function (data) {
+                var res = "<option></option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
     function LoadProjectStatus() {
         var select = $('select[name=ProjectStatusKey]');
         $.ajax({
@@ -53,7 +112,7 @@
             success: function (data) {
                 var res = "<option>Select</option>";
                 for (var i = 0; i < data.length; i++) {
-                   res = res + "<option value='" + data[i].ProjectStatusKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                    res = res + "<option value='" + data[i].ProjectStatusKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
                 }
                 select.html(res);
             },
@@ -74,7 +133,7 @@
             data: JSON.stringify({ PrimaryContactKey: '@Model.PrimaryContactKey' }),
             success: function (data) {
                 var res = "<option>Select</option>";
-               // res = res + "<option value='NEW'>Add new Contact</option>";
+                // res = res + "<option value='NEW'>Add new Contact</option>";
                 for (var i = 0; i < data.length; i++) {
                     res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
                 }
@@ -95,7 +154,7 @@
             url: "/DropdownUtility/loadCityDropDown_ToCreate/",
             data: JSON.stringify({ CityKey: '@Model.CityKey' }),
             success: function (data) {
-                var res = "<option>Select</option>";
+                var res = "<option value=1>Select</option>";
                 for (var i = 0; i < data.length; i++) {
                     res = res + "<option value='" + data[i].CityKey + "' " + data[i].Selected + ">" + data[i].CityName + "</option>";
                 }
@@ -116,7 +175,7 @@
             url: "/DropdownUtility/LoadStateDropDown_ToCreate/",
             data: JSON.stringify({ StateKey: '@Model.StateKey' }),
             success: function (data) {
-                var res = "<option>Select</option>";
+                var res = "<option value=1>Select</option>";
                 for (var i = 0; i < data.length; i++) {
                     res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].StateName + "</option>";
                 }
@@ -128,6 +187,21 @@
             }
         });
     }
+    function CreateCitySuccess(data) {
+
+        if (data != "success") {
+            $('#deleteCityContainer').html(data);
+            $('#modal_default').modal('show');
+        }
+        $('#FirstName').val("");
+        $('#LastName').val("");
+        $('#Email').val("");
+
+        $('#modal_default').modal('show');
+        $('#deleteCityContainer').html("Data has been Saved Successfully");
+        LoadPrimaryContact();
+
+    }
 </script>
 
 <div class="row">
@@ -137,176 +211,293 @@
     {
         <div class="panel panel-default col-md-8">
 
-            <div class="panel-heading">
-                <ul class="nav nav-pills">
-                    <li class="active"><a href="#tab-demo1" data-toggle="tab">General</a></li>
-                    <li><a href="#tab-demo2" data-toggle="tab">Location</a></li>
-                    <li><a href="#tab-demo3" data-toggle="tab">Costs</a></li>
-                    <li><a href="#tab-demo4" data-toggle="tab">Incentives</a></li>
-                    <li><a href="#tab-demo5" data-toggle="tab">Notes</a></li>
+ <div class="panel-heading">
+    <div class="row">
+        <div class="col-md-10">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="#tab-demo1" data-toggle="tab">General</a></li>
+                <li><a href="#tab-demo2" data-toggle="tab">Location</a></li>
+                <li><a href="#tab-demo3" data-toggle="tab">Costs</a></li>
+                <li><a href="#tab-demo4" data-toggle="tab">Incentives</a></li>
+                <li><a href="#tab-demo5" data-toggle="tab">Notes</a></li>
 
-                </ul>
-            </div>
-            <div class="panel-body">
+            </ul>
+        </div>
+        <div class="col-md-2">
+            @{
+                if (Model.ProjectKey != null && Model.ProjectKey != Guid.Empty)
+                {
+                    <button type="submit" class="btn btn-primary btn-xlg col-lg-12" id="btnAdd">Save</button>
+                }
+            }
 
-                @Html.ValidationSummary()
-                @Html.HiddenFor(model => model.ProjectKey,new { id= "ProjectKey" })
+</div>
+        </div>
+    </div>
+    <div class="panel-body">
 
-
-
-
-                <!-- /tabbed navigation -->
-                <!-- Tabbed navigation content -->
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="tab-demo1">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ProjectName)
-                            @Html.TextBoxFor(model => model.ProjectName, new { placeholder = "Project Name",  id = "ProjectName", @class = "form-control" })
-
-                            @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ProjectStatusKey)
-                            <select name="ProjectStatusKey" placeholder="Select" class="select select-search"></select>
-                            @Html.ValidationMessageFor(model => model.ProjectStatusKey, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PrimaryContactKey)
-                            <select name="PrimaryContactKey" placeholder="Select" id="PrimaryContactKey" class="select select-search"></select>
-                            @Html.ValidationMessageFor(model => model.PrimaryContactKey, "", new { @class = "text-danger" })
-                            <span class="small text-muted">Any documents for this client will use this Contact's Information.</span>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PreparedByDetail)
-                            @Html.TextBoxFor(model => model.PreparedByDetail, new {@readonly="readonly", placeholder = "Prepared By User", id = "PreparedByDetail", @class = "form-control" })
-                            @Html.HiddenFor(model => model.PreparedBy, new { id = "PreparedBy" })
-                            @Html.ValidationMessageFor(model => model.PreparedByDetail, "", new { @class = "text-danger" })
-                            @Html.ValidationMessageFor(model => model.PreparedBy, "", new { @class = "text-danger" })
-
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ExpectedClosingMonth)
-                            @Html.TextBoxFor(model => model.ExpectedClosingMonth, new { placeholder = "Month", id = "ExpectedClosingMonth", @class = "form-control" })
-                            @Html.TextBoxFor(model => model.EspectedClosingYear, new { placeholder = "Year", id = "EspectedClosingYear", @class = "form-control" })
-                            <span class="small text-muted">The Date you estimate this project will complete</span>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ProbabilityOfCompletion)
-                            @Html.TextBoxFor(model => model.ProbabilityOfCompletion, new { placeholder = "Probability the project will be completed (%)",type="number", id = "ProbabilityOfCompletion", @class = "form-control" })
-
-                            @Html.ValidationMessageFor(model => model.ProbabilityOfCompletion, "", new { @class = "text-danger" })
-                            <span class="small text-muted">Enter whole number without % (i.e. enter 6 for 6% not 0.06)</span>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.IsAccessableByOthers)
-                            @Html.CheckBoxFor(model => model.IsAccessableByOthers, new {  id = "IsAccessableByOthers", @class = "form-control" })
-
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="tab-demo2">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.OfficePhone)
-                                @Html.TextBoxFor(model => model.OfficePhone, new { mask = "(999) 999-9999", placeholder = "Office Phone", id = "OfficePhone", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Address)
-                                @Html.TextBoxFor(model => model.Address, new { placeholder = "Office Address", id = "Address", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Address2)
-                                @Html.TextBoxFor(model => model.Address2, new { placeholder = "Office Address 2", id = "Address2", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.CityKey)
-                                <select name="CityKey" placeholder="Select" class="select select-search"></select>
-                                @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.StateKey)
-                                <select name="StateKey" placeholder="Select" class="select select-search"></select>
-                                @Html.ValidationMessageFor(model => model.StateKey, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Zipcode)
-                                @Html.TextBoxFor(model => model.Zipcode, new { placeholder = "Zipcode", id = "Zipcode", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-demo3">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.LaborCost)
+        @Html.ValidationSummary()
+        @Html.HiddenFor(model => model.ProjectKey, new { id = "ProjectKey" })
 
 
-                                <div class="input-group bootstrap-touchspin">
 
-                                    <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
-                                    @Html.TextBoxFor(model => model.LaborCost, new {type="number", placeholder = "LABOR COST NOT INCLUDED IN PRODUCT COST", id = "LaborCost", @value = "0", @class="touchspin-prefix form-control", @style="display: block;" })
 
-                                    <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
-                                </div>
+        <!-- /tabbed navigation -->
+        <!-- Tabbed navigation content -->
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="tab-demo1">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProjectName)
+                    @Html.TextBoxFor(model => model.ProjectName, new { placeholder = "Project Name", id = "ProjectName", @class = "form-control" })
 
-                            </div>
-                            <div class="form-group">
+                    @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProjectStatusKey)
+                    <select name="ProjectStatusKey" placeholder="Select" class="select select-search"></select>
+                    @Html.ValidationMessageFor(model => model.ProjectStatusKey, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PrimaryContactKey)
+                    <select name="PrimaryContactKey" placeholder="Select" id="PrimaryContactKey" class="select select-search"></select>
+                    @Html.ValidationMessageFor(model => model.PrimaryContactKey, "", new { @class = "text-danger" })
+                    <span class="small text-muted">Any documents for this client will use this Contact's Information.</span>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PreparedByDetail)
+                    @Html.TextBoxFor(model => model.PreparedByDetail, new { @readonly = "readonly", placeholder = "Prepared By User", id = "PreparedByDetail", @class = "form-control" })
+                    @Html.HiddenFor(model => model.PreparedBy, new { id = "PreparedBy" })
+                    @Html.ValidationMessageFor(model => model.PreparedByDetail, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.PreparedBy, "", new { @class = "text-danger" })
 
-                                <label>Product Markup Percentage</label>
-                                <div class="input-group bootstrap-touchspin">
+                </div>
 
-                                    <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
-                                    @Html.TextBoxFor(model => model.MarkupPercentage, new { type = "number", id = "MarkupPercentage", @value = "0", @class = "touchspin-prefix form-control", @style = "display: block;" })
-                                    <span class="input-group-addon bootstrap-touchspin-postfix">%</span>
-                                </div>
-                                <p class="small text-muted">
-                                    Enter percentage without  % (and enter 6 for 6% not 0.06). Product price to your customer equals product cost*( 1 + markup),so a $20 product cost and a 50% Markup
-                                    will have a price of $30.
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Address2)
-                                @Html.TextBoxFor(model => model.Address2, new { placeholder = "Office Address 2", id = "Address2", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.CityKey)
-                                <select name="CityKey" placeholder="Select" class="select select-search"></select>
-                                @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.StateKey)
-                                <select name="StateKey" placeholder="Select" class="select select-search"></select>
-                                @Html.ValidationMessageFor(model => model.StateKey, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Zipcode)
-                                @Html.TextBoxFor(model => model.Zipcode, new { placeholder = "Zipcode", id = "Zipcode", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-demo4">Tab 4 content</div>
-                    <div class="tab-pane fade" id="tab-demo5">Tab 5 content</div>
+                <div class="form-group">
+                    <div>@Html.LabelFor(model => model.ExpectedClosingMonth)</div>
+
+                    <span class="col-md-3">
+                        <select name="ExpectedClosingMonth" placeholder="Select" class="select select-search"></select>
+                        @*@Html.DropDownListFor(model => model.ExpectedClosingMonth, ViewBag.ExpectedClosingMonth as SelectList, new { id = "ExpectedClosingMonth", placeholder = "Month", @required = "required", @class = "select select-search" })*@
+                    </span>
+                    <span class="col-md-3">
+                        <select name="EspectedClosingYear" placeholder="Select" class="select select-search"></select>
+                        @*@Html.DropDownListFor(model => model.EspectedClosingYear, ViewBag.EspectedClosingYear as SelectList, new {id= "EspectedClosingYear", placeholder = "Year", @required = "required", @class = "select select-search" })*@
+                    </span>
+
+                    <p class="small text-muted">The Date you estimate this project will complete</p>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProbabilityOfCompletion)
+                    @Html.TextBoxFor(model => model.ProbabilityOfCompletion, new { placeholder = "Probability the project will be completed (%)", type = "number", id = "ProbabilityOfCompletion", @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.ProbabilityOfCompletion, "", new { @class = "text-danger" })
+                    <span class="small text-muted">Enter whole number without % (i.e. enter 6 for 6% not 0.06)</span>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsAccessableByOthers)
+                    @Html.CheckBoxFor(model => model.IsAccessableByOthers, new { id = "IsAccessableByOthers", @class = "form-control" })
+
                 </div>
 
             </div>
+            <div class="tab-pane fade" id="tab-demo2">
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OfficePhone)
+                        @Html.TextBoxFor(model => model.OfficePhone, new { mask = "(999) 999-9999", placeholder = "Office Phone", id = "OfficePhone", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address)
+                        @Html.TextBoxFor(model => model.Address, new { placeholder = "Office Address", id = "Address", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address2)
+                        @Html.TextBoxFor(model => model.Address2, new { placeholder = "Office Address 2", id = "Address2", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CityKey)
+                        <select name="CityKey" placeholder="Select" class="select select-search"></select>
+                        @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StateKey)
+                        <select name="StateKey" placeholder="Select" class="select select-search"></select>
+                        @Html.ValidationMessageFor(model => model.StateKey, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Zipcode)
+                        @Html.TextBoxFor(model => model.Zipcode, new { placeholder = "Zipcode", id = "Zipcode", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-demo3">
+                <div class="panel-body">
+
+                    <div class="form-group">
+
+                        <label>Product Markup Percentage</label>
+                        <div class="input-group bootstrap-touchspin">
+
+                            <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+                            @Html.TextBoxFor(model => model.MarkupPercentage, new { type = "number", id = "MarkupPercentage", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                            <span class="input-group-addon bootstrap-touchspin-postfix">%</span>
+                        </div>
+                        <p class="small text-muted">
+                            Enter percentage without  % (and enter 6 for 6% not 0.06). Product price to your customer equals product cost*( 1 + markup),so a $20 product cost and a 50% Markup
+                            will have a price of $30.
+                        </p>
+                    </div>
+                    <div class="form-group">
+
+                        <label>Margin Percentage</label>
+                        <div class="input-group bootstrap-touchspin">
+
+                            <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+                            @Html.TextBoxFor(model => model.ProductMargin, new { type = "number", id = "ProductMargin", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                            <span class="input-group-addon bootstrap-touchspin-postfix">%</span>
+                        </div>
+                        <p class="small text-muted">
+                            Enter percentage without  % (and enter 6 for 6% not 0.06). Product price to your customer equals product cost*( 1 - markup),so a $20 product cost and a 50% Markup
+                            will have a price of $40.
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShippingCost)
+                        <div class="input-group bootstrap-touchspin">
+
+                            <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
+                            @Html.TextBoxFor(model => model.ShippingCost, new { type = "number", placeholder = "SHIPPING COST", id = "ShippingCost", @class = "touchspin-prefix form-control", @style = "display: block;" })
+
+                            <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MiscCost)
+                        <div class="input-group bootstrap-touchspin">
+                            <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
+                            @Html.TextBoxFor(model => model.MiscCost, new { type = "number", placeholder = "MISC COST", id = "MiscCost", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                            <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LaborCost)
+                        <div class="input-group bootstrap-touchspin">
+                            <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
+                            @Html.TextBoxFor(model => model.LaborCost, new { type = "number", placeholder = "LABOR COST NOT INCLUDED IN PRODUCT COST", id = "LaborCost", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                            <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-demo4">
+                <div class="panel-body">
+                    <h3>Incentives</h3>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TaxIncentives)
+                        <div class="input-group bootstrap-touchspin">
+                            <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
+                            @Html.TextBoxFor(model => model.TaxIncentives, new { type = "number", placeholder = "cash value of 179D TAX depreciation. Enter a positive number.", id = "TaxIncentives", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                            <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="tab-demo5">
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.InternalNotes)
+                        @Html.TextAreaFor(model => model.InternalNotes, new { placeholder = " Internal Note", id = "InternalNote", @class = "form-control" })
+                        <h6>This not will be visible to client</h6>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GeneralNote)
+                        @Html.TextAreaFor(model => model.GeneralNote, new { placeholder = " Note", id = "GeneralNote", @class = "form-control" })
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
-            <div class="panel-footer">
-                <center>
-                    <a href="@Url.Action("Index","MgtProject")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;
-                    <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Create</button>
-                </center>
+    <div class="panel-footer">
+        <center>
+            <a href="@Url.Action("Index","MgtProject")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;
+            @{
+                if (Model.ProjectKey != null && Model.ProjectKey != Guid.Empty)
+                {
+                    <a class="btn btn-primary btn-xlg col-lg-4" href="@Url.Action("DeleteProject","MgtProject",new { id=Model.ProjectKey})" onclick="return confirm('Are you sure you want to Remove this Project?')">Delete This Project</a>
+
+
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnSave" name="btnCreate">Save</button>
+                }
+            }
+           
+    </center>
                 <h2>@ViewBag.mess</h2>
             </div>
 
         </div>
-    }
+                            }
 
     <div class="col-md-2">&nbsp;</div>
 </div>
+
+<div id="modal_default" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h4 class="modal-title panel panel-success panel-heading">New Contact</h4></center>
+            </div>
+            @using (Ajax.BeginForm("SaveNewContact", "MgtProject", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateCitySuccess" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <div class="control-label">First Name <span class="alert-danger">*..</span></div>
+                            <input type="text" required="required" name="FirstName" placeholder="First Name" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <div class="control-label">Last Name</div>
+                            <input type="text" name="LastName" placeholder="Last Name" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <div class="control-label">Email</div>
+                            <input type="email" name="Email" placeholder="Email" class="form-control" />
+                        </div>
+
+                        <div id="deleteCityContainer">
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" name="Save" id="Save" value="Save" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+

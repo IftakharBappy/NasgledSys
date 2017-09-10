@@ -123,5 +123,25 @@ namespace NasgledSys.Models
                 HttpContext.Current.Session[GlobalClass._LoggedInUser] = value;
             }
         }
+
+        static private string _Project = "Project";
+        public static Project Project
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._Project] == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (Project)(HttpContext.Current.Session[GlobalClass._Project]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._Project] = value;
+            }
+        }
     }
 }

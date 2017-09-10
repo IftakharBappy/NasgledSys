@@ -46,9 +46,9 @@ namespace NasgledSys.Models
         [Display(Name = "Zipcode")]
         public string Zipcode { get; set; }
         [Display(Name = "City")]
-        public Nullable<int> CityKey { get; set; }
+        public int? CityKey { get; set; }
         [Display(Name = "State")]
-        public Nullable<int> StateKey { get; set; }
+        public int? StateKey { get; set; }
         [Display(Name = "Product Markup Percentage")]
         public decimal? MarkupPercentage { get; set; }
         [Display(Name = "Product Margin")]
@@ -68,5 +68,11 @@ namespace NasgledSys.Models
         public bool? IsDelete { get; set; }
         public Guid? ProfileKey { get; set; }
 
+    }
+    public class DataReturn
+    {
+        public int flag { get; set; }
+        public Guid? key { get; set; }
+        public string mess { get; set; }
     }
 }

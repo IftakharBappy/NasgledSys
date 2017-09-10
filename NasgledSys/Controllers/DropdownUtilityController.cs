@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NasgledSys.Models;
+using System.Globalization;
 
 namespace NasgledSys.Controllers
 {
@@ -11,6 +12,54 @@ namespace NasgledSys.Controllers
     {
         // GET: DropdownUtility
         private NasgledDBEntities db = new NasgledDBEntities();
+        public JsonResult loadMonth(int? Month)
+        {
+            List<GenericListType> test = new List<GenericListType>();
+            for (int x = 1; x < 13; x++)
+            {
+                GenericListType a = new GenericListType();
+                a.Text = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedMonthNames[x - 1] + " (" + x + ")";
+                a.Value = x.ToString();
+                a.Selected = "";
+                test.Add(a);
+            }
+            if (Month == null)
+            {
+                var list = (from city in test select new { city.Text, city.Value, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string temp = Month.ToString();
+                var list = (from city in test select new { city.Text, city.Value, Selected = city.Value == temp ? "selected" : "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadYear(int? Year)
+        {
+            List<GenericListType> test = new List<GenericListType>();
+            for (int x = DateTime.Today.Year; x < (DateTime.Today.Year+40); x++)
+            {
+                GenericListType a = new GenericListType();
+                a.Text = x.ToString();
+                a.Value = x.ToString();
+                a.Selected = "";
+                test.Add(a);
+            }
+            if (Year == null)
+            {
+                var list = (from city in test select new { city.Text, city.Value, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string temp = Year.ToString();
+                var list = (from city in test select new { city.Text, city.Value, Selected = city.Value == temp ? "selected" : "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
         public JsonResult loadProjectStatus(Guid? ProjectStatusKey)
         {
             if (ProjectStatusKey == Guid.Empty)

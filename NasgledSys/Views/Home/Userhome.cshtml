@@ -87,12 +87,15 @@
             res = res + "<div class='col-xs-18 col-sm-6 col-md-3'>"
                 + "<div class='thumbnail' >"
                 + "<div class='caption'>"
+              
                 + "<h4>" + filteredList[i].ProjectName + "</h4>"
-                + "<p>" + filteredList[i].CompanyName + "</p><br/>" + filteredList[i].ProjectStatus + "<br/>" + filteredList[i].AdminName + "<br/>" + filteredList[i].AreaNum + " areas <br/>"
+                +  filteredList[i].CompanyName + "<br/>" + filteredList[i].ProjectStatus + "<br/>" + filteredList[i].AdminName + "<br/>" + filteredList[i].AreaNum + " areas <br/>"
                 + filteredList[i].ExsistingProduct + " Existing Products <br/>"
-                + "<a href='/MgtClientCompany/ViewClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-default btn-xs' role='button'>View</a>" 
-                +"<a href='/MgtClientCompany/EditClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-primary btn-xs' role='button'>Edit</a>"
-                + "</div>"
+                +"<div class='panel-footer' style='margin-top:5em;'>"
+                + "<a href='/MgtClientCompany/ViewClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-default' role='button'>View</a> &nbsp"
+              
+                + "<a href='/MgtProject/Create?id=" + filteredList[i].ProjectKey + "' class='btn btn-primary btn-xs' role='button'>Edit</a>"
+                + "</div></div>"
                 + "</div >"
                 + "</div >";
         }
