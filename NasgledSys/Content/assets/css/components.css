@@ -2778,7 +2778,7 @@ label.checkbox-switch.checkbox-inline {
   position: absolute;
   left: -100000px;
   width: 100%;
-  z-index: 9999;
+  z-index: 999;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
