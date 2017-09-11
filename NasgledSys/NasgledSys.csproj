@@ -221,6 +221,7 @@
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MgtAdminItemController.cs" />
     <Compile Include="Controllers\MgtAnnualSalesRevenueSetupController.cs" />
+    <Compile Include="Controllers\MgtAreaController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
     <Compile Include="Controllers\MgtClientContactController.cs" />
     <Compile Include="Controllers\MgtHeatingEfficiencyTypeController.cs" />
@@ -3792,6 +3793,7 @@
     <Content Include="Views\MgtProject\SelectCompany.cshtml" />
     <Content Include="Views\MgtUnit\Index.cshtml" />
     <Content Include="Views\MgtProject\Created.cshtml" />
+    <Content Include="Views\MgtArea\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

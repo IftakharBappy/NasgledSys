@@ -6,6 +6,33 @@ using System.Web;
 
 namespace NasgledSys.Models
 {
+    public class ViewAreaList
+    {
+        public Guid? AreaKey { get; set; }
+        public string AreaName { get; set; }
+        public int SubArea { get; set; }
+    }
+    public class AreaClass
+    {
+        public Guid? AreaKey { get; set; }
+        [Display(Name = "Name*...")]
+        [Required(ErrorMessage = "Name is required")]
+        public string AreaName { get; set; }
+        public string Reception { get; set; }
+        [Display(Name = "Square Feet")]
+        public Nullable<decimal> SquareFeet { get; set; }
+        [Display(Name = "Operating Schedule")]
+        public Nullable<System.Guid> OperationScheduleKey { get; set; }
+        [Display(Name = "Rate Schedule")]
+        public Nullable<System.Guid> NewRateScheduleKey { get; set; }
+        [Display(Name = "Cooling")]
+        public Nullable<System.Guid> CoolingSystemKey { get; set; }
+        [Display(Name = "Heating")]
+        public Nullable<System.Guid> HeatingSystemKey { get; set; }
+        public Nullable<System.Guid> ProjectKey { get; set; }
+        public Nullable<System.Guid> ParentAreaKey { get; set; }
+        public bool? IsParent { get; set; }
+    }
     public class ProjectClass
     {
         public Guid? ProjectKey { get; set; }
