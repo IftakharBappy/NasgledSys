@@ -257,6 +257,7 @@
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\ManageMainProduct.cs" />
     <Compile Include="DAL\ManageProject.cs" />
+    <Compile Include="DAL\ManageProjectArea.cs" />
     <Compile Include="DAL\MgtAnnualSalesRevenueSetup.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
     <Compile Include="DAL\MgtClientContact.cs" />
@@ -277,6 +278,7 @@
     <Compile Include="DAL\MgtManufacturer.cs" />
     <Compile Include="DAL\MgtProjectStatus.cs" />
     <Compile Include="DAL\MgtSalesReachSetup.cs" />
+    <Compile Include="EM\EM_Area.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
@@ -3794,6 +3796,8 @@
     <Content Include="Views\MgtUnit\Index.cshtml" />
     <Content Include="Views\MgtProject\Created.cshtml" />
     <Content Include="Views\MgtArea\Create.cshtml" />
+    <Content Include="Views\MgtArea\Created.cshtml" />
+    <Content Include="Views\MgtArea\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

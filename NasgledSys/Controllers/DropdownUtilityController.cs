@@ -60,9 +60,215 @@ namespace NasgledSys.Controllers
             }
 
         }
+        public JsonResult loadOperationSchedule(Guid? OperationScheduleKey)
+        {
+            if (OperationScheduleKey == Guid.Empty || OperationScheduleKey == null)
+            {
+                var list = (from city in db.OperatingSchedule where city.ProjectKey==GlobalClass.Project.ProjectKey
+                            select new { city.PKey, city.OPName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.OperatingSchedule
+                            where city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new
+                            {
+                                city.PKey,
+                                city.OPName,
+                                Selected = city.PKey == OperationScheduleKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadNewRateSchedule(Guid? NewRateScheduleKey)
+        {
+            if (NewRateScheduleKey == Guid.Empty || NewRateScheduleKey==null)
+            {
+                var list = (from city in db.NewRateSchedule
+                            where city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new { city.PKey, city.NRName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.NewRateSchedule
+                            where city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new
+                            {
+                                city.PKey,
+                                city.NRName,
+                                Selected = city.PKey == NewRateScheduleKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadCoolingSystem(Guid? CoolingSystemKey)
+        {
+            if (CoolingSystemKey == Guid.Empty ||CoolingSystemKey==null)
+            {
+                var list = (from city in db.CoolingSystem
+                            where city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new { city.CoolingSystemKey, city.SystemName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.CoolingSystem
+                            where city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new
+                            {
+                                city.CoolingSystemKey,
+                                city.SystemName,
+                                Selected = city.CoolingSystemKey == CoolingSystemKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult LoadHeatingSystem(Guid? HeatingSystemKey)
+        {
+            if (HeatingSystemKey == Guid.Empty|| HeatingSystemKey==null)
+            {
+                var list = (from city in db.HeatingSystem
+                            where city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new { city.HeatingSystemKey, city.SystemName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.HeatingSystem
+                            where city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new
+                            {
+                                city.HeatingSystemKey,
+                                city.SystemName,
+                                Selected = city.HeatingSystemKey == HeatingSystemKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadHeatingSystemType(Guid? SystemTypeKey)
+        {
+            if (SystemTypeKey == Guid.Empty || SystemTypeKey == null)
+            {
+                var list = (from city in db.HeatingSystemType
+                            where city.IsDelete == false
+                            select new { city.PKey, city.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.HeatingSystemType
+                            where city.IsDelete == false
+                            select new
+                            {
+                                city.PKey,
+                                city.TypeName,
+                                Selected = city.PKey == SystemTypeKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadCoolingSystemType(Guid? SystemTypeKey)
+        {
+            if (SystemTypeKey == Guid.Empty || SystemTypeKey==null)
+            {
+                var list = (from city in db.CoolingSystemType
+                            where city.IsDelete == false
+                            select new { city.PKey, city.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.CoolingSystemType
+                            where city.IsDelete == false
+                            select new
+                            {
+                                city.PKey,
+                                city.TypeName,
+                                Selected = city.PKey == SystemTypeKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadFuelType(Guid? FuelTypeKey)
+        {
+            if (FuelTypeKey == Guid.Empty || FuelTypeKey == null)
+            {
+                var list = (from city in db.FuelType
+                            where city.IsDelete == false
+                            select new { PKey=city.PKey, TypeName= city.TypeName+"("+city.Unit+")", Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.FuelType
+                            where city.IsDelete == false
+                            select new
+                            {
+                                PKey = city.PKey,
+                                TypeName = city.TypeName + "(" + city.Unit + ")",
+                                Selected = city.PKey == FuelTypeKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadEfficiencyTypeH(Guid? EfficiencyTypeKey)
+        {
+            if (EfficiencyTypeKey == Guid.Empty || EfficiencyTypeKey == null)
+            {
+                var list = (from city in db.HeatingEfficiencyType
+                            where city.IsDelete == false
+                            select new { PKey = city.PKey, TypeName = city.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.HeatingEfficiencyType
+                            where city.IsDelete == false
+                            select new
+                            {
+                                PKey = city.PKey,
+                                TypeName = city.TypeName,
+                                Selected = city.PKey == EfficiencyTypeKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadEfficiencyTypeC(Guid? EfficiencyTypeKey)
+        {
+            if (EfficiencyTypeKey == Guid.Empty || EfficiencyTypeKey == null)
+            {
+                var list = (from city in db.CoolingEfficientyType
+                            where city.IsDelete == false
+                            select new { PKey = city.PKey, TypeName = city.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.CoolingEfficientyType
+                            where city.IsDelete == false
+                            select new
+                            {
+                                PKey = city.PKey,
+                                TypeName = city.TypeName,
+                                Selected = city.PKey == EfficiencyTypeKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
         public JsonResult loadProjectStatus(Guid? ProjectStatusKey)
         {
-            if (ProjectStatusKey == Guid.Empty)
+            if (ProjectStatusKey == Guid.Empty || ProjectStatusKey==null)
             {
                 var list = (from city in db.ProjectStatus select new { city.ProjectStatusKey, city.TypeName, Selected = "" }).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
@@ -79,7 +285,7 @@ namespace NasgledSys.Controllers
         }
         public JsonResult loadPrimaryContact(Guid? PrimaryContactKey)
         {
-            if (PrimaryContactKey == Guid.Empty)
+            if (PrimaryContactKey == Guid.Empty || PrimaryContactKey==null)
             {
                 var list = (from x in db.ClientContact
                             where x.IsActive == true && x.ProfileKey == GlobalClass.ProfileUser.ProfileKey

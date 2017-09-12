@@ -201,6 +201,8 @@ namespace NasgledSys.Controllers
             {
                 try
                 {
+                    GlobalClass.AreaGuidForSubArea = Guid.Empty;
+                    GlobalClass.AreaHeading = null;
                     return View();
                 }
                 catch (Exception e)

@@ -32,6 +32,7 @@ namespace NasgledSys.Models
         public Nullable<System.Guid> ProjectKey { get; set; }
         public Nullable<System.Guid> ParentAreaKey { get; set; }
         public bool? IsParent { get; set; }
+        public bool? IsSubEdit { get; set; }
     }
     public class ProjectClass
     {

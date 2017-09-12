@@ -32,7 +32,6 @@ namespace NasgledSys.Models
         public virtual DbSet<StaffList> StaffList { get; set; }
         public virtual DbSet<StateList> StateList { get; set; }
         public virtual DbSet<Usergroup> Usergroup { get; set; }
-        public virtual DbSet<Area> Area { get; set; }
         public virtual DbSet<AreaDetail> AreaDetail { get; set; }
         public virtual DbSet<AreaDocument> AreaDocument { get; set; }
         public virtual DbSet<AreaNote> AreaNote { get; set; }
@@ -87,5 +86,6 @@ namespace NasgledSys.Models
         public virtual DbSet<ClientCompanyProfileRequest> ClientCompanyProfileRequest { get; set; }
         public virtual DbSet<EnvironmentalImpact> EnvironmentalImpact { get; set; }
         public virtual DbSet<Unit> Unit { get; set; }
+        public virtual DbSet<Area> Area { get; set; }
     }
 }

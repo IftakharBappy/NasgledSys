@@ -1,8 +1,7 @@
 ﻿@model NasgledSys.Models.AreaClass
-
 @using NasgledSys.Models;
 @{
-    ViewBag.Title = "AddAreas";
+    ViewBag.Title = "Area";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
@@ -335,98 +334,108 @@
     }
 </script>
 @section CenterTitle{
-   Add Area
+    @Html.DisplayFor(m => GlobalClass.AreaHeading)
 }
 @section SideBar{
     <center>
 
         <span class="heading-text">
 
-            <i class="icon-folder-download position-left"></i> 
-             <a class="h4" href="@Url.Action("Created","MgtProject")">@Html.DisplayFor(m=>GlobalClass.Project.ProjectName)</a>
+            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
             <label>></label>
-            <a class="h4" href="@Url.Action("Created","MgtProject")">Areas</a>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Areas</a>
 
         </span>
-       
+        <span class="heading-text">
+            <a class="btn btn-primary" href="@Url.Action("Create","MgtAddProducts",new { id=Model.AreaKey})"><i class="add-on"></i>Add Product</a>
+        </span>
     </center>
+
+
 }
 
-@using (Html.BeginForm("Create", "MgtArea", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Edit", "MgtArea", FormMethod.Post, new { @class = "form-horizontal" }))
 {
-@Html.ValidationSummary()
-<div class="form-horizontal">
-    <div class="row">
-        <div class="col-md-2">&nbsp;</div>
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <ul class="nav nav-pills">
-                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Area</a></li>
-                        <li class="disabled"><a href="#" data-toggle="tab">Product</a></li>
-                        <li class="disabled"><a href="#" data-toggle="tab">Details</a></li>
-                        <li class="disabled"><a href="#" data-toggle="tab">Sub-Areas</a></li>
-                        <li class="disabled"><a href="#" data-toggle="tab">Photos</a></li>
-                        <li class="disabled"><a href="#" data-toggle="tab">Documents</a></li>
-                        <li class="disabled"><a href="#" data-toggle="tab">Notes</a></li>
-                        <li class="disabled"><a href="#" data-toggle="tab">Copy</a></li>
+    @Html.ValidationSummary()
+    @Html.HiddenFor(m=>m.AreaKey,new { id= "AreaKey" })
+    @Html.HiddenFor(m => m.ParentAreaKey, new { id = "ParentAreaKey" })
+    @Html.HiddenFor(m => m.IsParent, new { id = "IsParent" })
+    @Html.HiddenFor(m => m.IsSubEdit, new { id = "IsSubEdit" })
+    @Html.HiddenFor(m => m.Reception, new { id = "Reception" })
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#tab-demo1" data-toggle="tab">Area</a></li>
 
-                    </ul>
-                </div>
-                <div class="panel-body">
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="tab-demo1">
-                            <div class="panel-heading">
-                                <div class="col-md-8"><h3>Area</h3></div>
-                                <div class="col-md-4">
-                                    <button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Add</button>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="h3 alert-info" id="deletemsg"></div>
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.AreaName)
-                                    @Html.TextBoxFor(model => model.AreaName, new { placeholder = "Area Name", id = "AreaName", @class = "form-control" })
+                            <li><a href="#">Product</a></li>
+                            <li><a href="#">Details</a></li>
+                            <li><a href="@Url.Action("CreateSub", "MgtArea", new { id = Model.AreaKey })" data-toggle="tab">Sub-Areas</a></li>
+                            <li><a href="#">Photos</a></li>
+                            <li><a href="#">Documents</a></li>
+                            <li><a href="#">Notes</a></li>
+                            <li><a href="#">Copy</a></li>
 
-                                    @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="tab-demo1">
+
+                                <div class="panel-heading">
+                                    <div class="col-md-8"><h3>Area</h3></div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Save</button>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.SquareFeet)
-                                    @Html.TextBoxFor(model => model.SquareFeet, new { type = "number", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.SquareFeet, "", new { @class = "text-danger" })
+                                <div class="panel-body">
+                                    <div class="h3 alert-info" id="deletemsg"></div>
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AreaName)
+                                        @Html.TextBoxFor(model => model.AreaName, new { placeholder = "Area Name", id = "AreaName", @class = "form-control" })
+
+                                        @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SquareFeet)
+                                        @Html.TextBoxFor(model => model.SquareFeet, new { type = "number", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.SquareFeet, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.OperationScheduleKey)
+                                        <select name="OperationScheduleKey" placeholder="Select" id="OperationScheduleKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.OperationScheduleKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.NewRateScheduleKey)
+                                        <select name="NewRateScheduleKey" placeholder="Select" id="NewRateScheduleKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.NewRateScheduleKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CoolingSystemKey)
+                                        <select name="CoolingSystemKey" placeholder="Select" id="CoolingSystemKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.CoolingSystemKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.HeatingSystemKey)
+                                        <select name="HeatingSystemKey" placeholder="Select" id="HeatingSystemKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.HeatingSystemKey, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.OperationScheduleKey)
-                                    <select name="OperationScheduleKey" placeholder="Select" id="OperationScheduleKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.OperationScheduleKey, "", new { @class = "text-danger" })
+                                <div class="panel-footer">
+                                    <a href="@Url.Action("Delete", "MgtArea",new { id=Model.AreaKey})" class="btn btn-warning btn-xlg col-lg-12" role="button" onclick = "return confirm('Are you sure you want to Remove this?')">Remove this Area?</a>
                                 </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.NewRateScheduleKey)
-                                    <select name="NewRateScheduleKey" placeholder="Select" id="NewRateScheduleKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.NewRateScheduleKey, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.CoolingSystemKey)
-                                    <select name="CoolingSystemKey" placeholder="Select" id="CoolingSystemKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.CoolingSystemKey, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.HeatingSystemKey)
-                                    <select name="HeatingSystemKey" placeholder="Select" id="HeatingSystemKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.HeatingSystemKey, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <a href="@Url.Action("Created", "MgtProject")" class="btn btn-success btn-xlg col-lg-6" role="button">Cancel</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-2">&nbsp;</div>
         </div>
-        <div class="col-md-2">&nbsp;</div>
-    </div>
 </div>
 }
 
@@ -515,7 +524,7 @@
                         </div>
                         <div class="form-group">
                             <div class="control-label">System Type<span class="alert-danger">*..</span></div>
-                            <select name="SystemTypeKey" required="required"  id="SystemTypeKey" class="select select-search"></select>                          
+                            <select name="SystemTypeKey" required="required" id="SystemTypeKey" class="select select-search"></select>
                         </div>
                         <div class="form-group">
                             <div class="control-label">Fuel Type<span class="alert-danger">*..</span></div>
@@ -615,7 +624,7 @@
                             <div class="control-label">Annual Operating Hours<span class="alert-danger">*..</span></div>
                             <input type="number" name="OptHour" required="required" placeholder="annual hours" class="form-control" />
                         </div>
-                      
+
 
                         <div id="deleteCityContainer">
                         </div>

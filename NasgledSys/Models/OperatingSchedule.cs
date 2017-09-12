@@ -17,8 +17,8 @@ namespace NasgledSys.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OperatingSchedule()
         {
-            this.Area = new HashSet<Area>();
             this.AreaProductDetail = new HashSet<AreaProductDetail>();
+            this.Area = new HashSet<Area>();
         }
     
         public System.Guid PKey { get; set; }
@@ -30,9 +30,9 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDefault { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Area> Area { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AreaProductDetail> AreaProductDetail { get; set; }
         public virtual Project Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Area> Area { get; set; }
     }
 }

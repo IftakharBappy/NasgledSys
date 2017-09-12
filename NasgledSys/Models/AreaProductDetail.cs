@@ -29,10 +29,10 @@ namespace NasgledSys.Models
         public Nullable<System.Guid> LightingSatisfactionKey { get; set; }
         public Nullable<decimal> MountingHeight { get; set; }
     
-        public virtual Area Area { get; set; }
         public virtual AreaProduct AreaProduct { get; set; }
         public virtual LightingSatisfactionFactor LightingSatisfactionFactor { get; set; }
         public virtual OperatingSchedule OperatingSchedule { get; set; }
         public virtual ProfileProduct ProfileProduct { get; set; }
+        public virtual Area Area { get; set; }
     }
 }
