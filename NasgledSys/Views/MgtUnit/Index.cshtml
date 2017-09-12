@@ -12,10 +12,40 @@
     </h4>
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $(".discussion-comment").click(function (event) {
+            $('#UnitKey').val($(this).attr("discussion-id"));
+            $('#editModal').modal('show');
+                $('#btnUpdate').show();
+                $('#msgSuccess').hide();
+                var w = "#UnitKey";
+                var url = '@Url.Content("~/")' + "Utility/LoadUnitData";
+                $.getJSON(url, { SelectID: $(w).val() }, function (data) {
+                    console.log(data);
+                    $('#UnitName', '#editModal').val(data["UnitName"]);
+                    $('#UnitShortname', '#editModal').val(data["UnitShortname"]);
+                });
+
+            });
         $('#msgSuccess').hide();
+
     });
+
+    function Delete(U_ID) {
+        if (confirm("Are You Sure Delete Selected Employee Record No.? " + U_ID)) {
+            var data = { 'UnitKey': U_ID }
+            $.post('/MgtUnit/Delete', data,
+                function (data) {
+                    if (data == true) 
+                        location = location.href;
+                    else
+                        alert("Not delete something Wrong");
+                });
+        }
+    }
 
     </script>
 <div class="panel panel-flat">
@@ -32,7 +62,7 @@
     <div class="panel-body">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Unit</button>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" id="list">
 
         <table class="table datatable-show-all">
             <thead><tr><th>Name</th><th>Unit Shortname</th><th>Action</th></tr></thead>
@@ -47,10 +77,11 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.UnitShortname)
                         </td>
-                        <td>
-                            <a class="discussion-comment" discussion-id="@item.UnitKey" href="#">Edit</a> ||
 
-                            <a href="#" onclick="Delete('@item.UnitKey')">Delete</a>
+                        <td>
+                            <a class="btn btn-primary discussion-comment" discussion-id="@item.UnitKey">Edit</a> ||
+                            @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal" onclick="">Edit</button>*@
+                            <a class="btn btn-primary" onclick="Delete('@item.UnitKey')">Delete</a>
                         </td>
                     </tr>
                 }
@@ -59,11 +90,14 @@
 
     </div>
 @using (Html.BeginForm("Create", "MgtUnit", FormMethod.Post))
+
 {
-    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" id="edit-container">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
                     <h4 class="modal-title" id="myModalLabel">Add New </h4>
@@ -73,14 +107,13 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.UnitName)
-                            @Html.HiddenFor(model => model.UnitKey, new { id = "UnitKey" })
                             @Html.TextBoxFor(model => model.UnitName, new { placeholder = " Name", id = "UnitName", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.UnitName, "", new { @class = "text-danger" })
 
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.UnitShortname)
-                            @Html.TextBoxFor(model => model.UnitShortname, new { placeholder = " UnitShortname", id = "Description", @class = "form-control" })
+                            @Html.TextBoxFor(model => model.UnitShortname, new { placeholder = " UnitShortname", id = "UnitShortname", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.UnitShortname, "", new { @class = "text-danger" })
                         </div>
                     </form>
@@ -88,12 +121,50 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Create</button>
-                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+     
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 }
+@using (Html.BeginForm("Edit", "MgtUnit", FormMethod.Post))
+{
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" id="edit-container">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Edit </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UnitName)
+                                @Html.HiddenFor(model => model.UnitKey, new { id = "UnitKey" })
+                                @Html.TextBoxFor(model => model.UnitName, new { placeholder = " Name", id = "UnitName", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UnitName, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UnitShortname)
+                                @Html.TextBoxFor(model => model.UnitShortname, new { placeholder = " UnitShortname", id = "UnitShortname", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UnitShortname, "", new { @class = "text-danger" })
+                            </div>
+                        </form>
+                        <div class="form-group" id="msgSuccess"><h4 class="alert alert-success">Data is successfully Saved on database.</h4></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnUpdate">Update</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
