@@ -111,7 +111,7 @@ namespace NasgledSys.Controllers
 
         public JsonResult Delete(Guid? ID)
         {
-            Unit model = db.Unit.Where(x => x.UnitKey == ID).FirstOrDefault();
+            Unit model = db.Unit.Find(ID);
             db.Unit.Remove(model);
             db.SaveChanges();
             return Json(true, JsonRequestBehavior.AllowGet);
