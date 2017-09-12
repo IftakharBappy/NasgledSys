@@ -243,7 +243,29 @@ namespace NasgledSys.Controllers
             }
         }
 
+        public ActionResult Edit(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    Project project = db.Project.Find(id);
+                    GlobalClass.Project = project;
+                    GlobalClass.CCompany = db.ClientCompany.Find(project.CompanyKey);
+                    return RedirectToAction("Created","MgtProject");
+                }
+                catch (Exception e)
+                {
 
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
         public ActionResult Created()
         {
             if (GlobalClass.MasterSession)

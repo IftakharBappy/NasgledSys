@@ -38,7 +38,7 @@ namespace NasgledSys.Controllers
             {
                 AreaKey = asset.AreaKey,
                 AreaName = asset.AreaName,
-                SubArea = db.Area.Where(m => m.ParentAreaKey == asset.AreaKey).Count()
+                SubArea =db.Area.Where(m => m.ParentAreaKey == asset.AreaKey).Count()
             }).ToList();
 
             return Json(new DataTablesResponse(requestModel.Draw, data, filteredCount, totalCount), JsonRequestBehavior.AllowGet);
@@ -83,7 +83,13 @@ namespace NasgledSys.Controllers
                     Session["GlobalMessege"] = "";
                     GlobalClass.AreaGuidForSubArea =Guid.Empty;
                     GlobalClass.AreaHeading = null;
-                    return View();
+                    AreaClass obj = new AreaClass();
+                    obj.OperationScheduleKey = Guid.Empty;
+                    obj.NewRateScheduleKey = Guid.Empty;
+                    obj.CoolingSystemKey = Guid.Empty;
+                    obj.HeatingSystemKey = Guid.Empty;
+                  
+                    return View(obj);
                 }
                 catch (Exception e)
                 {
@@ -189,7 +195,8 @@ namespace NasgledSys.Controllers
                 {
                     if(GlobalClass.AreaGuidForSubArea==null|| GlobalClass.AreaGuidForSubArea == Guid.Empty)
                     {
-                        Area ar = db.Area.Find(id);                       
+                        Area ar = db.Area.Find(id);
+                        ViewBag.heading = ar.AreaName;                    
                         obj = EM_Area.ConvertToModelForEditArea(ar);
                     }
                     else

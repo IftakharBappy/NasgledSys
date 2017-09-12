@@ -27,6 +27,7 @@
         LoadSystemTypeH();
         LoadFuelTypeH();
         LoadEfficiencyTypeH();
+        $("#deletemsg").show().delay(1000).fadeOut();
     });
 
     $(function () {
@@ -278,10 +279,11 @@
         else {
             $('#ScheduleName').val("");
             $('#OptHour').val("");
-
-            $('#modal_Operating').modal('hide');
-            $('#deletemsg').html("Data has been Saved Successfully");
+            $('#deleteCityContainer').html("Data has been Saved Successfully");
+            //$('#modal_Operating').modal('hide');
+          
             LoadOperatingSchedule();
+           
         }
     }
     function CreateNewRate(data) {
@@ -294,8 +296,8 @@
             $('#RateName').val("");
             $('#Rate').val("");
 
-            $('#modal_Rate').modal('hide');
-            $('#deletemsg').html("Data has been Saved Successfully");
+            //$('#modal_Rate').modal('hide');
+            $('#deleteCityContainer1').html("Data has been Saved Successfully");
             LoadRateSchedule();
         }
     }
@@ -311,8 +313,8 @@
             $('#FCost').val("");
             $('#EfficiencyValue').val("");
 
-            $('#modal_cooling').modal('hide');
-            $('#deletemsg').html("Data has been Saved Successfully");
+            //$('#modal_cooling').modal('hide');
+            $('#modal_cooling').html("Data has been Saved Successfully");
             LoadCooling();
         }
     }
@@ -328,9 +330,11 @@
             $('#FCost1').val("");
             $('#EfficiencyValue1').val("");
 
-            $('#modal_Heating').modal('hide');
-            $('#deletemsg').html("Data has been Saved Successfully");
-            LoadCooling();
+            //$('#modal_Heating').modal('hide');
+            $('#deleteCityContainer3').html("Data has been Saved Successfully");
+            LoadHeating();
+          
+          
         }
     }
 </script>
@@ -383,42 +387,45 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div class="h3 alert-info" id="deletemsg"></div>
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.AreaName)
-                                    @Html.TextBoxFor(model => model.AreaName, new { placeholder = "Area Name", id = "AreaName", @class = "form-control" })
+                                    <div class="h3 alert-info" id="deletemsg"></div>
+                                    </div>
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AreaName)
+                                        @Html.TextBoxFor(model => model.AreaName, new { placeholder = "Area Name", id = "AreaName", @class = "form-control" })
 
-                                    @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+                                        @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SquareFeet)
+                                        @Html.TextBoxFor(model => model.SquareFeet, new { type = "number", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.SquareFeet, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.OperationScheduleKey)
+                                        <select name="OperationScheduleKey" placeholder="Select" id="OperationScheduleKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.OperationScheduleKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.NewRateScheduleKey)
+                                        <select name="NewRateScheduleKey" placeholder="Select" id="NewRateScheduleKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.NewRateScheduleKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CoolingSystemKey)
+                                        <select name="CoolingSystemKey" placeholder="Select" id="CoolingSystemKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.CoolingSystemKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.HeatingSystemKey)
+                                        <select name="HeatingSystemKey" placeholder="Select" id="HeatingSystemKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.HeatingSystemKey, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.SquareFeet)
-                                    @Html.TextBoxFor(model => model.SquareFeet, new { type = "number", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.SquareFeet, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.OperationScheduleKey)
-                                    <select name="OperationScheduleKey" placeholder="Select" id="OperationScheduleKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.OperationScheduleKey, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.NewRateScheduleKey)
-                                    <select name="NewRateScheduleKey" placeholder="Select" id="NewRateScheduleKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.NewRateScheduleKey, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.CoolingSystemKey)
-                                    <select name="CoolingSystemKey" placeholder="Select" id="CoolingSystemKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.CoolingSystemKey, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.HeatingSystemKey)
-                                    <select name="HeatingSystemKey" placeholder="Select" id="HeatingSystemKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.HeatingSystemKey, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
                             <div class="panel-footer">
-                                <a href="@Url.Action("Created", "MgtProject")" class="btn btn-success btn-xlg col-lg-6" role="button">Cancel</a>
+                                <center><a href="@Url.Action("Created", "MgtProject")" class="btn btn-success btn-xlg col-lg-6" role="button">Cancel</a></center>
+                               
                             </div>
                         </div>
                     </div>
@@ -454,11 +461,11 @@
                         </div>
                         <div class="form-group">
                             <div class="control-label">System Type<span class="alert-danger">*..</span></div>
-                            <select name="SystemTypeKey1" required="required" id="SystemTypeKey1" class="select select-search"></select>
+                            <select name="SystemTypeKey1" required="required" id="SystemTypeKey1" class="form-control"></select>
                         </div>
                         <div class="form-group">
                             <div class="control-label">Fuel Type<span class="alert-danger">*..</span></div>
-                            <select name="FuelTypeKey1" required="required" id="FuelTypeKey1" class="select select-search"></select>
+                            <select name="FuelTypeKey1" required="required" id="FuelTypeKey1" class="form-control"></select>
                         </div>
                         <div class="form-group">
                             <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
@@ -466,13 +473,13 @@
                         </div>
                         <div class="form-group">
                             <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
-                            <select name="EfficiencyTypeKey1" required="required" id="EfficiencyTypeKey1" class="select select-search"></select>
+                            <select name="EfficiencyTypeKey1" required="required" id="EfficiencyTypeKey1" class="form-control"></select>
                         </div>
                         <div class="form-group">
                             <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
                             <input type="number" name="EfficiencyValue1" required="required" placeholder="efficiency value" class="form-control" />
                         </div>
-                        <div id="deleteCityContainer3">
+                        <div class="h3 alert-info" id="deleteCityContainer3">
                         </div>
 
 
@@ -515,11 +522,11 @@
                         </div>
                         <div class="form-group">
                             <div class="control-label">System Type<span class="alert-danger">*..</span></div>
-                            <select name="SystemTypeKey" required="required"  id="SystemTypeKey" class="select select-search"></select>                          
+                            <select name="SystemTypeKey" required="required"  id="SystemTypeKey" class="form-control"></select>                          
                         </div>
                         <div class="form-group">
                             <div class="control-label">Fuel Type<span class="alert-danger">*..</span></div>
-                            <select name="FuelTypeKey" required="required" id="FuelTypeKey" class="select select-search"></select>
+                            <select name="FuelTypeKey" required="required" id="FuelTypeKey" class="form-control"></select>
                         </div>
                         <div class="form-group">
                             <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
@@ -527,13 +534,13 @@
                         </div>
                         <div class="form-group">
                             <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
-                            <select name="EfficiencyTypeKey" required="required" id="EfficiencyTypeKey" class="select select-search"></select>
+                            <select name="EfficiencyTypeKey" required="required" id="EfficiencyTypeKey" class="form-control"></select>
                         </div>
                         <div class="form-group">
                             <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
                             <input type="number" name="EfficiencyValue" required="required" placeholder="efficiency value" class="form-control" />
                         </div>
-                        <div id="deleteCityContainer2">
+                        <div class="h3 alert-info" id="deleteCityContainer2">
                         </div>
 
 
@@ -575,7 +582,7 @@
                         </div>
 
 
-                        <div id="deleteCityContainer1">
+                        <div class="h3 alert-info" id="deleteCityContainer1">
                         </div>
 
 
@@ -617,7 +624,7 @@
                         </div>
                       
 
-                        <div id="deleteCityContainer">
+                        <div class="h3 alert-info" id="deleteCityContainer">
                         </div>
 
 

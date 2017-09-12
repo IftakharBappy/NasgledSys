@@ -277,10 +277,11 @@
         else {
             $('#ScheduleName').val("");
             $('#OptHour').val("");
+            $('#deleteCityContainer').html("Data has been Saved Successfully");
+            //$('#modal_Operating').modal('hide');
 
-            $('#modal_Operating').modal('hide');
-            $('#deletemsg').html("Data has been Saved Successfully");
             LoadOperatingSchedule();
+
         }
     }
     function CreateNewRate(data) {
@@ -293,8 +294,8 @@
             $('#RateName').val("");
             $('#Rate').val("");
 
-            $('#modal_Rate').modal('hide');
-            $('#deletemsg').html("Data has been Saved Successfully");
+            //$('#modal_Rate').modal('hide');
+            $('#deleteCityContainer1').html("Data has been Saved Successfully");
             LoadRateSchedule();
         }
     }
@@ -310,8 +311,8 @@
             $('#FCost').val("");
             $('#EfficiencyValue').val("");
 
-            $('#modal_cooling').modal('hide');
-            $('#deletemsg').html("Data has been Saved Successfully");
+            //$('#modal_cooling').modal('hide');
+            $('#modal_cooling').html("Data has been Saved Successfully");
             LoadCooling();
         }
     }
@@ -327,14 +328,16 @@
             $('#FCost1').val("");
             $('#EfficiencyValue1').val("");
 
-            $('#modal_Heating').modal('hide');
-            $('#deletemsg').html("Data has been Saved Successfully");
-            LoadCooling();
+            //$('#modal_Heating').modal('hide');
+            $('#deleteCityContainer3').html("Data has been Saved Successfully");
+            LoadHeating();
+
+
         }
     }
 </script>
 @section CenterTitle{
-    @Html.DisplayFor(m => GlobalClass.AreaHeading)
+  @ViewBag.heading 
 }
 @section SideBar{
     <center>
@@ -392,40 +395,42 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="h3 alert-info" id="deletemsg"></div>
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.AreaName)
-                                        @Html.TextBoxFor(model => model.AreaName, new { placeholder = "Area Name", id = "AreaName", @class = "form-control" })
+                                        <div class="h3 alert-info" id="deletemsg"></div>
+                                        </div>
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AreaName)
+                                            @Html.TextBoxFor(model => model.AreaName, new { placeholder = "Area Name", id = "AreaName", @class = "form-control" })
 
-                                        @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SquareFeet)
+                                            @Html.TextBoxFor(model => model.SquareFeet, new { type = "number", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.SquareFeet, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.OperationScheduleKey)
+                                            <select name="OperationScheduleKey" placeholder="Select" id="OperationScheduleKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.OperationScheduleKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.NewRateScheduleKey)
+                                            <select name="NewRateScheduleKey" placeholder="Select" id="NewRateScheduleKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.NewRateScheduleKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CoolingSystemKey)
+                                            <select name="CoolingSystemKey" placeholder="Select" id="CoolingSystemKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.CoolingSystemKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.HeatingSystemKey)
+                                            <select name="HeatingSystemKey" placeholder="Select" id="HeatingSystemKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.HeatingSystemKey, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.SquareFeet)
-                                        @Html.TextBoxFor(model => model.SquareFeet, new { type = "number", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.SquareFeet, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.OperationScheduleKey)
-                                        <select name="OperationScheduleKey" placeholder="Select" id="OperationScheduleKey" class="select select-search"></select>
-                                        @Html.ValidationMessageFor(model => model.OperationScheduleKey, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.NewRateScheduleKey)
-                                        <select name="NewRateScheduleKey" placeholder="Select" id="NewRateScheduleKey" class="select select-search"></select>
-                                        @Html.ValidationMessageFor(model => model.NewRateScheduleKey, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.CoolingSystemKey)
-                                        <select name="CoolingSystemKey" placeholder="Select" id="CoolingSystemKey" class="select select-search"></select>
-                                        @Html.ValidationMessageFor(model => model.CoolingSystemKey, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.HeatingSystemKey)
-                                        <select name="HeatingSystemKey" placeholder="Select" id="HeatingSystemKey" class="select select-search"></select>
-                                        @Html.ValidationMessageFor(model => model.HeatingSystemKey, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
                                 <div class="panel-footer">
                                     <a href="@Url.Action("Delete", "MgtArea",new { id=Model.AreaKey})" class="btn btn-warning btn-xlg col-lg-12" role="button" onclick = "return confirm('Are you sure you want to Remove this?')">Remove this Area?</a>
                                 </div>
@@ -481,7 +486,7 @@
                             <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
                             <input type="number" name="EfficiencyValue1" required="required" placeholder="efficiency value" class="form-control" />
                         </div>
-                        <div id="deleteCityContainer3">
+                        <div class="h3 alert-info" id="deleteCityContainer3">
                         </div>
 
 
@@ -542,7 +547,7 @@
                             <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
                             <input type="number" name="EfficiencyValue" required="required" placeholder="efficiency value" class="form-control" />
                         </div>
-                        <div id="deleteCityContainer2">
+                        <div class="h3 alert-info" id="deleteCityContainer2">
                         </div>
 
 
@@ -584,7 +589,7 @@
                         </div>
 
 
-                        <div id="deleteCityContainer1">
+                        <div class="h3 alert-info" id="deleteCityContainer1">
                         </div>
 
 
@@ -626,7 +631,7 @@
                         </div>
 
 
-                        <div id="deleteCityContainer">
+                        <div class="h3 alert-info" id="deleteCityContainer">
                         </div>
 
 
