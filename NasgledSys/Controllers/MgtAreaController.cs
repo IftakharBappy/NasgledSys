@@ -43,6 +43,8 @@ namespace NasgledSys.Controllers
 
 
 
+
+
             return Json(new DataTablesResponse(requestModel.Draw, data, filteredCount, totalCount), JsonRequestBehavior.AllowGet);
 
         }
