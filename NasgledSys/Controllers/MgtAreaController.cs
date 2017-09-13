@@ -41,6 +41,7 @@ namespace NasgledSys.Controllers
                 SubArea =db.Area.Where(m => m.ParentAreaKey == asset.AreaKey).Count()
             }).ToList();
 
+
             return Json(new DataTablesResponse(requestModel.Draw, data, filteredCount, totalCount), JsonRequestBehavior.AllowGet);
 
         }
