@@ -224,6 +224,7 @@
     <Compile Include="Controllers\MgtAreaController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
     <Compile Include="Controllers\MgtClientContactController.cs" />
+    <Compile Include="Controllers\MgtEnvironmentalImpactController.cs" />
     <Compile Include="Controllers\MgtHeatingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
@@ -254,6 +255,9 @@
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
     <Compile Include="Controllers\tcityController.cs" />
+    <Compile Include="Controllers\UserItemCategoryController.cs" />
+    <Compile Include="Controllers\UserItemCatelogueController.cs" />
+    <Compile Include="Controllers\UserItemSubcategoryController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\ManageMainProduct.cs" />
     <Compile Include="DAL\ManageProject.cs" />
@@ -375,6 +379,7 @@
     <Compile Include="Models\EnvironmentalImpact.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EnvironmentalImpactViewModel.cs" />
     <Compile Include="Models\Forms.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3798,6 +3803,10 @@
     <Content Include="Views\MgtArea\Create.cshtml" />
     <Content Include="Views\MgtArea\Created.cshtml" />
     <Content Include="Views\MgtArea\Edit.cshtml" />
+    <Content Include="Views\MgtEnvironmentalImpact\Index.cshtml" />
+    <Content Include="Views\UserItemCategory\Index.cshtml" />
+    <Content Include="Views\UserItemSubcategory\Index.cshtml" />
+    <Content Include="Views\UserItemCatelogue\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
