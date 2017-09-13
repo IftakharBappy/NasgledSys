@@ -215,6 +215,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AreaDetailController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\DefaultEmailConfigController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Models\AreaDetail.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AreaDetailViewModel.cs" />
     <Compile Include="Models\AreaDocument.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3811,6 +3813,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AnnualSalesRevenueSetup\" />
+    <Folder Include="Views\AreaDetail\" />
     <Folder Include="Views\DropdownUtility\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
