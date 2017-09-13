@@ -250,7 +250,6 @@
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
-    <Compile Include="Controllers\MgtSubareaController.cs" />
     <Compile Include="Controllers\MgtUnitController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
@@ -3804,7 +3803,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\AnnualSalesRevenueSetup\" />
     <Folder Include="Views\DropdownUtility\" />
-    <Folder Include="Views\MgtSubarea\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
   </ItemGroup>
