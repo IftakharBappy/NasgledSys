@@ -1,0 +1,127 @@
+﻿@model NasgledSys.Models.ItemSubcategoryViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+@section SideBar{
+    <h4>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold">List of Item SubCategory</span>
+
+    </h4>
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/datatables_advanced.js"></script>
+<script>
+
+$('#Dialog-Box').dialog({
+        autoOpen: false,
+        height: 500,
+        width: 700,
+        modal: false
+    });
+function OpenDialog() {
+
+        var name = $('#TypeName').val();
+        $('#Dialog-Name').val(name);
+        $('#Dialog-Box').dialog('open');
+    }
+function onsave() {
+
+        $.ajax({
+            url: '@Url.Action("Create", "UserItemSubcategory")',
+            type: 'POST',
+            data: {
+                name: $('#Dialog-Name').val(),
+            },
+            success: function (msg) {
+            },
+            error: function (msg) {
+            }
+        });
+
+    }
+</script>
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="">Add New Item SubCategory</button>
+    </div>
+    <div class="panel-body" id="list">
+
+        <table class="table datatable-show-all">
+            <thead><tr><th>Type Name</th><th>Description</th></tr></thead>
+            <tbody>
+
+                @foreach(var item in Model.ItemSubcategoryViewModelList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    @using (Html.BeginForm("Create", "UserItemSubcategory", FormMethod.Post))
+
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" id="edit-container">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Add New </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TypeName)
+                                @Html.TextBoxFor(model => model.TypeName, new { placeholder = " Name", id = "TypeName", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.TypeName, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description)
+                                @Html.TextBoxFor(model => model.Description, new { placeholder = " Description", id = "Description", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                          
+                        </form>
+                    </div>
+                    <div class="modal-footer" id="Dialog-Box">
+                        <button type="submit" class=" btn btn-primary btn-xlg col-lg-4" id="btnAdd" onclick="onsave()">Create</button>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
