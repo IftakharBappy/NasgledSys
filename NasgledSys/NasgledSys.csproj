@@ -216,6 +216,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AreaDetailController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\DefaultEmailConfigController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="DAL\MgtProjectStatus.cs" />
     <Compile Include="DAL\MgtSalesReachSetup.cs" />
     <Compile Include="EM\EM_Area.cs" />
+    <Compile Include="EM\EM_AreaDetail.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
@@ -3809,11 +3811,12 @@
     <Content Include="Views\UserItemCategory\Index.cshtml" />
     <Content Include="Views\UserItemSubcategory\Index.cshtml" />
     <Content Include="Views\UserItemCatelogue\Index.cshtml" />
+    <Content Include="Views\AreaDetail\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AnnualSalesRevenueSetup\" />
-    <Folder Include="Views\AreaDetail\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\DropdownUtility\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
