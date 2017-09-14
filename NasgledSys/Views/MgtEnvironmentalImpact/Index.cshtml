@@ -28,12 +28,12 @@
         </div>
     </div>
     <div class="panel-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Unit</button>
+        <button type="button" class="btn btn-primary" data-toggle="" data-target="" onclick="location.href='@Url.Action("Create","MgtEnvironmentalImpact")'">Add New Environmental Impact</button>
     </div>
     <div class="panel-body" id="list">
 
         <table class="table datatable-show-all">
-            <thead><tr><th>Factor Name</th><th>Unit Name</th><th>QtyUsed</th><th>Kilowatt Saved</th><th>Logo</th></tr></thead>
+            <thead><tr><th>Factor Name</th><th>Unit Name</th><th>QtyUsed</th><th>Kilowatt Saved</th><th>Logo</th><th>Action</th></tr></thead>
             <tbody>
 
                 @foreach (var item in Model.EnvironmentalImpactViewModelList)
@@ -52,14 +52,18 @@
                             @Html.DisplayFor(modelItem => item.KilowattSaved)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Logo)
+                            @{
+                                var base64 = Convert.ToBase64String(item.Logo);
+                                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
+                            }
                         </td>
 
-                        @*<td>
-                            <a class="btn btn-primary discussion-comment" discussion-id="@item.UnitKey">Edit</a> ||
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal" onclick="">Edit</button>
-                            <a class="btn btn-primary" onclick="Delete('@item.UnitKey')">Delete</a>
-                        </td>*@
+                        <td>
+                            @*<a class="btn btn-primary discussion-comment" discussion-id="@item.FactorKey">Edit</a> ||*@
+                            <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtEnvironmentalImpact", new { FactorKey = item.FactorKey })'">Edit</button>
+                            @*<a class="btn btn-primary" onclick="Delete('@item.UnitKey')">Delete</a>*@
+                        </td>
                     </tr>
                 }
             </tbody>
