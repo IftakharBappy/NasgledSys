@@ -13,6 +13,7 @@ namespace NasgledSys.Validation
             model.ClientCompanyKey = Guid.NewGuid();
             //# convert to model
             model.CompanyName = viewModel.CompanyName;
+            model.ProfileKey = GlobalClass.ProfileUser.ProfileKey;
             model.IndustryTypeKey = viewModel.IndustryTypeKey;
             model.NoOfSalesPerson = viewModel.NoOfSalesPerson;
             if (string.IsNullOrEmpty(viewModel.Description))

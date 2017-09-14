@@ -21,35 +21,35 @@
         </h4>
     </center>
 }
+<div class="content-wrapper">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
 
-<div class="panel panel-flat">
-    <div class="panel-heading">
-      
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            
-            <div class="col-md-3">
-                <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                </ul>
             </div>
         </div>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="container" id="elementContainer">
+
+
+        </div><!--/container -->
+
     </div>
-    <br />
-    <br />
-    <div class="container" id="elementContainer">
-
-
-    </div><!--/container -->
-
 </div>
-
-<script>
+    <script>
     var baseList = [];
     var filteredList = [];
     $(document).ready(function () {
@@ -106,4 +106,4 @@
             }
         });
     }
-</script>
+    </script>

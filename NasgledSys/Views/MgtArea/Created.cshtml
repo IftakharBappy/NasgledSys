@@ -98,36 +98,38 @@
 
 
 }
-<div class="row">
-    <div class="col-md-2">&nbsp;</div>
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <ul class="nav nav-pills">
-                    <li class="active"><a href="@Url.Action("Edit","MgtArea",new { id=Model.AreaKey})" data-toggle="tab">Area</a></li>
-                    <li><a href="#" data-toggle="tab">Product</a></li>
-                    <li><a href="#" data-toggle="tab">Details</a></li>
-                    <li><a href="@Url.Action("CreateSub","MgtArea",new { id=Model.AreaKey})" data-toggle="tab">Sub-Areas</a></li>
-                    <li><a href="#" data-toggle="tab">Photos</a></li>
-                    <li><a href="#" data-toggle="tab">Documents</a></li>
-                    <li><a href="#" data-toggle="tab">Notes</a></li>
-                    <li><a href="#" data-toggle="tab">Copy</a></li>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="@Url.Action("Edit","MgtArea",new { id=Model.AreaKey})" data-toggle="tab">Area</a></li>
+                        <li><a href="#" data-toggle="tab">Product</a></li>
+                        <li><a href="#" data-toggle="tab">Details</a></li>
+                        <li><a href="@Url.Action("CreateSub","MgtArea",new { id=Model.AreaKey})" data-toggle="tab">Sub-Areas</a></li>
+                        <li><a href="#" data-toggle="tab">Photos</a></li>
+                        <li><a href="#" data-toggle="tab">Documents</a></li>
+                        <li><a href="#" data-toggle="tab">Notes</a></li>
+                        <li><a href="#" data-toggle="tab">Copy</a></li>
 
-                </ul>
-            </div>
-            <div class="panel-body">
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="tab-demo1">
-                        
-                        <div class="panel-body">
-                            <div class="row"><br /><br /></div>
-                            <div class="alert alert-info"> To add your first area click on the "Add Area" button above</div>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+
+                            <div class="panel-body">
+                                <div class="row"><br /><br /></div>
+                                <div class="alert alert-info"> To add your first area click on the "Add Area" button above</div>
+                            </div>
+
                         </div>
-                        
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-2">&nbsp;</div>
     </div>
-    <div class="col-md-2">&nbsp;</div>
 </div>

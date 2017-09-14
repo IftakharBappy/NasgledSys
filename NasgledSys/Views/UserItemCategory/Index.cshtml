@@ -48,81 +48,81 @@ function onsave() {
 
     }
 </script>
+<div class="content-wrapper">
+    <div class="panel panel-flat">
+        <div class="panel-heading">
 
-<div class="panel panel-flat">
-    <div class="panel-heading">
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
 
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
-
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="panel-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="">Add New Item Category</button>
-    </div>
-    <div class="panel-body" id="list">
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="">Add New Item Category</button>
+        </div>
+        <div class="panel-body" id="list">
 
-        <table class="table datatable-show-all">
-            <thead><tr><th>Type Name</th><th>Description</th></tr></thead>
-            <tbody>
+            <table class="table datatable-show-all">
+                <thead><tr><th>Type Name</th><th>Description</th></tr></thead>
+                <tbody>
 
-                @foreach(var item in Model.ItemCategoryViewModelList)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TypeName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
+                    @foreach (var item in Model.ItemCategoryViewModelList)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TypeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-    </div>
-    @using (Html.BeginForm("Create", "UserItemCategory", FormMethod.Post))
+        </div>
+        @using (Html.BeginForm("Create", "UserItemCategory", FormMethod.Post))
 
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content" id="edit-container">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title" id="myModalLabel">Add New </h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" id="edit-container">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h4 class="modal-title" id="myModalLabel">Add New </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
 
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.TypeName)
-                                @Html.TextBoxFor(model => model.TypeName, new { placeholder = " Name", id = "TypeName", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.TypeName, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TypeName)
+                                    @Html.TextBoxFor(model => model.TypeName, new { placeholder = " Name", id = "TypeName", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TypeName, "", new { @class = "text-danger" })
 
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Description)
-                                @Html.TextBoxFor(model => model.Description, new { placeholder = " Description", id = "Description", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-                        </form>
-                        
-                    </div>
-                    <div class="modal-footer" id="Dialog-Box">
-                        <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd" onclick="onsave()">Create</button>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description)
+                                    @Html.TextBoxFor(model => model.Description, new { placeholder = " Description", id = "Description", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </form>
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                        <div class="modal-footer" id="Dialog-Box">
+                            <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd" onclick="onsave()">Create</button>
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
     </div>
-
+</div>

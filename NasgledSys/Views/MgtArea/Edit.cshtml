@@ -356,54 +356,54 @@
 
 
 }
+<div class="content-wrapper">
+    @using (Html.BeginForm("Edit", "MgtArea", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(m => m.AreaKey, new { id = "AreaKey" })
+        @Html.HiddenFor(m => m.ParentAreaKey, new { id = "ParentAreaKey" })
+        @Html.HiddenFor(m => m.IsParent, new { id = "IsParent" })
+        @Html.HiddenFor(m => m.IsSubEdit, new { id = "IsSubEdit" })
+        @Html.HiddenFor(m => m.Reception, new { id = "Reception" })
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-2">&nbsp;</div>
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#tab-demo1" data-toggle="tab">Area</a></li>
 
-@using (Html.BeginForm("Edit", "MgtArea", FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    @Html.ValidationSummary()
-    @Html.HiddenFor(m=>m.AreaKey,new { id= "AreaKey" })
-    @Html.HiddenFor(m => m.ParentAreaKey, new { id = "ParentAreaKey" })
-    @Html.HiddenFor(m => m.IsParent, new { id = "IsParent" })
-    @Html.HiddenFor(m => m.IsSubEdit, new { id = "IsSubEdit" })
-    @Html.HiddenFor(m => m.Reception, new { id = "Reception" })
-    <div class="form-horizontal">
-        <div class="row">
-            <div class="col-md-2">&nbsp;</div>
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <ul class="nav nav-pills">
-                            <li class="active"><a href="#tab-demo1" data-toggle="tab">Area</a></li>
-
-                            <li><a href="#">Product</a></li>
-                            <li><a href="@Url.Action("Edit", "AreaDetail", new { id = Model.AreaKey })" data-toggle="tab">Details</a></li>
-                            <li><a href="@Url.Action("CreateSub", "MgtArea", new { id = Model.AreaKey })" data-toggle="tab">Sub-Areas</a></li>
-                            <li><a href="#">Photos</a></li>
-                            <li><a href="#">Documents</a></li>
-                            <li><a href="#">Notes</a></li>
-                            <li><a href="#">Copy</a></li>
-
-
+                                <li><a href="#">Product</a></li>
+                                <li><a href="@Url.Action("Edit", "AreaDetail", new { id = Model.AreaKey })" data-toggle="tab">Details</a></li>
+                                <li><a href="@Url.Action("CreateSub", "MgtArea", new { id = Model.AreaKey })" data-toggle="tab">Sub-Areas</a></li>
+                                <li><a href="#">Photos</a></li>
+                                <li><a href="#">Documents</a></li>
+                                <li><a href="#">Notes</a></li>
+                                <li><a href="#">Copy</a></li>
 
 
 
 
 
 
-                        </ul>
-                    </div>
-                    <div class="panel-body">
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tab-demo1">
 
-                                <div class="panel-heading">
-                                    <div class="col-md-8"><h3>Area</h3></div>
-                                    <div class="col-md-4">
-                                        <button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Save</button>
+
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-demo1">
+
+                                    <div class="panel-heading">
+                                        <div class="col-md-8"><h3>Area</h3></div>
+                                        <div class="col-md-4">
+                                            <button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Save</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <div class="h3 alert-info" id="deletemsg"></div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="h3 alert-info" id="deletemsg"></div>
                                         </div>
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         <div class="form-group">
@@ -438,222 +438,223 @@
                                             @Html.ValidationMessageFor(model => model.HeatingSystemKey, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                <div class="panel-footer">
-                                    <a href="@Url.Action("Delete", "MgtArea",new { id=Model.AreaKey})" class="btn btn-warning btn-xlg col-lg-12" role="button" onclick = "return confirm('Are you sure you want to Remove this?')">Remove this Area?</a>
+                                    <div class="panel-footer">
+                                        <a href="@Url.Action("Delete", "MgtArea",new { id=Model.AreaKey})" class="btn btn-warning btn-xlg col-lg-12" role="button" onclick="return confirm('Are you sure you want to Remove this?')">Remove this Area?</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-2">&nbsp;</div>
             </div>
-            <div class="col-md-2">&nbsp;</div>
         </div>
-</div>
-}
+    }
 
-<div id="modal_Heating" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <center><h4 class="modal-title panel panel-success panel-heading">New Cooling System</h4></center>
-            </div>
-            @using (Ajax.BeginForm("SaveNewHeatingSystem", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateHeatingSystem" }, new { @class = "form-horizontal", role = "form" }))
+    <div id="modal_Heating" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">New Cooling System</h4></center>
+                </div>
+                @using (Ajax.BeginForm("SaveNewHeatingSystem", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateHeatingSystem" }, new { @class = "form-horizontal", role = "form" }))
             {
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <div class="form-group">
-                            <div class="control-label">Name <span class="alert-danger">*..</span></div>
-                            <input type="text" required="required" name="SystemName1" placeholder="heating name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Annual Run Time %<span class="alert-danger">*..</span></div>
-                            <input type="number" name="RunTime1" required="required" placeholder="annual runtime percentage" class="form-control" />
-                            <p class="text-muted">% of Year running, enter 50 for 50%</p>
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">System Type<span class="alert-danger">*..</span></div>
-                            <select name="SystemTypeKey1" required="required" id="SystemTypeKey1" class="select select-search"></select>
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Fuel Type<span class="alert-danger">*..</span></div>
-                            <select name="FuelTypeKey1" required="required" id="FuelTypeKey1" class="select select-search"></select>
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
-                            <input type="number" name="FCost1" required="required" placeholder="fuel cost" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
-                            <select name="EfficiencyTypeKey1" required="required" id="EfficiencyTypeKey1" class="select select-search"></select>
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
-                            <input type="number" name="EfficiencyValue1" required="required" placeholder="efficiency value" class="form-control" />
-                        </div>
-                        <div class="h3 alert-info" id="deleteCityContainer3">
-                        </div>
+                            <div class="form-group">
+                                <div class="control-label">Name <span class="alert-danger">*..</span></div>
+                                <input type="text" required="required" name="SystemName1" placeholder="heating name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Annual Run Time %<span class="alert-danger">*..</span></div>
+                                <input type="number" name="RunTime1" required="required" placeholder="annual runtime percentage" class="form-control" />
+                                <p class="text-muted">% of Year running, enter 50 for 50%</p>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">System Type<span class="alert-danger">*..</span></div>
+                                <select name="SystemTypeKey1" required="required" id="SystemTypeKey1" class="select select-search"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Fuel Type<span class="alert-danger">*..</span></div>
+                                <select name="FuelTypeKey1" required="required" id="FuelTypeKey1" class="select select-search"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
+                                <input type="number" name="FCost1" required="required" placeholder="fuel cost" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
+                                <select name="EfficiencyTypeKey1" required="required" id="EfficiencyTypeKey1" class="select select-search"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
+                                <input type="number" name="EfficiencyValue1" required="required" placeholder="efficiency value" class="form-control" />
+                            </div>
+                            <div class="h3 alert-info" id="deleteCityContainer3">
+                            </div>
 
 
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" name="Save1" id="Save1" value="Save" />
                         </div>
                     </div>
-                </div>
-            }
-        </div>
-    </div>
-
-</div>
-<div id="modal_cooling" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <center><h4 class="modal-title panel panel-success panel-heading">New Cooling System</h4></center>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="Save1" id="Save1" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-            @using (Ajax.BeginForm("SaveNewCoolingSystem", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateCoolingSystem" }, new { @class = "form-horizontal", role = "form" }))
-            {
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                        <div class="form-group">
-                            <div class="control-label">Name <span class="alert-danger">*..</span></div>
-                            <input type="text" required="required" name="SystemName" placeholder="cooling name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Annual Run Time %<span class="alert-danger">*..</span></div>
-                            <input type="number" name="RunTime" required="required" placeholder="annual runtime percentage" class="form-control" />
-                            <p class="text-muted">% of Year running, enter 50 for 50%</p>
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">System Type<span class="alert-danger">*..</span></div>
-                            <select name="SystemTypeKey" required="required" id="SystemTypeKey" class="select select-search"></select>
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Fuel Type<span class="alert-danger">*..</span></div>
-                            <select name="FuelTypeKey" required="required" id="FuelTypeKey" class="select select-search"></select>
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
-                            <input type="number" name="FCost" required="required" placeholder="fuel cost" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
-                            <select name="EfficiencyTypeKey" required="required" id="EfficiencyTypeKey" class="select select-search"></select>
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
-                            <input type="number" name="EfficiencyValue" required="required" placeholder="efficiency value" class="form-control" />
-                        </div>
-                        <div class="h3 alert-info" id="deleteCityContainer2">
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" name="Save1" id="Save1" value="Save" />
-                        </div>
-                    </div>
-                </div>
-            }
         </div>
-    </div>
 
-</div>
-<div id="modal_Rate" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <center><h4 class="modal-title panel panel-success panel-heading">New Rate Schedule</h4></center>
+    </div>
+    <div id="modal_cooling" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">New Cooling System</h4></center>
+                </div>
+                @using (Ajax.BeginForm("SaveNewCoolingSystem", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateCoolingSystem" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <div class="control-label">Name <span class="alert-danger">*..</span></div>
+                                <input type="text" required="required" name="SystemName" placeholder="cooling name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Annual Run Time %<span class="alert-danger">*..</span></div>
+                                <input type="number" name="RunTime" required="required" placeholder="annual runtime percentage" class="form-control" />
+                                <p class="text-muted">% of Year running, enter 50 for 50%</p>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">System Type<span class="alert-danger">*..</span></div>
+                                <select name="SystemTypeKey" required="required" id="SystemTypeKey" class="select select-search"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Fuel Type<span class="alert-danger">*..</span></div>
+                                <select name="FuelTypeKey" required="required" id="FuelTypeKey" class="select select-search"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
+                                <input type="number" name="FCost" required="required" placeholder="fuel cost" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
+                                <select name="EfficiencyTypeKey" required="required" id="EfficiencyTypeKey" class="select select-search"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
+                                <input type="number" name="EfficiencyValue" required="required" placeholder="efficiency value" class="form-control" />
+                            </div>
+                            <div class="h3 alert-info" id="deleteCityContainer2">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="Save1" id="Save1" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-            @using (Ajax.BeginForm("SaveNewRateSchedule", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateNewRate" }, new { @class = "form-horizontal", role = "form" }))
-            {
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                        <div class="form-group">
-                            <div class="control-label">Name <span class="alert-danger">*..</span></div>
-                            <input type="text" required="required" name="RateName" placeholder="schedule name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Blended Electricity Rate<span class="alert-danger">*..</span></div>
-                            <input type="number" name="Rate" required="required" placeholder="$/kWh" class="form-control" />
-                        </div>
-
-
-                        <div class="h3 alert-info" id="deleteCityContainer1">
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" name="Save1" id="Save1" value="Save" />
-                        </div>
-                    </div>
-                </div>
-            }
         </div>
-    </div>
 
-</div>
-<div id="modal_Operating" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <center><h4 class="modal-title panel panel-success panel-heading">New Operating Schedule</h4></center>
+    </div>
+    <div id="modal_Rate" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">New Rate Schedule</h4></center>
+                </div>
+                @using (Ajax.BeginForm("SaveNewRateSchedule", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateNewRate" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <div class="control-label">Name <span class="alert-danger">*..</span></div>
+                                <input type="text" required="required" name="RateName" placeholder="schedule name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Blended Electricity Rate<span class="alert-danger">*..</span></div>
+                                <input type="number" name="Rate" required="required" placeholder="$/kWh" class="form-control" />
+                            </div>
+
+
+                            <div class="h3 alert-info" id="deleteCityContainer1">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="Save1" id="Save1" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-            @using (Ajax.BeginForm("SaveNewOperatingSchedule", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateOperatingSchedule" }, new { @class = "form-horizontal", role = "form" }))
-            {
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                        <div class="form-group">
-                            <div class="control-label">Name <span class="alert-danger">*..</span></div>
-                            <input type="text" required="required" name="ScheduleName" placeholder="schedule name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <div class="control-label">Annual Operating Hours<span class="alert-danger">*..</span></div>
-                            <input type="number" name="OptHour" required="required" placeholder="annual hours" class="form-control" />
-                        </div>
-
-
-                        <div class="h3 alert-info" id="deleteCityContainer">
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" name="Save" id="Save" value="Save" />
-                        </div>
-                    </div>
-                </div>
-            }
         </div>
-    </div>
 
+    </div>
+    <div id="modal_Operating" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">New Operating Schedule</h4></center>
+                </div>
+                @using (Ajax.BeginForm("SaveNewOperatingSchedule", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateOperatingSchedule" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <div class="control-label">Name <span class="alert-danger">*..</span></div>
+                                <input type="text" required="required" name="ScheduleName" placeholder="schedule name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Annual Operating Hours<span class="alert-danger">*..</span></div>
+                                <input type="number" name="OptHour" required="required" placeholder="annual hours" class="form-control" />
+                            </div>
+
+
+                            <div class="h3 alert-info" id="deleteCityContainer">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="Save" id="Save" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
 </div>
