@@ -3814,6 +3814,7 @@
     <Content Include="Views\UserItemSubcategory\Index.cshtml" />
     <Content Include="Views\UserItemCatelogue\Index.cshtml" />
     <Content Include="Views\AreaDetail\Edit.cshtml" />
+    <Content Include="Views\MgtProject\ProjectByCompany.cshtml" />
     <Content Include="Views\MgtEnvironmentalImpact\Create.cshtml" />
     <Content Include="Views\MgtEnvironmentalImpact\Edit.cshtml" />
   </ItemGroup>

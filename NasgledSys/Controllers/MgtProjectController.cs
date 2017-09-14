@@ -20,6 +20,27 @@ namespace NasgledSys.Controllers
         private NasgledDBEntities db = new NasgledDBEntities();
         private FormValidation validate = new FormValidation();
         private ManageProject manage = new ManageProject();
+        public ActionResult ProjectByCompany()
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                   
+                    return View();
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
         public ActionResult Index()
         {
             if (GlobalClass.MasterSession)
