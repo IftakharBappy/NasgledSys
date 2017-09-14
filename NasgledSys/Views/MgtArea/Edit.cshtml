@@ -375,7 +375,10 @@
                                 <li class="active"><a href="#tab-demo1" data-toggle="tab">Area</a></li>
 
                                 <li><a href="#">Product</a></li>
-                                <li><a href="@Url.Action("Edit", "AreaDetail", new { id = Model.AreaKey })" data-toggle="tab">Details</a></li>
+                                <li>
+                                    <a href="@Url.Action("Edit", "AreaDetail", new { id = Model.AreaKey })">Details</a>
+                                </li>
+                                @*<li><a href="@Url.Action("Edit", "AreaDetail", new { id = Model.AreaKey })" data-toggle="tab">Details</a></li>*@
                                 <li><a href="@Url.Action("CreateSub", "MgtArea", new { id = Model.AreaKey })" data-toggle="tab">Sub-Areas</a></li>
                                 <li><a href="#">Photos</a></li>
                                 <li><a href="#">Documents</a></li>
