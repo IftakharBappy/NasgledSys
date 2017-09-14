@@ -4,13 +4,12 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-@section scripts
-{
   
-    <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
-    <script src="~/Content/datatables/jquery.dataTables.js"></script>
-    <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -24,9 +23,11 @@
                 dt: null,
 
                 init: function () {
-                    dt = $('#Citys-data-table').DataTable({
+                    dt = $('#proj').DataTable({
                         "serverSide": true,
                         "processing": true,
+                        "iDisplayLength": 10,
+                        "iDisplayStart": 0,
                         "ajax": {
                             "url": "@Url.Action("GetProjectListData", "Home")",
                             "data": function (data) {
@@ -64,8 +65,7 @@
                     dt.ajax.reload();
                 }
             }
-
-          
+            $('#btnPerformAdvancedSearch').on("click", CityListVM.refresh);          
 
             // initialize the datatables
             CityListVM.init();
@@ -108,7 +108,7 @@
 
     </script>
 
-}
+
 @section SideBar{
   <ul class="breadcrumb breadcrumb-caret position-right">
     <li><a href="@Url.Action("Userhome","Home")">Home</a></li>
@@ -197,7 +197,7 @@
 
 
 
-        <table class="table datatable-show-all" id="Citys-data-table"></table>
+        <table class="table table-striped table-bordered" id="proj"></table>
 
  
 </div>
