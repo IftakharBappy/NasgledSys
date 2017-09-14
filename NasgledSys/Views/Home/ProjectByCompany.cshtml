@@ -1,4 +1,4 @@
-﻿@using NasgledSys.Models;
+﻿@using NasgledSys.Models
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -15,16 +15,7 @@
     var filteredList = [];
     $(document).ready(function () {
 
-        $('#ViewBy').hide();
 
-        $(".notice").click(function () {
-            if ($('#ViewBy').is(":visible")) {
-                $('#ViewBy').hide();
-            } else {
-                $('#ViewBy').show();
-            }
-
-        });
         GetProjectListData();
         GetAllCompanyName();
     });
@@ -64,19 +55,15 @@
     }
     function remakeGridCompany() {
         var res = "";
-        res = res + "<div class='col-md-2'><a  href='/Home/Userhome'>All</a></div>";
+        res = res + "<a href='/Home/Userhome' class='btn bg-blue-300 btn-block' type='button'><span>Select All</span></a>";
 
 
 
         for (var i = 0; i < filteredList.length; i++) {
-            res = res + "<div class='col-md-3'>"
-
-
-                + "<a href='/Home/ProjectByCompany?id=" + filteredList[i].ClientCompanyKey + "' >" + filteredList[i].CompanyName + "</a>"
-
-                + "</div >";
+            res = res
+                + "<a href='/Home/ProjectByCompany?id=" + filteredList[i].ClientCompanyKey + "' class='btn bg-purple-300 btn-block btn-float' type='button'><i class='icon-bag'></i><span>" + filteredList[i].CompanyName + "</span></a>";
         }
-        res = res + "<div class='col-md-2'><label>Select Company</label></div>";
+
         $("#comp").html(res);
     }
     function remakeGrid() {
@@ -84,17 +71,29 @@
         $("#elementContainer").html("");
 
         for (var i = 0; i < filteredList.length; i++) {
-            res = res + "<div class='col-xs-18 col-sm-6 col-md-3'>"
-                + "<div class='thumbnail' >"
-                + "<div class='caption'>"
-                + "<h4>" + filteredList[i].ProjectName + "</h4>"
-                + "<p>" + filteredList[i].CompanyName + "</p><br/>" + filteredList[i].AdminName + "<br/>" + filteredList[i].AreaNum + " areas <br/>"
-                + filteredList[i].ExsistingProduct + " Existing Products <br/>"
-                + "<a href='/MgtClientCompany/ViewClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-default btn-xs' role='button'>View</a>"
-                +"<a href='/MgtClientCompany/EditClientCompany?clientCompanyKey=" + filteredList[i].ClientCompanyKey + "' class='btn btn-primary btn-xs' role='button'>Edit</a>"
-                + "</div>"
-                + "</div >"
-                + "</div >";
+            res = res + "<div class='col-md-6'>"
+					+	"<div class='panel border-left-lg border-left-primary'>"
+					+		"<div class='panel-body'>"
+					+			"<div class='row'>"
+					+				"<div class='col-md-6'>"
+					+ "<h6 class='no-margin-top'><a href='/MgtProject/Edit?id=" + filteredList[i].ProjectKey + "'>"+ filteredList[i].ProjectName +"</a></h6>"
+                    + "  <p class='mb-15'>" + filteredList[i].ProjectStatus + "</p>"
+                    +  "      	</div>"
+           + "<div class='col-md-6'>"
+            +"<ul class='list task-details'>"
+            + "<li>" + filteredList[i].AdminName + "</li>"
+			+ "<li>" + filteredList[i].AreaNum + " areas</li>"
+            + "<li>" + filteredList[i].ExsistingProduct + " Existing Products</li>"
+            +"</ul></div></div></div>"
+
+           + "<div class='panel-footer panel-footer-condensed'><center>"
+					  + "<a href='/MgtProject/Edit?id=" + filteredList[i].ProjectKey + "' class='btn btn-default' role='button'>View</a> &nbsp"
+
+                + "<a href='/MgtProject/Create?id=" + filteredList[i].ProjectKey + "' class='btn btn-primary btn-xs' role='button'>Edit</a>"
+            +"</center></div>"
+           + "</div></div>";
+
+
         }
         $("#elementContainer").html(res);
     }
@@ -117,50 +116,106 @@
         });
     }
 </script>
+
 @section CenterTitle{
-    My Projects of @Html.DisplayFor(m=>GlobalClass.CCompany.CompanyName)
+    My Projects of @Html.DisplayFor(m => GlobalClass.CCompany.CompanyName)
+}
+@section SideBar{
+    <ul class="breadcrumb breadcrumb-caret position-right">
+        <li><a href="@Url.Action("Userhome","Home")">Home</a></li>
+        <li class="active">My Projects</li>
+    </ul>
+}
+@section TopHeader{
+    <a href="/MgtProject/SelectCompany" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-task"></i></b> Add New</a>
+
 }
 
-<div class="panel panel-flat">
-
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-md-6">
-                <input id="searchText" type="text" class="form-control" placeholder="Search for Project Here" onkeyup="search()" />
+<div class="sidebar sidebar-secondary sidebar-default">
+    <div class="sidebar-content">
+        <!-- Search task -->
+        <div class="sidebar-category">
+            <div class="category-title">
+                <span>Search Project</span>
+                <ul class="icons-list">
+                    <li><a href="#" data-action="collapse"></a></li>
+                </ul>
             </div>
-            <div class="col-md-3">
-                <a class="notice" href="#"><i class="icon icon-sort"></i> View By</a>
-            </div>
+            <div class="category-content">
 
-            <div class="col-md-3">
-                <a href="/MgtProject/SelectCompany"><i class="icon-add"></i> Add New</a>
-            </div>
+                <div class="has-feedback has-feedback-left">
+                    <input id="searchText" type="search" class="form-control" placeholder="Search for Project" onkeyup="search()" />
+                    <div class="form-control-feedback">
+                        <i class="icon-search4 text-size-base text-muted"></i>
+                    </div>
+                </div>
 
-        </div>
-    </div>
-    <div class="row" id="ViewBy">
-        <div class="panel-heading">
-
-            <div class="col-md-3">
-                <a class="btn btn-primary" href="/Home/ProjectByCompany"><i class="add-on"></i> View as Card</a>
-            </div>
-            <div class="col-md-3">
-                <a class="btn btn-primary" href="/MgtProject/CIndex"><i class="add-on"></i>View as List</a>
             </div>
         </div>
+        <!-- /search task -->
+        <!-- Action buttons -->
+        <div class="sidebar-category">
+            <div class="category-title">
+                <span>Company</span>
+                <ul class="icons-list">
+                    <li><a href="#" data-action="collapse"></a></li>
+                </ul>
+            </div>
+            <div class="category-content">
+                <div class="row">
+                    <div class="col-md-12" id="comp">
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- /action buttons -->
+        <!-- Task navigation -->
+        <div class="sidebar-category">
+            <div class="category-title">
+                <span>Navigation</span>
+                <ul class="icons-list">
+                    <li><a href="#" data-action="collapse"></a></li>
+                </ul>
+            </div>
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-alt navigation-accordion">
+                    <li class="navigation-header">Actions</li>
+
+                    <li><a href="@Url.Action("Index","MgtClientContact")"><i class="icon-user-plus"></i> Contacts</a></li>
+                    <li><a href="@Url.Action("IndexClientCompany","MgtClientCompany")"><i class="icon-collaboration"></i> Company</a></li>
+                    <li class="navigation-header">Tasks</li>
+                    <li><a href="@Url.Action("Index","UserItemCategory")"><i class="icon-files-empty"></i> Item Category</a></li>
+                    <li><a href="@Url.Action("Index","UserItemSubcategory")"><i class="icon-file-plus"></i> Item Subcategory</a></li>
+                    <li><a href="@Url.Action("Index","UserItemCatelogue")"><i class="icon-file-check"></i> Item Catelogue</a></li>
+                    <li class="navigation-divider"></li>
+
+                    <li><a href="@Url.Action("UserLogin","Home")"><i class="icon-cog3"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /task navigation -->
+
+
     </div>
 </div>
-<hr />
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <div class="row" id="comp">
+<div class="content-wrapper">
+    <div class="navbar navbar-default navbar-xs navbar-component">
+        <ul class="nav navbar-nav no-border visible-xs-block">
+            <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+        </ul>
+        <div class="navbar-collapse collapse" id="navbar-filter">
 
+            <div class="navbar-left">
 
+                <a class="btn btn-default" href="/Home/ProjectByCompanyReroute"><i class="add-on"></i> View as Grid</a>
+                <a class="btn btn-default" href="/MgtProject/ProjectByCompany"><i class="add-on"></i>View as List</a>
+            </div>
         </div>
     </div>
-    <div class="container" id="elementContainer">
-
-
-    </div><!--/container -->
-
+    <div class="row" id="elementContainer"></div>
 </div>
+@*///////////////////////////////////////////////////////////////////////////////////////////////*@
+

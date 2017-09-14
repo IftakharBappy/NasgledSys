@@ -217,6 +217,26 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }
+        public ActionResult ProjectByCompanyReroute()
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    return RedirectToAction("ProjectByCompany",new { id=GlobalClass.CCompany.ClientCompanyKey});
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
         public ActionResult ProjectByCompany(Guid id)
         {
             if (GlobalClass.MasterSession)

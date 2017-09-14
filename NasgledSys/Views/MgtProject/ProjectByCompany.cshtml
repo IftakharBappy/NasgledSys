@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-  
+
 
 
 <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
 <script src="~/Content/datatables/jquery.dataTables.js"></script>
 <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
         var baseList1 = [];
         var filteredList1 = [];
         var baseList = [];
@@ -21,7 +21,7 @@
                 type: "post",
                 dataType: "json",
                 contentType: "application/json",
-                url: "/Home/GetProjectListData/",
+                url: "/Home/GetProjectListDataByCompany/",
                 success: function (data) {
                     baseList1 = data;
                     filteredList1 = data;
@@ -78,11 +78,11 @@
         }
 
         $(document).ready(function () {
-           
+
             GetAllProject();
             GetAllCompanyName();
         });
-       
+
         function search() {
             filteredList1 = [];
             var searchText = $("#searchText").val().toLowerCase();
@@ -100,18 +100,18 @@
                 remakeGrid();
             }
         }
-    </script>
+</script>
 
 
 @section SideBar{
-  <ul class="breadcrumb breadcrumb-caret position-right">
-    <li><a href="@Url.Action("Userhome","Home")">Home</a></li>
-    <li class="active">My Projects</li>
-</ul>
+    <ul class="breadcrumb breadcrumb-caret position-right">
+        <li><a href="@Url.Action("Userhome","Home")">Home</a></li>
+        <li class="active">My Projects</li>
+    </ul>
 }
 
 @section CenterTitle{
-    List View Of All Projects
+    List View Of Projects of @Html.DisplayFor(m => GlobalClass.CCompany.CompanyName)
 }
 @section TopHeader{
     <a href="/MgtProject/SelectCompany" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-task"></i></b> Add New Project</a>
@@ -119,7 +119,7 @@
 }
 <div class="sidebar sidebar-secondary sidebar-default">
     <div class="sidebar-content">
-       
+
         <!-- Action buttons -->
         <div class="sidebar-category">
             <div class="category-title">
@@ -177,8 +177,8 @@
 
             <div class="navbar-left">
 
-                <a class="btn btn-default" href="/Home/Userhome"><i class="add-on"></i> View as Grid</a>
-                <a class="btn btn-default" href="/MgtProject/Index"><i class="add-on"></i>View as List</a>
+                <a class="btn btn-default" href="/Home/ProjectByCompanyReroute"><i class="add-on"></i> View as Grid</a>
+                <a class="btn btn-default" href="/MgtProject/ProjectByCompany"><i class="add-on"></i>View as List</a>
             </div>
             <div class="navbar-right">
                 <input id="searchText" type="text" class="form-control" placeholder="Search for Project" onkeyup="search()" />
@@ -189,10 +189,10 @@
         </div>
     </div>
 
-    <div  id="proj"></div>
-       
+    <div id="proj"></div>
 
- 
+
+
 </div>
 
 
