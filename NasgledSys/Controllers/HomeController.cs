@@ -201,6 +201,49 @@ namespace NasgledSys.Controllers
             {
                 try
                 {
+                    GlobalClass.AreaGuidForSubArea = Guid.Empty;
+                    GlobalClass.AreaHeading = null;
+                    return View();
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        public ActionResult ProjectByCompanyReroute()
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    return RedirectToAction("ProjectByCompany",new { id=GlobalClass.CCompany.ClientCompanyKey});
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        public ActionResult ProjectByCompany(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    GlobalClass.CCompany = db.ClientCompany.SingleOrDefault(m=>m.ClientCompanyKey==id);
                     return View();
                 }
                 catch (Exception e)
@@ -217,15 +260,33 @@ namespace NasgledSys.Controllers
         }
         public JsonResult GetProjectListData()
         {
-            var list = (from cc in db.Project where cc.ProfileKey==GlobalClass.ProfileUser.ProfileKey
+            var list = (from cc in db.Project where cc.ProfileKey==GlobalClass.ProfileUser.ProfileKey && cc.IsDelete==false
                         select new ProjectThumbnailClass
                         {
                            ProjectName= cc.ProjectName,
                            ProjectKey= cc.ProjectKey,
+                           ProjectStatus=cc.ProjectStatus.TypeName,
                            CompanyName= cc.ClientCompany.CompanyName,
                            AdminName=cc.UserProfile.FirstName+" "+ cc.UserProfile.LastName,
-                           AreaNum=db.Area.Where(m=>m.ProjectKey==cc.ProjectKey).Select(m=>m.SquareFeet).DefaultIfEmpty(0).Count(),
+                           AreaNum=db.Area.Where(m=>m.ProjectKey==cc.ProjectKey).Count(),
                            ExsistingProduct= db.AreaProduct.Where(m => m.ProjectKey == cc.ProjectKey).Select(m=>m.Count).DefaultIfEmpty(0).Sum()
+                        }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetProjectListDataByCompany()
+        {
+            var list = (from cc in db.Project
+                        where cc.ProfileKey == GlobalClass.ProfileUser.ProfileKey && cc.CompanyKey==GlobalClass.CCompany.ClientCompanyKey
+                        && cc.IsDelete == false
+                        select new ProjectThumbnailClass
+                        {
+                            ProjectName = cc.ProjectName,
+                            ProjectKey = cc.ProjectKey,
+                            ProjectStatus = cc.ProjectStatus.TypeName,
+                            CompanyName = cc.ClientCompany.CompanyName,
+                            AdminName = cc.UserProfile.FirstName + " " + cc.UserProfile.LastName,
+                            AreaNum = db.Area.Where(m => m.ProjectKey == cc.ProjectKey).Count(),
+                            ExsistingProduct = db.AreaProduct.Where(m => m.ProjectKey == cc.ProjectKey).Select(m => m.Count).DefaultIfEmpty(0).Sum()
                         }).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }

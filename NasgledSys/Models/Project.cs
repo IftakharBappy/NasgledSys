@@ -17,13 +17,13 @@ namespace NasgledSys.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Project()
         {
-            this.Area = new HashSet<Area>();
             this.CoolingSystem = new HashSet<CoolingSystem>();
             this.HeatingSystem = new HashSet<HeatingSystem>();
             this.NewRateSchedule = new HashSet<NewRateSchedule>();
             this.OperatingSchedule = new HashSet<OperatingSchedule>();
             this.Proposal = new HashSet<Proposal>();
             this.Team = new HashSet<Team>();
+            this.Area = new HashSet<Area>();
         }
     
         public System.Guid ProjectKey { get; set; }
@@ -54,8 +54,6 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
         public Nullable<System.Guid> ProfileKey { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Area> Area { get; set; }
         public virtual ClientContact ClientContact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CoolingSystem> CoolingSystem { get; set; }
@@ -74,5 +72,7 @@ namespace NasgledSys.Models
         public virtual ClientCompany ClientCompany { get; set; }
         public virtual CityList CityList { get; set; }
         public virtual StateList StateList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Area> Area { get; set; }
     }
 }

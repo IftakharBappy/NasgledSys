@@ -17,38 +17,39 @@
 @section CenterTitle{
     Join A company
 }
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary list-panel" id="list-panel">
-            <div class="panel-heading list-panel-heading">
-                <h1 class="panel-title list-panel-title">List of All the Companies</h1>
-
-               
-            </div>
-            
-            <div class="panel-body">
-               
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary list-panel" id="list-panel">
+                <div class="panel-heading list-panel-heading">
+                    <h1 class="panel-title list-panel-title">List of All the Companies</h1>
 
 
-                <table id="Citys-data-table" class="table table-striped table-bordered" style="width:100%;"></table>
+                </div>
+
+                <div class="panel-body">
+
+
+
+                    <table id="Citys-data-table" class="table table-striped table-bordered" style="width:100%;"></table>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-@section scripts
+    @section scripts
 {
-    <script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
-    <script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+        <script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+        <script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
 
-    <script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+        <script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
 
-    <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
-    <script src="~/Content/datatables/jquery.dataTables.js"></script>
-    <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+        <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+        <script src="~/Content/datatables/jquery.dataTables.js"></script>
+        <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
-    <script type="text/javascript">
-      
+        <script type="text/javascript">
+
         var CityListVM;
         $(function () {
 
@@ -97,14 +98,14 @@
                 }
             }
 
-          
+
 
             // initialize the datatables
             CityListVM.init();
 
-           
 
-           
+
+
 
             $('#Citys-data-table').on("click", ".deleteCity", function (event) {
                 event.preventDefault();
@@ -115,17 +116,17 @@
                     $.get(url, function (data) {
                         alert(data);
                         CityListVM.refresh();
-                        
+
                     });
                 }
             });
 
         });
 
-   
 
 
-    </script>
 
-}
+        </script>
+
+    }
 

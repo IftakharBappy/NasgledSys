@@ -50,7 +50,6 @@ namespace NasgledSys.Models
         public Nullable<decimal> IsOn { get; set; }
         public Nullable<System.Guid> ProjectKey { get; set; }
     
-        public virtual Area Area { get; set; }
         public virtual IncentiveMaxType IncentiveMaxType { get; set; }
         public virtual IncentiveType IncentiveType { get; set; }
         public virtual ProfileProduct ProfileProduct { get; set; }
@@ -62,5 +61,6 @@ namespace NasgledSys.Models
         public virtual ICollection<AreaProductNote> AreaProductNote { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AreaProductPhoto> AreaProductPhoto { get; set; }
+        public virtual Area Area { get; set; }
     }
 }

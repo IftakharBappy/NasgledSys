@@ -215,14 +215,18 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AreaDetailController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\DefaultEmailConfigController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MgtAdminItemController.cs" />
     <Compile Include="Controllers\MgtAnnualSalesRevenueSetupController.cs" />
+    <Compile Include="Controllers\MgtAreaController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
     <Compile Include="Controllers\MgtClientContactController.cs" />
+    <Compile Include="Controllers\MgtEnvironmentalImpactController.cs" />
     <Compile Include="Controllers\MgtHeatingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
@@ -244,17 +248,22 @@
     <Compile Include="Controllers\MgtManufacturerController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
     <Compile Include="Controllers\MgtProfileController.cs" />
-    <Compile Include="Controllers\MgtProfileProductController.cs" />
     <Compile Include="Controllers\MgtProjectController.cs" />
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
+    <Compile Include="Controllers\MgtUnitController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
     <Compile Include="Controllers\tcityController.cs" />
+    <Compile Include="Controllers\UserItemCategoryController.cs" />
+    <Compile Include="Controllers\UserItemCatelogueController.cs" />
+    <Compile Include="Controllers\UserItemSubcategoryController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DAL\ManageMainProduct.cs" />
+    <Compile Include="DAL\ManageProject.cs" />
+    <Compile Include="DAL\ManageProjectArea.cs" />
     <Compile Include="DAL\MgtAnnualSalesRevenueSetup.cs" />
     <Compile Include="DAL\MgtCityList.cs" />
     <Compile Include="DAL\MgtClientContact.cs" />
@@ -275,9 +284,12 @@
     <Compile Include="DAL\MgtManufacturer.cs" />
     <Compile Include="DAL\MgtProjectStatus.cs" />
     <Compile Include="DAL\MgtSalesReachSetup.cs" />
+    <Compile Include="EM\EM_Area.cs" />
+    <Compile Include="EM\EM_AreaDetail.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
+    <Compile Include="EM\EM_Project.cs" />
     <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -295,6 +307,7 @@
     <Compile Include="Models\AreaDetail.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AreaDetailViewModel.cs" />
     <Compile Include="Models\AreaDocument.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -370,6 +383,7 @@
     <Compile Include="Models\EnvironmentalImpact.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EnvironmentalImpactViewModel.cs" />
     <Compile Include="Models\Forms.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -454,7 +468,6 @@
     <Compile Include="Models\ProfileProduct.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProfileProductViewModel.cs" />
     <Compile Include="Models\Project.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -501,6 +514,7 @@
     <Compile Include="Models\Unit.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UnitViewModel.cs" />
     <Compile Include="Models\Usergroup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3668,7 +3682,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -3785,14 +3801,27 @@
     <Content Include="Views\MgtClientCompany\IndexClientCompany.cshtml" />
     <Content Include="Views\MgtProfile\JoinCompany.cshtml" />
     <Content Include="Views\MgtProfile\ChangeUsernamePassword.cshtml" />
-    <Content Include="Views\MgtProfileProduct\Index.cshtml" />
-    <Content Include="Views\MgtProfileProduct\Create.cshtml" />
-    <Content Include="Views\MgtProfileProduct\View.cshtml" />
-    <Content Include="Views\MgtProfileProduct\Edit.cshtml" />
+    <Content Include="Views\Home\ProjectByCompany.cshtml" />
+    <Content Include="Views\MgtProject\CIndex.cshtml" />
+    <Content Include="Views\MgtProject\SelectCompany.cshtml" />
+    <Content Include="Views\MgtUnit\Index.cshtml" />
+    <Content Include="Views\MgtProject\Created.cshtml" />
+    <Content Include="Views\MgtArea\Create.cshtml" />
+    <Content Include="Views\MgtArea\Created.cshtml" />
+    <Content Include="Views\MgtArea\Edit.cshtml" />
+    <Content Include="Views\MgtEnvironmentalImpact\Index.cshtml" />
+    <Content Include="Views\UserItemCategory\Index.cshtml" />
+    <Content Include="Views\UserItemSubcategory\Index.cshtml" />
+    <Content Include="Views\UserItemCatelogue\Index.cshtml" />
+    <Content Include="Views\AreaDetail\Edit.cshtml" />
+    <Content Include="Views\MgtProject\ProjectByCompany.cshtml" />
+    <Content Include="Views\MgtEnvironmentalImpact\Create.cshtml" />
+    <Content Include="Views\MgtEnvironmentalImpact\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AnnualSalesRevenueSetup\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\DropdownUtility\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />

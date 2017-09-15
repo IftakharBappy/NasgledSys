@@ -1,0 +1,198 @@
+﻿@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Project";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+        var baseList1 = [];
+        var filteredList1 = [];
+        var baseList = [];
+        var filteredList = [];
+        function GetAllProject() {
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/Home/GetProjectListDataByCompany/",
+                success: function (data) {
+                    baseList1 = data;
+                    filteredList1 = data;
+                    remakeGrid();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+        function remakeGrid() {
+            var res = " <table class='table table-striped table-bordered' id='tdt'><thead><tr><th>Project Name</th><th>Company</th><th>Admin</th><th>Areas</th><th>Exsisting Product</th><th></th><th></th></tr></thead><tbody>";
+
+            for (var i = 0; i < filteredList1.length; i++) {
+                res = res
+                    + "<tr><td>" + filteredList1[i].ProjectName + "</td><td>" + filteredList1[i].CompanyName
+                    + "</td><td>" + filteredList1[i].AdminName + "</td><td>" + filteredList1[i].AreaNum
+                    + "</td><td>" + filteredList1[i].ExsistingProduct
+                    + "</td><td><a href='/MgtProject/Create?id="+ filteredList1[i].ProjectKey +"'>Edit</a></td>"
+                    +"<td><a href='/MgtProject/Edit?id="+ filteredList1[i].ProjectKey +"'>View</a></td></tr>";
+            }
+            res = res + "</tbody></table>"
+            $("#proj").html(res);
+        }
+        function GetAllCompanyName() {
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/MgtClientCompany/GetClientCompanyListData/",
+                success: function (data) {
+                    baseList = data;
+                    filteredList = data;
+                    remakeGridCompany();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+        function remakeGridCompany() {
+            var res = "";
+            res = res + "<a href='/Home/Userhome' class='btn bg-blue-300 btn-block' type='button'><span>Select All</span></a>";
+
+
+
+            for (var i = 0; i < filteredList.length; i++) {
+                res = res
+                    + "<a href='/Home/ProjectByCompany?id=" + filteredList[i].ClientCompanyKey + "' class='btn bg-purple-300 btn-block btn-float' type='button'><i class='icon-bag'></i><span>" + filteredList[i].CompanyName + "</span></a>";
+            }
+
+            $("#comp").html(res);
+        }
+
+        $(document).ready(function () {
+
+            GetAllProject();
+            GetAllCompanyName();
+        });
+
+        function search() {
+            filteredList1 = [];
+            var searchText = $("#searchText").val().toLowerCase();
+            if (searchText == "") {
+                filteredList1 = baseList1;
+                remakeGrid();
+            }
+            else {
+                baseList1.forEach(function (item) {
+                    var asd = item.ProjectName.toLowerCase();
+                    if (asd.includes(searchText)) {
+                        filteredList1.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+        }
+</script>
+
+
+@section SideBar{
+    <ul class="breadcrumb breadcrumb-caret position-right">
+        <li><a href="@Url.Action("Userhome","Home")">Home</a></li>
+        <li class="active">My Projects</li>
+    </ul>
+}
+
+@section CenterTitle{
+    List View Of Projects of @Html.DisplayFor(m => GlobalClass.CCompany.CompanyName)
+}
+@section TopHeader{
+    <a href="/MgtProject/SelectCompany" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-task"></i></b> Add New Project</a>
+
+}
+<div class="sidebar sidebar-secondary sidebar-default">
+    <div class="sidebar-content">
+
+        <!-- Action buttons -->
+        <div class="sidebar-category">
+            <div class="category-title">
+                <span>Company</span>
+                <ul class="icons-list">
+                    <li><a href="#" data-action="collapse"></a></li>
+                </ul>
+            </div>
+            <div class="category-content">
+                <div class="row">
+                    <div class="col-md-12" id="comp">
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- /action buttons -->
+        <!-- Task navigation -->
+        <div class="sidebar-category">
+            <div class="category-title">
+                <span>Navigation</span>
+                <ul class="icons-list">
+                    <li><a href="#" data-action="collapse"></a></li>
+                </ul>
+            </div>
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-alt navigation-accordion">
+                    <li class="navigation-header">Actions</li>
+
+                    <li><a href="@Url.Action("Index","MgtClientContact")"><i class="icon-user-plus"></i> Contacts</a></li>
+                    <li><a href="@Url.Action("IndexClientCompany","MgtClientCompany")"><i class="icon-collaboration"></i> Company</a></li>
+                    <li class="navigation-header">Tasks</li>
+                    <li><a href="@Url.Action("Index","UserItemCategory")"><i class="icon-files-empty"></i> Item Category</a></li>
+                    <li><a href="@Url.Action("Index","UserItemSubcategory")"><i class="icon-file-plus"></i> Item Subcategory</a></li>
+                    <li><a href="@Url.Action("Index","UserItemCatelogue")"><i class="icon-file-check"></i> Item Catelogue</a></li>
+                    <li class="navigation-divider"></li>
+
+                    <li><a href="@Url.Action("UserLogin","Home")"><i class="icon-cog3"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /task navigation -->
+
+
+    </div>
+</div>
+<div class="content-wrapper">
+    <div class="navbar navbar-default navbar-xs navbar-component">
+        <ul class="nav navbar-nav no-border visible-xs-block">
+            <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+        </ul>
+        <div class="navbar-collapse collapse" id="navbar-filter">
+
+            <div class="navbar-left">
+
+                <a class="btn btn-default" href="/Home/ProjectByCompanyReroute"><i class="add-on"></i> View as Grid</a>
+                <a class="btn btn-default" href="/MgtProject/ProjectByCompany"><i class="add-on"></i>View as List</a>
+            </div>
+            <div class="navbar-right">
+                <input id="searchText" type="text" class="form-control" placeholder="Search for Project" onkeyup="search()" />
+                <div class="form-control-feedback">
+                    <i class="icon-search4 text-size-base text-muted"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="proj"></div>
+
+
+
+</div>
+
+

@@ -84,199 +84,201 @@
 @section CenterTitle{
    Add Company
 }
-<div class="row">
-    <div class="col-md-3">
-        &nbsp;
-        <div id="progress" class="modal fade">
-            <div class="center">
-                <img src="~/Content/loader4.gif" />
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            &nbsp;
+            <div id="progress" class="modal fade">
+                <div class="center">
+                    <img src="~/Content/loader4.gif" />
+                </div>
             </div>
         </div>
-    </div>
-    @using (Html.BeginForm("Create", "MgtClientCompany", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
-    {
-        <div class="panel panel-default col-md-6">
+        @using (Html.BeginForm("Create", "MgtClientCompany", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+            <div class="panel panel-default col-md-6">
 
 
-            <div class="panel-body">
+                <div class="panel-body">
 
-                @Html.ValidationSummary()
-                <ul class="nav nav-pills">
-                    <li class="active"><a href="#tab-demo1" data-toggle="tab">About</a></li>
-                    <li><a href="#tab-demo2" data-toggle="tab">Contact</a></li>
-                    <li><a href="#tab-demo3" data-toggle="tab">Billing</a></li>
-                    <li><a href="#tab-demo4" data-toggle="tab">Proposal Defaults</a></li>
-                    <li><a href="#tab-demo5" data-toggle="tab">Markup</a></li>
-                </ul>
-                <!-- /tabbed navigation -->
-                <!-- Tabbed navigation content -->
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="tab-demo1">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.CompanyName)
-                                @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Company Name", id = "CompanyName", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.IndustryTypeKey)
-                                @Html.DropDownListFor(model => model.IndustryTypeKey, ViewBag.IndustryTyepeSelectList as SelectList, "Select", new { @class = "select select-search" })
-                                @Html.ValidationMessageFor(model => model.IndustryTypeKey, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.NoOfSalesPerson)
-                                @Html.TextBoxFor(model => model.NoOfSalesPerson, new { placeholder = "Number of Sales Person", id = "NoOfSalesPerson", @class = "form-control" })
-                                <span class="small text-muted">How many sales person are in your company, regardless of whether or not they are on ######?</span>
-                                @Html.ValidationMessageFor(model => model.NoOfSalesPerson, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Description)
-                                @Html.TextBoxFor(model => model.Description, new { placeholder = "Description", id = "Description", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="tab-demo2">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.OfficePhone)
-                                @Html.TextBoxFor(model => model.OfficePhone, new { mask = "(999) 999-9999", placeholder = "Office Phone", id = "OfficePhone", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Address)
-                                @Html.TextBoxFor(model => model.Address, new { placeholder = "Office Address", id = "Address", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Address2)
-                                @Html.TextBoxFor(model => model.Address2, new { placeholder = "Office Address 2", id = "Address2", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        @*<div class="panel-body">*@
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.CityKey)
-                                        <select name="CityKey" placeholder="Select" class="select select-search"></select>
-                                        @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
-                                    </div>
+                    @Html.ValidationSummary()
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">About</a></li>
+                        <li><a href="#tab-demo2" data-toggle="tab">Contact</a></li>
+                        <li><a href="#tab-demo3" data-toggle="tab">Billing</a></li>
+                        <li><a href="#tab-demo4" data-toggle="tab">Proposal Defaults</a></li>
+                        <li><a href="#tab-demo5" data-toggle="tab">Markup</a></li>
+                    </ul>
+                    <!-- /tabbed navigation -->
+                    <!-- Tabbed navigation content -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CompanyName)
+                                    @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Company Name", id = "CompanyName", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
                                 </div>
-                                <div class="col-md-3 col-md-offset-1">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.StateKey)
-                                        <select name="StateKey" placeholder="Select" class="select select-search"></select>
-                                        @Html.ValidationMessageFor(model => model.StateKey, "", new { @class = "text-danger" })
-                                    </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IndustryTypeKey)
+                                    @Html.DropDownListFor(model => model.IndustryTypeKey, ViewBag.IndustryTyepeSelectList as SelectList, "Select", new { @class = "select select-search" })
+                                    @Html.ValidationMessageFor(model => model.IndustryTypeKey, "", new { @class = "text-danger" })
                                 </div>
-                                <div class="col-md-3 col-md-offset-1">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Zipcode)
-                                        @Html.TextBoxFor(model => model.Zipcode, new { placeholder = "Zipcode", id = "Zipcode", @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
-                                    </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.NoOfSalesPerson)
+                                    @Html.TextBoxFor(model => model.NoOfSalesPerson, new { placeholder = "Number of Sales Person", id = "NoOfSalesPerson", @class = "form-control" })
+                                    <span class="small text-muted">How many sales person are in your company, regardless of whether or not they are on ######?</span>
+                                    @Html.ValidationMessageFor(model => model.NoOfSalesPerson, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description)
+                                    @Html.TextBoxFor(model => model.Description, new { placeholder = "Description", id = "Description", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+
                         </div>
-                        @*</div>*@
-                    </div>
-                    <div class="tab-pane fade" id="tab-demo3">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.BillingContactName)
-                                @Html.TextBoxFor(model => model.BillingContactName, new { placeholder = "Billing Contact Name", id = "BillingContactName", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.BillingContactName, "", new { @class = "text-danger" })
+                        <div class="tab-pane fade" id="tab-demo2">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.OfficePhone)
+                                    @Html.TextBoxFor(model => model.OfficePhone, new { mask = "(999) 999-9999", placeholder = "Office Phone", id = "OfficePhone", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Address)
+                                    @Html.TextBoxFor(model => model.Address, new { placeholder = "Office Address", id = "Address", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Address2)
+                                    @Html.TextBoxFor(model => model.Address2, new { placeholder = "Office Address 2", id = "Address2", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.BillingContactEMail)
-                                @Html.TextBoxFor(model => model.BillingContactEMail, new { placeholder = "Billing Contact Email", id = "BillingContactEMail", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.BillingContactEMail, "", new { @class = "text-danger" })
+                            @*<div class="panel-body">*@
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CityKey)
+                                            <select name="CityKey" placeholder="Select" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-md-offset-1">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.StateKey)
+                                            <select name="StateKey" placeholder="Select" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.StateKey, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-md-offset-1">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Zipcode)
+                                            @Html.TextBoxFor(model => model.Zipcode, new { placeholder = "Zipcode", id = "Zipcode", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.IsAddressSameAsOffice)                              
-                                @Html.CheckBoxFor(model => model.IsAddressSameAsOffice)
-                                @Html.ValidationMessageFor(model => model.IsAddressSameAsOffice, "", new { @class = "text-danger" })
-                            </div>
+                            @*</div>*@
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-demo4">
-                        <div class="panel-body">
-                            <p class="big text-blue-600">Enter text below to pre-populate new proposals. Or just leave it blank and you can set it when you ceate a proposal.</p>
-                            <p class="big text-blue-600">For example, if you have standard legal text for every proposal, enter it below and each new proposal will be set with this text (and then can be eidted per proposal).</p>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ProposalIntro)
-                                @Html.TextBoxFor(model => model.ProposalIntro, new { placeholder = "Proposal Intro", id = "ProposalIntro", @class = "form-control" })
-                                <span class="small text-muted">Default text for the intro to a proposal</span>
-                                @Html.ValidationMessageFor(model => model.ProposalIntro, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ProposalTeam)
-                                @Html.TextBoxFor(model => model.ProposalTeam, new { placeholder = "Proposal Team", id = "ProposalTeam", @class = "form-control" })
-                                <span class="small text-muted">Default text about the team in a proposal</span>
-                                @Html.ValidationMessageFor(model => model.ProposalTeam, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ProposalLegal)
-                                @Html.TextBoxFor(model => model.ProposalLegal, new { placeholder = "Proposal Legal", id = "ProposalLegal", @class = "form-control" })
-                                <span class="small text-muted">Default text for #### in a proposal</span>
-                                @Html.ValidationMessageFor(model => model.ProposalLegal, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ProposalDisclaimer)
-                                @Html.TextBoxFor(model => model.ProposalDisclaimer, new { placeholder = "Proposal Disclaimer", id = "ProposalDisclaimer", @class = "form-control" })
-                                <span class="small text-muted">Default text for disclaimers in a proposal</span>
-                                @Html.ValidationMessageFor(model => model.ProposalDisclaimer, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ProposalReference)
-                                @Html.TextBoxFor(model => model.ProposalReference, new { placeholder = "Proposal Reference", id = "ProposalReference", @class = "form-control" })
-                                <span class="small text-muted">Default text for reference in a proposal</span>
-                                @Html.ValidationMessageFor(model => model.ProposalReference, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.EstimateFooter)
-                                @Html.TextBoxFor(model => model.EstimateFooter, new { placeholder = "Estimate Footer", id = "EstimateFooter", @class = "form-control" })
-                                <span class="small text-muted">Default text to show at the end of estimates</span>
-                                @Html.ValidationMessageFor(model => model.EstimateFooter, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-demo5">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.MarkupOrMargin)
-                                <select name="MarkupOrMargin" placeholder="Select" class="select">
-                                    <option value="Markup">Markup</option>
-                                    <option value="Margin">Margin</option>
-                                </select>
-                                <p class="small text-muted">For markup, product price to your customer equals product cost*(1+markup), so a $20 product cost and a 50% markup will have a price of $30.</p>
-                                <p class="small text-muted">For margin, product price to your customer equals product cost/(1-margin), so a $20 product cost and 50% margin will have a price of $40</p>
-                                @Html.ValidationMessageFor(model => model.MarkupOrMargin, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.MarkupOrMarginPercentage)
-                                @Html.TextBoxFor(model => model.MarkupOrMarginPercentage, new { placeholder = "Product Markup Or Margin Percentage", id = "MarkupOrMarginPercentage", @class = "form-control" })
-                                <p class="small text-muted">Enter a percentage without %(and enter 6 for 6%, not .06).</p>
-                                @Html.ValidationMessageFor(model => model.BillingContactEMail, "", new { @class = "text-danger" })
+                        <div class="tab-pane fade" id="tab-demo3">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BillingContactName)
+                                    @Html.TextBoxFor(model => model.BillingContactName, new { placeholder = "Billing Contact Name", id = "BillingContactName", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BillingContactName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BillingContactEMail)
+                                    @Html.TextBoxFor(model => model.BillingContactEMail, new { placeholder = "Billing Contact Email", id = "BillingContactEMail", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BillingContactEMail, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsAddressSameAsOffice)
+                                    @Html.CheckBoxFor(model => model.IsAddressSameAsOffice)
+                                    @Html.ValidationMessageFor(model => model.IsAddressSameAsOffice, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="tab-demo4">
+                            <div class="panel-body">
+                                <p class="big text-blue-600">Enter text below to pre-populate new proposals. Or just leave it blank and you can set it when you ceate a proposal.</p>
+                                <p class="big text-blue-600">For example, if you have standard legal text for every proposal, enter it below and each new proposal will be set with this text (and then can be eidted per proposal).</p>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProposalIntro)
+                                    @Html.TextBoxFor(model => model.ProposalIntro, new { placeholder = "Proposal Intro", id = "ProposalIntro", @class = "form-control" })
+                                    <span class="small text-muted">Default text for the intro to a proposal</span>
+                                    @Html.ValidationMessageFor(model => model.ProposalIntro, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProposalTeam)
+                                    @Html.TextBoxFor(model => model.ProposalTeam, new { placeholder = "Proposal Team", id = "ProposalTeam", @class = "form-control" })
+                                    <span class="small text-muted">Default text about the team in a proposal</span>
+                                    @Html.ValidationMessageFor(model => model.ProposalTeam, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProposalLegal)
+                                    @Html.TextBoxFor(model => model.ProposalLegal, new { placeholder = "Proposal Legal", id = "ProposalLegal", @class = "form-control" })
+                                    <span class="small text-muted">Default text for #### in a proposal</span>
+                                    @Html.ValidationMessageFor(model => model.ProposalLegal, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProposalDisclaimer)
+                                    @Html.TextBoxFor(model => model.ProposalDisclaimer, new { placeholder = "Proposal Disclaimer", id = "ProposalDisclaimer", @class = "form-control" })
+                                    <span class="small text-muted">Default text for disclaimers in a proposal</span>
+                                    @Html.ValidationMessageFor(model => model.ProposalDisclaimer, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProposalReference)
+                                    @Html.TextBoxFor(model => model.ProposalReference, new { placeholder = "Proposal Reference", id = "ProposalReference", @class = "form-control" })
+                                    <span class="small text-muted">Default text for reference in a proposal</span>
+                                    @Html.ValidationMessageFor(model => model.ProposalReference, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EstimateFooter)
+                                    @Html.TextBoxFor(model => model.EstimateFooter, new { placeholder = "Estimate Footer", id = "EstimateFooter", @class = "form-control" })
+                                    <span class="small text-muted">Default text to show at the end of estimates</span>
+                                    @Html.ValidationMessageFor(model => model.EstimateFooter, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-demo5">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MarkupOrMargin)
+                                    <select name="MarkupOrMargin" placeholder="Select" class="select">
+                                        <option value="Markup">Markup</option>
+                                        <option value="Margin">Margin</option>
+                                    </select>
+                                    <p class="small text-muted">For markup, product price to your customer equals product cost*(1+markup), so a $20 product cost and a 50% markup will have a price of $30.</p>
+                                    <p class="small text-muted">For margin, product price to your customer equals product cost/(1-margin), so a $20 product cost and 50% margin will have a price of $40</p>
+                                    @Html.ValidationMessageFor(model => model.MarkupOrMargin, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MarkupOrMarginPercentage)
+                                    @Html.TextBoxFor(model => model.MarkupOrMarginPercentage, new { placeholder = "Product Markup Or Margin Percentage", id = "MarkupOrMarginPercentage", @class = "form-control" })
+                                    <p class="small text-muted">Enter a percentage without %(and enter 6 for 6%, not .06).</p>
+                                    @Html.ValidationMessageFor(model => model.BillingContactEMail, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                </div>
+                <div class="panel-footer">
+                    <a class="btn btn-primary btn-xlg col-md-4 col-md-offset-1" href="/MgtClientCompany/IndexClientCompany">Back to list</a>
+                    <button type="submit" class="btn btn-primary btn-xlg col-md-4 col-md-offset-2" id="btnAdd">Create Profile</button>
+                    <br />
+                    <h2>@TempData["mess"]</h2>
                 </div>
 
             </div>
-            <div class="panel-footer">
-                <a class="btn btn-primary btn-xlg col-md-4 col-md-offset-1" href="/MgtClientCompany/IndexClientCompany">Back to list</a>
-                <button type="submit" class="btn btn-primary btn-xlg col-md-4 col-md-offset-2" id="btnAdd">Create Profile</button>
-                <br />
-                <h2>@TempData["mess"]</h2>
-            </div>
-
+        }
+        <div class="col-md-3">
+            &nbsp;
         </div>
-    }
-    <div class="col-md-3">
-        &nbsp;
     </div>
 </div>

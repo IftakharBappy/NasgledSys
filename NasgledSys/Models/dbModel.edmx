@@ -28,6 +28,7 @@
           <Property Name="HeatingSystemKey" Type="uniqueidentifier" />
           <Property Name="ProjectKey" Type="uniqueidentifier" />
           <Property Name="ParentAreaKey" Type="uniqueidentifier" />
+          <Property Name="IsDelete" Type="bit" />
         </EntityType>
         <EntityType Name="AreaDetail">
           <Key>
@@ -579,6 +580,7 @@
           <Property Name="ModelNo" Type="nvarchar(max)" />
           <Property Name="Watt" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ThermalEfficacy" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ThermalEfficiency" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CRI" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Lumen" Type="decimal" Precision="18" Scale="2" />
           <Property Name="LightApparent" Type="decimal" Precision="18" Scale="2" />
@@ -2416,7 +2418,6 @@
             <End Role="Usergroup" EntitySet="Usergroup" />
             <End Role="StaffList" EntitySet="StaffList" />
           </AssociationSet>
-          <EntitySet Name="Area" EntityType="NasgledDBModel.Area" />
           <EntitySet Name="AreaDetail" EntityType="NasgledDBModel.AreaDetail" />
           <EntitySet Name="AreaDocument" EntityType="NasgledDBModel.AreaDocument" />
           <EntitySet Name="AreaNote" EntityType="NasgledDBModel.AreaNote" />
@@ -2458,62 +2459,6 @@
           <EntitySet Name="Team" EntityType="NasgledDBModel.Team" />
           <EntitySet Name="UserProfile" EntityType="NasgledDBModel.UserProfile" />
           <EntitySet Name="UserRole" EntityType="NasgledDBModel.UserRole" />
-          <AssociationSet Name="FK_Area_CoolingSystem" Association="NasgledDBModel.FK_Area_CoolingSystem">
-            <End Role="CoolingSystem" EntitySet="CoolingSystem" />
-            <End Role="Area" EntitySet="Area" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Area_HeatingSystem" Association="NasgledDBModel.FK_Area_HeatingSystem">
-            <End Role="HeatingSystem" EntitySet="HeatingSystem" />
-            <End Role="Area" EntitySet="Area" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Area_NewRateSchedule" Association="NasgledDBModel.FK_Area_NewRateSchedule">
-            <End Role="NewRateSchedule" EntitySet="NewRateSchedule" />
-            <End Role="Area" EntitySet="Area" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Area_OperatingSchedule" Association="NasgledDBModel.FK_Area_OperatingSchedule">
-            <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
-            <End Role="Area" EntitySet="Area" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Area_Project" Association="NasgledDBModel.FK_Area_Project">
-            <End Role="Project" EntitySet="Project" />
-            <End Role="Area" EntitySet="Area" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AreaDetail_Area" Association="NasgledDBModel.FK_AreaDetail_Area">
-            <End Role="Area" EntitySet="Area" />
-            <End Role="AreaDetail" EntitySet="AreaDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AreaDocument_Area" Association="NasgledDBModel.FK_AreaDocument_Area">
-            <End Role="Area" EntitySet="Area" />
-            <End Role="AreaDocument" EntitySet="AreaDocument" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AreaNote_Area" Association="NasgledDBModel.FK_AreaNote_Area">
-            <End Role="Area" EntitySet="Area" />
-            <End Role="AreaNote" EntitySet="AreaNote" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AreaPhoto_Area" Association="NasgledDBModel.FK_AreaPhoto_Area">
-            <End Role="Area" EntitySet="Area" />
-            <End Role="AreaPhoto" EntitySet="AreaPhoto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AreaProduct_Area" Association="NasgledDBModel.FK_AreaProduct_Area">
-            <End Role="Area" EntitySet="Area" />
-            <End Role="AreaProduct" EntitySet="AreaProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AreaProductDetail_Area" Association="NasgledDBModel.FK_AreaProductDetail_Area">
-            <End Role="Area" EntitySet="Area" />
-            <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AreaProductDocument_Area" Association="NasgledDBModel.FK_AreaProductDocument_Area">
-            <End Role="Area" EntitySet="Area" />
-            <End Role="AreaProductDocument" EntitySet="AreaProductDocument" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AreaProductNote_Area" Association="NasgledDBModel.FK_AreaProductNote_Area">
-            <End Role="Area" EntitySet="Area" />
-            <End Role="AreaProductNote" EntitySet="AreaProductNote" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AreaProductPhoto_Area" Association="NasgledDBModel.FK_AreaProductPhoto_Area">
-            <End Role="Area" EntitySet="Area" />
-            <End Role="AreaProductPhoto" EntitySet="AreaProductPhoto" />
-          </AssociationSet>
           <AssociationSet Name="FK_AreaDetail_LightingSatisfactionFactor" Association="NasgledDBModel.FK_AreaDetail_LightingSatisfactionFactor">
             <End Role="LightingSatisfactionFactor" EntitySet="LightingSatisfactionFactor" />
             <End Role="AreaDetail" EntitySet="AreaDetail" />
@@ -2795,36 +2740,64 @@
             <End Role="StateList" EntitySet="StateList" />
             <End Role="Project" EntitySet="Project" />
           </AssociationSet>
+          <EntitySet Name="Area" EntityType="NasgledDBModel.Area" />
+          <AssociationSet Name="FK_Area_CoolingSystem" Association="NasgledDBModel.FK_Area_CoolingSystem">
+            <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+            <End Role="Area" EntitySet="Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Area_HeatingSystem" Association="NasgledDBModel.FK_Area_HeatingSystem">
+            <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+            <End Role="Area" EntitySet="Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Area_NewRateSchedule" Association="NasgledDBModel.FK_Area_NewRateSchedule">
+            <End Role="NewRateSchedule" EntitySet="NewRateSchedule" />
+            <End Role="Area" EntitySet="Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Area_OperatingSchedule" Association="NasgledDBModel.FK_Area_OperatingSchedule">
+            <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+            <End Role="Area" EntitySet="Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Area_Project" Association="NasgledDBModel.FK_Area_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Area" EntitySet="Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaDetail_Area" Association="NasgledDBModel.FK_AreaDetail_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaDetail" EntitySet="AreaDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaDocument_Area" Association="NasgledDBModel.FK_AreaDocument_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaDocument" EntitySet="AreaDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaNote_Area" Association="NasgledDBModel.FK_AreaNote_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaNote" EntitySet="AreaNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaPhoto_Area" Association="NasgledDBModel.FK_AreaPhoto_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaPhoto" EntitySet="AreaPhoto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaProduct_Area" Association="NasgledDBModel.FK_AreaProduct_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaProduct" EntitySet="AreaProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaProductDetail_Area" Association="NasgledDBModel.FK_AreaProductDetail_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaProductDocument_Area" Association="NasgledDBModel.FK_AreaProductDocument_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaProductDocument" EntitySet="AreaProductDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaProductNote_Area" Association="NasgledDBModel.FK_AreaProductNote_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaProductNote" EntitySet="AreaProductNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaProductPhoto_Area" Association="NasgledDBModel.FK_AreaProductPhoto_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="AreaProductPhoto" EntitySet="AreaProductPhoto" />
+          </AssociationSet>
           </EntityContainer>
-        <EntityType Name="Area">
-          <Key>
-            <PropertyRef Name="AreaKey" />
-          </Key>
-          <Property Name="AreaKey" Type="Guid" Nullable="false" />
-          <Property Name="AreaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Reception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SquareFeet" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OperationScheduleKey" Type="Guid" />
-          <Property Name="NewRateScheduleKey" Type="Guid" />
-          <Property Name="CoolingSystemKey" Type="Guid" />
-          <Property Name="HeatingSystemKey" Type="Guid" />
-          <Property Name="ProjectKey" Type="Guid" />
-          <Property Name="ParentAreaKey" Type="Guid" />
-          <NavigationProperty Name="CoolingSystem" Relationship="NasgledDBModel.FK_Area_CoolingSystem" FromRole="Area" ToRole="CoolingSystem" />
-          <NavigationProperty Name="HeatingSystem" Relationship="NasgledDBModel.FK_Area_HeatingSystem" FromRole="Area" ToRole="HeatingSystem" />
-          <NavigationProperty Name="NewRateSchedule" Relationship="NasgledDBModel.FK_Area_NewRateSchedule" FromRole="Area" ToRole="NewRateSchedule" />
-          <NavigationProperty Name="OperatingSchedule" Relationship="NasgledDBModel.FK_Area_OperatingSchedule" FromRole="Area" ToRole="OperatingSchedule" />
-          <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Area_Project" FromRole="Area" ToRole="Project" />
-          <NavigationProperty Name="AreaDetail" Relationship="NasgledDBModel.FK_AreaDetail_Area" FromRole="Area" ToRole="AreaDetail" />
-          <NavigationProperty Name="AreaDocument" Relationship="NasgledDBModel.FK_AreaDocument_Area" FromRole="Area" ToRole="AreaDocument" />
-          <NavigationProperty Name="AreaNote" Relationship="NasgledDBModel.FK_AreaNote_Area" FromRole="Area" ToRole="AreaNote" />
-          <NavigationProperty Name="AreaPhoto" Relationship="NasgledDBModel.FK_AreaPhoto_Area" FromRole="Area" ToRole="AreaPhoto" />
-          <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProduct_Area" FromRole="Area" ToRole="AreaProduct" />
-          <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_Area" FromRole="Area" ToRole="AreaProductDetail" />
-          <NavigationProperty Name="AreaProductDocument" Relationship="NasgledDBModel.FK_AreaProductDocument_Area" FromRole="Area" ToRole="AreaProductDocument" />
-          <NavigationProperty Name="AreaProductNote" Relationship="NasgledDBModel.FK_AreaProductNote_Area" FromRole="Area" ToRole="AreaProductNote" />
-          <NavigationProperty Name="AreaProductPhoto" Relationship="NasgledDBModel.FK_AreaProductPhoto_Area" FromRole="Area" ToRole="AreaProductPhoto" />
-        </EntityType>
         <EntityType Name="AreaDetail">
           <Key>
             <PropertyRef Name="DetailKey" />
@@ -2838,8 +2811,8 @@
           <Property Name="Reflectance" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="AreaWidth" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Length" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaDetail_Area" FromRole="AreaDetail" ToRole="Area" />
           <NavigationProperty Name="LightingSatisfactionFactor" Relationship="NasgledDBModel.FK_AreaDetail_LightingSatisfactionFactor" FromRole="AreaDetail" ToRole="LightingSatisfactionFactor" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaDetail_Area" FromRole="AreaDetail" ToRole="Area" />
         </EntityType>
         <EntityType Name="AreaDocument">
           <Key>
@@ -2904,7 +2877,6 @@
           <Property Name="ShipingCost" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="MiscCost" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsOn" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProduct_Area" FromRole="AreaProduct" ToRole="Area" />
           <NavigationProperty Name="IncentiveMaxType" Relationship="NasgledDBModel.FK_AreaProduct_IncentiveMaxType" FromRole="AreaProduct" ToRole="IncentiveMaxType" />
           <NavigationProperty Name="IncentiveType" Relationship="NasgledDBModel.FK_AreaProduct_IncentiveType" FromRole="AreaProduct" ToRole="IncentiveType" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProduct_ProfileProduct" FromRole="AreaProduct" ToRole="ProfileProduct" />
@@ -2913,6 +2885,7 @@
           <NavigationProperty Name="AreaProductNote" Relationship="NasgledDBModel.FK_AreaProductNote_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductNote" />
           <NavigationProperty Name="AreaProductPhoto" Relationship="NasgledDBModel.FK_AreaProductPhoto_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductPhoto" />
           <Property Name="ProjectKey" Type="Guid" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProduct_Area" FromRole="AreaProduct" ToRole="Area" />
         </EntityType>
         <EntityType Name="AreaProductDetail">
           <Key>
@@ -2932,11 +2905,11 @@
           <Property Name="Year" Type="Int32" />
           <Property Name="LightingSatisfactionKey" Type="Guid" />
           <Property Name="MountingHeight" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductDetail_Area" FromRole="AreaProductDetail" ToRole="Area" />
           <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProductDetail_AreaProduct" FromRole="AreaProductDetail" ToRole="AreaProduct" />
           <NavigationProperty Name="LightingSatisfactionFactor" Relationship="NasgledDBModel.FK_AreaProductDetail_LightingSatisfactionFactor" FromRole="AreaProductDetail" ToRole="LightingSatisfactionFactor" />
           <NavigationProperty Name="OperatingSchedule" Relationship="NasgledDBModel.FK_AreaProductDetail_OperatingSchedule" FromRole="AreaProductDetail" ToRole="OperatingSchedule" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProductDetail_ProfileProduct" FromRole="AreaProductDetail" ToRole="ProfileProduct" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductDetail_Area" FromRole="AreaProductDetail" ToRole="Area" />
         </EntityType>
         <EntityType Name="AreaProductDocument">
           <Key>
@@ -2950,9 +2923,9 @@
           <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductDocument_Area" FromRole="AreaProductDocument" ToRole="Area" />
           <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProductDocument_AreaProduct" FromRole="AreaProductDocument" ToRole="AreaProduct" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProductDocument_ProfileProduct" FromRole="AreaProductDocument" ToRole="ProfileProduct" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductDocument_Area" FromRole="AreaProductDocument" ToRole="Area" />
         </EntityType>
         <EntityType Name="AreaProductNote">
           <Key>
@@ -2966,9 +2939,9 @@
           <Property Name="InternalNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductNote_Area" FromRole="AreaProductNote" ToRole="Area" />
           <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProductNote_AreaProduct" FromRole="AreaProductNote" ToRole="AreaProduct" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProductNote_ProfileProduct" FromRole="AreaProductNote" ToRole="ProfileProduct" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductNote_Area" FromRole="AreaProductNote" ToRole="Area" />
         </EntityType>
         <EntityType Name="AreaProductPhoto">
           <Key>
@@ -2982,9 +2955,9 @@
           <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductPhoto_Area" FromRole="AreaProductPhoto" ToRole="Area" />
           <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProductPhoto_AreaProduct" FromRole="AreaProductPhoto" ToRole="AreaProduct" />
           <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProductPhoto_ProfileProduct" FromRole="AreaProductPhoto" ToRole="ProfileProduct" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductPhoto_Area" FromRole="AreaProductPhoto" ToRole="Area" />
         </EntityType>
         <EntityType Name="ClientContact">
           <Key>
@@ -3040,11 +3013,11 @@
           <Property Name="InternalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDefault" Type="Boolean" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_CoolingSystem" FromRole="CoolingSystem" ToRole="Area" />
           <NavigationProperty Name="CoolingEfficientyType" Relationship="NasgledDBModel.FK_CoolingSystem_CoolingEfficientyType" FromRole="CoolingSystem" ToRole="CoolingEfficientyType" />
           <NavigationProperty Name="CoolingSystemType" Relationship="NasgledDBModel.FK_CoolingSystem_CoolingSystemType" FromRole="CoolingSystem" ToRole="CoolingSystemType" />
           <NavigationProperty Name="FuelType" Relationship="NasgledDBModel.FK_CoolingSystem_FuelType" FromRole="CoolingSystem" ToRole="FuelType" />
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_CoolingSystem_Project" FromRole="CoolingSystem" ToRole="Project" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_CoolingSystem" FromRole="CoolingSystem" ToRole="Area" />
         </EntityType>
         <EntityType Name="CoolingSystemType">
           <Key>
@@ -3094,11 +3067,11 @@
           <Property Name="InternalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDefault" Type="Boolean" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_HeatingSystem" FromRole="HeatingSystem" ToRole="Area" />
           <NavigationProperty Name="FuelType" Relationship="NasgledDBModel.FK_HeatingSystem_FuelType" FromRole="HeatingSystem" ToRole="FuelType" />
           <NavigationProperty Name="HeatingEfficiencyType" Relationship="NasgledDBModel.FK_HeatingSystem_HeatingEfficiencyType" FromRole="HeatingSystem" ToRole="HeatingEfficiencyType" />
           <NavigationProperty Name="HeatingSystemType" Relationship="NasgledDBModel.FK_HeatingSystem_HeatingSystemType" FromRole="HeatingSystem" ToRole="HeatingSystemType" />
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_HeatingSystem_Project" FromRole="HeatingSystem" ToRole="Project" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_HeatingSystem" FromRole="HeatingSystem" ToRole="Area" />
         </EntityType>
         <EntityType Name="HeatingSystemType">
           <Key>
@@ -3226,8 +3199,8 @@
           <Property Name="InternalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDefault" Type="Boolean" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_NewRateSchedule" FromRole="NewRateSchedule" ToRole="Area" />
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_NewRateSchedule_Project" FromRole="NewRateSchedule" ToRole="Project" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_NewRateSchedule" FromRole="NewRateSchedule" ToRole="Area" />
         </EntityType>
         <EntityType Name="OperatingSchedule">
           <Key>
@@ -3240,9 +3213,9 @@
           <Property Name="InternalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDefault" Type="Boolean" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_OperatingSchedule" FromRole="OperatingSchedule" ToRole="Area" />
           <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_OperatingSchedule" FromRole="OperatingSchedule" ToRole="AreaProductDetail" />
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_OperatingSchedule_Project" FromRole="OperatingSchedule" ToRole="Project" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_OperatingSchedule" FromRole="OperatingSchedule" ToRole="Area" />
         </EntityType>
         <EntityType Name="ProfileProduct">
           <Key>
@@ -3285,6 +3258,7 @@
           <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LampLife" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TypeCount" Type="Int32" />
+          <Property Name="ThermalEfficiency" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -3301,7 +3275,6 @@
           <Property Name="IsAccessableByOthers" Type="Boolean" />
           <Property Name="CompanyKey" Type="Guid" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_Project" FromRole="Project" ToRole="Area" />
           <NavigationProperty Name="ClientContact" Relationship="NasgledDBModel.FK_Project_ClientContact" FromRole="Project" ToRole="ClientContact" />
           <NavigationProperty Name="CoolingSystem" Relationship="NasgledDBModel.FK_CoolingSystem_Project" FromRole="Project" ToRole="CoolingSystem" />
           <NavigationProperty Name="HeatingSystem" Relationship="NasgledDBModel.FK_HeatingSystem_Project" FromRole="Project" ToRole="HeatingSystem" />
@@ -3330,6 +3303,7 @@
           <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_Project_CityList" FromRole="Project" ToRole="CityList" />
           <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_Project_StateList" FromRole="Project" ToRole="StateList" />
           <Property Name="ProfileKey" Type="Guid" />
+          <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_Project" FromRole="Project" ToRole="Area" />
         </EntityType>
         <EntityType Name="ProjectStatus">
           <Key>
@@ -3483,174 +3457,6 @@
           <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_UserProfile_UserRole" FromRole="UserRole" ToRole="UserProfile" />
           <Property Name="Rlevel" Type="Int32" />
         </EntityType>
-        <Association Name="FK_Area_CoolingSystem">
-          <End Type="NasgledDBModel.CoolingSystem" Role="CoolingSystem" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CoolingSystem">
-              <PropertyRef Name="CoolingSystemKey" />
-            </Principal>
-            <Dependent Role="Area">
-              <PropertyRef Name="CoolingSystemKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Area_HeatingSystem">
-          <End Type="NasgledDBModel.HeatingSystem" Role="HeatingSystem" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HeatingSystem">
-              <PropertyRef Name="HeatingSystemKey" />
-            </Principal>
-            <Dependent Role="Area">
-              <PropertyRef Name="HeatingSystemKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Area_NewRateSchedule">
-          <End Type="NasgledDBModel.NewRateSchedule" Role="NewRateSchedule" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NewRateSchedule">
-              <PropertyRef Name="PKey" />
-            </Principal>
-            <Dependent Role="Area">
-              <PropertyRef Name="NewRateScheduleKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Area_OperatingSchedule">
-          <End Type="NasgledDBModel.OperatingSchedule" Role="OperatingSchedule" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OperatingSchedule">
-              <PropertyRef Name="PKey" />
-            </Principal>
-            <Dependent Role="Area">
-              <PropertyRef Name="OperationScheduleKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Area_Project">
-          <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Project">
-              <PropertyRef Name="ProjectKey" />
-            </Principal>
-            <Dependent Role="Area">
-              <PropertyRef Name="ProjectKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AreaDetail_Area">
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.AreaDetail" Role="AreaDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Area">
-              <PropertyRef Name="AreaKey" />
-            </Principal>
-            <Dependent Role="AreaDetail">
-              <PropertyRef Name="AreaKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AreaDocument_Area">
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.AreaDocument" Role="AreaDocument" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Area">
-              <PropertyRef Name="AreaKey" />
-            </Principal>
-            <Dependent Role="AreaDocument">
-              <PropertyRef Name="AreaKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AreaNote_Area">
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.AreaNote" Role="AreaNote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Area">
-              <PropertyRef Name="AreaKey" />
-            </Principal>
-            <Dependent Role="AreaNote">
-              <PropertyRef Name="AreaKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AreaPhoto_Area">
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.AreaPhoto" Role="AreaPhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Area">
-              <PropertyRef Name="AreaKey" />
-            </Principal>
-            <Dependent Role="AreaPhoto">
-              <PropertyRef Name="AreaKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AreaProduct_Area">
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Area">
-              <PropertyRef Name="AreaKey" />
-            </Principal>
-            <Dependent Role="AreaProduct">
-              <PropertyRef Name="AreaKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AreaProductDetail_Area">
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.AreaProductDetail" Role="AreaProductDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Area">
-              <PropertyRef Name="AreaKey" />
-            </Principal>
-            <Dependent Role="AreaProductDetail">
-              <PropertyRef Name="AreaKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AreaProductDocument_Area">
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.AreaProductDocument" Role="AreaProductDocument" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Area">
-              <PropertyRef Name="AreaKey" />
-            </Principal>
-            <Dependent Role="AreaProductDocument">
-              <PropertyRef Name="AreaKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AreaProductNote_Area">
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.AreaProductNote" Role="AreaProductNote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Area">
-              <PropertyRef Name="AreaKey" />
-            </Principal>
-            <Dependent Role="AreaProductNote">
-              <PropertyRef Name="AreaKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AreaProductPhoto_Area">
-          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.AreaProductPhoto" Role="AreaProductPhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Area">
-              <PropertyRef Name="AreaKey" />
-            </Principal>
-            <Dependent Role="AreaProductPhoto">
-              <PropertyRef Name="AreaKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AreaDetail_LightingSatisfactionFactor">
           <End Type="NasgledDBModel.LightingSatisfactionFactor" Role="LightingSatisfactionFactor" Multiplicity="0..1" />
           <End Type="NasgledDBModel.AreaDetail" Role="AreaDetail" Multiplicity="*" />
@@ -4673,6 +4479,204 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="AreaKey" />
+          </Key>
+          <Property Name="AreaKey" Type="Guid" Nullable="false" />
+          <Property Name="AreaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Reception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SquareFeet" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OperationScheduleKey" Type="Guid" />
+          <Property Name="NewRateScheduleKey" Type="Guid" />
+          <Property Name="CoolingSystemKey" Type="Guid" />
+          <Property Name="HeatingSystemKey" Type="Guid" />
+          <Property Name="ProjectKey" Type="Guid" />
+          <Property Name="ParentAreaKey" Type="Guid" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="CoolingSystem" Relationship="NasgledDBModel.FK_Area_CoolingSystem" FromRole="Area" ToRole="CoolingSystem" />
+          <NavigationProperty Name="HeatingSystem" Relationship="NasgledDBModel.FK_Area_HeatingSystem" FromRole="Area" ToRole="HeatingSystem" />
+          <NavigationProperty Name="NewRateSchedule" Relationship="NasgledDBModel.FK_Area_NewRateSchedule" FromRole="Area" ToRole="NewRateSchedule" />
+          <NavigationProperty Name="OperatingSchedule" Relationship="NasgledDBModel.FK_Area_OperatingSchedule" FromRole="Area" ToRole="OperatingSchedule" />
+          <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Area_Project" FromRole="Area" ToRole="Project" />
+          <NavigationProperty Name="AreaDetail" Relationship="NasgledDBModel.FK_AreaDetail_Area" FromRole="Area" ToRole="AreaDetail" />
+          <NavigationProperty Name="AreaDocument" Relationship="NasgledDBModel.FK_AreaDocument_Area" FromRole="Area" ToRole="AreaDocument" />
+          <NavigationProperty Name="AreaNote" Relationship="NasgledDBModel.FK_AreaNote_Area" FromRole="Area" ToRole="AreaNote" />
+          <NavigationProperty Name="AreaPhoto" Relationship="NasgledDBModel.FK_AreaPhoto_Area" FromRole="Area" ToRole="AreaPhoto" />
+          <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProduct_Area" FromRole="Area" ToRole="AreaProduct" />
+          <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_Area" FromRole="Area" ToRole="AreaProductDetail" />
+          <NavigationProperty Name="AreaProductDocument" Relationship="NasgledDBModel.FK_AreaProductDocument_Area" FromRole="Area" ToRole="AreaProductDocument" />
+          <NavigationProperty Name="AreaProductNote" Relationship="NasgledDBModel.FK_AreaProductNote_Area" FromRole="Area" ToRole="AreaProductNote" />
+          <NavigationProperty Name="AreaProductPhoto" Relationship="NasgledDBModel.FK_AreaProductPhoto_Area" FromRole="Area" ToRole="AreaProductPhoto" />
+        </EntityType>
+        <Association Name="FK_Area_CoolingSystem">
+          <End Type="NasgledDBModel.CoolingSystem" Role="CoolingSystem" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoolingSystem">
+              <PropertyRef Name="CoolingSystemKey" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="CoolingSystemKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Area_HeatingSystem">
+          <End Type="NasgledDBModel.HeatingSystem" Role="HeatingSystem" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HeatingSystem">
+              <PropertyRef Name="HeatingSystemKey" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="HeatingSystemKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Area_NewRateSchedule">
+          <End Type="NasgledDBModel.NewRateSchedule" Role="NewRateSchedule" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NewRateSchedule">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="NewRateScheduleKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Area_OperatingSchedule">
+          <End Type="NasgledDBModel.OperatingSchedule" Role="OperatingSchedule" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OperatingSchedule">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="OperationScheduleKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Area_Project">
+          <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectKey" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="ProjectKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaDetail_Area">
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaDetail" Role="AreaDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaKey" />
+            </Principal>
+            <Dependent Role="AreaDetail">
+              <PropertyRef Name="AreaKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaDocument_Area">
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaDocument" Role="AreaDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaKey" />
+            </Principal>
+            <Dependent Role="AreaDocument">
+              <PropertyRef Name="AreaKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaNote_Area">
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaNote" Role="AreaNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaKey" />
+            </Principal>
+            <Dependent Role="AreaNote">
+              <PropertyRef Name="AreaKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaPhoto_Area">
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaPhoto" Role="AreaPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaKey" />
+            </Principal>
+            <Dependent Role="AreaPhoto">
+              <PropertyRef Name="AreaKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaProduct_Area">
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaKey" />
+            </Principal>
+            <Dependent Role="AreaProduct">
+              <PropertyRef Name="AreaKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaProductDetail_Area">
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaProductDetail" Role="AreaProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaKey" />
+            </Principal>
+            <Dependent Role="AreaProductDetail">
+              <PropertyRef Name="AreaKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaProductDocument_Area">
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaProductDocument" Role="AreaProductDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaKey" />
+            </Principal>
+            <Dependent Role="AreaProductDocument">
+              <PropertyRef Name="AreaKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaProductNote_Area">
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaProductNote" Role="AreaProductNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaKey" />
+            </Principal>
+            <Dependent Role="AreaProductNote">
+              <PropertyRef Name="AreaKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaProductPhoto_Area">
+          <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaProductPhoto" Role="AreaProductPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="AreaKey" />
+            </Principal>
+            <Dependent Role="AreaProductPhoto">
+              <PropertyRef Name="AreaKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4762,22 +4766,6 @@
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="CompanyKey" ColumnName="CompanyKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Area">
-            <EntityTypeMapping TypeName="NasgledDBModel.Area">
-              <MappingFragment StoreEntitySet="Area">
-                <ScalarProperty Name="ParentAreaKey" ColumnName="ParentAreaKey" />
-                <ScalarProperty Name="ProjectKey" ColumnName="ProjectKey" />
-                <ScalarProperty Name="HeatingSystemKey" ColumnName="HeatingSystemKey" />
-                <ScalarProperty Name="CoolingSystemKey" ColumnName="CoolingSystemKey" />
-                <ScalarProperty Name="NewRateScheduleKey" ColumnName="NewRateScheduleKey" />
-                <ScalarProperty Name="OperationScheduleKey" ColumnName="OperationScheduleKey" />
-                <ScalarProperty Name="SquareFeet" ColumnName="SquareFeet" />
-                <ScalarProperty Name="Reception" ColumnName="Reception" />
-                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
-                <ScalarProperty Name="AreaKey" ColumnName="AreaKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5165,6 +5153,7 @@
           <EntitySetMapping Name="ProfileProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.ProfileProduct">
               <MappingFragment StoreEntitySet="ProfileProduct">
+                <ScalarProperty Name="ThermalEfficiency" ColumnName="ThermalEfficiency" />
                 <ScalarProperty Name="TypeCount" ColumnName="TypeCount" />
                 <ScalarProperty Name="LampLife" ColumnName="LampLife" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
@@ -5578,6 +5567,23 @@
                 <ScalarProperty Name="UnitShortname" ColumnName="UnitShortname" />
                 <ScalarProperty Name="UnitName" ColumnName="UnitName" />
                 <ScalarProperty Name="UnitKey" ColumnName="UnitKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Area">
+            <EntityTypeMapping TypeName="NasgledDBModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="ParentAreaKey" ColumnName="ParentAreaKey" />
+                <ScalarProperty Name="ProjectKey" ColumnName="ProjectKey" />
+                <ScalarProperty Name="HeatingSystemKey" ColumnName="HeatingSystemKey" />
+                <ScalarProperty Name="CoolingSystemKey" ColumnName="CoolingSystemKey" />
+                <ScalarProperty Name="NewRateScheduleKey" ColumnName="NewRateScheduleKey" />
+                <ScalarProperty Name="OperationScheduleKey" ColumnName="OperationScheduleKey" />
+                <ScalarProperty Name="SquareFeet" ColumnName="SquareFeet" />
+                <ScalarProperty Name="Reception" ColumnName="Reception" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="AreaKey" ColumnName="AreaKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

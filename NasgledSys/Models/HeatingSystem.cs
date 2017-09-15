@@ -33,11 +33,11 @@ namespace NasgledSys.Models
         public string GeneralNote { get; set; }
         public Nullable<bool> IsDefault { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Area> Area { get; set; }
         public virtual FuelType FuelType { get; set; }
         public virtual HeatingEfficiencyType HeatingEfficiencyType { get; set; }
         public virtual HeatingSystemType HeatingSystemType { get; set; }
         public virtual Project Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Area> Area { get; set; }
     }
 }

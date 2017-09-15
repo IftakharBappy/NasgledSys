@@ -24,10 +24,10 @@
     @using NasgledSys.Models
 
     <!-- Main navbar -->
-    <div class="navbar navbar-inverse bg-blue navbar-fixed-top">
+    <div class="navbar navbar-inverse bg-grey-400 navbar-fixed-top">
         <div class="navbar-header">
             <a class="navbar-brand" href="@Url.Action("Userhome","Home")">
-                <img src="~/Content/assets/images/logo_light.png" alt="" />
+                NASGLED
             </a>
             <ul class="nav navbar-nav pull-right visible-xs-block">
                 <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -41,9 +41,9 @@
         </div>
            <div class="navbar-nav navbar-center">@RenderSection("CenterTitle", required: false)</div>
         <div class="nav navbar-nav navbar-right">
-            <a href="@Url.Action("Index","MgtClientContact")">
-                <img src="~/Content/12_-_Address_book-256.png" height="50px" width="45px" />
-               
+            <a href="@Url.Action("Index","MgtClientContact")" class="btn bg-grey btn-block btn-float btn-float-lg" type="button">
+                @*<img src="~/Content/12_-_Address_book-256.png" height="50px" width="45px" />*@
+                <i class="icon-address-book"></i>
               
             </a>
         </div>    
@@ -58,23 +58,63 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user-lock"></i><span>@Html.DisplayFor(m => GlobalClass.ProfileUser.FirstName)</span></a>
                     <div class="dropdown-menu dropdown-content">
                         <div class="dropdown-content-body">
-                            <div class="row">
-                                
-                                    <span class="menu-heading underlined">Settings</span>
-                                <div class="col-md-4"><center><a href="@Url.Action("UpdateUserProfile","MgtProfile")"><i class="icon-user"></i><br /> My profile</a></center></div>
-                                <div class="col-md-4"><center><a href="@Url.Action("Index","MgtClientContact")"><i class="icon-users"></i><br />Contacts</a></center></div>
-                                <div class="col-md-4"><center><a href="@Url.Action("IndexClientCompany","MgtClientCompany")"><i class="icon-meter-fast"></i><br />Company</a></center></div>
-                               
+                            <div class="sidebar sidebar-secondary sidebar-default">
+                                <div class="sidebar-content">
+                                    <div class="sidebar-category">
+                                        <div class="category-title">
+                                            <span>Setting</span>
+                                            <ul class="icons-list">
+                                                <li><a href="#" data-action="collapse"></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="category-content">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <a href="@Url.Action("UpdateUserProfile","MgtProfile")" class="btn bg-teal-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-git-branch"></i> <span>My profile</span></a>
+                                                    <a href="@Url.Action("Index","MgtClientContact")" class="btn bg-purple-300 btn-block btn-float btn-float-lg" type="button"><i class="icon-people"></i> <span>Contacts</span></a>
+
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <a href="@Url.Action("IndexClientCompany","MgtClientCompany")" class="btn bg-warning-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-stats-bars"></i> <span>Company</span></a>
+                                                    <a href="@Url.Action("ChangeUsernamePassword", "MgtProfile")" class="btn bg-teal-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-lock2"></i> <span>Change<br />Password</span></a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div><div class="sidebar-category">
+                                        <div class="category-title">
+                                            <span>Item</span>
+                                            <ul class="icons-list">
+                                                <li><a href="#" data-action="collapse"></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="category-content">
+                                            <div class="row">
+
+                                                <div class="col-xs-6">
+                                                    <a href="@Url.Action("Index","UserItemCategory")" class="btn bg-blue btn-block btn-float btn-float-lg" type="button"><i class="icon-barcode2"></i> <span>Category</span></a>
+                                                    <a href="@Url.Action("Index","UserItemSubcategory")" class="btn bg-warning-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-stats-bars"></i> <span>Subcategory</span></a>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <a href="@Url.Action("Index","UserItemCatelogue")" class="btn bg-indigo btn-block btn-float btn-float-lg" type="button"><i class="icon-bag"></i> <span>Catelogue</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sidebar-category">
+                                        <div class="category-title">
+                                            <i class="icon-switch2"></i>
+                                            <a href="@Url.Action("UserLogin","Home")">Logout</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            <div class="row divider"></div>
-                            <div class="row">
-                                <div class="col-md-4"><a href="@Url.Action("ChangeUsernamePassword", "MgtProfile")"><i class="icon-lock2"></i> Change Password</a></div>
-                                <div class="col-md-4"><a href="@Url.Action("UserLogin","Home")"><i class="icon-switch2"></i> Logout</a></div>
+                                
+                            </div>
                             
+                                
+                                </div>
                             </div>
-                            </div>
-                    </div>
-                </li>
+</li>
             </ul>
         </div>
      
@@ -102,7 +142,10 @@
                     </h4>
                 }
             </div>
-
+            <div class="heading-elements">
+                @RenderSection("TopHeader", required: false)
+               
+            </div>
            
         </div>
     </div>
@@ -112,7 +155,7 @@
         <!-- Page content -->
         <div class="page-content">
             <!-- Main content -->
-            <div class="content-wrapper">
+          
                
                     <div class="row" id="ConfirmationMessegeSlot">
 
@@ -123,7 +166,7 @@
                @RenderBody()
               
               
-            </div>
+         
             <!-- /main content -->
         </div>
         <!-- /page content -->

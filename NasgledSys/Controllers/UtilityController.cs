@@ -272,7 +272,18 @@ namespace NasgledSys.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
-
+        public ActionResult LoadUnitData(Guid SelectID)
+        {
+            JsonResult result = new JsonResult();
+            UnitViewModel obj = new UnitViewModel();
+            Unit m = db.Unit.Find(SelectID);
+            obj.UnitKey = m.UnitKey;
+            obj.UnitName = m.UnitName;
+            obj.UnitShortname = m.UnitShortname;
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult CheckUsernameCreate(string user)
         {
             JsonResult result = new JsonResult();

@@ -35,14 +35,14 @@ namespace NasgledSys
                             "~/Content/assets/js/core/libraries/jquery_ui/core.min.js",
                              "~/Content/assets/js/core/libraries/jquery_ui/full.min.js",
                               "~/Content/assets/js/core/libraries/jquery_ui/widgets.min.js",
-                          "~/Content/assets/js/plugins/tables/datatables/datatables.min.js",
+                         
 
                            "~/Content/assets/js/plugins/forms/selects/select2.min.js",
                             "~/Content/assets/js/pages/form_select2.js",
                           "~/Content/assets/js/plugins/visualization/d3/d3.min.js",
-                           "~/Content/assets/js/plugins/visualization/d3/d3_tooltip.js",
-                            "~/Content/assets/js/plugins/forms/styling/switchery.min.js",
+                           "~/Content/assets/js/plugins/visualization/d3/d3_tooltip.js",                           
                              "~/Content/assets/js/plugins/forms/styling/uniform.min.js",
+                              "~/Content/assets/js/plugins/forms/styling/switchery.min.js",
                               "~/Content/assets/js/plugins/forms/selects/bootstrap_multiselect.js",
                                "~/Content/assets/js/plugins/ui/moment/moment.min.js",
                                "~/Content/assets/js/plugins/pickers/daterangepicker.js",

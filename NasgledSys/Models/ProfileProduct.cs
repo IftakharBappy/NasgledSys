@@ -50,6 +50,7 @@ namespace NasgledSys.Models
         public string FileName { get; set; }
         public Nullable<decimal> LampLife { get; set; }
         public Nullable<int> TypeCount { get; set; }
+        public Nullable<decimal> ThermalEfficiency { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AreaProduct> AreaProduct { get; set; }
