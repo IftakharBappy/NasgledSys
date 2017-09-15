@@ -521,6 +521,7 @@
           <Property Name="FileName" Type="nvarchar(max)" />
           <Property Name="LampLife" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TypeCount" Type="int" />
+          <Property Name="MainItemKey" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Manufacturer">
           <Key>
@@ -597,6 +598,7 @@
           <Property Name="FileName" Type="nvarchar(max)" />
           <Property Name="LampLife" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TypeCount" Type="int" />
+          <Property Name="MainItemKey" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -3259,6 +3261,7 @@
           <Property Name="LampLife" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TypeCount" Type="Int32" />
           <Property Name="ThermalEfficiency" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MainItemKey" Type="Guid" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -4263,6 +4266,7 @@
           <NavigationProperty Name="ItemSubcategory" Relationship="NasgledDBModel.FK_MainProduct_ItemSubcategory" FromRole="MainProduct" ToRole="ItemSubcategory" />
           <NavigationProperty Name="ItemType" Relationship="NasgledDBModel.FK_MainProduct_ItemType" FromRole="MainProduct" ToRole="ItemType" />
           <NavigationProperty Name="Manufacturer" Relationship="NasgledDBModel.FK_MainProduct_Manufacturer" FromRole="MainProduct" ToRole="Manufacturer" />
+          <Property Name="MainItemKey" Type="Guid" />
         </EntityType>
         <Association Name="FK_MainProduct_ItemCategory">
           <End Type="NasgledDBModel.ItemCategory" Role="ItemCategory" Multiplicity="0..1" />
@@ -5153,6 +5157,7 @@
           <EntitySetMapping Name="ProfileProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.ProfileProduct">
               <MappingFragment StoreEntitySet="ProfileProduct">
+                <ScalarProperty Name="MainItemKey" ColumnName="MainItemKey" />
                 <ScalarProperty Name="ThermalEfficiency" ColumnName="ThermalEfficiency" />
                 <ScalarProperty Name="TypeCount" ColumnName="TypeCount" />
                 <ScalarProperty Name="LampLife" ColumnName="LampLife" />
@@ -5460,6 +5465,7 @@
           <EntitySetMapping Name="MainProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.MainProduct">
               <MappingFragment StoreEntitySet="MainProduct">
+                <ScalarProperty Name="MainItemKey" ColumnName="MainItemKey" />
                 <ScalarProperty Name="TypeCount" ColumnName="TypeCount" />
                 <ScalarProperty Name="LampLife" ColumnName="LampLife" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />

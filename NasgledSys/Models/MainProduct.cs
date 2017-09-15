@@ -38,6 +38,7 @@ namespace NasgledSys.Models
         public string FileName { get; set; }
         public Nullable<decimal> LampLife { get; set; }
         public Nullable<int> TypeCount { get; set; }
+        public Nullable<System.Guid> MainItemKey { get; set; }
     
         public virtual ItemCategory ItemCategory { get; set; }
         public virtual ItemSubcategory ItemSubcategory { get; set; }
