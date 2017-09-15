@@ -24,26 +24,35 @@ namespace NasgledSys.Controllers
             else
             {
                 Exception e = new Exception("Session Expired");
-                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
             }
         }
         public JsonResult GetProfileProductList()
         {
-            var list = (from profileProduct in db.ProfileProduct
-                        join category in db.ItemCategory on profileProduct.CategoryKey equals category.PKey
-                        join subcategory in db.ItemSubcategory on profileProduct.SubcategoryKey equals subcategory.PKey
-                        join itemType in db.ItemType on profileProduct.ItemTypeKey equals itemType.PKey
-                        join manufacturer in db.Manufacturer on profileProduct.ManufacturerKey equals manufacturer.PKey
-                        join catelogue in db.ItemCatelogue on profileProduct.CatelogueKey equals catelogue.PKey
+            var list = (from asset in db.ProfileProduct
+                       
                         select new
                         {
-                            profileProduct.FixtureKey,
-                            category = category.TypeName,
-                            subcategory = subcategory.TypeName,
-                            itemType = itemType.TypeName,
-                            manufacturer = manufacturer.ManufacturerName,
-                            catelogue = catelogue.TypeName
-                        }).ToList();
+                            FixtureKey = asset.FixtureKey,
+                            ItemTypeKey = asset.ItemTypeKey,
+                            CategoryKey = asset.CategoryKey,
+                            CatelogueKey = asset.CatelogueKey,
+                            SubcategoryKey = asset.SubcategoryKey,
+                            TypeCount = asset.TypeCount,
+                            ManufacturerKey = asset.ManufacturerKey,
+                            ProductName = asset.ProductName,
+                            ModelNo = asset.ModelNo,
+                            Watt = asset.Watt,                           
+                            LampLife = asset.LampLife,
+                            LightApparent = asset.LightApparent,                           
+                            Category = asset.CategoryKey == null ? " " : asset.ItemCategory.TypeName,
+                            Catelogue = asset.CatelogueKey == null ? " " : asset.ItemCatelogue.TypeName,
+                            Subcategory = asset.SubcategoryKey == null ? " " : asset.ItemSubcategory.TypeName,
+                            Type = asset.ItemType.TypeName,
+                            Manufacturer = asset.Manufacturer.ManufacturerName,
+                        MainProductDetail = asset.MainItemKey == null ? " " : db.ProfileProduct.FirstOrDefault(m=>m.MainItemKey==asset.MainItemKey).ProductName
+        }).OrderBy(m => m.ProductName).ToList();
+       
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
@@ -52,6 +61,7 @@ namespace NasgledSys.Controllers
         {
             if (GlobalClass.MasterSession)
             {
+                ViewBag.MainItemKey = new SelectList(db.ProfileProduct.OrderBy(m => m.FixtureKey), "FixtureKey", "ProductName");
                 ViewBag.ItemTypeSelectList = new SelectList(db.ItemType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.CategorySelectList = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
                 ViewBag.SubcategorySelectList = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName");
@@ -131,7 +141,7 @@ namespace NasgledSys.Controllers
                         model.Logo = imgBinaryData;
                         model.FileName = Logo.FileName;
                         model.FileType = Logo.ContentType;
-
+                        model.MainItemKey = viewModel.MainItemKey;
                         db.ProfileProduct.Add(model);
                         db.SaveChanges();
                         TempData["mess"] = "Profile Product is successfully created.";
@@ -139,6 +149,7 @@ namespace NasgledSys.Controllers
                     }
                     else
                     {
+                        ViewBag.MainItemKey = new SelectList(db.ProfileProduct.OrderBy(m => m.FixtureKey), "FixtureKey", "ProductName",viewModel.MainItemKey);
                         ViewBag.ItemTypeSelectList = new SelectList(db.ItemType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", viewModel.ItemTypeKey);
                         ViewBag.CategorySelectList = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", viewModel.CategoryKey);
                         ViewBag.SubcategorySelectList = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", viewModel.SubcategoryKey);
@@ -193,7 +204,9 @@ namespace NasgledSys.Controllers
                 profileProductviewModel.LampLife = profileProduct.LampLife; 
                 profileProductviewModel.TypeCount = profileProduct.TypeCount;
                 profileProductviewModel.Logo = profileProduct.Logo;
+                profileProductviewModel.MainItemKey = profileProduct.MainItemKey;
 
+                ViewBag.MainItemKey = new SelectList(db.ProfileProduct.OrderBy(m => m.FixtureKey), "FixtureKey", "ProductName", profileProduct.MainItemKey);
                 ViewBag.ItemTypeSelectList = new SelectList(db.ItemType.Where(m => m.IsDelete == false ).OrderBy(m => m.TypeName), "PKey", "TypeName", profileProduct.ItemTypeKey);
                 ViewBag.CategorySelectList = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false ).OrderBy(m => m.TypeName), "PKey", "TypeName", profileProduct.CategoryKey);
                 ViewBag.SubcategorySelectList = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false ).OrderBy(m => m.TypeName), "PKey", "TypeName", profileProduct.SubcategoryKey);
@@ -230,6 +243,7 @@ namespace NasgledSys.Controllers
                         model.ModelNo = viewModel.ModelNo;
                         model.Watt = viewModel.Watt;
                         model.Watt = viewModel.Watt;
+                        model.MainItemKey = viewModel.MainItemKey;
 
                         if (viewModel.ThermalEfficacy == null) { model.ThermalEfficacy = 0; }
                         else { model.ThermalEfficacy = viewModel.ThermalEfficacy; }
@@ -287,7 +301,7 @@ namespace NasgledSys.Controllers
                     {
                         ProfileProduct model = (from pp in db.ProfileProduct where pp.FixtureKey == viewModel.FixtureKey select pp).FirstOrDefault();
                         viewModel.Logo = model.Logo;
-
+                        ViewBag.MainItemKey = new SelectList(db.ProfileProduct.OrderBy(m => m.FixtureKey), "FixtureKey", "ProductName", viewModel.MainItemKey);
                         ViewBag.ItemTypeSelectList = new SelectList(db.ItemType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", viewModel.ItemTypeKey);
                         ViewBag.CategorySelectList = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", viewModel.CategoryKey);
                         ViewBag.SubcategorySelectList = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "PKey", "TypeName", viewModel.SubcategoryKey);
@@ -340,7 +354,9 @@ namespace NasgledSys.Controllers
                 viewModel.LampLife = profileProduct.LampLife;
                 viewModel.TypeCount = profileProduct.TypeCount;
                 viewModel.Logo = profileProduct.Logo;
+                viewModel.MainItemKey = profileProduct.MainItemKey;
 
+                ViewBag.MainItemKey = new SelectList(db.ProfileProduct.OrderBy(m => m.FixtureKey), "FixtureKey", "ProductName", profileProduct.MainItemKey);
                 ViewBag.ItemTypeSelectList = new SelectList(db.ItemType.Where(m => m.IsDelete == false && m.PKey == profileProduct.ItemTypeKey).OrderBy(m => m.TypeName), "PKey", "TypeName", profileProduct.ItemTypeKey);
                 ViewBag.CategorySelectList = new SelectList(db.ItemCategory.Where(m => m.IsDelete == false && m.PKey == profileProduct.CategoryKey).OrderBy(m => m.TypeName), "PKey", "TypeName", profileProduct.CategoryKey);
                 ViewBag.SubcategorySelectList = new SelectList(db.ItemSubcategory.Where(m => m.IsDelete == false && m.PKey == profileProduct.SubcategoryKey).OrderBy(m => m.TypeName), "PKey", "TypeName", profileProduct.SubcategoryKey);

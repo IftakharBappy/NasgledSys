@@ -12,7 +12,7 @@ namespace NasgledSys.Models
         //[Required(ErrorMessage = "Name is required")]
         public System.Guid FixtureKey { get; set; }
 
-        [Display(Name = "Item*")]
+        [Display(Name = "Item Type*")]
         [Required(ErrorMessage = "Item is required")]
         public Nullable<System.Guid> ItemTypeKey { get; set; }
 
@@ -94,5 +94,9 @@ namespace NasgledSys.Models
 
         [Display(Name = "How many type variation does this Product have")]
         public Nullable<int> TypeCount { get; set; }
+
+        public Guid? MainItemKey { get; set; }
+        [Display(Name = "Does it Fall under another Product")]
+        public string MainProductDetail { get; set; }
     }
 }

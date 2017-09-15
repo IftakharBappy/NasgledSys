@@ -39,15 +39,22 @@
                 <a class="btn btn-primary" href="/MgtProfileProduct/Create">Add New Profile Product</a>
             </div>
             <div class="col-md-3">
-                <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+              
+                <div class="has-feedback has-feedback-left">
+                    <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+                    <div class="form-control-feedback">
+                        <i class="icon-search4 text-size-base text-muted"></i>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
     <br />
     <br />
     <div class="container" id="elementContainer">
 
-
+  
     </div><!--/container -->
 
 </div>
@@ -67,11 +74,11 @@
         }
         else {
             baseList.forEach(function (item) {
-                if (item.category.toLowerCase().includes(searchText) ||
-                    item.subcategory.toLowerCase().includes(searchText) ||
-                    item.itemType.toLowerCase().includes(searchText) ||
-                    item.manufacturer.toLowerCase().includes(searchText) ||
-                    item.catelogue.toLowerCase().includes(searchText)) {
+                if (item.Category.toLowerCase().includes(searchText) ||
+                    item.Subcategory.toLowerCase().includes(searchText) ||
+                    item.Type.toLowerCase().includes(searchText) ||
+                    item.Manufacturer.toLowerCase().includes(searchText) ||
+                    item.Catelogue.toLowerCase().includes(searchText)) {
                     filteredList.push(item);
                 }
             });
@@ -83,21 +90,35 @@
         $("#elementContainer").html("");
 
         for (var i = 0; i < filteredList.length; i++) {
-            res = res + "<div class='col-xs-18 col-sm-6 col-md-3'>"
-                + "<div class='thumbnail' >"
-                + "<div class='caption'>"
-                //+ "<h4>" + filteredList[i].FixtureKey + "</h4>"
-                + "<p>" + "Type: &nbsp;" + filteredList[i].itemType + "</p>"
-                + "<p>" + "Category: &nbsp;" + filteredList[i].category + "</p>"
-                + "<p>" + "Subcategory: &nbsp;" + filteredList[i].subcategory + "</p>"
-                + "<p>" + "Manufacturer: &nbsp;" + filteredList[i].manufacturer + "</p>"
-                + "<p>" + "Catelogue: &nbsp;" + filteredList[i].catelogue + "</p>"
-                + "<a href='/MgtProfileProduct/View?id=" + filteredList[i].FixtureKey + "' class='btn btn-default btn-xs' role='button'>View</a>" + " " 
-                + "<a href='/MgtProfileProduct/Edit?id=" + filteredList[i].FixtureKey + "' class='btn btn-primary btn-xs' role='button'>Edit</a>" + " " 
-                + "<a href='/MgtProfileProduct/Delete?id=" + filteredList[i].FixtureKey + "' class='btn btn-danger btn-xs' role='button'>Delete</a>" + " " 
-                + "</div>"
-                + "</div >"
-                + "</div >";
+           
+            res = res + "<div class='col-sm-6 col-md-3'>"
+                   + "<div class='panel panel-body panel-body-accent'>"
+                    + "<div class='media no-margin'>"
+                    + "<div class='media-body text-left'>"
+                     + "<img src='/ShowImage/GetProfileProductPic?id=" + filteredList[i].FixtureKey + "' class='img-responsive img-rounded' width='100px' height='80px' alt=''>"
+                     + "</div>"
+                      + "<div class='media-body text-right'>"
+                       + " <h3 class='no-margin text-semibold'>" + filteredList[i].ProductName + "</h3>"
+                       + " <span class='text-uppercase text-size-mini'>Model #" + filteredList[i].ModelNo + "</span><br />"
+
+                         + " <span class='text-uppercase text-size-mini'>Type " + filteredList[i].Type + "</span><br />"
+                           + " <span class='text-uppercase text-size-mini'>Category " + filteredList[i].Category + "</span><br />"
+                             + " <span class='text-uppercase text-size-mini'>Manufacturer" + filteredList[i].Manufacturer + "</span><br />"
+
+
+                       + "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].Watt + "Watt Per Luminaire</span><br />"
+                        + "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].LampLife + " Hrs     Lamp Life</span><br />"
+                        + "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].LightOutput + " Light Output</span><br />"
+                        
+                          + "</div>"
+                          + "  <div class='media-bottom'>"
+                           + "  <span class='text-uppercase text-size-mini text-muted'><a href='/MgtProfileProduct/View?id=" + filteredList[i].FixtureKey + "' class='btn btn-default btn-xs' role='button'>View</a></span>"
+                         + "  <span class='text-uppercase text-size-mini text-muted'><a href='/MgtProfileProduct/Edit?id=" + filteredList[i].FixtureKey + "' class='btn btn-primary btn-xs' role='button'>Edit</a></span>"
+                         + "  <span class='text-uppercase text-size-mini text-muted'><a href='/MgtProfileProduct/Delete?id=" + filteredList[i].FixtureKey + "' class='btn btn-danger btn-xs' role='button' onclick = \"return confirm('Are you sure you want to Remove this?')\">Delete</a></span>"
+                          + "</div>"
+                       + "</div>"
+                 + "</div>"
+              + "</div>";
         }
         $("#elementContainer").html(res);
     }
