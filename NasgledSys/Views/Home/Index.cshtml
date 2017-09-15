@@ -11,33 +11,174 @@
         <div class="panel border-left-lg border-left-primary">
             <div class="panel-body">
                 <div class="row">
-                    <a href="@Url.Action("Index","MgtProjectStatus")" class="btn bg-purple-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-people"></i> <span>Project Status</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtFuelType")" class="btn bg-warning-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-screen-full"></i> <span>Fuel Type</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtUnit")" class="btn bg-teal-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-git-branch"></i> <span>Unit</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtCoolingEfficiencyType")" class="btn bg-teal-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-people"></i> <span>Cooling Efficiency Type</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtCoolingSystemType")" class="btn bg-blue-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-bell-check"></i> <span>Cooling System Type</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtHeatingEfficiencyType")" class="btn bg-indigo-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-bell-cross"></i> <span>Heating Efficiency Type</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtHeatingSystemType")" class="btn bg-warning-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-headset"></i> <span>Heating System Type</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtIndustryType")" class="btn bg-blue-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-stats-bars"></i> <span>Industry Type</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtJobFunction")" class="btn bg-purple-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-people"></i> <span>Job Function</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtIncentiveMaxType")" class="btn bg-blue-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-battery-0"></i> <span>Incentive Max Type</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtIncentiveType")" class="btn bg-info-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-battery-charging"></i> <span>Incentive Type</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtLightingSatisfactionFactor")" class="btn bg-teal-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-stats-bars"></i> <span>Lighting Satisfaction Factor</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtAnnualSalesRevenueSetup")" class="btn bg-teal-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-coins"></i> <span>Annual Sales Revenue Setup</span></a>
-                    <div class="col-md-1">&nbsp;</div>
-                    <a href="@Url.Action("Index","MgtSalesReachSetup")" class="btn bg-warning-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-calculator"></i> <span>Sales Reach Setup</span></a>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-pointer icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtProjectStatus")" class="btn btn-float btn-float-lg"><span>Project Status</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-screen-full icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtFuelType")" class="btn btn-float btn-float-lg"><span>Fuel Type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-git-branch icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtUnit")" class="btn btn-float btn-float-lg"><span>Unit</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-enter6 icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtCoolingEfficiencyType")" class="btn btn-float btn-float-lg"><span>Cooling Efficiency Type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-bell-check icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtCoolingSystemType")" class="btn btn-float btn-float-lg"><span>Cooling System Type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-bell-cross icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtHeatingEfficiencyType")" class="btn btn-float btn-float-lg"><span>Heating Efficiency Type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-pulse2 icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtHeatingSystemType")" class="btn btn-float btn-float-lg"><span>Heating System Type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-stats-bars icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtIndustryType")" class="btn btn-float btn-float-lg"><span>Industry Type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-people icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtJobFunction")" class="btn btn-float btn-float-lg"><span>Job Function</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-battery-0 icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtIncentiveMaxType")" class="btn btn-float btn-float-lg"><span>Incentive Max Type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-battery-charging icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtIncentiveType")" class="btn btn-float btn-float-lg"><span>Incentive Type</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-medal-star icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtLightingSatisfactionFactor")" class="btn btn-float btn-float-lg"><span>Lighting Satisfaction Factor</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-coins icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtAnnualSalesRevenueSetup")" class="btn btn-float btn-float-lg"><span>Annual Sales Revenue Setup</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="panel panel-body panel-body-accent">
+                            <div class="media no-margin">
+                                <div class="media-left media-middle">
+                                    <i class="icon-calculator icon-3x text-success-400"></i>
+                                </div>
+                                <div class="media-body text-right">
+                                    <a href="@Url.Action("Index","MgtSalesReachSetup")" class="btn btn-float btn-float-lg"><span>Sales Reach Setup</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                    
                 </div>
             </div>

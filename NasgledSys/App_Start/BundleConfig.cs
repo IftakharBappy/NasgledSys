@@ -8,6 +8,7 @@ namespace NasgledSys
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            System.Web.Optimization.BundleTable.EnableOptimizations = false;
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                   "~/Content/assets/js/plugins/loaders/pace.min.js",
                         "~/Scripts/jquery-{version}.js"));
@@ -24,7 +25,7 @@ namespace NasgledSys
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new ScriptBundle("~/Content/js").Include(
                     "~/Content/assets/js/plugins/loaders/pace.min.js",
                    "~/Content/assets/js/core/libraries/jquery.min.js",                  
                       "~/Content/assets/js/core/libraries/bootstrap.min.js",
@@ -54,7 +55,7 @@ namespace NasgledSys
                               "~/Content/assets/js/plugins/ui/ripple.min.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/bundles/css").Include(
+            bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/assets/css/icons/icomoon/styles.css",
                       "~/Content/assets/css/bootstrap.css",
                       "~/Content/assets/css/core.css",
