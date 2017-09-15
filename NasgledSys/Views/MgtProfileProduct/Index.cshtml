@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "ClientCompanyList";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<style>
+    .thumbnail {
+        padding: 0;
+        height: auto;
+    }
+</style>
+
+@section CenterTitle{
+    Profile Product
+}
+@section SideBar{
+    <center>
+        <h4>
+            <i class="icon-arrow-small-right position-left"></i>
+            <span class="text-semibold">List of Profile Product</span>
+        </h4>
+    </center>
+}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">List of Profile Product</h5>
+        <h2>@TempData["mess"]</h2>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <a class="btn btn-primary" href="/MgtProfileProduct/Create">Add New Profile Product</a>
+            </div>
+            <div class="col-md-3">
+                <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="container" id="elementContainer">
+
+
+    </div><!--/container -->
+
+</div>
+
+<script>
+    var baseList = [];
+    var filteredList = [];
+    $(document).ready(function () {
+        GetClientCompanyListData();
+    });
+    function search() {
+        filteredList = [];
+        var searchText = $("#searchText").val().toLowerCase();
+        if (searchText == "") {
+            filteredList = baseList;
+            remakeGrid();
+        }
+        else {
+            baseList.forEach(function (item) {
+                if (item.category.toLowerCase().includes(searchText) ||
+                    item.subcategory.toLowerCase().includes(searchText) ||
+                    item.itemType.toLowerCase().includes(searchText) ||
+                    item.manufacturer.toLowerCase().includes(searchText) ||
+                    item.catelogue.toLowerCase().includes(searchText)) {
+                    filteredList.push(item);
+                }
+            });
+            remakeGrid();
+        }
+    }
+    function remakeGrid() {
+        var res = "";
+        $("#elementContainer").html("");
+
+        for (var i = 0; i < filteredList.length; i++) {
+            res = res + "<div class='col-xs-18 col-sm-6 col-md-3'>"
+                + "<div class='thumbnail' >"
+                + "<div class='caption'>"
+                //+ "<h4>" + filteredList[i].FixtureKey + "</h4>"
+                + "<p>" + "Type: &nbsp;" + filteredList[i].itemType + "</p>"
+                + "<p>" + "Category: &nbsp;" + filteredList[i].category + "</p>"
+                + "<p>" + "Subcategory: &nbsp;" + filteredList[i].subcategory + "</p>"
+                + "<p>" + "Manufacturer: &nbsp;" + filteredList[i].manufacturer + "</p>"
+                + "<p>" + "Catelogue: &nbsp;" + filteredList[i].catelogue + "</p>"
+                + "<a href='/MgtProfileProduct/View?id=" + filteredList[i].FixtureKey + "' class='btn btn-default btn-xs' role='button'>View</a>" + " " 
+                + "<a href='/MgtProfileProduct/Edit?id=" + filteredList[i].FixtureKey + "' class='btn btn-primary btn-xs' role='button'>Edit</a>" + " " 
+                + "<a href='/MgtProfileProduct/Delete?id=" + filteredList[i].FixtureKey + "' class='btn btn-danger btn-xs' role='button'>Delete</a>" + " " 
+                + "</div>"
+                + "</div >"
+                + "</div >";
+        }
+        $("#elementContainer").html(res);
+    }
+    function GetClientCompanyListData() {
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtProfileProduct/GetProfileProductList/",
+            //data: JSON.stringify({ clientCompanyKey: '#' }),
+            success: function (data) {
+                baseList = data;
+                filteredList = data;
+                remakeGrid();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+</script>
