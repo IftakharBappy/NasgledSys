@@ -18,7 +18,7 @@
     <div class="navbar navbar-inverse bg-indigo">
         <div class="navbar-header">
             <a class="navbar-brand" href="@Url.Action("Index","Home")">
-                <img src="~/Content/assets/images/logo_light.png" alt="" /></a>
+              NASGLED Admin Panel</a>
             <ul class="nav navbar-nav pull-right visible-xs-block">
                 <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
             </ul>
@@ -67,7 +67,7 @@
                                         <li>
                                             <a href="#"><i class="icon-pencil3"></i>GIS</a>
                                             <ul>
-                                                <li><a href="@Url.Action("Index","MgtCity")">State</a></li>
+                                                <li><a href="@Url.Action("Index","MgtState")">State</a></li>
                                               
                                                 <li><a href="@Url.Action("Index","tcity")">City</a></li>
                                                 
@@ -96,21 +96,9 @@
                                                 
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#"><i class="icon-file-css"></i>Item Settings</a>
-                                            <ul>
-                                               
-                                                <li><a href="@Url.Action("Index","MgtItemCategory")">Item Category</a></li>
-                                                <li><a href="@Url.Action("Index","MgtItemCatelogue")">Item Catelogue</a></li>
-                                                <li><a href="@Url.Action("Index","MgtItemSubcategory")">Item Subcategory</a></li>
-                                                <li><a href="@Url.Action("Index","MgtItemType")">Item Type</a></li>
-                                               
-                                                <li><a href="@Url.Action("Index","MgtManufacturer")">Manufacturer</a></li>
-                                             
-                                            </ul>
-                                        </li>
+                                        
                                         <li> @*Menu Set DO NOT DISTURB--------------------------------------- NAHID*@
-                                            <a href="#"><i class="icon-footprint"></i> Configuration</a>
+                                            <a href="#"><i class="icon-office"></i> Configuration</a>
                                             <ul>
                                                 <li><a href="@Url.Action("DIndex","MgtUsergroup")">User group</a></li>
                                                 <li><a href="@Url.Action("DIndex","MgtStaff")">User</a></li>
@@ -128,29 +116,24 @@
                                             <a href="#"><i class="icon-grid"></i> Components</a>
                                             <ul>
                                                 <li><a href="@Url.Action("Index","MgtRole")">Client Role</a></li>
-                                                <li><a href="@Url.Action("Catelogue","MgtAdminItem")">Item Catelogue</a></li>
+                                                <li><a href="@Url.Action("Catelogue","MgtAdminItem")">Item Definition</a></li>
                                                
                                             </ul>
                                         </li>
-                                       
                                         <li>
-                                            <a href="#"><i class="icon-gift"></i> Extra components</a>
+                                            <a href="#"><i class="icon-file-css"></i>Item Settings</a>
                                             <ul>
-                                                <li><a href="extra_sliders_noui.html">NoUI sliders</a></li>
-                                                <li><a href="extra_sliders_ion.html">Ion range sliders</a></li>
-                                                <li><a href="extra_trees.html">Dynamic tree views</a></li>
-                                                <li><a href="extra_context_menu.html">Context menu</a></li>
-                                                <li><a href="extra_fab.html">Floating action buttons</a></li>
+
+                                                <li><a href="@Url.Action("Index","MgtItemCategory")">Item Category</a></li>
+                                                <li><a href="@Url.Action("Index","MgtItemCatelogue")">Item Catelogue</a></li>
+                                                <li><a href="@Url.Action("Index","MgtItemSubcategory")">Item Subcategory</a></li>
+                                                <li><a href="@Url.Action("Index","MgtItemType")">Item Type</a></li>
+
+                                                <li><a href="@Url.Action("Index","MgtManufacturer")">Manufacturer</a></li>
+
                                             </ul>
                                         </li>
-                                        <li>
-                                            <a href="#"><i class="icon-wrench3"></i> Tools</a>
-                                            <ul>
-                                                <li><a href="@Url.Action("Index","City")">Base MRK</a></li>
-                                                <li><a href="@Url.Action("Index","Logs")">Log View</a></li>
-                                               
-                                            </ul>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                             
@@ -161,29 +144,7 @@
 
 
             </ul>
-            <ul class="nav navbar-nav navbar-nav-material navbar-right">
-                <li>
-                    <a href="changelog.html">
-                        <i class="icon-history position-left"></i>
-                        Changelog
-                        <span class="label label-inline position-right bg-success-400">1.6</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-cog3"></i>
-                        <span class="visible-xs-inline-block position-right">Share</span>
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                        <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                        <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-                    </ul>
-                </li>
-            </ul>
+           
         </div>
     </div>
     <!-- /second navbar -->

@@ -16,44 +16,67 @@ namespace NasgledSys.Controllers
         private NasgledDBEntities db = new NasgledDBEntities();
         public ActionResult Index()
         {
-            try
+            if (GlobalClass.MasterSession)
             {
-                ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
-                return View();
+                try
+                {
+                    ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
+                    return View();
+                }
+                catch (Exception e)
+                {
+                    return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+                }
             }
-            catch (Exception e)
+            else
             {
-                return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+                Exception e = new Exception("Sorry, your Session has Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "Login"));
             }
-         
+
         }
         [HttpPost]
         public async Task<ActionResult> Index(CityViewModel cityVM)
         {
-            cityVM.IsDelete = false;
-            if (!ModelState.IsValid)
+            if (GlobalClass.MasterSession)
             {
-                return View(cityVM);
+                try
+                {
+                    cityVM.IsDelete = false;
+                    if (!ModelState.IsValid)
+                    {
+                        return View(cityVM);
+                    }
+
+                    CityList asset = EM_Role.ConvertCityToEntity(cityVM);
+
+                    CityList exsisting = db.CityList.Find(asset.CityKey);
+                    if (exsisting == null) db.CityList.Add(asset);
+                    else
+                    {
+                        exsisting.CityName = asset.CityName;
+                        exsisting.StateCode = asset.StateCode;
+                    }
+                    var task = db.SaveChangesAsync();
+                    await task;
+
+                    if (task.Exception != null)
+                    {
+                        ModelState.AddModelError("", "Unable to add the City");
+                    }
+                    ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
+                    return View(cityVM);
+                }
+                catch (Exception e)
+                {
+                    return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+                }
             }
-
-            CityList asset = EM_Role.ConvertCityToEntity(cityVM);
-
-            CityList exsisting = db.CityList.Find(asset.CityKey);
-            if (exsisting == null) db.CityList.Add(asset);
             else
             {
-                exsisting.CityName = asset.CityName;
-                exsisting.StateCode = asset.StateCode;
+                Exception e = new Exception("Sorry, your Session has Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "Login"));
             }
-            var task = db.SaveChangesAsync();
-            await task;
-
-            if (task.Exception != null)
-            {
-                ModelState.AddModelError("", "Unable to add the Role");
-            }
-            ViewBag.StateCode = new SelectList(db.StateList.Where(m => m.IsDelete == false).OrderBy(m => m.StateName), "PKey", "StateName");
-            return View(cityVM);
         }
         public ActionResult Edit(long id)
         {
@@ -80,7 +103,7 @@ namespace NasgledSys.Controllers
 
             if (task.Exception != null)
             {
-                ModelState.AddModelError("", "Unable to Delete the Role");
+                ModelState.AddModelError("", "Unable to Delete the City");
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return View(Request.IsAjaxRequest() ? "Index" : "Index");
             }

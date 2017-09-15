@@ -363,8 +363,15 @@ namespace NasgledSys.Controllers
         }
         public ActionResult Index()
         {
-            
+            if (GlobalClass.MasterSession)
+            {
                 return View();
+            }
+            else
+            {
+                Exception e = new Exception("Sorry, your Session has Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "Login"));
+            }
         }
        
         public ActionResult AIndex()
