@@ -34,6 +34,7 @@
             $("#ItemTypeKey").select2();
             $("#CategoryKey").select2();
             $("#SubcategoryKey").select2();
+            $("#MainItemKey").select2();
         });
 
       
@@ -41,8 +42,9 @@
     </script>
 
 }
-@using (Ajax.BeginForm("Create", "MgtAdminItem", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "ShowMessage('Product has been Added Successfully.')" }, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "MgtAdminItem", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+  
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-primary list-panel" id="list-panel">
@@ -134,7 +136,8 @@
                 </div>
             </div>
              <div class="panel-footer text-center">
-             <input type="submit" class="btn btn-primary btn-lg" value="Save" />
+             <input type="submit" class="btn btn-primary btn-lg" value="Save" name="Save" />
+                 <input type="submit" class="btn btn-primary btn-lg" name="Add" value="Save and Add More" />
              </div>
                         
                
@@ -183,6 +186,11 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Manufacturer, htmlAttributes: new { @class = "control-label" })
                         @Html.DropDownList("ManufacturerKey", null, string.Empty, new { @required = "required", id = "ManufacturerKey", @class = "select select-search" })
+                        @Html.ValidationMessageFor(model => model.ManufacturerKey, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label class = "control-label">Does it Fall under another Product</label>                      
+                        @Html.DropDownList("MainItemKey", null, string.Empty, new { id = "MainItemKey", @class = "select select-search" })
                         @Html.ValidationMessageFor(model => model.ManufacturerKey, "", new { @class = "text-danger" })
                     </div>
                 </div>

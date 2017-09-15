@@ -7,8 +7,8 @@
 
 @section SideBar{
     <h4>
-        <i class="icon-arrow-left52 position-left"></i>
-        <span class="text-semibold"><a class="navbar-brand" href="@Url.Action("Index","Home")">Home</a></span> - Dashboard
+        
+        <span class="text-semibold"><a class="navbar-brand" href="@Url.Action("Index","Home")">Home</a></span> 
         <a class="navbar-brand" href="@Url.Action("Catelogue", "MgtAdminItem")"> <small class="display-block">Product List</small></a>
 
     </h4>
@@ -28,7 +28,7 @@
             return true;
         }
         $(document).ready(function (e) {
-            //$("#CatelogueKey").select2();
+            $("#MainItemKey").select2();
             $("#ManufacturerKey").select2();
             $("#ItemTypeKey").select2();
             $("#CategoryKey").select2();
@@ -45,7 +45,7 @@
             $('#ModelNo').val("");
             $('#Watt').val("");
 
-          //  $("#CatelogueKey").select2("val", "");
+             $("#MainItemKey").select2("val", "");
             $("#ManufacturerKey").select2("val", "");
             $("#ItemTypeKey").select2("val", "");
             $("#CategoryKey").select2("val", "");
@@ -191,7 +191,7 @@
                         </div>*@
                         <div class="form-group">
                             @Html.LabelFor(model => model.TypeCount, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.TypeCount, new { placeholder = "Type Count", @onkeypress = "return isNumberKey(event)", type = "number", id = "TypeCount", @class = "form-control" })
+                            @Html.TextBoxFor(model => model.TypeCount, new { placeholder = "Type Count",type = "number", id = "TypeCount", @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.TypeCount, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
@@ -202,6 +202,11 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Manufacturer, htmlAttributes: new { @class = "control-label" })
                             @Html.DropDownList("ManufacturerKey", null, string.Empty, new { @required = "required", id = "ManufacturerKey", @class = "select select-search" })
+                            @Html.ValidationMessageFor(model => model.ManufacturerKey, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Does it Fall under another Product</label>
+                            @Html.DropDownList("MainItemKey", null, string.Empty, new { id = "MainItemKey", @class = "select select-search" })
                             @Html.ValidationMessageFor(model => model.ManufacturerKey, "", new { @class = "text-danger" })
                         </div>
                     </div>

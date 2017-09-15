@@ -17,12 +17,101 @@
 <script type="text/javascript" src="~/Content/assets/js/pages/form_select2.js"></script>
     <script type="text/javascript">
         $(document).ready(function (e) {
-            $("#CatelogueKey").select2();
+           
             $("#ManufacturerKey").select2();
             $("#ItemTypeKey").select2();
             $("#CategoryKey").select2();
         });
-        </script>
+
+        var baseList = [];
+        var filteredList = [];
+        $(document).ready(function () {
+            GetClientCompanyListData();
+        });
+        function refresh() {
+            location.reload();
+        }
+        function search() {
+            filteredList = [];
+            
+            var manu = $("#ManufacturerKey").val();
+            var itemtype = $("#ItemTypeKey").val();
+            var category = $("#CategoryKey").val();
+          
+            if (manu != "") {
+                baseList.forEach(function (item) {
+                    if (item.ManufacturerKey.includes(manu)) {
+                        filteredList.push(item);
+                    }
+                });
+            remakeGrid();
+            }
+            else if (category != "") {
+                baseList.forEach(function (item) {
+                    if (item.CategoryKey.includes(category)) {
+                        filteredList.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+            else if (itemtype != "") {
+                baseList.forEach(function (item) {
+                    if (item.ItemTypeKey.includes(itemtype)) {
+                        filteredList.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+            else  {
+                filteredList = baseList;
+                remakeGrid();
+            }
+           
+        }
+        function remakeGrid() {
+            var res = "";
+            $("#elementContainer").html("");
+
+            for (var i = 0; i < filteredList.length; i++) {
+              
+                res=res+"<div class='col-sm-6 col-md-3'>"
+                    +"<div class='panel panel-body panel-body-accent'>"
+                     +   "<div class='media no-margin'>"
+                     +       "<div class='media-body text-left'>"
+                      +       "<img src='/ShowImage/GetMainProductPic?id=" + filteredList[i].FixtureKey + "' class='img-responsive img-rounded' width='100px' height='80px' alt=''>"
+                      +      "</div>"
+                       +     "<div class='media-body text-right'>"
+                        +       " <h3 class='no-margin text-semibold'><a href='/MgtAdminItem/Edit?id=" + filteredList[i].FixtureKey + "' class='text-default'>" + filteredList[i].ProductName+"</a></h3>"
+                        +       " <span class='text-uppercase text-size-mini'>Model #" + filteredList[i].ModelNo+"</span><br />"
+                        +      "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].Watt +"Watt Per Luminaire</span><br />"
+                         +     "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].LampLife +" Hrs     Lamp Life</span><br />"
+                         +     "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].LightOutput +" Light Output</span><br />"
+                          +    "  <span class='text-uppercase text-size-mini text-muted'><a href='/MgtAdminItem/Details?id=" + filteredList[i].FixtureKey + "'>View Details</a></span>"
+                           +"</div>"
+                        +"</div>"
+                  +"</div>"
+               + "</div>";
+            }
+            $("#elementContainer").html(res);
+        }
+        function GetClientCompanyListData() {
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/MgtAdminItem/GetCatelogue/",
+                success: function (data) {
+                    baseList = data;
+                    filteredList = data;
+                    remakeGrid();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+</script>
 }
 <div class="row">
 @using (Html.BeginForm())
@@ -60,7 +149,8 @@
             </div>
         </div>
         <div class="panel panel-footer text-center">
-            <button type="submit" class="btn btn-primary btn-rounded btn-xlg">Find<i class="icon-arrow-right14 position-right"></i></button>
+            <button type="button" onclick="search()" class="btn btn-primary btn-rounded btn-xlg">Find<i class="icon-arrow-right14 position-right"></i></button>
+            <button type="button" onclick="refresh()" class="btn btn-primary btn-rounded btn-xlg">Refresh<i class="icon-arrow-right14 position-right"></i></button>
         </div>
         <!-- /widget with rounded icon -->
         </div>
@@ -69,44 +159,34 @@
         <div class="panel panel-heading">
             <h1 class="panel-title list-panel-title">@ViewBag.mess</h1>
         </div>
-        @{
+        <div id="elementContainer">
+
+
+        </div>
+        @*@{
             foreach (var item in Model.ItemList)
             {
-                
 
-                <div class="col-md-4">
-                    <div class="thumbnail">
-                        <div class="thumb">                         
-                            <img src="@Url.Action("GetMainProductPic","ShowImage",new { id=item.FixtureKey})" class="img-responsive img-rounded" width="100px" height="80px" alt="">
-                        </div>
-                        <div class="caption">
-                            <div class="content-group-sm media">
-                                <div class="media-body">
-                                    <h6 class="text-semibold no-margin"><a href="@Url.Action("Edit","MgtAdminItem",new { id=item.FixtureKey})" class="text-default">@Html.DisplayFor(m => item.ProductName)</a></h6>
-                                    <small class="text-muted"><a href="@Url.Action("Details","MgtAdminItem",new { id=item.FixtureKey})">View Details</a></small>
-                                </div>
-                                <h6 class="text-success media-right no-margin-bottom text-semibold">@Html.DisplayFor(m => item.ModelNo)</h6>
+                <div class="col-sm-6 col-md-3">
+                    <div class="panel panel-body panel-body-accent">
+                        <div class="media no-margin">
+                            <div class="media-body text-left">
+                                <img src="@Url.Action("GetMainProductPic","ShowImage",new { id=item.FixtureKey})" class="img-responsive img-rounded" width="100px" height="80px" alt="">
                             </div>
-                           @Html.DisplayFor(m => item.Watt) Watt Per Luminaire
-                        </div>
-                        <div class="panel-footer panel-footer-transparent">
-                            <div class="heading-elements">
-                                <ul class="list-inline list-inline-separate heading-text">
-                                    <li><i class="icon-users position-left"></i> @Html.DisplayFor(m => item.LampLife)  Hrs     Lamp Life</li>
-                                    <li><i class="icon-alarm position-left"></i> @Html.DisplayFor(m => item.LightOutput)  Light Output</li>
-                                </ul>
-
-                                <span class="heading-text pull-right">
-                                  
-                                    <span class="text-muted position-right">@Html.DisplayFor(m => item.Category)</span>
-                                    <span class="text-muted position-right">@Html.DisplayFor(m => item.Manufacturer)</span>
-                                </span>
+                            <div class="media-body text-right">
+                                <h3 class="no-margin text-semibold"><a href="@Url.Action("Edit","MgtAdminItem",new { id=item.FixtureKey})" class="text-default">@Html.DisplayFor(m => item.ProductName)</a></h3>
+                                <span class="text-uppercase text-size-mini">Model # @Html.DisplayFor(m => item.ModelNo)</span><br />
+                                <span class="text-uppercase text-size-mini text-muted">@Html.DisplayFor(m => item.Watt) Watt Per Luminaire</span><br />
+                                <span class="text-uppercase text-size-mini text-muted">@Html.DisplayFor(m => item.LampLife)  Hrs     Lamp Life</span><br />
+                                <span class="text-uppercase text-size-mini text-muted">@Html.DisplayFor(m => item.LightOutput)  Light Output</span><br />
+                                <span class="text-uppercase text-size-mini text-muted"><a href="@Url.Action("Details","MgtAdminItem",new { id=item.FixtureKey})">View Details</a></span>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             }
-        }
+        }*@
         
         
     </div>

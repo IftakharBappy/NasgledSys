@@ -62,6 +62,7 @@ namespace NasgledSys.EM
             bo.Location = ent.Location;
             bo.MountingBase = ent.MountingBase;
             bo.TypeCount = ent.TypeCount;
+            bo.MainItemKey = ent.MainItemKey;
             return bo;
         }
 
@@ -89,7 +90,7 @@ namespace NasgledSys.EM
             fromdb.Size = fromForm.Size;
             fromdb.Location = fromForm.Location;
             fromdb.MountingBase = fromForm.MountingBase;
-
+            fromdb.MainItemKey = fromForm.MainItemKey;
             return fromdb;
         }
 

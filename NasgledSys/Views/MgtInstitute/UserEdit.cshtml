@@ -6,7 +6,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
+        LoadCityDropDown_ToEdit();
+        LoadStateDropDown_ToEdit();
         $('#StateCode').change(function () {
             $.ajax({
                 type: "post",
@@ -33,6 +34,48 @@
             });
         });
     });
+    function LoadCityDropDown_ToEdit() {
+        var select = $('select[name=CityKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtClientCompany/loadCityDropDown_ToEdit/",
+            data: JSON.stringify({ CityKey: '@Model.CityKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].CityKey + "' " + data[i].Selected + ">" + data[i].CityName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadStateDropDown_ToEdit() {
+        var select = $('select[name=StateCode]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtClientCompany/LoadStateDropDown_ToEdit/",
+            data: JSON.stringify({ StateKey: '@Model.StateCode' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].StateName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
 </script>
 @section SideBar{
     <h4>
@@ -84,12 +127,12 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.CompanyAddress, "State")
-                        @Html.DropDownList("StateCode", null, string.Empty, htmlAttributes: new { id = "StateCode", @class = "select" })                      
+                        <select name="StateCode" placeholder="Select" class="select select-search"></select>                        
                         @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group" id="CityName">
                         @Html.LabelFor(model => model.CompanyAddress, "City")
-                       @Html.DropDownList("CityKey", null, string.Empty, htmlAttributes: new {id= "CityKey", @class = "select" })                       
+                        <select name="CityKey" placeholder="Select" class="select select-search"></select>                    
                         @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">

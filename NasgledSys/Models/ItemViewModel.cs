@@ -14,7 +14,8 @@ namespace NasgledSys.Models
         [Required(ErrorMessage = "Category is required")]
         public Nullable<System.Guid> CategoryKey { get; set; }
         public Nullable<System.Guid> SubcategoryKey { get; set; }
-        [Required(ErrorMessage = "Catelogue is required")]
+       
+
         public Nullable<System.Guid> CatelogueKey { get; set; }
         [Required(ErrorMessage = "Manufacturer is required")]
         public Nullable<System.Guid> ManufacturerKey { get; set; }
@@ -77,8 +78,10 @@ namespace NasgledSys.Models
         [Display(Name = "Type Count*")]
         [Required(ErrorMessage = "Please enter the Type Count")]
         public int? TypeCount { get; set; }
-
-        public List<ItemViewModel> ItemList { get; set; }
+        public Guid? MainItemKey { get; set; }
+        [Display(Name = "Does it Fall under another Product")]
+        public string MainProductDetail { get; set; }
+      
     }
 
     public class CatelogueViewModel
