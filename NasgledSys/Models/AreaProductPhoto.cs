@@ -23,8 +23,8 @@ namespace NasgledSys.Models
         public byte[] FileContent { get; set; }
         public string Description { get; set; }
     
-        public virtual Area Area { get; set; }
         public virtual AreaProduct AreaProduct { get; set; }
         public virtual ProfileProduct ProfileProduct { get; set; }
+        public virtual Area Area { get; set; }
     }
 }

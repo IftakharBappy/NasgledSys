@@ -123,5 +123,64 @@ namespace NasgledSys.Models
                 HttpContext.Current.Session[GlobalClass._LoggedInUser] = value;
             }
         }
+
+        static private string _Project = "Project";
+        public static Project Project
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._Project] == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (Project)(HttpContext.Current.Session[GlobalClass._Project]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._Project] = value;
+            }
+        }
+
+        static private string _AreaGuidForSubArea = "AreaGuidForSubArea";
+        public static Guid AreaGuidForSubArea
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._AreaGuidForSubArea] == null)
+                {
+                    return Guid.Empty;
+                }
+                else
+                {
+                    return (Guid)(HttpContext.Current.Session[GlobalClass._AreaGuidForSubArea]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._AreaGuidForSubArea] = value;
+            }
+        }
+        static private string _AreaHeading = "AreaHeading";
+        public static string AreaHeading
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._AreaHeading] == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (string)(HttpContext.Current.Session[GlobalClass._AreaHeading]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._AreaHeading] = value;
+            }
+        }
     }
 }

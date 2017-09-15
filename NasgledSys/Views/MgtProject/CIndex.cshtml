@@ -1,0 +1,139 @@
+﻿@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Project";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@section scripts
+{
+
+    <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+
+
+        var CityListVM;
+        $(function () {
+
+            CityListVM = {
+                dt: null,
+
+                init: function () {
+                    dt = $('#Citys-data-table').DataTable({
+                        "serverSide": true,
+                        "processing": true,
+                        "ajax": {
+                            "url": "@Url.Action("GetProjectListDataByCompany", "Home")",
+                            "data": function (data) {
+
+                                data.ProjectKey = $("#ProjectKey").val();
+                                data.ProjectName = $("#ProjectName").val();
+                                data.CompanyName = $("#CompanyName").val();
+                                data.AdminName = $("#AdminName").val();
+                                data.AreaNum = $("#AreaNum").val();
+                                data.ExsistingProduct = $("#ExsistingProduct").val();
+                            }
+                        },
+                        "columns": [
+
+                            { "title": "Project Name", "data": "ProjectName", "searchable": true, "sortable": true },
+                            { "title": "Company", "data": "CompanyName", "searchable": true, "sortable": false },
+                             { "title": "Admin", "data": "AdminName", "searchable": false, "sortable": false },
+                              { "title": "Areas", "data": "AreaNum", "searchable": false, "sortable": false },
+                               { "title": "Exsisting Product", "data": "ExsistingProduct", "searchable": false, "sortable": false },
+                            {
+                                "title": "Actions",
+                                "data": "ProjectKey",
+                                "searchable": false,
+                                "sortable": false,
+                                "render": function (data, type, full, meta) {
+                                    return '<a href="@Url.Action("Edit", "MgtProject")?id=' + data + '" class="editCity">Edit</a>';
+                                }
+                            }
+                        ],
+                        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                    });
+                },
+
+                refresh: function () {
+                    dt.ajax.reload();
+                }
+            }
+
+
+
+            // initialize the datatables
+            CityListVM.init();
+
+            //$('#Citys-data-table').on("click", ".editCity", function (event) {
+
+            //    event.preventDefault();
+
+            //    var url = $(this).attr("href");
+
+            //    $.get(url, function (data) {
+            //        $('#CityKey').val(data["CityKey"]);
+            //        $('#CityName').val(data["CityName"]);
+            //        $("#StateCode").select2();
+
+            //        $("#StateCode").select2();
+            //        $("#StateCode").select2("val", JSON.stringify(data["StateCode"]));
+
+            //        $('#modal_default').modal('show');
+            //    });
+
+            //});
+
+
+
+
+
+        });
+
+
+
+
+
+    </script>
+
+}
+@section SideBar{
+    <center>
+        <h4>
+            <span class="heading-text">
+                <i class="icon-folder-download position-left"></i>  <a href="@Url.Action("UserHome","Home")">Home></a><a href="@Url.Action("Index","MgtClientCompany")">Companies ></a>
+            </span>
+        </h4>
+
+    </center>
+
+}
+
+@section CenterTitle{
+    List View Of All Projects
+}
+<div class="content-wrapper">
+    <div class="panel panel-default col-lg-6">
+
+
+
+        <div class="panel-body">
+
+            <ul class="nav nav-pills">
+                <li class="active"><a href="@Url.Action("Userhome","Home")" data-toggle="tab">Back</a></li>
+                <li><a href="@Url.Action("SelectCompany","MgtProject")" data-toggle="tab">Add New Project</a></li>
+
+            </ul>
+
+
+        </div>
+
+
+        <table class="table datatable-show-all" id="Citys-data-table"></table>
+
+    </div>
+</div>
+
+

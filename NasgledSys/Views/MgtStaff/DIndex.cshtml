@@ -73,6 +73,7 @@
                     <td>@Html.ActionLink("View", "Details", "MgtStaff", new { id = item.PersonnelKey }, null) </td>
 
                     <td>@Html.ActionLink("Remove", "DDelete", "MgtStaff", new { id = item.PersonnelKey }, new { onclick = "return confirm('Are you sure you want to Remove this?')" })</td>
+
                 </tr>
             }
         </tbody>

@@ -38,6 +38,7 @@ namespace NasgledSys.Models
         public Nullable<System.Guid> HeatingSystemKey { get; set; }
         public Nullable<System.Guid> ProjectKey { get; set; }
         public Nullable<System.Guid> ParentAreaKey { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
     
         public virtual CoolingSystem CoolingSystem { get; set; }
         public virtual HeatingSystem HeatingSystem { get; set; }

@@ -357,7 +357,7 @@ namespace NasgledSys.Controllers
 
                     batchList = obj.ClientContactViewModelList;
 
-                    var listOfBatches = batchList.Batch(1);
+                    var listOfBatches = batchList.SearchBatch(2);
 
                     int tabNo = 1;
 

@@ -24,7 +24,7 @@ namespace NasgledSys.Models
         public Nullable<decimal> AreaWidth { get; set; }
         public Nullable<decimal> Length { get; set; }
     
-        public virtual Area Area { get; set; }
         public virtual LightingSatisfactionFactor LightingSatisfactionFactor { get; set; }
+        public virtual Area Area { get; set; }
     }
 }

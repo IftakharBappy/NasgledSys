@@ -58,186 +58,188 @@
         });
     }
 </script>
-<div class="row">
-    <div class="col-md-3">
-        &nbsp;
-    </div>
-    @using (Html.BeginForm("Edit", "MgtClientContact", FormMethod.Post))
-    {
-        @Html.HiddenFor(model => model.ContactKey, new { id = "ContactKey" })
-        <div class="col-md-6">
-
-            <div class="panel-body">
-                <h4>
-                    <span class="heading-text pull-left">
-                        <i class="icon-folder-download position-left"></i>
-                        <span class="position-left"><a href="@Url.Action("Index","MgtClientContact")">Contact > </a></span>
-
-                    </span>
-
-                </h4>
-            </div>
-            <div class="panel-body">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <ul class="nav nav-pills" id="myTab">
-                            <li class="active">
-                                <a href="#first" data-toggle="tab">Profile</a>
-                            </li>
-                            <li>
-                                <a href="#second" data-toggle="tab">Contact</a>
-                            </li>
-                            <li>
-                                <a href="#third" data-toggle="tab">Address</a>
-                            </li>
-                            <li>
-                                <a href="#fourth" data-toggle="tab">Notes</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="tab-content">
-
-                    <div class="tab-pane fade in active" id="first">
-                        <div class="panel panel-default ">
-                            <div class="panel-body">
-                                <div class="form-horizontal">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.FirstName)
-                                            @Html.HiddenFor(model => model.ContactKey, new { id = "ContactKey" })
-                                            @Html.TextBoxFor(model => model.FirstName, new { placeholder = " First Name", id = "FirstName", @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.LastName)
-                                            @Html.TextBoxFor(model => model.LastName, new { placeholder = " Last Name", id = "LastName", @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.JobTitle)
-                                            @Html.TextBoxFor(model => model.JobTitle, new { placeholder = " Job Title", id = "JobTitle", @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.WebAddress)
-                                            @Html.TextBoxFor(model => model.WebAddress, new { placeholder = " Web Address : https://www.google.com", id = "WebAddress", @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.WebAddress, "", new { @class = "text-danger" })
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="second">
-                        <div class="panel panel-default ">
-                            <div class="panel-body">
-                                <div class="form-horizontal">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Email)
-                                        @Html.TextBoxFor(model => model.Email, new { placeholder = " Email", id = "emailId", @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.OfficePhone)
-                                        @Html.TextBoxFor(model => model.OfficePhone, new { mask = "(999) 999-9999", placeholder = " Office Phone", @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.CellPhone)
-                                        @Html.TextBoxFor(model => model.CellPhone, new { placeholder = " Cell Phone", id = "CellPhone", @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.CellPhone, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.FaxPhone)
-                                        @Html.TextBoxFor(model => model.FaxPhone, new { placeholder = " Fax Phone", id = "FaxPhone", @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.FaxPhone, "", new { @class = "text-danger" })
-                                    </div>
-                                    <a href="#first" data-toggle="pill">Back</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="third">
-                        <div class="panel panel-default ">
-                            <div class="panel-body">
-                                <div class="form-horizontal">
-
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Address)
-                                        @Html.TextBoxFor(model => model.Address, new { placeholder = " Address", id = "Address", @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Address2)
-                                        @Html.TextBoxFor(model => model.Address2, new { placeholder = " Address2", id = "Address2", @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            @Html.LabelFor(model => model.CityKey, "City")
-                                            <select name="CityKey" placeholder="Select" class="select select-search"></select>
-                                            @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-md-3">
-                                            @Html.LabelFor(model => model.StateKey, "State")
-                                            <select name="StateKey" placeholder="Select" class="select select-search"></select>
-                                            @Html.ValidationMessageFor(model => model.StateKey, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-md-3">
-                                            @Html.LabelFor(model => model.Zipcode)
-                                            @Html.TextBoxFor(model => model.Zipcode, new { placeholder = " Zip code", id = "Zipcode", @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
-                                    <a href="#second" data-toggle="pill">Back</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="fourth">
-                        <div class="panel panel-default ">
-                            <div class="panel-body">
-                                <div class="form-horizontal">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.InternalNote)
-                                        @Html.TextAreaFor(model => model.InternalNote, new { placeholder = "Internal Note", id = "InternalNote", @class = "form-control" })
-                                        <h6>This not will be visible to client</h6>
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.GeneralNote)
-                                        @Html.TextAreaFor(model => model.GeneralNote, new { placeholder = "General Note", id = "GeneralNote", @class = "form-control" })
-
-                                    </div>
-                                    <a href="#third" data-toggle="pill">Back</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-                
-                    <div class="panel-footer">
-                        <div class="form-group" id="msgSuccess"><h4 class="alert alert-success">Data is successfully Updated on database.</h4></div>
-                        <center>
-                            @Html.ActionLink("Cancel", "Index", "MgtClientContact", null, new { @class = "btn btn-success btn-xlg col-lg-4" })
-                            <input type="submit" value="Save" class="btn btn-success btn-xlg col-lg-4" style="margin-left:5em;" />
-                        </center>
-</div>
-               
-           
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            &nbsp;
         </div>
-    }
+        @using (Html.BeginForm("Edit", "MgtClientContact", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.ContactKey, new { id = "ContactKey" })
+            <div class="col-md-6">
 
-    <div class="col-md-3">
-        &nbsp;
+                <div class="panel-body">
+                    <h4>
+                        <span class="heading-text pull-left">
+                            <i class="icon-folder-download position-left"></i>
+                            <span class="position-left"><a href="@Url.Action("Index","MgtClientContact")">Contact > </a></span>
+
+                        </span>
+
+                    </h4>
+                </div>
+                <div class="panel-body">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <ul class="nav nav-pills" id="myTab">
+                                <li class="active">
+                                    <a href="#first" data-toggle="tab">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#second" data-toggle="tab">Contact</a>
+                                </li>
+                                <li>
+                                    <a href="#third" data-toggle="tab">Address</a>
+                                </li>
+                                <li>
+                                    <a href="#fourth" data-toggle="tab">Notes</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+
+                        <div class="tab-pane fade in active" id="first">
+                            <div class="panel panel-default ">
+                                <div class="panel-body">
+                                    <div class="form-horizontal">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.FirstName)
+                                                @Html.HiddenFor(model => model.ContactKey, new { id = "ContactKey" })
+                                                @Html.TextBoxFor(model => model.FirstName, new { placeholder = " First Name", id = "FirstName", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.LastName)
+                                                @Html.TextBoxFor(model => model.LastName, new { placeholder = " Last Name", id = "LastName", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.JobTitle)
+                                                @Html.TextBoxFor(model => model.JobTitle, new { placeholder = " Job Title", id = "JobTitle", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.JobTitle, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.WebAddress)
+                                                @Html.TextBoxFor(model => model.WebAddress, new { placeholder = " Web Address : https://www.google.com", id = "WebAddress", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.WebAddress, "", new { @class = "text-danger" })
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="second">
+                            <div class="panel panel-default ">
+                                <div class="panel-body">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Email)
+                                            @Html.TextBoxFor(model => model.Email, new { placeholder = " Email", id = "emailId", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.OfficePhone)
+                                            @Html.TextBoxFor(model => model.OfficePhone, new { mask = "(999) 999-9999", placeholder = " Office Phone", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CellPhone)
+                                            @Html.TextBoxFor(model => model.CellPhone, new { placeholder = " Cell Phone", id = "CellPhone", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CellPhone, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FaxPhone)
+                                            @Html.TextBoxFor(model => model.FaxPhone, new { placeholder = " Fax Phone", id = "FaxPhone", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.FaxPhone, "", new { @class = "text-danger" })
+                                        </div>
+                                        <a href="#first" data-toggle="pill">Back</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="third">
+                            <div class="panel panel-default ">
+                                <div class="panel-body">
+                                    <div class="form-horizontal">
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Address)
+                                            @Html.TextBoxFor(model => model.Address, new { placeholder = " Address", id = "Address", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Address2)
+                                            @Html.TextBoxFor(model => model.Address2, new { placeholder = " Address2", id = "Address2", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                @Html.LabelFor(model => model.CityKey, "City")
+                                                <select name="CityKey" placeholder="Select" class="select select-search"></select>
+                                                @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.LabelFor(model => model.StateKey, "State")
+                                                <select name="StateKey" placeholder="Select" class="select select-search"></select>
+                                                @Html.ValidationMessageFor(model => model.StateKey, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.LabelFor(model => model.Zipcode)
+                                                @Html.TextBoxFor(model => model.Zipcode, new { placeholder = " Zip code", id = "Zipcode", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <a href="#second" data-toggle="pill">Back</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="fourth">
+                            <div class="panel panel-default ">
+                                <div class="panel-body">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.InternalNote)
+                                            @Html.TextAreaFor(model => model.InternalNote, new { placeholder = "Internal Note", id = "InternalNote", @class = "form-control" })
+                                            <h6>This not will be visible to client</h6>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.GeneralNote)
+                                            @Html.TextAreaFor(model => model.GeneralNote, new { placeholder = "General Note", id = "GeneralNote", @class = "form-control" })
+
+                                        </div>
+                                        <a href="#third" data-toggle="pill">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer">
+                    <div class="form-group" id="msgSuccess"><h4 class="alert alert-success">Data is successfully Updated on database.</h4></div>
+                    <center>
+                        @Html.ActionLink("Cancel", "Index", "MgtClientContact", null, new { @class = "btn btn-success btn-xlg col-lg-4" })
+                        <input type="submit" value="Save" class="btn btn-success btn-xlg col-lg-4" style="margin-left:5em;" />
+                    </center>
+                </div>
+
+
+            </div>
+        }
+
+        <div class="col-md-3">
+            &nbsp;
+        </div>
     </div>
-</div>
+ </div>
