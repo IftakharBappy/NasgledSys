@@ -6,9 +6,17 @@
 }
 
 
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+        $(function () {
 
-<script type="text/javascript" src="~/Content/assets/js/pages/datatables_advanced.js"></script>
+            $('#ctable').DataTable();
 
+        });
+
+</script>
 <script src="~/Scripts/AutoComplete/scFuelType.js"></script>
 
 <script type="text/javascript">
@@ -60,7 +68,7 @@
     </div>
     <div class="panel-body">
 
-        <table class="table datatable-show-all">
+        <table class="table table-bordered table-hover datatable-highlight" id="ctable">
             <thead><tr><th>Name</th><th>Description</th><th>Unit</th><th>Action</th></tr></thead>
             <tbody>
 

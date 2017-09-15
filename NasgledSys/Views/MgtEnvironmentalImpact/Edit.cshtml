@@ -87,12 +87,12 @@
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.QtyUsed)
-                                                @Html.TextBoxFor(model => model.QtyUsed, new { placeholder = " QtyUsed", id = "QtyUsed", @class = "form-control" })
+                                                @Html.TextBoxFor(model => model.QtyUsed, new { type = "number", placeholder = " Qty Used", id = "QtyUsed", @class = "form-control" })
                                                 @Html.ValidationMessageFor(model => model.QtyUsed, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.KilowattSaved)
-                                                @Html.TextBoxFor(model => model.KilowattSaved, new { placeholder = " Kilowatt Saved", id = "KilowattSaved", @class = "form-control" })
+                                                @Html.TextBoxFor(model => model.KilowattSaved, new { type = "number", placeholder = " Kilowatt Saved", id = "KilowattSaved", @class = "form-control" })
                                                 @Html.ValidationMessageFor(model => model.KilowattSaved, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="container-fluid">

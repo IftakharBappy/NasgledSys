@@ -30,18 +30,31 @@ namespace NasgledSys.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(string sname, string scode)
+        public async Task<ActionResult> Index(string sname, string scode,int? PKey)
         {
-            if (!ModelState.IsValid)
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    if (!ModelState.IsValid)
             {
                 return View();
             }
-            if (string.IsNullOrEmpty(scode)) scode = sname;
-            StateList asset = new StateList();
-            asset.IsDelete = false;
-            asset.StateCode = scode;
-            asset.StateName = sname;
-          
+            if (PKey == null)
+            {
+                if (string.IsNullOrEmpty(scode)) scode = sname;
+                StateList asset = new StateList();
+                asset.IsDelete = false;
+                asset.StateCode = scode;
+                asset.StateName = sname;
+                db.StateList.Add(asset);
+            }
+            else
+            {
+                StateList asset =db.StateList.Find(PKey);               
+                asset.StateCode = scode;
+                asset.StateName = sname;
+            }
             var task = db.SaveChangesAsync();
             await task;
 
@@ -49,14 +62,25 @@ namespace NasgledSys.Controllers
             {
                 ModelState.AddModelError("", "Unable to add the State");
             }
-            return Content("success");
+                    return View();
+                }
+                catch (Exception e)
+                {
+                    return View("Error", new HandleErrorInfo(e, "Home", "Index"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Sorry, your Session has Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "Login"));
+            }
         }
         public ActionResult Edit(long id)
         {
 
             JsonResult result = new JsonResult();
-            var asset = db.CityList.Find(id);
-            CityViewModel obj = EM_Role.ConvertToCityModel(asset);
+            StateList asset = db.StateList.Find(id);
+            StateModel obj = EM_Role.ConvertToStateModel(asset);
             result.Data = obj;
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;

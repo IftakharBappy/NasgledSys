@@ -254,6 +254,7 @@
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
+    <Compile Include="Controllers\MgtStateController.cs" />
     <Compile Include="Controllers\MgtUnitController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
@@ -3823,6 +3824,7 @@
     <Content Include="Views\MgtProfileProduct\Edit.cshtml" />
     <Content Include="Views\MgtProfileProduct\Index.cshtml" />
     <Content Include="Views\MgtProfileProduct\View.cshtml" />
+    <Content Include="Views\MgtState\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

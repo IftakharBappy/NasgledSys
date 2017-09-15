@@ -4,10 +4,17 @@
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+        $(function () {
 
+            $('#ctable').DataTable();
 
+        });
 
-<script type="text/javascript" src="~/Content/assets/js/pages/datatables_advanced.js"></script>
+</script>
 
 <script src="~/Scripts/AutoComplete/scHeatingEfficiencyType.js"></script>
 
@@ -59,7 +66,7 @@
     </div>
     <div class="panel-body">
 
-        <table class="table datatable-show-all">
+        <table class="table table-bordered table-hover datatable-highlight" id="ctable">
             <thead><tr><th>Name</th><th>Description</th><th>Action</th></tr></thead>
             <tbody>
 

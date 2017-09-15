@@ -3,7 +3,73 @@
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="text-center content-group text-muted content-divider">
+    <span class="pt-10 pb-10">General Settings</span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel border-left-lg border-left-primary">
+            <div class="panel-body">
+                <div class="row">
+                    <a href="@Url.Action("Index","MgtProjectStatus")" class="btn bg-purple-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-people"></i> <span>Project Status</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtFuelType")" class="btn bg-warning-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-screen-full"></i> <span>Fuel Type</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtUnit")" class="btn bg-teal-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-git-branch"></i> <span>Unit</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtCoolingEfficiencyType")" class="btn bg-teal-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-people"></i> <span>Cooling Efficiency Type</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtCoolingSystemType")" class="btn bg-blue-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-bell-check"></i> <span>Cooling System Type</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtHeatingEfficiencyType")" class="btn bg-indigo-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-bell-cross"></i> <span>Heating Efficiency Type</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtHeatingSystemType")" class="btn bg-warning-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-headset"></i> <span>Heating System Type</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtIndustryType")" class="btn bg-blue-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-stats-bars"></i> <span>Industry Type</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtJobFunction")" class="btn bg-purple-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-people"></i> <span>Job Function</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtIncentiveMaxType")" class="btn bg-blue-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-battery-0"></i> <span>Incentive Max Type</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtIncentiveType")" class="btn bg-info-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-battery-charging"></i> <span>Incentive Type</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtLightingSatisfactionFactor")" class="btn bg-teal-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-stats-bars"></i> <span>Lighting Satisfaction Factor</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtAnnualSalesRevenueSetup")" class="btn bg-teal-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-coins"></i> <span>Annual Sales Revenue Setup</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtSalesReachSetup")" class="btn bg-warning-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-calculator"></i> <span>Sales Reach Setup</span></a>
+                   
+                </div>
+            </div>
 
+        </div>
+    </div>
+
+</div>
+<div class="text-center content-group text-muted content-divider">
+    <span class="pt-10 pb-10">Item Settings</span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel border-left-lg border-left-primary">
+            <div class="panel-body">
+                <div class="row">
+                    <a href="@Url.Action("Index","MgtItemCategory")" class="btn bg-teal-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-git-branch"></i> <span>Category</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtItemCatelogue")" class="btn bg-purple-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-cog"></i> <span>Catelogue</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtItemSubcategory")" class="btn bg-warning-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-code"></i> <span>Subcategory</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtItemType")" class="btn bg-warning-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-cog7"></i> <span>Item Type</span></a>
+                    <div class="col-md-1">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtManufacturer")" class="btn bg-blue-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-bag"></i> <span>Manufacturer</span></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
 <div class="text-center content-group text-muted content-divider">
     <span class="pt-10 pb-10">Configuration</span>
 </div>
@@ -39,6 +105,28 @@
                     <div class="col-md-2">&nbsp;</div>
                     <a href="@Url.Action("Index","MgtState")" class="btn bg-purple-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-map"></i> <span>State</span></a>
 </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="text-center content-group text-muted content-divider">
+    <span class="pt-10 pb-10">Component</span>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel border-left-lg border-left-primary">
+            <div class="panel-body">
+                <div class="row">
+                    <a href="@Url.Action("Index","MgtRole")" class="btn bg-teal-400 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-map4"></i> <span>Client Role</span></a>
+                    <div class="col-md-2">&nbsp;</div>
+                    <a href="@Url.Action("Catelogue","MgtAdminItem")" class="btn bg-purple-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-book"></i> <span>Item Definition</span></a>
+                    <div class="col-md-2">&nbsp;</div>
+                    <a href="@Url.Action("Index","MgtEnvironmentalImpact")" class="btn bg-blue-300 col-md-2 vertical valign-middle btn-float btn-float-lg"><i class="icon-cog"></i> <span>Environmental Impact</span></a>
+                 </div>
             </div>
 
         </div>

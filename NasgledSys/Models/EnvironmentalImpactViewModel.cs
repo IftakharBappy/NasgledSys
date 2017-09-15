@@ -10,14 +10,16 @@ namespace NasgledSys.Models
     {
         public System.Guid FactorKey { get; set; }
         [Display(Name = "Factor Name")]
-        [Required(ErrorMessage = "Factor Name name is required.")]
+        [Required(ErrorMessage = "Factor Name is required.")]
         public string FactorName { get; set; }
+        [Display(Name = "Unit Name")]
+        [Required(ErrorMessage = "Unit name is required.")]
         public string UnitName { get; set; }
-        [RegularExpression(@"^\d+\.\d{0,2}$", ErrorMessage = "Only Decimal Value , like 12.20")]
-        [Range(0, 9999999999999999.99)]
+        [Required(ErrorMessage = "Quantity is required.")]
+        [Display(Name = "Quantity Used")]
         public Nullable<decimal> QtyUsed { get; set; }
-        [RegularExpression(@"^\d+\.\d{0,2}$", ErrorMessage = "Only Decimal Value , like 12.20")]
-        [Range(0, 9999999999999999.99)]
+        [Required(ErrorMessage = "KiloWatt Saved is required.")]
+        [Display(Name = "KiloWatt Saved")]
         public Nullable<decimal> KilowattSaved { get; set; }
         public byte[] Logo { get; set; }
         public string LogoType { get; set; }

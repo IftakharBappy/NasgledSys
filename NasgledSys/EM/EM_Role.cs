@@ -7,6 +7,17 @@ namespace NasgledSys.EM
 {
     public static class EM_Role
     {
+        public static StateModel ConvertToStateModel(StateList ent)
+        {
+            StateModel bo = new StateModel();
+
+            bo.PKey = ent.PKey;
+            bo.StateName = ent.StateName;
+            bo.StateCode = ent.StateCode;
+            bo.IsDelete = ent.IsDelete;
+
+            return bo;
+        }
         public static CityViewModel ConvertToCityModel(CityList ent)
         {
             CityViewModel bo = new CityViewModel();

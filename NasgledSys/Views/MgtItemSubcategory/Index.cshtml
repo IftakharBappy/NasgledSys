@@ -4,9 +4,11 @@
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
-<script type="text/javascript" src="~/Content/assets/js/pages/datatables_advanced.js"></script>
-<script src="~/Scripts/AutoComplete/scItemSubcategory.js"></script> Item Subcategory
+<script src="~/Scripts/AutoComplete/scItemSubcategory.js"></script>
 <script type="text/javascript">
         $(document).ready(function () {
             $('#msgSuccess').hide();

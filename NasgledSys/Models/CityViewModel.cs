@@ -20,6 +20,17 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
       
     }
+    public class StateModel
+    {
+        public int? PKey { get; set; }
+       
+        public string StateName { get; set; }
+      
+
+        public string StateCode { get; set; }
+        public bool? IsDelete { get; set; }
+
+    }
 
     public class RoleViewModel
     {

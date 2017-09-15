@@ -16,8 +16,9 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/pages/datatables_advanced.js"></script>
-
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 <script>
 
 $('#Dialog-Box').dialog({
@@ -46,7 +47,10 @@ function onsave() {
             }
         });
 
-    }
+}
+    $(function () {
+        $('#ctable').DataTable();
+    });
 </script>
 <div class="content-wrapper">
     <div class="panel panel-flat">
@@ -65,7 +69,7 @@ function onsave() {
         </div>
         <div class="panel-body" id="list">
 
-            <table class="table datatable-show-all">
+            <table class="table table-bordered table-hover datatable-highlight" id="ctable">
                 <thead><tr><th>Type Name</th><th>Description</th></tr></thead>
                 <tbody>
 
