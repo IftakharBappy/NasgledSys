@@ -248,12 +248,12 @@
     <Compile Include="Controllers\MgtManufacturerController.cs" />
     <Compile Include="Controllers\MgtModulesController.cs" />
     <Compile Include="Controllers\MgtProfileController.cs" />
+    <Compile Include="Controllers\MgtProfileProductController.cs" />
     <Compile Include="Controllers\MgtProjectController.cs" />
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
-    <Compile Include="Controllers\MgtStateController.cs" />
     <Compile Include="Controllers\MgtUnitController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
@@ -469,6 +469,7 @@
     <Compile Include="Models\ProfileProduct.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProfileProductViewModel.cs" />
     <Compile Include="Models\Project.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3816,7 +3817,12 @@
     <Content Include="Views\UserItemCatelogue\Index.cshtml" />
     <Content Include="Views\AreaDetail\Edit.cshtml" />
     <Content Include="Views\MgtProject\ProjectByCompany.cshtml" />
-    <Content Include="Views\MgtState\Index.cshtml" />
+    <Content Include="Views\MgtEnvironmentalImpact\Create.cshtml" />
+    <Content Include="Views\MgtEnvironmentalImpact\Edit.cshtml" />
+    <Content Include="Views\MgtProfileProduct\Create.cshtml" />
+    <Content Include="Views\MgtProfileProduct\Edit.cshtml" />
+    <Content Include="Views\MgtProfileProduct\Index.cshtml" />
+    <Content Include="Views\MgtProfileProduct\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
