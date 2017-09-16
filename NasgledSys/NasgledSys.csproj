@@ -286,6 +286,7 @@
     <Compile Include="DAL\MgtManufacturer.cs" />
     <Compile Include="DAL\MgtProjectStatus.cs" />
     <Compile Include="DAL\MgtSalesReachSetup.cs" />
+    <Compile Include="EM\EM_AdminAccess.cs" />
     <Compile Include="EM\EM_Area.cs" />
     <Compile Include="EM\EM_AreaDetail.cs" />
     <Compile Include="EM\EM_City.cs" />
@@ -527,6 +528,7 @@
     <Compile Include="Models\UserGroupModule.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserModuleClass.cs" />
     <Compile Include="Models\UserProfile.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>

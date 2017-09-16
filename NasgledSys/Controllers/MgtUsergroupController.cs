@@ -425,7 +425,7 @@ namespace NasgledSys.Controllers
             try
             {
 
-                Usergroup company = db.Usergroup.Find(id);
+               
                 var temp = from x in db.UserGroupForm where x.UserGroupKey == id select x;
                 var temp2 = from x in db.UserGroupModule where x.UserGroupKey == id select x;
                 var temp3 = from x in db.StaffList where x.Usergr == id select x;
@@ -454,11 +454,13 @@ namespace NasgledSys.Controllers
                     foreach (var a in temp2)
                     {
                         NasgledDBEntities ac = new NasgledDBEntities();
-                        UserGroupModule form = db.UserGroupModule.Find(a.UserGroupModuleKey);
-                        ac.UserGroupModule.Remove(form);
+                        UserGroupModule form = ac.UserGroupModule.FirstOrDefault(m=>m.UserGroupModuleKey==a.UserGroupModuleKey);
+                         ac.UserGroupModule.Remove(form);
                         ac.SaveChanges();
                     }
                 }
+                db = new NasgledDBEntities();
+                Usergroup company = db.Usergroup.Find(id);
                 db.Usergroup.Remove(company);
                 db.SaveChanges();
                 return RedirectToAction("DIndex");

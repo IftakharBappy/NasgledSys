@@ -7,6 +7,44 @@ namespace NasgledSys.Models
 {
     public class GlobalClass
     {
+        static private string _ModuleList = "ModuleList";
+        public static List<UserModuleClass> ModuleList
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._ModuleList] == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (List<UserModuleClass>)(HttpContext.Current.Session[GlobalClass._ModuleList]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._ModuleList] = value;
+            }
+        }
+        static private string _FormList = "FormList";
+        public static List<UserFormClass> FormList
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._FormList] == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (List<UserFormClass>)(HttpContext.Current.Session[GlobalClass._FormList]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._FormList] = value;
+            }
+        }
         static private string _MasterSession = "MasterSession";
         public static bool MasterSession
         {
