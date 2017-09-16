@@ -27,6 +27,7 @@ namespace NasgledSys.Models
         public string FormController { get; set; }
         public string FormView { get; set; }
         public Nullable<bool> IsDelete { get; set; }
+        public string FormCss { get; set; }
     
         public virtual Modules Modules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

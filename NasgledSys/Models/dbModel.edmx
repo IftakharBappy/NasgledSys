@@ -341,6 +341,7 @@
           <Property Name="FormController" Type="nvarchar(max)" />
           <Property Name="FormView" Type="nvarchar(max)" />
           <Property Name="IsDelete" Type="bit" />
+          <Property Name="FormCss" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="FuelType">
           <Key>
@@ -2290,6 +2291,7 @@
           <Property Name="IsDelete" Type="Boolean" />
           <NavigationProperty Name="Modules" Relationship="Self.FK_Forms_Modules" FromRole="Forms" ToRole="Modules" />
           <NavigationProperty Name="UserGroupForm" Relationship="NasgledDBModel.FK_UserGroupForm_Forms" FromRole="Forms" ToRole="UserGroupForm" />
+          <Property Name="FormCss" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ImageFile">
           <Key>
@@ -4700,6 +4702,7 @@
           <EntitySetMapping Name="Forms">
             <EntityTypeMapping TypeName="NasgledDBModel.Forms">
               <MappingFragment StoreEntitySet="Forms">
+                <ScalarProperty Name="FormCss" ColumnName="FormCss" />
                 <ScalarProperty Name="FormID" ColumnName="FormID" />
                 <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
                 <ScalarProperty Name="FormName" ColumnName="FormName" />
