@@ -1,415 +1,49 @@
-﻿
+﻿@using NasgledSys.Models;
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="text-center content-group text-muted content-divider">
-    <span class="pt-10 pb-10">General Settings</span>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel border-left-lg border-left-primary">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-pointer icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtProjectStatus")" class="btn btn-float btn-float-lg"><span>Project Status</span></a>
-                                </div>
-                            </div>
+
+@{
+    foreach (var item in GlobalClass.ModuleList)
+    {
+
+        <div class="text-center content-group text-muted content-divider">
+            <span class="pt-10 pb-10">@Html.DisplayFor(m=>item.ModuleName)</span>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel border-left-lg border-left-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            @{
+                                foreach (var fitem in item.formList)
+                                {
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="panel panel-body panel-body-accent">
+                                            <div class="media no-margin">
+                                                <div class="media-left media-middle">
+                                                    <i class="@fitem.FormCss"></i>
+                                                </div>
+                                                <div class="media-body text-right">
+                                                    <a href="@Url.Action(fitem.FormView, fitem.FormController)" class="btn btn-float btn-float-lg"><span>@fitem.FormName</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }                          
+
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-screen-full icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtFuelType")" class="btn btn-float btn-float-lg"><span>Fuel Type</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-git-branch icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtUnit")" class="btn btn-float btn-float-lg"><span>Unit</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-enter6 icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtCoolingEfficiencyType")" class="btn btn-float btn-float-lg"><span>Cooling Efficiency Type</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-bell-check icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtCoolingSystemType")" class="btn btn-float btn-float-lg"><span>Cooling System Type</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-bell-cross icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtHeatingEfficiencyType")" class="btn btn-float btn-float-lg"><span>Heating Efficiency Type</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-pulse2 icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtHeatingSystemType")" class="btn btn-float btn-float-lg"><span>Heating System Type</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-stats-bars icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtIndustryType")" class="btn btn-float btn-float-lg"><span>Industry Type</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-people icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtJobFunction")" class="btn btn-float btn-float-lg"><span>Job Function</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-battery-0 icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtIncentiveMaxType")" class="btn btn-float btn-float-lg"><span>Incentive Max Type</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-battery-charging icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtIncentiveType")" class="btn btn-float btn-float-lg"><span>Incentive Type</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-medal-star icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtLightingSatisfactionFactor")" class="btn btn-float btn-float-lg"><span>Lighting Satisfaction Factor</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-coins icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtAnnualSalesRevenueSetup")" class="btn btn-float btn-float-lg"><span>Annual Sales Revenue Setup</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-calculator icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtSalesReachSetup")" class="btn btn-float btn-float-lg"><span>Sales Reach Setup</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
+
                 </div>
             </div>
 
         </div>
-    </div>
-
-</div>
-<div class="text-center content-group text-muted content-divider">
-    <span class="pt-10 pb-10">Item Settings</span>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel border-left-lg border-left-primary">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-git-branch icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtItemCategory")" class="btn btn-float btn-float-lg"><span>Category</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-cog icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtItemCatelogue")" class="btn btn-float btn-float-lg"><span>Catelogue</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-code icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtItemSubcategory")" class="btn btn-float btn-float-lg"><span>Subcategory</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-cog7 icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtItemType")" class="btn btn-float btn-float-lg"><span>Item Type</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-bag icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtManufacturer")" class="btn btn-float btn-float-lg"><span>Manufacturer</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-</div>
+    }
+}
+   <hr><hr><hr>
+@*************************************************************************************************@
 
 
-
-<div class="text-center content-group text-muted content-divider">
-    <span class="pt-10 pb-10">GIS</span>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel border-left-lg border-left-primary">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-map5 icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","tcity")" class="btn btn-float btn-float-lg"><span>City</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-map icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtState")" class="btn btn-float btn-float-lg"><span>State</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-</div>
-            </div>
-
-        </div>
-    </div>
-
-</div>
-
-
-<div class="text-center content-group text-muted content-divider">
-    <span class="pt-10 pb-10">Component</span>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel border-left-lg border-left-primary">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-rocket icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtRole")" class="btn btn-float btn-float-lg"><span>Client Role</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-magic-wand icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Catelogue","MgtAdminItem")" class="btn btn-float btn-float-lg"><span>Manage Product</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-chart icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("Index","MgtEnvironmentalImpact")" class="btn btn-float btn-float-lg"><span>Environmental Impact</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                 </div>
-            </div>
-
-        </div>
-    </div>
-
-</div>
-
-<div class="text-center content-group text-muted content-divider">
-    <span class="pt-10 pb-10">Configuration</span>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel border-left-lg border-left-primary">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-git-branch icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("DIndex","MgtUsergroup")" class="btn btn-float btn-float-lg"><span>User group</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-people icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("DIndex","MgtStaff")" class="btn btn-float btn-float-lg"><span>User</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="panel panel-body panel-body-accent">
-                            <div class="media no-margin">
-                                <div class="media-left media-middle">
-                                    <i class="icon-briefcase icon-3x text-success-400"></i>
-                                </div>
-                                <div class="media-body text-right">
-                                    <a href="@Url.Action("UserEdit","MgtInstitute")" class="btn btn-float btn-float-lg"><span>Company</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-</div>

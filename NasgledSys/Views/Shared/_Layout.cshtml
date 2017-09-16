@@ -61,83 +61,27 @@
                     <div class="dropdown-menu dropdown-content">
                         <div class="dropdown-content-body">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <span class="menu-heading underlined">Setup Forms</span>
-                                    <ul class="menu-list">
-                                        <li>
-                                            <a href="#"><i class="icon-pencil3"></i>GIS</a>
-                                            <ul>
-                                                <li><a href="@Url.Action("Index","MgtState")">State</a></li>
-                                              
-                                                <li><a href="@Url.Action("Index","tcity")">City</a></li>
-                                                
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="icon-file-css"></i>General Settings</a>
-                                            <ul>
-                                                <li><a href="@Url.Action("Index","MgtUnit")">Unit</a></li>
-                                                <li><a href="@Url.Action("Index","MgtCoolingEfficiencyType")">Cooling Efficiency Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtCoolingSystemType")">Cooling System Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtFuelType")">Fuel Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtHeatingEfficiencyType")">Heating Efficiency Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtHeatingSystemType")">Heating System Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtIndustryType")">Industry Type</a></li>
-                                               
-                                                <li><a href="@Url.Action("Index","MgtJobFunction")">Job Function</a></li>
-                                                <li><a href="@Url.Action("Index","MgtIncentiveMaxType")">Incentive Max Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtIncentiveType")">Incentive Type</a></li>
-                                                <li><a href="@Url.Action("Index","MgtLightingSatisfactionFactor")">Lighting Satisfaction Factor</a></li>
-                                                <li><a href="@Url.Action("Index","MgtProjectStatus")">Project Status</a></li>
-                                               
-                                                <li><a href="@Url.Action("Index", "MgtAnnualSalesRevenueSetup")">Annual Sales Revenue Setup</a></li>
-                                                <li><a href="@Url.Action("Index","MgtSalesReachSetup")">Sales Reach Setup</a></li>
-                                                
-                                                
-                                            </ul>
-                                        </li>
-                                        
-                                        <li> @*Menu Set DO NOT DISTURB--------------------------------------- NAHID*@
-                                            <a href="#"><i class="icon-office"></i> Configuration</a>
-                                            <ul>
-                                                <li><a href="@Url.Action("DIndex","MgtUsergroup")">User group</a></li>
-                                                <li><a href="@Url.Action("DIndex","MgtStaff")">User</a></li>
-                                                <li><a href="@Url.Action("UserEdit","MgtInstitute")">Company Info</a></li>
-                                            </ul>
-                                        </li>
-                                       
-                                       
-                                    </ul>
-                                </div>
-                                <div class="col-md-3">
-                                    <span class="menu-heading underlined">Process</span>
-                                    <ul class="menu-list">
-                                        <li>
-                                            <a href="#"><i class="icon-grid"></i> Components</a>
-                                            <ul>
-                                                <li><a href="@Url.Action("Index","MgtRole")">Client Role</a></li>
-                                                <li><a href="@Url.Action("Catelogue","MgtAdminItem")">Item Definition</a></li>
-                                               
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="icon-file-css"></i>Item Settings</a>
-                                            <ul>
+                               @{
+                                   foreach (var item in GlobalClass.ModuleList)
+                                   {
 
-                                                <li><a href="@Url.Action("Index","MgtItemCategory")">Item Category</a></li>
-                                                <li><a href="@Url.Action("Index","MgtItemCatelogue")">Item Catelogue</a></li>
-                                                <li><a href="@Url.Action("Index","MgtItemSubcategory")">Item Subcategory</a></li>
-                                                <li><a href="@Url.Action("Index","MgtItemType")">Item Type</a></li>
+                                    <div class="col-md-4">
+                                        <span class="menu-heading underlined">@Html.DisplayFor(m => item.ModuleName)</span>
+                                        <ul>
+                                            @{
+                                                foreach (var fitem in item.formList)
+                                                {
+                                                    <li><a href="@Url.Action(fitem.FormView, fitem.FormController)">@fitem.FormName</a></li>
+                                                }
+                                            }                                
 
-                                                <li><a href="@Url.Action("Index","MgtManufacturer")">Manufacturer</a></li>
-
-                                            </ul>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                            
+                                        </ul>
+                                    </div>
+                                   }
+                            }
                             </div>
+                            @*88888888888888888888888888888888888888888888888*@
+                           
                         </div>
                     </div>
                 </li>
