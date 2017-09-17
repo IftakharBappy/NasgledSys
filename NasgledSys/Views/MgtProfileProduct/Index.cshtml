@@ -11,7 +11,7 @@
 </style>
 
 @section CenterTitle{
-    Profile Product
+   Catelogue
 }
 @section SideBar{
     <center>
@@ -21,43 +21,63 @@
         </h4>
     </center>
 }
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="#tab-demo1" data-toggle="tab">Catelogue</a></li>
+                <li>
+                    <a href="@Url.Action("QPL", "MgtProfileProduct")">QPL's</a>
+                </li>
+                <li><a href="@Url.Action("LightingFacts", "MgtProfileProduct")" data-toggle="tab">Lighting Facts &reg;</a></li>
 
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">List of Profile Product</h5>
-        <h2>@TempData["mess"]</h2>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
             </ul>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <a class="btn btn-primary" href="/MgtProfileProduct/Create">Add New Profile Product</a>
-            </div>
-            <div class="col-md-3">
-              
-                <div class="has-feedback has-feedback-left">
-                    <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
-                    <div class="form-control-feedback">
-                        <i class="icon-search4 text-size-base text-muted"></i>
-                    </div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="tab-demo1">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">List of Profile Product</h5>
+                <h2>@TempData["mess"]</h2>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
+                    </ul>
                 </div>
             </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class="btn btn-primary" href="/MgtProfileProduct/Create">Add New Profile Product</a>
+                    </div>
+                    <div class="col-md-3">
+
+                        <div class="has-feedback has-feedback-left">
+                            <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+                            <div class="form-control-feedback">
+                                <i class="icon-search4 text-size-base text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="container" id="elementContainer">
+
+
+            </div><!--/container -->
 
         </div>
     </div>
-    <br />
-    <br />
-    <div class="container" id="elementContainer">
-
-  
-    </div><!--/container -->
-
 </div>
+
+
 
 <script>
     var baseList = [];
@@ -90,7 +110,7 @@
         $("#elementContainer").html("");
 
         for (var i = 0; i < filteredList.length; i++) {
-           
+
             res = res + "<div class='col-sm-6 col-md-3'>"
                    + "<div class='panel panel-body panel-body-accent'>"
                     + "<div class='media no-margin'>"
@@ -109,7 +129,7 @@
                        + "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].Watt + "Watt Per Luminaire</span><br />"
                         + "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].LampLife + " Hrs     Lamp Life</span><br />"
                         + "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].LightOutput + " Light Output</span><br />"
-                        
+
                           + "</div>"
                           + "  <div class='media-bottom'>"
                            + "  <span class='text-uppercase text-size-mini text-muted'><a href='/MgtProfileProduct/View?id=" + filteredList[i].FixtureKey + "' class='btn btn-default btn-xs' role='button'>View</a></span>"

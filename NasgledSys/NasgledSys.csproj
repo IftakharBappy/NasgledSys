@@ -3828,6 +3828,8 @@
     <Content Include="Views\MgtProfileProduct\Index.cshtml" />
     <Content Include="Views\MgtProfileProduct\View.cshtml" />
     <Content Include="Views\MgtState\Index.cshtml" />
+    <Content Include="Views\MgtProfileProduct\QPL.cshtml" />
+    <Content Include="Views\MgtProfileProduct\LightingFacts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
