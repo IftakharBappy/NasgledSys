@@ -255,6 +255,7 @@
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
     <Compile Include="Controllers\MgtStateController.cs" />
+    <Compile Include="Controllers\MgtSubAreaController.cs" />
     <Compile Include="Controllers\MgtUnitController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
@@ -3830,6 +3831,7 @@
     <Content Include="Views\MgtState\Index.cshtml" />
     <Content Include="Views\MgtProfileProduct\QPL.cshtml" />
     <Content Include="Views\MgtProfileProduct\LightingFacts.cshtml" />
+    <Content Include="Views\MgtSubArea\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

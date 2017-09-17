@@ -79,7 +79,23 @@ namespace NasgledSys.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    return View();
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
         }
         public ActionResult Create()
         {
@@ -90,6 +106,8 @@ namespace NasgledSys.Controllers
                     Session["GlobalMessege"] = "";
                     GlobalClass.AreaGuidForSubArea =Guid.Empty;
                     GlobalClass.AreaHeading = null;
+                    GlobalClass.IsSubArea = false;
+                    GlobalClass.SubAreaLevel = 0;
                     AreaClass obj = new AreaClass();
                     obj.OperationScheduleKey = Guid.Empty;
                     obj.NewRateScheduleKey = Guid.Empty;
