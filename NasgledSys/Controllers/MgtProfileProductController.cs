@@ -27,12 +27,38 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
             }
         }
+        public ActionResult QPL()
+        {
+            if (GlobalClass.MasterSession)
+            {
+                return View();
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+            }
+        }
+        public ActionResult LightingFacts()
+        {
+            if (GlobalClass.MasterSession)
+            {
+                return View();
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+            }
+        }
         public JsonResult GetProfileProductList()
         {
             var list = (from asset in db.ProfileProduct
-                       
+
                         select new
                         {
+                            Brand = asset.Brand == null ? " " : asset.Brand,
+                            Source = asset.Source == null ? " " : asset.Source,
                             FixtureKey = asset.FixtureKey,
                             ItemTypeKey = asset.ItemTypeKey,
                             CategoryKey = asset.CategoryKey,
@@ -42,8 +68,16 @@ namespace NasgledSys.Controllers
                             ManufacturerKey = asset.ManufacturerKey,
                             ProductName = asset.ProductName,
                             ModelNo = asset.ModelNo,
-                            Watt = asset.Watt,                           
+                            Watt = asset.Watt,
+                            LightOutput = asset.LightOutput,
+                            ThermalEfficacy = asset.ThermalEfficacy,
+                            Lumen = asset.Lumen,                         
                             LampLife = asset.LampLife,
+                            CRI=asset.CRI,
+                            CCT = asset.CCT,
+                            Size = asset.Size,
+                            Location = asset.Location,
+                            MountingBase = asset.MountingBase,
                             LightApparent = asset.LightApparent,                           
                             Category = asset.CategoryKey == null ? " " : asset.ItemCategory.TypeName,
                             Catelogue = asset.CatelogueKey == null ? " " : asset.ItemCatelogue.TypeName,

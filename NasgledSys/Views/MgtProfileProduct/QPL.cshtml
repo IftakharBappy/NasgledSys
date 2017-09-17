@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "ClientCompanyList";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+
+<style>
+    .thumbnail {
+        padding: 0;
+        height: auto;
+    }
+</style>
+
+@section CenterTitle{
+    Qualified Product List
+}
+@section SideBar{
+    <center>
+        <h4>
+            <i class="icon-arrow-small-right position-left"></i>
+            <span class="text-semibold">Product</span>
+        </h4>
+    </center>
+}
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="@Url.Action("Index", "MgtProfileProduct")">Catelogue</a>
+                </li>
+                <li class="active"><a href="#tab-demo1" data-toggle="tab">QPL's</a></li>
+               
+                <li><a href="@Url.Action("LightingFacts", "MgtProfileProduct")">Lighting Facts &reg;</a></li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="tab-demo1">
+
+        <div class="panel panel-flat">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="has-feedback has-feedback-right">
+                           
+                            <div class="h3" id="pc">
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="has-feedback has-feedback-left">
+                            <input id="searchText" type="text" class="form-control" placeholder="Search" onkeyup="search()" />
+                            <div class="form-control-feedback">
+                                <i class="icon-search4 text-size-base text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="container table-responsive" id="elementContainer">
+
+
+            </div><!--/container -->
+
+        </div>
+    </div>
+</div>
+
+
+    <script type="text/javascript">
+       
+    var baseList = [];
+    var filteredList = [];
+    $(document).ready(function () {
+        GetClientCompanyListData();
+    });
+    function search() {
+        filteredList = [];
+        var searchText = $("#searchText").val().toLowerCase();
+        if (searchText == "") {
+            filteredList = baseList;
+            remakeGrid();
+        }
+        else {
+            baseList.forEach(function (item) {
+                if (item.Category.toLowerCase().includes(searchText) ||
+                    item.Subcategory.toLowerCase().includes(searchText) ||
+                    item.Type.toLowerCase().includes(searchText) ||
+                    item.Manufacturer.toLowerCase().includes(searchText) ||
+                    item.Catelogue.toLowerCase().includes(searchText)) {
+                    filteredList.push(item);
+                }
+            });
+            remakeGrid();
+        }
+    }
+    $(function () {
+        $('#ctable').DataTable({
+
+            paging: true
+        });
+    });
+    function remakeGrid() {
+        var res = "";
+        var pcount = filteredList.length + " Products";
+        $("#elementContainer").html("");
+        $("#pc").html("");
+        res = res + "<table class='table table-bordered table-hover datatable-highlight' id='ctable'>"
+                 + "<thead><tr><th>Source</th><th>Manufacturer</th><th>Product Category</th>"
+        +"<th>Watt</th><th>Lumens</th><th>Light Appearance</th><th>CRI</th></tr></thead><tbody>";
+
+        for (var i = 0; i < filteredList.length; i++) {
+
+            res = res + "<tr><td>" + filteredList[i].Source + "</td><td>" + filteredList[i].Manufacturer + "</td><td>" + filteredList[i].Category + "</td>"
+                      + "<td>" + filteredList[i].Watt + "</td><td>" + filteredList[i].Lumen + "</td><td>" + filteredList[i].LightApparent + "</td>"
+                        + "<td>" + filteredList[i].CRI + "</td></tr>";
+        }
+        res = res +  "</tbody></table>";
+        $("#elementContainer").html(res);
+        $("#pc").html(pcount);
+    }
+    function GetClientCompanyListData() {
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtProfileProduct/GetProfileProductList/",
+            //data: JSON.stringify({ clientCompanyKey: '#' }),
+            success: function (data) {
+                baseList = data;
+                filteredList = data;
+                remakeGrid();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+</script>
