@@ -70,7 +70,7 @@
             </div>
             <br />
             <br />
-            <div class="container" id="elementContainer">
+            <div class="table-responsive" id="elementContainer">
 
 
             </div><!--/container -->
@@ -120,13 +120,15 @@
         $("#pc").html("");
         res = res + "<table class='table table-bordered table-hover datatable-highlight' id='ctable'>"
                  + "<thead><tr><th>Manufacturer</th><th>Brand</th><th>Model #</th><th>Lighting Output</th>"
-        + "<th>Watt</th><th>Efficacy</th><th>CRI</th><th>CCT</th><th>Product Type</th><th>Product Category</th></tr></thead><tbody>";
+        + "<th>Watt</th><th>Efficacy</th><th>CRI</th><th>CCT</th><th>Product Type</th><th>Product Category</th>"
+        + "<th>Size</th><th>Use Locations</th><th>Mounting Bases</th><th>Subcategory</th></tr></thead><tbody>";
 
         for (var i = 0; i < filteredList.length; i++) {
 
-            res = res + "<tr><td>" + filteredList[i].Source + "</td><td>" + filteredList[i].Manufacturer + "</td><td>" + filteredList[i].Category + "</td>"
-                      + "<td>" + filteredList[i].Watt + "</td><td>" + filteredList[i].Lumen + "</td><td>" + filteredList[i].LightApparent + "</td>"
-                        + "<td>" + filteredList[i].CRI + "</td></tr>";
+            res = res + "<tr><td>" + filteredList[i].Manufacturer + "</td><td>" + filteredList[i].Brand + "</td><td>" + filteredList[i].ModelNo + "</td>"
+                      + "<td>" + filteredList[i].LightOutput + "</td><td>" + filteredList[i].Watt + "</td><td>" + filteredList[i].ThermalEfficacy + "</td>"
+                        + "<td>" + filteredList[i].CRI + "</td><td>" + filteredList[i].CCT + "</td><td>" + filteredList[i].Type + "</td><td>" + filteredList[i].Category
+                        + "<td>" + filteredList[i].Size + "</td><td>" + filteredList[i].Location + "<td>" + filteredList[i].MountingBase + "</td><td>" + filteredList[i].Subcategory + "</td></tr>";
         }
         res = res +  "</tbody></table>";
         $("#elementContainer").html(res);
