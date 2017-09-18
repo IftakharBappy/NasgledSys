@@ -216,6 +216,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AreaDetailController.cs" />
+    <Compile Include="Controllers\AreaPhotoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\DefaultEmailConfigController.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="EM\EM_AdminAccess.cs" />
     <Compile Include="EM\EM_Area.cs" />
     <Compile Include="EM\EM_AreaDetail.cs" />
+    <Compile Include="EM\EM_AreaPhoto.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
@@ -325,6 +327,8 @@
     <Compile Include="Models\AreaPhoto.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AreaPhotoModel.cs" />
+    <Compile Include="Models\AreaPhotoViewModel.cs" />
     <Compile Include="Models\AreaProduct.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3841,6 +3845,7 @@
     <Content Include="Views\MgtSchedule\Index.cshtml" />
     <Content Include="Views\MgtAddProducts\Index.cshtml" />
     <Content Include="Views\MgtAddProducts\Create.cshtml" />
+    <Content Include="Views\AreaPhoto\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

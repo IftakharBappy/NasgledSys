@@ -27,7 +27,7 @@ namespace NasgledSys.Controllers
                 try
                 {
                     Area model = db.Area.Find(id);
-                    ViewBag.heading = manage.GetAllAreaNamesForSubArea(id);
+                    //ViewBag.heading = manage.GetAllAreaNamesForSubArea(id);
                     return View(model);
                 }
                 catch (Exception e)
