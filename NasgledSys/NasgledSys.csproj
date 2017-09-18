@@ -266,6 +266,7 @@
     <Compile Include="Controllers\UserItemCatelogueController.cs" />
     <Compile Include="Controllers\UserItemSubcategoryController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
+    <Compile Include="DAL\ManageAreaProduct.cs" />
     <Compile Include="DAL\ManageMainProduct.cs" />
     <Compile Include="DAL\ManageProject.cs" />
     <Compile Include="DAL\ManageProjectArea.cs" />
@@ -301,6 +302,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddProductClass.cs" />
     <Compile Include="Models\AdvancedSearchViewModel.cs" />
     <Compile Include="Models\AnnualSalesRevenueSetup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -3838,6 +3840,7 @@
     <Content Include="Views\MgtSubArea\Edit.cshtml" />
     <Content Include="Views\MgtSchedule\Index.cshtml" />
     <Content Include="Views\MgtAddProducts\Index.cshtml" />
+    <Content Include="Views\MgtAddProducts\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

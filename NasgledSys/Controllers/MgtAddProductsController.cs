@@ -19,7 +19,7 @@ namespace NasgledSys.Controllers
     {
         // GET: MgtAddProducts
         private NasgledDBEntities db = new NasgledDBEntities();
-        private ManageProjectArea manage = new ManageProjectArea();
+        private ManageAreaProduct manage = new ManageAreaProduct();
         public ActionResult Index(Guid id)
         {
             if (GlobalClass.MasterSession)
@@ -46,20 +46,91 @@ namespace NasgledSys.Controllers
         public JsonResult GetProductList(Guid id)
         {
             List<ViewSubAreaList> list = new List<ViewSubAreaList>();
-            var obj = from asset in db.AreaProduct where asset.AreaKey == id && asset.IsDelete==false select asset;
-            if (obj.Count() > 0)
-            {
-                //foreach (var item in obj)
-                //{
-                //    ViewSubAreaList m = new ViewSubAreaList();
-                //    m.AreaKey = item.AreaKey;
-                //    m.SubAreaName = manage.GetAllAreaNamesForSubArea(item.AreaKey);
-                //    m.AreaName = " in " + db.Area.FirstOrDefault(d => d.AreaKey == item.ParentAreaKey).AreaName;
-                //    m.ProductCount = db.AreaProduct.Where(d => d.AreaKey == item.AreaKey).Count();
-                //    list.Add(m);
-                //}
-            }
+            var obj = from asset in db.AreaProduct where asset.AreaKey == id && asset.IsDelete == false select new {
+                asset.ExistingProductName,
+                asset.Count,
+                asset.Description,
+                asset.ProductKey
+            };
+            
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Create(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    Session["GlobalMessege"] = "";                  
+                    Area model = db.Area.Find(id);
+                    AddProductClass obj = new AddProductClass();
+                    obj.AreaKey = model.AreaKey;
+                    obj.FixtureKey = Guid.Empty;
+                    obj.AreaObj = model;
+                    return View(obj);
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        [HttpPost]
+        public ActionResult Create(AddProductClass model,string Save,string Add,string AddDetails)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        if (model.Count == null) model.Count = 1;
+                        if (string.IsNullOrEmpty(model.Description))
+                        {
+                            model.Description ="--";
+                        }                   
+                       
+                        AreaProduct obj = new AreaProduct();
+                        obj.ProductKey = Guid.NewGuid();
+                        obj.FixtureKey = model.FixtureKey;
+                        obj.AreaKey = model.AreaKey;
+                        obj.Count = model.Count;
+                        obj.Description = model.Description;
+                        obj.ExistingProductName = manage.GetAllFixtureNamesForExistingKey(model.FixtureKey);
+                      
+                        obj.IsDelete = false;
+                        db.AreaProduct.Add(obj);
+                        db.SaveChanges();
+                        Session["GlobalMessege"] = "Product was successfully Created.";
+                       if(!string.IsNullOrEmpty(Save))
+                        return RedirectToAction("Index", "MgtAddProducts", new { id = obj.AreaKey });
+                        else if (!string.IsNullOrEmpty(Add))
+                            return RedirectToAction("Create", "MgtAddProducts", new { id = obj.AreaKey });
+                        else if (!string.IsNullOrEmpty(AddDetails))
+                            return RedirectToAction("Edit", "MgtAddProducts", new { id = obj.ProductKey });
+                        else 
+                            return RedirectToAction("Index", "MgtAddProducts", new { id = obj.AreaKey });
+                    }
+                    return View(model);
+                }
+                catch (Exception e)
+                {
+                    Session["GlobalMessege"] = e.Message.ToString();
+                    return View(model);
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
         }
         protected override void Dispose(bool disposing)
         {
