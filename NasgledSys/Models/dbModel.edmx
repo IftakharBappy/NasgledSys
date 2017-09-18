@@ -105,6 +105,8 @@
           <Property Name="MiscCost" Type="decimal" Precision="18" Scale="2" />
           <Property Name="IsOn" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ProjectKey" Type="uniqueidentifier" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="ExistingProductName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="AreaProductDetail">
           <Key>
@@ -2890,6 +2892,8 @@
           <NavigationProperty Name="AreaProductPhoto" Relationship="NasgledDBModel.FK_AreaProductPhoto_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductPhoto" />
           <Property Name="ProjectKey" Type="Guid" />
           <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProduct_Area" FromRole="AreaProduct" ToRole="Area" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="ExistingProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AreaProductDetail">
           <Key>
@@ -4828,6 +4832,8 @@
           <EntitySetMapping Name="AreaProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.AreaProduct">
               <MappingFragment StoreEntitySet="AreaProduct">
+                <ScalarProperty Name="ExistingProductName" ColumnName="ExistingProductName" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="ProjectKey" ColumnName="ProjectKey" />
                 <ScalarProperty Name="IsOn" ColumnName="IsOn" />
                 <ScalarProperty Name="MiscCost" ColumnName="MiscCost" />

@@ -221,6 +221,7 @@
     <Compile Include="Controllers\DefaultEmailConfigController.cs" />
     <Compile Include="Controllers\DropdownUtilityController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
+    <Compile Include="Controllers\MgtAddProductsController.cs" />
     <Compile Include="Controllers\MgtAdminItemController.cs" />
     <Compile Include="Controllers\MgtAnnualSalesRevenueSetupController.cs" />
     <Compile Include="Controllers\MgtAreaController.cs" />
@@ -253,8 +254,10 @@
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
+    <Compile Include="Controllers\MgtScheduleController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
     <Compile Include="Controllers\MgtStateController.cs" />
+    <Compile Include="Controllers\MgtSubAreaController.cs" />
     <Compile Include="Controllers\MgtUnitController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
@@ -3830,6 +3833,11 @@
     <Content Include="Views\MgtState\Index.cshtml" />
     <Content Include="Views\MgtProfileProduct\QPL.cshtml" />
     <Content Include="Views\MgtProfileProduct\LightingFacts.cshtml" />
+    <Content Include="Views\MgtSubArea\Index.cshtml" />
+    <Content Include="Views\MgtSubArea\Create.cshtml" />
+    <Content Include="Views\MgtSubArea\Edit.cshtml" />
+    <Content Include="Views\MgtSchedule\Index.cshtml" />
+    <Content Include="Views\MgtAddProducts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

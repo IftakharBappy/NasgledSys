@@ -78,8 +78,30 @@
 
 
 </script>
+
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.AreaKey;
+    string areaLink = "";
+    for (;;)
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+
+        if (area.ParentAreaKey == null)
+        {
+            break;
+        }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
+}
+
 @section CenterTitle{
-    @Html.DisplayFor(m => GlobalClass.Project.ProjectName)
+  
+    @ViewBag.header1
 }
 @section SideBar{
     <center>
@@ -87,8 +109,7 @@
         <span class="heading-text">
 
             <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
-            <label>></label>
-            <a class="h4" href="@Url.Action("Edit","MgtArea",new { id=Model.AreaKey})">Areas</a>
+            <label>></label>@MvcHtmlString.Create(areaLink)
 
         </span>
         <span class="heading-text">
@@ -105,10 +126,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <ul class="nav nav-pills">
-                        <li class="active"><a href="@Url.Action("Edit","MgtArea",new { id=Model.AreaKey})" data-toggle="tab">Area</a></li>
+                        <li class="active"><a href="@Url.Action("Edit","MgtSubArea",new { id=Model.AreaKey})">Area</a></li>
                         <li><a href="#" data-toggle="tab">Product</a></li>
                         <li><a href="#" data-toggle="tab">Details</a></li>
-                        <li><a href="@Url.Action("CreateSub","MgtArea",new { id=Model.AreaKey})" data-toggle="tab">Sub-Areas</a></li>
+                        <li><a href="@Url.Action("Index","MgtSubArea",new { id=Model.AreaKey})">Sub-Areas</a></li>
                         <li><a href="#" data-toggle="tab">Photos</a></li>
                         <li><a href="#" data-toggle="tab">Documents</a></li>
                         <li><a href="#" data-toggle="tab">Notes</a></li>

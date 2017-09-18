@@ -9,6 +9,13 @@ namespace NasgledSys.DAL
     {
         private NasgledDBEntities db = new NasgledDBEntities();
 
+        public string GetAllAreaNamesForSubArea(Guid? id)
+        {          
+                Area area = db.Area.Find(id);
+            return id==null?" ":(GetAllAreaNamesForSubArea(area.ParentAreaKey)+ "||" + area.AreaName );                
+          
+        }
+
         public Guid? GetOperatingScheduleKey()
         {
            

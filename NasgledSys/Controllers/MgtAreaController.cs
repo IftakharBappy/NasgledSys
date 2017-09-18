@@ -24,7 +24,7 @@ namespace NasgledSys.Controllers
         private ManageProjectArea manage = new ManageProjectArea();
         public ActionResult GetArea([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestModel, AdvancedSearchViewModel searchViewModel)
         {
-            IQueryable<Area> query = db.Area.Where(m => m.ProjectKey==GlobalClass.Project.ProjectKey && m.IsDelete==false);
+            IQueryable<Area> query = db.Area.Where(m => m.ProjectKey==GlobalClass.Project.ProjectKey && m.ParentAreaKey==null && m.IsDelete==false);
             var totalCount = query.Count();
 
             // searching and sorting
@@ -40,14 +40,6 @@ namespace NasgledSys.Controllers
                 AreaName = asset.AreaName,
                 SubArea =db.Area.Where(m => m.ParentAreaKey == asset.AreaKey).Count()
             }).ToList();
-
-
-
-
-
-
-
-
             return Json(new DataTablesResponse(requestModel.Draw, data, filteredCount, totalCount), JsonRequestBehavior.AllowGet);
 
         }
@@ -79,7 +71,23 @@ namespace NasgledSys.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    return View();
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
         }
         public ActionResult Create()
         {
@@ -90,6 +98,8 @@ namespace NasgledSys.Controllers
                     Session["GlobalMessege"] = "";
                     GlobalClass.AreaGuidForSubArea =Guid.Empty;
                     GlobalClass.AreaHeading = null;
+                    GlobalClass.IsSubArea = false;
+                    GlobalClass.SubAreaLevel = 0;
                     AreaClass obj = new AreaClass();
                     obj.OperationScheduleKey = Guid.Empty;
                     obj.NewRateScheduleKey = Guid.Empty;
@@ -200,16 +210,11 @@ namespace NasgledSys.Controllers
                 AreaClass obj = new AreaClass();
                 try
                 {
-                    if(GlobalClass.AreaGuidForSubArea==null|| GlobalClass.AreaGuidForSubArea == Guid.Empty)
-                    {
+                   
                         Area ar = db.Area.Find(id);
                         ViewBag.heading = ar.AreaName;                    
                         obj = EM_Area.ConvertToModelForEditArea(ar);
-                    }
-                    else
-                    {
-
-                    }
+                  
                     Session["GlobalMessege"] = "";                    
                     return View(obj);
                 }
@@ -235,8 +240,7 @@ namespace NasgledSys.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        if (model.IsParent == true)
-                        {
+                      
                             if (model.SquareFeet == null) model.SquareFeet = 0;
                             if (model.OperationScheduleKey == null || model.OperationScheduleKey == Guid.Empty)
                             {
@@ -265,11 +269,7 @@ namespace NasgledSys.Controllers
                             db.SaveChanges();
                             Session["GlobalMessege"] = "Area was saved successfully.";
                             return RedirectToAction("Created","MgtArea",new { id=model.AreaKey});
-                        }
-                        else
-                        {
-
-                        }
+                      
                     }
                     return View(model);
                 }
@@ -291,8 +291,10 @@ namespace NasgledSys.Controllers
             {
                 try
                 {
-                    Area obj = new Area();
-                    obj.AreaKey = id;
+                    Area obj =db.Area.Find(id);
+                    // obj.AreaKey = id;
+                    ViewBag.header1= manage.GetAllAreaNamesForSubArea(id);
+                    GlobalClass.AreaHeading = manage.GetAllAreaNamesForSubArea(id);
                     return View(obj);
                 }
                 catch (Exception e)

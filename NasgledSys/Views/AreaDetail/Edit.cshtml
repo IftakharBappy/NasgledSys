@@ -35,7 +35,7 @@
 
 }
 <div class="content-wrapper">
-    @using (Html.BeginForm("Edit", "MgtArea", FormMethod.Post, new { @class = "form-horizontal" }))
+    @using (Html.BeginForm("Edit", "AreaDetail", FormMethod.Post, new { @class = "form-horizontal" }))
     {
         @Html.ValidationSummary()
         @Html.HiddenFor(m => m.AreaKey, new { id = "AreaKey" })
@@ -49,13 +49,12 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <ul class="nav nav-pills">
-                                <li  ><a href="#tab-demo1" data-toggle="tab">Details Area</a></li>
-
-                                <li><a href="#">Product</a></li>
+                                <li><a href="@Url.Action("Edit", "MgtSubArea", new { id = Model.AreaKey })">Area</a></li>                               
+                                <li><a href="@Url.Action("Index", "MgtAddProducts", new { id = Model.AreaKey })">Product</a></li>
                                 <li class="active">
                                     <a href="#tab-demo1" data-toggle="tab">Details</a>
                                 </li>
-                                <li><a href="@Url.Action("CreateSub", "MgtArea", new { id = Model.AreaKey })" data-toggle="tab">Sub-Areas</a></li>
+                                <li><a href="@Url.Action("Index", "MgtSubArea", new { id = Model.AreaKey })">Sub-Areas</a></li>
                                 <li><a href="#">Photos</a></li>
                                 <li><a href="#">Documents</a></li>
                                 <li><a href="#">Notes</a></li>
@@ -91,7 +90,8 @@
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.LightingSatisfactionKey)
-                                            <select name="LightingSatisfactionKey" placeholder="Select" id="LightingSatisfactionKey" class="select select-search"></select>
+                                            @Html.DropDownList("LightingSatisfactionKey", null, string.Empty, new { @required = "required", placeholder = "select", id = "LightingSatisfactionKey", @class = "select select-search" })
+                                             
                                             @Html.ValidationMessageFor(model => model.LightingSatisfactionKey, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">

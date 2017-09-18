@@ -162,6 +162,44 @@ namespace NasgledSys.Models
             }
         }
 
+        static private string _IsSubArea = "IsSubArea";
+        public static bool IsSubArea
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._IsSubArea] == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return (bool)(HttpContext.Current.Session[GlobalClass._IsSubArea]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._IsSubArea] = value;
+            }
+        }
+        static private string _SubAreaLevel = "SubAreaLevel";
+        public static int SubAreaLevel
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._SubAreaLevel] == null)
+                {
+                    return -99;
+                }
+                else
+                {
+                    return (int)(HttpContext.Current.Session[GlobalClass._SubAreaLevel]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._SubAreaLevel] = value;
+            }
+        }
         static private string _Project = "Project";
         public static Project Project
         {
