@@ -1,7 +1,7 @@
 ﻿@model NasgledSys.Models.AreaClass
 @using NasgledSys.Models;
 @{
-    ViewBag.Title = "Area";
+    ViewBag.Title = "Subarea";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
@@ -14,7 +14,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
+        LoadParentArea();
         LoadOperatingSchedule();
         LoadRateSchedule();
         LoadHeating();
@@ -27,7 +27,17 @@
         LoadFuelTypeH();
         LoadEfficiencyTypeH();
     });
+    $(function () {
+        $('#ParentAreaKey').change(function () {
+            var item = $(this);
+            alert(item.val())
+            var urlX = '@Url.Content("~/")' + "Utility/GetParentAreaName";
+            $.getJSON(urlX, { AreaKey: $(item).val() }, function (data) {
+                $('#ParentAreaName').val(data);
 
+            });
+        });
+    });
     $(function () {
         $('#OperationScheduleKey')
                 .select2()
@@ -174,6 +184,27 @@
                 var res = "<option>Select</option>";
                 for (var i = 0; i < data.length; i++) {
                     res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadParentArea() {
+        var select = $('select[name=ParentAreaKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadParentArea/",
+            data: JSON.stringify({ ParentAreaKey: '@Model.ParentAreaKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].AreaKey + "' " + data[i].Selected + ">" + data[i].AreaName + "</option>";
                 }
                 select.html(res);
             },
@@ -336,8 +367,27 @@
         }
     }
 </script>
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.ParentAreaKey;
+    string areaLink = "";
+    for (;;)
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+
+        if (area.ParentAreaKey == null)
+        {
+            break;
+        }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
+}
 @section CenterTitle{
-  @ViewBag.heading 
+    @ViewBag.heading
 }
 @section SideBar{
     <center>
@@ -345,8 +395,7 @@
         <span class="heading-text">
 
             <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
-            <label>></label>
-            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Areas</a>
+            <label>></label>@MvcHtmlString.Create(areaLink)
 
         </span>
         <span class="heading-text">
@@ -357,7 +406,7 @@
 
 }
 <div class="content-wrapper">
-    @using (Html.BeginForm("Edit", "MgtArea", FormMethod.Post, new { @class = "form-horizontal" }))
+    @using (Html.BeginForm("Edit", "MgtSubArea", FormMethod.Post, new { @class = "form-horizontal" }))
     {
         @Html.ValidationSummary()
         @Html.HiddenFor(m => m.AreaKey, new { id = "AreaKey" })
@@ -378,7 +427,7 @@
                                 <li>
                                     <a href="@Url.Action("Edit", "AreaDetail", new { id = Model.AreaKey })">Details</a>
                                 </li>
-                              
+
                                 <li><a href="@Url.Action("Index", "MgtSubArea", new { id = Model.AreaKey })">Sub-Areas</a></li>
                                 <li><a href="#">Photos</a></li>
                                 <li><a href="#">Documents</a></li>
@@ -416,6 +465,16 @@
                                             @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
+                                            @Html.LabelFor(model => model.ParentAreaKey)
+                                            <select name="ParentAreaKey" placeholder="Select" id="ParentAreaKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.ParentAreaKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ParentAreaName)
+                                            @Html.TextBoxFor(model => model.ParentAreaName, new { @readonly = "readonly", id = "ParentAreaName", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ParentAreaName, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
                                             @Html.LabelFor(model => model.SquareFeet)
                                             @Html.TextBoxFor(model => model.SquareFeet, new { type = "number", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.SquareFeet, "", new { @class = "text-danger" })
@@ -441,17 +500,19 @@
                                             @Html.ValidationMessageFor(model => model.HeatingSystemKey, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    
+                                   
+
                                     <div class="panel-footer">
                                         <center>
-                                            <a href="@Url.Action("Created", "MgtProject")" class="btn btn-warning btn-xlg col-md-4" role="button">Cancel</a>
+                                            <a href="@Url.Action("Created", "MgtArea",new { id=Model.ParentAreaKey})" class="btn btn-warning btn-xlg col-md-4" role="button">Cancel</a>
                                             <span class="col-md-2">&nbsp;</span>
                                             <button type="submit" class="btn btn-info btn-xlg col-md-6" id="btnsave" name="btnsave">Save Area</button>
                                         </center>
+
                                     </div>
                                     <br />
                                     <div class="panel-footer">
-                                        <a href="@Url.Action("Delete", "MgtArea",new { id=Model.AreaKey})" class="btn btn-warning btn-xlg col-lg-12" role="button" onclick="return confirm('Are you sure you want to Remove this?')">Remove this Area?</a>
+                                        <a href="@Url.Action("Delete", "MgtSubArea",new { id=Model.AreaKey})" class="btn btn-danger btn-xlg col-lg-12" role="button" onclick="return confirm('Are you sure you want to Remove this?')">Remove this Area?</a>
                                     </div>
                                 </div>
                             </div>

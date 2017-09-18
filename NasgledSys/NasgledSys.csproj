@@ -3832,6 +3832,8 @@
     <Content Include="Views\MgtProfileProduct\QPL.cshtml" />
     <Content Include="Views\MgtProfileProduct\LightingFacts.cshtml" />
     <Content Include="Views\MgtSubArea\Index.cshtml" />
+    <Content Include="Views\MgtSubArea\Create.cshtml" />
+    <Content Include="Views\MgtSubArea\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

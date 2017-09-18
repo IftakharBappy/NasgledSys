@@ -6,6 +6,13 @@ using System.Web;
 
 namespace NasgledSys.Models
 {
+    public class ViewSubAreaList
+    {
+        public string SubAreaName { get; set; }
+        public string AreaName { get; set; }
+        public int? ProductCount { get; set; }
+        public Guid? AreaKey { get; set; }
+    }
     public class ViewAreaList
     {
         public Guid? AreaKey { get; set; }
@@ -15,6 +22,8 @@ namespace NasgledSys.Models
     public class AreaClass
     {
         public Guid? AreaKey { get; set; }
+        [Display(Name = "Parent Area Name")]
+        public string ParentAreaName { get; set; }
         [Display(Name = "Name*...")]
         [Required(ErrorMessage = "Name is required")]
         public string AreaName { get; set; }
@@ -30,6 +39,7 @@ namespace NasgledSys.Models
         [Display(Name = "Heating")]
         public Nullable<System.Guid> HeatingSystemKey { get; set; }
         public Nullable<System.Guid> ProjectKey { get; set; }
+        [Display(Name = "Select Parent Area")]
         public Nullable<System.Guid> ParentAreaKey { get; set; }
         public bool? IsParent { get; set; }
         public bool? IsSubEdit { get; set; }

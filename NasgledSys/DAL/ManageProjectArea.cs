@@ -12,7 +12,7 @@ namespace NasgledSys.DAL
         public string GetAllAreaNamesForSubArea(Guid? id)
         {          
                 Area area = db.Area.Find(id);
-            return id==null?" ":(area.AreaName + "||" + GetAllAreaNamesForSubArea(area.ParentAreaKey));                
+            return id==null?" ":(GetAllAreaNamesForSubArea(area.ParentAreaKey)+ "||" + area.AreaName );                
           
         }
 

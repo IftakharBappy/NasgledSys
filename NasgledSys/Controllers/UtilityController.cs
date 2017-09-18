@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using NasgledSys.Models;
 using Newtonsoft.Json;
-
+using NasgledSys.DAL;
 using System.Text;
 
 namespace NasgledSys.Controllers
@@ -14,6 +14,15 @@ namespace NasgledSys.Controllers
     {
         // GET: Utility
         private NasgledDBEntities db = new NasgledDBEntities();
+        public ActionResult GetParentAreaName(Guid AreaKey)
+        {
+            JsonResult result = new JsonResult();
+            ManageProjectArea manage = new ManageProjectArea();
+           string obj= manage.GetAllAreaNamesForSubArea(AreaKey);
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult LoadCityData(int SelectID)
         {
             JsonResult result = new JsonResult();

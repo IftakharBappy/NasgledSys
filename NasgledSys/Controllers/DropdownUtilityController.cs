@@ -60,6 +60,29 @@ namespace NasgledSys.Controllers
             }
 
         }
+        public JsonResult loadParentArea(Guid? ParentAreaKey)
+        {
+            if (ParentAreaKey == Guid.Empty || ParentAreaKey == null)
+            {
+                var list = (from city in db.Area
+                            where city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new { city.AreaKey, city.AreaName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.Area
+                            where city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new
+                            {
+                                city.AreaKey,
+                                city.AreaName,
+                                Selected = city.AreaKey == ParentAreaKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
         public JsonResult loadOperationSchedule(Guid? OperationScheduleKey)
         {
             if (OperationScheduleKey == Guid.Empty || OperationScheduleKey == null)
