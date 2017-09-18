@@ -253,6 +253,7 @@
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
+    <Compile Include="Controllers\MgtScheduleController.cs" />
     <Compile Include="Controllers\MgtStaffController.cs" />
     <Compile Include="Controllers\MgtStateController.cs" />
     <Compile Include="Controllers\MgtSubAreaController.cs" />
@@ -3834,6 +3835,7 @@
     <Content Include="Views\MgtSubArea\Index.cshtml" />
     <Content Include="Views\MgtSubArea\Create.cshtml" />
     <Content Include="Views\MgtSubArea\Edit.cshtml" />
+    <Content Include="Views\MgtSchedule\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
