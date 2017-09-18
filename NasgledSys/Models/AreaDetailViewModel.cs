@@ -18,7 +18,7 @@ namespace NasgledSys.Models
         [Display(Name = "AverageIlluminnce")]
         public Nullable<decimal> AverageIlluminnce { get; set; }
 
-        [Display(Name = "LightingSatisfactionKey")]
+        [Display(Name = "Lighting Satisfaction")]
         public Nullable<System.Guid> LightingSatisfactionKey { get; set; }
 
         [Display(Name = "CeilingHeight")]
@@ -33,7 +33,6 @@ namespace NasgledSys.Models
         [Display(Name = "Length")]
         public Nullable<decimal> Length { get; set; }
 
-        //public virtual LightingSatisfactionFactor LightingSatisfactionFactor { get; set; }
-        //public virtual Area Area { get; set; }
+      
     }
 }
