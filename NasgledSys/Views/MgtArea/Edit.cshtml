@@ -336,6 +336,8 @@
         }
     }
 </script>
+
+
 @section CenterTitle{
   @ViewBag.heading 
 }
@@ -374,7 +376,7 @@
                             <ul class="nav nav-pills">
                                 <li class="active"><a href="#tab-demo1" data-toggle="tab">Area</a></li>
 
-                                <li><a href="#">Product</a></li>
+                                <li><a href="@Url.Action("Index", "MgtAddProducts", new { id = Model.AreaKey })">Product</a></li>
                                 <li>
                                     <a href="@Url.Action("Edit", "AreaDetail", new { id = Model.AreaKey })">Details</a>
                                 </li>

@@ -49,6 +49,7 @@ namespace NasgledSys.Models
         public Nullable<decimal> MiscCost { get; set; }
         public Nullable<decimal> IsOn { get; set; }
         public Nullable<System.Guid> ProjectKey { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
     
         public virtual IncentiveMaxType IncentiveMaxType { get; set; }
         public virtual IncentiveType IncentiveType { get; set; }
