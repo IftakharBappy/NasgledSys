@@ -74,7 +74,7 @@
 </script>
 @{
     NasgledDBEntities db = new NasgledDBEntities();
-    Guid? ak = Model.ParentAreaKey;
+    Guid? ak = Model.AreaKey;
     string areaLink = "";
     for (;;)
     {
@@ -103,9 +103,7 @@
             <label>></label>@MvcHtmlString.Create(areaLink)
 
         </span>
-        <span class="heading-text">
-            <a class="btn btn-primary" href="@Url.Action("Create","MgtAddProducts",new { id=Model.AreaKey})"><i class="add-on"></i>Add Product</a>
-        </span>
+       
     </center>
 
 

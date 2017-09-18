@@ -65,7 +65,7 @@
 </script>
 @{
     NasgledDBEntities db = new NasgledDBEntities();
-    Guid? ak = Model.AreaObj.ParentAreaKey;
+    Guid? ak = Model.AreaObj.AreaKey;
     string areaLink = "";
     for (;;)
     {
@@ -108,73 +108,74 @@
     @Html.HiddenFor(m=>m.AreaObj.AreaKey)
     <div class="form-horizontal">
         <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-8">
 
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <ul class="nav nav-pills">
-
-
-                       
-                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Product</a></li>                   
-                        <li class="disabled"><a href="#">Details</a></li>
-                        <li class="disabled"><a href="#">Note</a></li>
-                        <li class="disabled"><a href="#">Photos</a></li>
-                        <li class="disabled"><a href="#">Documents</a></li>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <ul class="nav nav-pills">
 
 
 
-
+                            <li class="active"><a href="#tab-demo1" data-toggle="tab">Product</a></li>
+                            <li class="disabled"><a href="#">Details</a></li>
+                            <li class="disabled"><a href="#">Note</a></li>
+                            <li class="disabled"><a href="#">Photos</a></li>
+                            <li class="disabled"><a href="#">Documents</a></li>
 
 
 
 
-                    </ul>
-                </div>
-                <div class="panel-body">
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="tab-demo1">
-                            
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <div class="h3 alert-info" id="deletemsg"></div>
+
+
+
+
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="tab-demo1">
+
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="h3 alert-info" id="deletemsg"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AreaKey)
+                                        <select name="AreaKey" placeholder="Select" id="AreaKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.AreaKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FixtureKey)
+                                        <select name="FixtureKey" placeholder="Select" id="FixtureKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.FixtureKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Count)
+                                        @Html.TextBoxFor(model => model.Count, new { type = "number", placeholder = "existing count", id = "Count", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Description)
+                                        @Html.TextAreaFor(model => model.Description, new { placeholder = "Description", id = "Description", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.AreaKey)
-                                    <select name="AreaKey" placeholder="Select" id="AreaKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.AreaKey, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.FixtureKey)
-                                    <select name="FixtureKey" placeholder="Select" id="FixtureKey" class="select select-search"></select>
-                                    @Html.ValidationMessageFor(model => model.FixtureKey, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Count)
-                                    @Html.TextBoxFor(model => model.Count, new { type = "number", placeholder = "existing count", id = "Count", @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Description)
-                                    @Html.TextAreaFor(model => model.Description, new { placeholder = "Description", id = "Description", @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <center>
-                                    <a href="@Url.Action("Index", "MgtAddProducts",new { id=Model.AreaKey})" class="btn btn-warning btn-xlg" role="button">Cancel</a>
-                                   
-                                    <button type="submit" class="btn btn-info btn-xlg col-md-6" id="Save" name="Save">Save</button>
-                                    <button type="submit" class="btn btn-info btn-xlg col-md-6" id="Add" name="Add">Add Another</button>
-                                    <button type="submit" class="btn btn-info btn-xlg col-md-6" id="AddDetails" name="AddDetails">Add Details</button>
-                                </center>
+                                <div class="panel-footer">
+                                    <center>
+                                        <a href="@Url.Action("Index", "MgtAddProducts",new { id=Model.AreaKey})" class="btn btn-warning btn-xlg" role="button">Cancel</a>
 
-                            </div>
-                            <div id="AutoSuggestion"></div>
-                            <div id="elementContainer">
+                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="Save" name="Save">Save</button>
+                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="Add" name="Add">Add Another</button>
+                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="AddDetails" name="AddDetails">Add Details</button>
+                                    </center>
 
-                                <h3>Browse for Items</h3>
-                                @{
+                                </div>
+                                <div id="AutoSuggestion"></div>
+                                <div id="elementContainer">
+
+                                    <h3>Browse for Items</h3>
+                                    @{
 
                                     var list = (from asset in db.ProfileProduct
                                                 where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
@@ -187,35 +188,76 @@
                                                     ProductName = asset.ProductName,
                                                     ModelNo = asset.ModelNo
                                                 }).OrderBy(m => m.ProductName).ToList();
-                                    <div class="panel-group content-group-lg" id="accordion1">
-                                        @foreach (var item in list)
+                                        <div class='panel-group content-group-lg' id='accordion1'>
+                                            @foreach (var item in list)
                                         {
+                                            ProfileProduct pr = db.ProfileProduct.Find(item.FixtureKey);
+                                            var sublist = (from asset in db.ProfileProduct
+                                                           where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                           && asset.MainItemKey == item.FixtureKey
+                                                           select new
+                                                           {
 
-                                        <div class="panel panel-white">
-                                            <div class="panel-heading">
-                                                <h6 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion1" href="#@item.FixtureKey">@item.ProductName</a>
-                                                </h6>
-                                            </div>
-                                            <div id="@item.FixtureKey" class="panel-collapse collapse in">
-                                                <div class="panel-body">
-                                                    <button type="button" class="btn btn-default btn-xlg col-md-6" id="Save" name="Save">Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                               FixtureKey = asset.FixtureKey,
+                                                               TypeCount = asset.TypeCount,
+                                                               ProductName = asset.ProductName,
+                                                               ModelNo = asset.ModelNo,
+                                                               MainItemKey = asset.MainItemKey
+                                                           }).OrderBy(m => m.ProductName).ToList();
+                                            if (sublist.Count() > 0)
+                                            {
+                                                    <div class='panel panel-white'>
+                                                        <div class='panel-heading'>
+                                                            <h6 class='panel-title'>
+                                                                <a data-toggle='collapse' data-parent='#accordion1' href='#@item.FixtureKey'>@item.ProductName</a>
+                                                            </h6>
+                                                        </div>
 
+
+                                                        @foreach (var sd in sublist)
+                                                   {
+                                                       //for (;;)
+                                                       //{
+                                                       ProfileProduct pr1 = db.ProfileProduct.Find(sd.FixtureKey);
+
+                                                            <div id='@sd.FixtureKey' class='panel-collapse collapse'>
+                                                                <div class='panel-body'>
+                                                                    <button type='button' class='btn btn-default btn-xlg col-md-6' value='@sd.FixtureKey' id='fixture' name='fixture'>@sd.ProductName @sd.ModelNo</button>
+                                                                </div>
+                                                            </div>
+                                                       /////////////////////////////////////
+                                                       //}
+                                                   }
+                                                    </div>
+                                            }
+                                            else
+                                            {
+                                                    <div class='panel panel-white'>
+                                                        <div class='panel-heading'>
+                                                            <h6 class='panel-title'>
+                                                                <a data-toggle='collapse' data-parent='#accordion1' href='#@item.FixtureKey'>@item.ProductName</a>
+                                                            </h6>
+                                                        </div>
+                                                        <div id='@item.FixtureKey' class='panel-collapse collapse'>
+                                                            <div class='panel-body'>
+                                                                <button type='button' class='btn btn-default btn-xlg col-md-6' value='@item.FixtureKey' id='fixture' name='fixture'>@item.ProductName @item.ModelNo</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            }
 
                                         }
-                                    </div>
-                                }
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
-
-        </div>
+            <div class="col-md-2">&nbsp;</div>
+            </div>
     </div>
 
 }

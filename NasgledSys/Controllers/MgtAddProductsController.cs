@@ -20,6 +20,7 @@ namespace NasgledSys.Controllers
         // GET: MgtAddProducts
         private NasgledDBEntities db = new NasgledDBEntities();
         private ManageAreaProduct manage = new ManageAreaProduct();
+        private ManageProjectArea manageArea = new ManageProjectArea();
         public ActionResult Index(Guid id)
         {
             if (GlobalClass.MasterSession)
@@ -27,7 +28,7 @@ namespace NasgledSys.Controllers
                 try
                 {
                     Area model = db.Area.Find(id);
-                    ViewBag.heading = manage.GetAllAreaNamesForSubArea(id);
+                    ViewBag.heading = manageArea.GetAllAreaNamesForSubArea(id);
                     return View(model);
                 }
                 catch (Exception e)
