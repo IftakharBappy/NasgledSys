@@ -6,6 +6,18 @@ using System.Web;
 
 namespace NasgledSys.Models
 {
+    public class BrowseItemClass
+    {
+        public Guid? FixtureKey { get; set; }
+       
+        public int? TypeCount { get; set; }
+        
+        public string ProductName { get; set; }
+       
+        public string ModelNo { get; set; }
+       
+        public Guid? MainItemKey { get; set; }       
+    }
     public class AddProductClass
     {
        

@@ -12,12 +12,41 @@
 
         LoadArea();
         LoadFixture();
-
+       LoadItemList();
         $("#deletemsg").show().delay(1000).fadeOut();
     });
+    //$(function () {
+    //    $('button[name=fixture]').click(function () {
+    //        var item = $(this).val();
+    //        alert(item.val());
+    //        $('#FixtureKey').val(item.val());
+    //        LoadFixture();
+    //    });
+    //});
+    $(document).on('click', function (evt) {
+        if (!$(evt.target).is('#fixture')) {         
+            alert($(this).val());
+           // $('#FixtureKey').val(item.val());
+            LoadFixture();
+        }
+    });
 
-
-
+    function LoadItemList() {
+        var select = $('#elementContainer');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtAddProducts/GetItemList/",
+            success: function (data) {
+               select.html(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
     function LoadArea() {
         var select = $('select[name=AreaKey]');
         $.ajax({
@@ -39,7 +68,6 @@
             }
         });
     }
-
     function LoadFixture() {
         var select = $('select[name=FixtureKey]');
         $.ajax({
@@ -61,26 +89,28 @@
             }
         });
     }
-  
+
 </script>
 @{
-    NasgledDBEntities db = new NasgledDBEntities();
-    Guid? ak = Model.AreaObj.AreaKey;
-    string areaLink = "";
-    for (;;)
-    {
-        Area area = db.Area.Find(ak);
-        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+        NasgledDBEntities db = new NasgledDBEntities();
+        Guid? ak = Model.AreaObj.AreaKey;
+        string areaLink = "";
+        for (;;)
+        {
+            Area area = db.Area.Find(ak);
+            areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
 
-        if (area.ParentAreaKey == null)
-        {
-            break;
+            if (area.ParentAreaKey == null)
+            {
+                break;
+            }
+            else
+            {
+                ak = area.ParentAreaKey;
+            }
         }
-        else
-        {
-            ak = area.ParentAreaKey;
-        }
-    }
+
+    
 }
 @section CenterTitle{
    Add Existing Product
@@ -165,90 +195,15 @@
                                     <center>
                                         <a href="@Url.Action("Index", "MgtAddProducts",new { id=Model.AreaKey})" class="btn btn-warning btn-xlg" role="button">Cancel</a>
 
-                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="Save" name="Save">Save</button>
-                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="Add" name="Add">Add Another</button>
-                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="AddDetails" name="AddDetails">Add Details</button>
+                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="Save" name="Save" value="Save">Save</button>
+                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="Add" name="Add" value="AddAnother">Add Another</button>
+                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="AddDetails" name="AddDetails" value="AddDetails">Add Details</button>
                                     </center>
 
                                 </div>
                                 <div id="AutoSuggestion"></div>
-                                <div id="elementContainer">
-
-                                    <h3>Browse for Items</h3>
-                                    @{
-
-                                    var list = (from asset in db.ProfileProduct
-                                                where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
-                                                && asset.MainItemKey == null
-                                                select new
-                                                {
-
-                                                    FixtureKey = asset.FixtureKey,
-                                                    TypeCount = asset.TypeCount,
-                                                    ProductName = asset.ProductName,
-                                                    ModelNo = asset.ModelNo
-                                                }).OrderBy(m => m.ProductName).ToList();
-                                        <div class='panel-group content-group-lg' id='accordion1'>
-                                            @foreach (var item in list)
-                                        {
-                                            ProfileProduct pr = db.ProfileProduct.Find(item.FixtureKey);
-                                            var sublist = (from asset in db.ProfileProduct
-                                                           where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
-                                                           && asset.MainItemKey == item.FixtureKey
-                                                           select new
-                                                           {
-
-                                                               FixtureKey = asset.FixtureKey,
-                                                               TypeCount = asset.TypeCount,
-                                                               ProductName = asset.ProductName,
-                                                               ModelNo = asset.ModelNo,
-                                                               MainItemKey = asset.MainItemKey
-                                                           }).OrderBy(m => m.ProductName).ToList();
-                                            if (sublist.Count() > 0)
-                                            {
-                                                    <div class='panel panel-white'>
-                                                        <div class='panel-heading'>
-                                                            <h6 class='panel-title'>
-                                                                <a data-toggle='collapse' data-parent='#accordion1' href='#@item.FixtureKey'>@item.ProductName</a>
-                                                            </h6>
-                                                        </div>
-
-
-                                                        @foreach (var sd in sublist)
-                                                   {
-                                                       //for (;;)
-                                                       //{
-                                                       ProfileProduct pr1 = db.ProfileProduct.Find(sd.FixtureKey);
-
-                                                            <div id='@sd.FixtureKey' class='panel-collapse collapse'>
-                                                                <div class='panel-body'>
-                                                                    <button type='button' class='btn btn-default btn-xlg col-md-6' value='@sd.FixtureKey' id='fixture' name='fixture'>@sd.ProductName @sd.ModelNo</button>
-                                                                </div>
-                                                            </div>
-                                                       /////////////////////////////////////
-                                                       //}
-                                                   }
-                                                    </div>
-                                            }
-                                            else
-                                            {
-                                                    <div class='panel panel-white'>
-                                                        <div class='panel-heading'>
-                                                            <h6 class='panel-title'>
-                                                                <a data-toggle='collapse' data-parent='#accordion1' href='#@item.FixtureKey'>@item.ProductName</a>
-                                                            </h6>
-                                                        </div>
-                                                        <div id='@item.FixtureKey' class='panel-collapse collapse'>
-                                                            <div class='panel-body'>
-                                                                <button type='button' class='btn btn-default btn-xlg col-md-6' value='@item.FixtureKey' id='fixture' name='fixture'>@item.ProductName @item.ModelNo</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                            }
-
-                                        }
-                                        </div>
-                                    }
+                                <div id="elementContainer">                                   
+                                    
                                 </div>
                             </div>
                         </div>

@@ -3846,6 +3846,7 @@
     <Content Include="Views\MgtAddProducts\Index.cshtml" />
     <Content Include="Views\MgtAddProducts\Create.cshtml" />
     <Content Include="Views\AreaPhoto\Edit.cshtml" />
+    <Content Include="Views\MgtAddProducts\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

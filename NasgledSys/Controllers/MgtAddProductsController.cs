@@ -46,15 +46,15 @@ namespace NasgledSys.Controllers
 
         public JsonResult GetProductList(Guid id)
         {
-            List<ViewSubAreaList> list = new List<ViewSubAreaList>();
-            var obj = from asset in db.AreaProduct where asset.AreaKey == id && asset.IsDelete == false select new {
+            
+            var obj = (from asset in db.AreaProduct where asset.AreaKey == id && asset.IsDelete == false select new {
                 asset.ExistingProductName,
                 asset.Count,
                 asset.Description,
                 asset.ProductKey
-            };
+            }).ToList();
             
-            return Json(list, JsonRequestBehavior.AllowGet);
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Create(Guid id)
@@ -101,6 +101,7 @@ namespace NasgledSys.Controllers
                         AreaProduct obj = new AreaProduct();
                         obj.ProductKey = Guid.NewGuid();
                         obj.FixtureKey = model.FixtureKey;
+                        obj.ProjectKey = GlobalClass.Project.ProjectKey;
                         obj.AreaKey = model.AreaKey;
                         obj.Count = model.Count;
                         obj.Description = model.Description;
@@ -109,7 +110,7 @@ namespace NasgledSys.Controllers
                         obj.IsDelete = false;
                         db.AreaProduct.Add(obj);
                         db.SaveChanges();
-                        Session["GlobalMessege"] = "Product was successfully Created.";
+                        Session["GlobalMessege"] = "Product was Saved successfully Created.";
                        if(!string.IsNullOrEmpty(Save))
                         return RedirectToAction("Index", "MgtAddProducts", new { id = obj.AreaKey });
                         else if (!string.IsNullOrEmpty(Add))
@@ -132,6 +133,115 @@ namespace NasgledSys.Controllers
                 Exception e = new Exception("Session Expired");
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
+        }
+
+        public ActionResult Edit(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    Session["GlobalMessege"] = "";
+                    AreaProduct model = db.AreaProduct.Find(id);
+                    Area area = db.Area.Find(model.AreaKey);
+                    AddProductClass obj = new AddProductClass();
+                    obj.ProductKey = model.ProductKey;
+
+                    obj.AreaKey = model.AreaKey;
+                    obj.FixtureKey = model.FixtureKey;
+                    obj.Count = model.Count;
+                    obj.Description = model.Description;
+                    obj.AreaObj = area;
+                    return View(obj);
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        [HttpPost]
+        public ActionResult Edit(AddProductClass model)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        if (model.Count == null) model.Count = 1;
+                        if (string.IsNullOrEmpty(model.Description))
+                        {
+                            model.Description = "--";
+                        }
+
+                        AreaProduct obj = db.AreaProduct.Find(model.ProductKey);                        
+                        obj.FixtureKey = model.FixtureKey;                       
+                        obj.Count = model.Count;
+                        obj.Description = model.Description;
+                        obj.ExistingProductName = manage.GetAllFixtureNamesForExistingKey(model.FixtureKey);
+                        
+                        db.SaveChanges();
+                        Session["GlobalMessege"] = "Product was Saved successfully Created.";
+                        
+                            return RedirectToAction("Index", "MgtAddProducts", new { id = obj.AreaKey });
+                    }
+                    return View(model);
+                }
+                catch (Exception e)
+                {
+                    Session["GlobalMessege"] = e.Message.ToString();
+                    return View(model);
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+
+        public ActionResult Delete(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {                 
+                    AreaProduct model = db.AreaProduct.Find(id);                   
+                    AddProductClass obj = new AddProductClass();
+                    obj.ProductKey = model.ProductKey;
+                    obj.AreaKey = model.AreaKey;
+                    model.IsDelete = true;
+                    db.SaveChanges();
+                    Session["GlobalMessege"] = "";
+                    return RedirectToAction("Index",new { id=obj.AreaKey});
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+
+        public ActionResult GetItemList()
+        {
+            JsonResult result = new JsonResult();
+            string obj = manage.CreateProductListHTML();           
+            result.Data = obj;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
         }
         protected override void Dispose(bool disposing)
         {
