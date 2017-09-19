@@ -84,18 +84,56 @@
                                             <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
                                         </div>
 
-@foreach (var item in Model.AreaPhotoList)
-{
-                                        <div class="form-group">
-                                            @{
-                                                var base64 = Convert.ToBase64String(item.FileContent);
-                                                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-                                                <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
-                                            }
-                                            
-                                        </div>
-}
 
+                                        <div class="form-group">
+                                            <table>
+
+                                                <tbody>
+
+                                                    @foreach (var item in Model.AreaPhotoList)
+                {
+                                                        <tr>
+                                                            <td>
+                                                                @{
+                                                                var base64 = Convert.ToBase64String(item.FileContent);
+                                                                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                                    <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.Description)
+                                                                    @Html.TextBoxFor(model => model.Description, new { placeholder = "description area", id = "Description", @class = "form-control" })
+
+                                                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </td>
+
+
+                                                            <td>
+                                                                @*<label for="PostedLogo" class="btn btn-primary btn-xlg col-md-4 col-md-offset-2">Select a new avatar to update profile</label>*@
+                                                                <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
+                                                                <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtEnvironmentalImpact", new { id = item.AreaKey })'">Change Photo</button>
+                                                                @*<a href="@Url.Action("Delete", "MgtArea",new { id=Model.AreaKey})" class="btn btn-info btn-xlg col-lg-12" role="button" onclick="return confirm('Are you sure you want to Remove this?')">Save Changes</a>*@
+                                                                <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Delete","AreaPhoto", new { id = item.PhotoKey })'">Remove Photo</button>
+                                                            </td>
+                                                            <td>
+                                                               
+                                                            </td>
+                                                        </tr>
+                                                                }
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        </div>
+
+
+                                    <br />
+                                    <div class="panel-footer">
+                                        <button type="submit" class="btn btn-info btn-xlg col-md-6" id="btnsave" name="btnsave">Save Changes</button>
+                                        @*<a href="@Url.Action("Delete", "MgtArea",new { id=Model.AreaKey})" class="btn btn-info btn-xlg col-lg-12" role="button" onclick="return confirm('Are you sure you want to Remove this?')">Save Changes</a>*@
                                     </div>
 
                                 </div>
@@ -106,7 +144,10 @@
                 <div class="col-md-2">&nbsp;</div>
             </div>
         </div>
-    }
+
+
+       
+                                                                    }
 
 
 

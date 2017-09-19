@@ -10,6 +10,8 @@ namespace NasgledSys.Models
         public Nullable<System.Guid> AreaKey { get; set; }
         public System.Guid PhotoKey { get; set; }
         public byte[] FileContent { get; set; }
+
+        public string Description { get; set; }
         public List<AreaPhotoModel> AreaPhotoList { get; set; }
     }
 }

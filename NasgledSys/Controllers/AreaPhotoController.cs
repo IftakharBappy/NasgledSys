@@ -23,9 +23,19 @@ namespace NasgledSys.Controllers
 
                     if (db.AreaPhoto.Any(o => o.AreaKey == id))
                     {
-                        //AreaDetail entityModel = db.AreaDetail.FirstOrDefault(m => m.AreaKey == id);
-                        //model = EM_AreaDetail.ConvertToModel(entityModel);
-                        //ViewBag.heading = model.Description;
+                        IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
+
+                        var data = query.Select(asset => new AreaPhotoModel()
+                        {
+                            AreaKey = asset.AreaKey,
+                            PhotoKey = asset.PhotoKey,
+                            Description = asset.Description,
+                            FileContent = asset.FileContent,
+                            FileName = asset.FileName,
+                            FileType = asset.FileType
+                        }).ToList();
+
+                        model.AreaPhotoList = data;
                     }
 
                     else
@@ -75,8 +85,54 @@ namespace NasgledSys.Controllers
                 db.AreaPhoto.Add(entity);
                 db.SaveChanges();
 
+
+                IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
+
+                var data = query.Select(asset => new AreaPhotoModel()
+                {
+                    AreaKey = asset.AreaKey,
+                    PhotoKey = asset.PhotoKey,
+                    Description = asset.Description,
+                    FileContent = asset.FileContent,
+                    FileName = asset.FileName,
+                    FileType = asset.FileType 
+                }).ToList();
+
+                model.AreaPhotoList = data;
+
                 return View(model);
                  
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+
+
+        public ActionResult Delete(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    AreaPhoto entity = db.AreaPhoto.Find(id);
+
+                    Guid? areaId;
+                    areaId = entity.AreaKey;
+                    //entity.remo = true;
+                    db.AreaPhoto.Remove(entity);
+                    db.SaveChanges();
+                  
+                    Session["GlobalMessege"] = "Area Photo has been DELETED successfully.";
+                    return RedirectToAction("Edit", "AreaPhoto", new { @id = areaId });
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+                }
             }
             else
             {
