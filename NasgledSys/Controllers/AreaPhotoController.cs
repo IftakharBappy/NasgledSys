@@ -69,21 +69,25 @@ namespace NasgledSys.Controllers
             {
                 model.AreaPhotoList = new List<AreaPhotoModel>();
 
-                AreaPhotoModel _photoobj = new AreaPhotoModel();
-                _photoobj.PhotoKey = Guid.NewGuid();
-                _photoobj.AreaKey = model.AreaKey;
+                if (PostedLogo != null)
+                {
+                     AreaPhotoModel _photoobj = new AreaPhotoModel();
+                    _photoobj.PhotoKey = Guid.NewGuid();
+                    _photoobj.AreaKey = model.AreaKey;
 
-                byte[] imgBinaryData = new byte[PostedLogo.ContentLength];
-                int readresult = PostedLogo.InputStream.Read(imgBinaryData, 0, PostedLogo.ContentLength);
-                _photoobj.FileContent = imgBinaryData;
-                _photoobj.FileName = PostedLogo.FileName;
-                _photoobj.FileType = PostedLogo.ContentType;
+                    byte[] imgBinaryData = new byte[PostedLogo.ContentLength];
+                    int readresult = PostedLogo.InputStream.Read(imgBinaryData, 0, PostedLogo.ContentLength);
+                    _photoobj.FileContent = imgBinaryData;
+                    _photoobj.FileName = PostedLogo.FileName;
+                    _photoobj.FileType = PostedLogo.ContentType;
 
-                AreaPhoto entity = new AreaPhoto();
-                entity = EM_AreaPhoto.ConvertToEntity(_photoobj);
+                    AreaPhoto entity = new AreaPhoto();
+                    entity = EM_AreaPhoto.ConvertToEntity(_photoobj);
 
-                db.AreaPhoto.Add(entity);
-                db.SaveChanges();
+                    db.AreaPhoto.Add(entity);
+                    db.SaveChanges();
+
+                }
 
 
                 IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
