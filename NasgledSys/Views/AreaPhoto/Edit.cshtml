@@ -89,17 +89,17 @@
 
                                                     @for (int i = 0; i < Model.AreaPhotoList.Count(); i++)
                                                     {
+
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].PhotoKey)
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].FileContent)
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].FileType)
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].FileName)
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].AreaKey)
+
                                                         <tr>
                                                             <td>
                                                               
                                                                 @{
-                                                                    @Html.HiddenFor(m => Model.AreaPhotoList[i].PhotoKey)
-                                                                    @Html.HiddenFor(m => Model.AreaPhotoList[i].FileContent)
-                                                                    @Html.HiddenFor(m => Model.AreaPhotoList[i].Description)
-                                                                    @Html.HiddenFor(m => Model.AreaPhotoList[i].FileType)
-                                                                    @Html.HiddenFor(m => Model.AreaPhotoList[i].FileName)
-                                                                    @Html.HiddenFor(m => Model.AreaPhotoList[i].AreaKey)
-
                                                                     var base64 = Convert.ToBase64String(Model.AreaPhotoList[i].FileContent);
                                                                     var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
                                                                     <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
@@ -111,7 +111,6 @@
                                                                     @Html.TextBoxFor(model => model.AreaPhotoList[i].Description, new { placeholder = "description area", id = "Description" + i, @class = "form-control" })
                                                                 </div>
                                                             </td>
-                                                             
 
                                                             <td>
                                                                 <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
@@ -121,36 +120,7 @@
                                                             <td></td>
                                                         </tr>
                                                     }
-
-                                                    @*@foreach (var item in Model.AreaPhotoList)
-                {
-                                                        <tr>
-                                                            <td>
-                                                                @{
-                                                                var base64 = Convert.ToBase64String(item.FileContent);
-                                                                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-                                                                    <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group">
-                                                                    @Html.TextBoxFor(model => model.Description, new { placeholder = "description area", id = "Description", @class = "form-control" })
-
-                                                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                                                                </div>
-                                                            </td>
-
-
-                                                            <td>
-                                                                <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
-                                                                <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtEnvironmentalImpact", new { id = item.AreaKey })'">Change Photo</button>
-                                                                <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Delete","AreaPhoto", new { id = item.PhotoKey })'">Remove Photo</button>
-                                                            </td>
-                                                            <td>
-                                                               
-                                                            </td>
-                                                        </tr>
-                                                                }*@
+                                                  
                                                 </tbody>
                                             </table>
 
