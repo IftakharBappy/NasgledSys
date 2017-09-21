@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-
+using NasgledSys.DAL;
 namespace NasgledSys.Controllers
 {
     public class MgtProfileProductController : Controller
@@ -20,6 +20,109 @@ namespace NasgledSys.Controllers
             {
                 //logger.Info("MgtClientCompany IndexClientCompany() invoked by :  " + GlobalClass.ProfileUser.FirstName+" "+ GlobalClass.ProfileUser.LastName);
                 return View();
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "Userhome"));
+            }
+        }
+        public ActionResult Import()
+        {
+            if (GlobalClass.MasterSession)
+            {
+                TempData["mess"] = "";
+                var main = ((from x in db.MainProduct select x.FixtureKey).Except(from x in db.MainProduct join y in db.ProfileProduct on x.FixtureKey equals y.FixtureKey
+                                                                      where y.ProfileKey==GlobalClass.ProfileUser.ProfileKey
+                                                                      select x.FixtureKey)).Distinct();
+                if (main.Count() > 0)
+                {
+                    try
+                    {
+                        MgtItemCatelogue manage = new MgtItemCatelogue();
+                        NasgledDBEntities bc = new NasgledDBEntities();
+                        var checkForCatelog = from x in db.MainProduct
+                                              join y in db.ProfileProduct on x.FixtureKey equals y.FixtureKey
+                                              where y.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                              select x.FixtureKey;
+                        if (checkForCatelog.Count() > 0)
+                        {
+
+                        }else
+                        {
+                            int i=manage.AddAdminCatelog();
+                        }
+                        ItemCatelogue cat = db.ItemCatelogue.FirstOrDefault(m=>m.TypeName.Contains("Admin"));
+                        if (cat == null)
+                        {
+                            int i = manage.AddAdminCatelog();
+                            cat = db.ItemCatelogue.FirstOrDefault(m => m.TypeName.Contains("Admin"));
+                        }
+                            foreach (var item in main)
+                        {
+                            MainProduct viewModel = db.MainProduct.Find(item);
+                            ProfileProduct model = new ProfileProduct();
+                            model.FixtureKey = viewModel.FixtureKey;
+                            model.ItemTypeKey = viewModel.ItemTypeKey;
+                            model.CategoryKey = viewModel.CategoryKey;
+                            model.SubcategoryKey = viewModel.SubcategoryKey;
+                            model.CatelogueKey = cat.PKey;
+                            model.Source = viewModel.Source;
+                            model.Brand = viewModel.Brand;
+                            model.ManufacturerKey = viewModel.ManufacturerKey;
+                            model.ProductName = viewModel.ProductName;
+                            model.ModelNo = viewModel.ModelNo;
+                            model.Watt = viewModel.Watt;
+                            model.Watt = viewModel.Watt;
+                            model.ThermalEfficacy = viewModel.ThermalEfficacy;
+                            model.CRI = viewModel.CRI;
+
+                            model.Lumen = viewModel.Lumen;
+
+                            if (viewModel.LightApparent == null) { model.LightApparent = 0; }
+                            else { model.LightApparent = viewModel.LightApparent; }
+
+                            if (viewModel.LightOutput == null) { model.LightOutput = 0; }
+                            else { model.LightOutput = viewModel.LightOutput; }
+
+                            if (viewModel.CCT == null) { model.CCT = 0; }
+                            else { model.CCT = viewModel.CCT; }
+
+                            if (viewModel.Size != "") { model.Size = "n/a"; }
+                            else { model.Size = viewModel.Size; }
+
+                            if (viewModel.Location != "") { model.Location = "n/a"; }
+                            else { model.Location = viewModel.Location; }
+
+                            model.MountingBase = viewModel.MountingBase;
+
+                            if (viewModel.LampLife == null) { model.LampLife = 0; }
+                            else { model.LampLife = viewModel.LampLife; }
+
+
+                            if (viewModel.TypeCount == null) { model.TypeCount = 1; }
+                            else { model.TypeCount = viewModel.TypeCount; }
+
+                            model.ProfileKey = GlobalClass.ProfileUser.ProfileKey;
+                            model.Logo = viewModel.Logo;
+                            model.FileName = viewModel.FileName;
+                            model.FileType = viewModel.FileType;
+                            model.MainItemKey = viewModel.MainItemKey;
+                            bc.ProfileProduct.Add(model);
+                            bc.SaveChanges();
+                            bc = new NasgledDBEntities();
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        TempData["mess"] = ex.Message.ToString()+" . Please try again.";
+                    }
+                   
+                }else
+                {
+                    TempData["mess"] = "Admin Catelogue Items have already been added to your existing product List";
+                }
+                return RedirectToAction("Index");
             }
             else
             {
@@ -54,7 +157,7 @@ namespace NasgledSys.Controllers
         public JsonResult GetProfileProductList()
         {
             var list = (from asset in db.ProfileProduct
-
+                        where asset.ProfileKey==GlobalClass.ProfileUser.ProfileKey
                         select new
                         {
                             Brand = asset.Brand == null ? " " : asset.Brand,

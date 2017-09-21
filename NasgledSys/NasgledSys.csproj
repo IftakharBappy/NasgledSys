@@ -216,6 +216,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AreaDetailController.cs" />
+    <Compile Include="Controllers\AreaPhotoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\DefaultEmailConfigController.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Controllers\UserItemCatelogueController.cs" />
     <Compile Include="Controllers\UserItemSubcategoryController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
+    <Compile Include="DAL\ManageAreaProduct.cs" />
     <Compile Include="DAL\ManageMainProduct.cs" />
     <Compile Include="DAL\ManageProject.cs" />
     <Compile Include="DAL\ManageProjectArea.cs" />
@@ -292,6 +294,7 @@
     <Compile Include="EM\EM_AdminAccess.cs" />
     <Compile Include="EM\EM_Area.cs" />
     <Compile Include="EM\EM_AreaDetail.cs" />
+    <Compile Include="EM\EM_AreaPhoto.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
@@ -301,6 +304,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddProductClass.cs" />
     <Compile Include="Models\AdvancedSearchViewModel.cs" />
     <Compile Include="Models\AnnualSalesRevenueSetup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -323,6 +327,8 @@
     <Compile Include="Models\AreaPhoto.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AreaPhotoModel.cs" />
+    <Compile Include="Models\AreaPhotoViewModel.cs" />
     <Compile Include="Models\AreaProduct.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3842,6 +3848,10 @@
     <Content Include="Views\MgtSubArea\Edit.cshtml" />
     <Content Include="Views\MgtAddProducts\Index.cshtml" />
     <Content Include="Views\MgtSchedule\Index.cshtml" />
+    <Content Include="Views\MgtAddProducts\Index.cshtml" />
+    <Content Include="Views\MgtAddProducts\Create.cshtml" />
+    <Content Include="Views\AreaPhoto\Edit.cshtml" />
+    <Content Include="Views\MgtAddProducts\Edit.cshtml" />
     <Content Include="Views\MgtSchedule\CreateOS.cshtml" />
     <Content Include="Views\MgtSchedule\CreateHS.cshtml" />
     <Content Include="Views\MgtSchedule\CreateRS.cshtml" />

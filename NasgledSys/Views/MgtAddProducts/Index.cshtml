@@ -23,7 +23,7 @@
         }
         else {
             baseList.forEach(function (item) {
-                if (item.ProductName.toLowerCase().includes(searchText)) {
+                if (item.ExistingProductName.toLowerCase().includes(searchText)) {
                     filteredList.push(item);
                 }
             });
@@ -46,7 +46,7 @@
 
         for (var i = 0; i < filteredList.length; i++) {
 
-            res = res + "<tr><td>" + filteredList[i].ProductName + "</td><td>" + filteredList[i].Count + "</td><td>" + filteredList[i].Description + "</td>"
+            res = res + "<tr><td>" + filteredList[i].ExistingProductName + "</td><td>" + filteredList[i].Count + "</td><td>" + filteredList[i].Description + "</td>"
                       + "<td><a href='/MgtAddProducts/Edit?id=" + filteredList[i].ProductKey + "' class='btn btn-default btn-xs' role='button'>View</a></td></tr>";
         }
         res = res +  "</tbody></table>";
@@ -74,7 +74,7 @@
 </script>
 @{
     NasgledDBEntities db = new NasgledDBEntities();
-    Guid? ak = Model.ParentAreaKey;
+    Guid? ak = Model.AreaKey;
     string areaLink = "";
     for (;;)
     {
@@ -103,9 +103,7 @@
             <label>></label>@MvcHtmlString.Create(areaLink)
 
         </span>
-        <span class="heading-text">
-            <a class="btn btn-primary" href="@Url.Action("Create","MgtAddProducts",new { id=Model.AreaKey})"><i class="add-on"></i>Add Product</a>
-        </span>
+       
     </center>
 
 
@@ -156,7 +154,7 @@
                                             <div class="col-md-6">
 
                                                 <div class="has-feedback has-feedback-left">
-                                                    <input id="searchText" type="text" class="form-control" placeholder="Search" onkeyup="search()" />
+                                                    <input id="searchText" type="text" class="form-control" placeholder="Search by Name" onkeyup="search()" />
                                                     <div class="form-control-feedback">
                                                         <i class="icon-search4 text-size-base text-muted"></i>
                                                     </div>

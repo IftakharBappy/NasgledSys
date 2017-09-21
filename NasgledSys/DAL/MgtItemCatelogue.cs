@@ -45,7 +45,26 @@ namespace NasgledSys.DAL
             }
             return i;
         }
-
+        public int AddAdminCatelog()
+        {
+            int i = 1;
+            try
+            {
+                ItemCatelogue model = new ItemCatelogue();
+                model.PKey = Guid.NewGuid();
+                model.TypeName = "Admin Catelogue";
+                model.Description = "Admin Catelogue";
+                model.IsDelete = false;
+                db.ItemCatelogue.Add(model);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message.ToString();
+                i = 0;
+            }
+            return i;
+        }
         public int Update(ItemCatelogueViewModel obj)
         {
             int i = 1;

@@ -285,6 +285,22 @@ namespace NasgledSys.Controllers
             }
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetProfileProductList()
+        {
+            var list = (from asset in db.ProfileProduct
+                        where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                        && asset.MainItemKey == null
+                        select new
+                        {
+                           
+                            FixtureKey = asset.FixtureKey,                           
+                            TypeCount = asset.TypeCount,                          
+                            ProductName = asset.ProductName,
+                            ModelNo = asset.ModelNo
+                        }).OrderBy(m => m.ProductName).ToList();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

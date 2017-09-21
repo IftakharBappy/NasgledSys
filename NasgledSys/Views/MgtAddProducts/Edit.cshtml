@@ -1,0 +1,218 @@
+﻿@model NasgledSys.Models.AddProductClass
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        LoadArea();
+        LoadFixture();
+        LoadItemList();
+        $("#deletemsg").show().delay(1000).fadeOut();
+    });
+    //$(function () {
+    //    $('button[name=fixture]').click(function () {
+    //        var item = $(this).val();
+    //        alert(item.val());
+    //        $('#FixtureKey').val(item.val());
+    //        LoadFixture();
+    //    });
+    //});
+    $(document).on('click', function (evt) {
+        if (!$(evt.target).is('#fixture')) {
+            alert($(this).val());
+            // $('#FixtureKey').val(item.val());
+            LoadFixture();
+        }
+    });
+
+    function LoadItemList() {
+        var select = $('#elementContainer');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtAddProducts/GetItemList/",
+            success: function (data) {
+                select.html(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadArea() {
+        var select = $('select[name=AreaKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadArea/",
+            data: JSON.stringify({ AreaKey: '@Model.AreaKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].AreaKey + "' " + data[i].Selected + ">" + data[i].AreaName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadFixture() {
+        var select = $('select[name=FixtureKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadFixture/",
+            data: JSON.stringify({ FixtureKey: '@Model.FixtureKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].FixtureKey + "' " + data[i].Selected + ">" + data[i].ProductName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+
+</script>
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.AreaObj.AreaKey;
+    string areaLink = "";
+    for (;;)
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+
+        if (area.ParentAreaKey == null)
+        {
+            break;
+        }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
+
+
+}
+@section CenterTitle{
+    Add Existing Product
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
+            <label>></label>@MvcHtmlString.Create(areaLink)
+
+        </span>
+
+    </center>
+
+
+}
+
+<div class="content-wrapper">
+
+    @using (Html.BeginForm("Edit", "MgtAddProducts", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.HiddenFor(m=>m.ProductKey,new { id= "ProductKey" })
+        @Html.ValidationSummary()
+        @Html.HiddenFor(m => m.AreaObj.AreaKey)
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-2">&nbsp;</div>
+                <div class="col-md-8">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#tab-demo1" data-toggle="tab">Product</a></li>
+                                @*<li><a href="@Url.Action("Index", "MgtAreaProductDetail", new { id = Model.ProductKey })">Details</a></li>*@
+                                <li><a href="#">Details</a></li>
+                                <li><a href="#">Note</a></li>
+                                <li><a href="#">Photos</a></li>
+                                <li><a href="#">Documents</a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-demo1">
+
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="h3 alert-info" id="deletemsg"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AreaKey)
+                                            <select name="AreaKey" placeholder="Select" id="AreaKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.AreaKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.FixtureKey)
+                                            <select name="FixtureKey" placeholder="Select" id="FixtureKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.FixtureKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Count)
+                                            @Html.TextBoxFor(model => model.Count, new { type = "number", placeholder = "existing count", id = "Count", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Description)
+                                            @Html.TextAreaFor(model => model.Description, new { placeholder = "Description", id = "Description", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <center>
+                                            <a href="@Url.Action("Index", "MgtAddProducts",new { id=Model.AreaKey})" class="btn btn-warning btn-xlg" role="button">Cancel</a>
+
+                                            <button type="submit" class="btn btn-default btn-xlg col-md-3" id="Save" name="Save" value="Save">Save</button>
+                                           
+                                        </center>
+
+                                    </div><br />
+                                    <div class="panel-footer">
+                                        <center>
+                                            <a href="@Url.Action("Delete", "MgtAddProducts",new { id=Model.ProductKey})" onclick = "return confirm('Are you sure you want to Remove this?')" class="btn btn-warning btn-xlg col-md-8" role="button">Delete</a>
+
+                                            
+                                        </center>
+
+                                    </div>
+                                    <div id="AutoSuggestion"></div>
+                                    <div id="elementContainer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-2">&nbsp;</div>
+            </div>
+        </div>
+
+    }
+
+</div>

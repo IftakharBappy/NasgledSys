@@ -12,6 +12,54 @@ namespace NasgledSys.Controllers
     {
         // GET: DropdownUtility
         private NasgledDBEntities db = new NasgledDBEntities();
+
+        public JsonResult loadFixture(Guid? FixtureKey)
+        {
+            if (FixtureKey == Guid.Empty || FixtureKey == null)
+            {
+                var list = (from a in db.ProfileProduct
+                            where a.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                            select new { a.FixtureKey, a.ProductName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from a in db.ProfileProduct
+                            where a.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                            select new
+                            {
+                                a.FixtureKey,
+                                a.ProductName,
+                                Selected = a.FixtureKey == FixtureKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public JsonResult loadArea(Guid? AreaKey)
+        {
+            if (AreaKey == Guid.Empty || AreaKey == null)
+            {
+                var list = (from city in db.Area 
+                            where city.IsDelete == false && city.ProjectKey==GlobalClass.Project.ProjectKey
+                            select new { city.AreaKey, city.AreaName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from city in db.Area
+                            where city.IsDelete == false && city.ProjectKey == GlobalClass.Project.ProjectKey
+                            select new
+                            {
+                                city.AreaKey,
+                                city.AreaName,
+                                Selected = city.AreaKey == AreaKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
         public JsonResult loadMonth(int? Month)
         {
             List<GenericListType> test = new List<GenericListType>();
