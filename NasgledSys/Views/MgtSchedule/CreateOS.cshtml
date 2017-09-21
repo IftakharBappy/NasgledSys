@@ -1,0 +1,97 @@
+﻿@model NasgledSys.Models.ScheduleViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#content1').hide();
+        $('button').bind('click', function () {
+            $('div#content').html($('div#content' + ($(this).index() + 1)).html());
+        });
+    });
+    
+  
+</script>
+
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-3">
+                &nbsp;
+                <div id="progress" class="modal fade">
+                    <div class="center">
+                        <img src="~/Content/loader4.gif" />
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("CreateOS", "MgtSchedule", FormMethod.Post))
+            {
+                <div class="col-md-8">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <h4>
+                                <span class="heading-text pull-left">
+                                    <i class="icon-folder-download position-left"></i>
+                                    <span class="position-left">New Operating Schedule</span>
+
+                                </span>
+
+                            </h4>
+                        </div>
+                        <div class="panel panel-default ">
+                            <div class="panel-body">
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.OPName)
+                                            @Html.HiddenFor(model => model.PKey, new { id = "PKey" })
+                                            @Html.TextBoxFor(model => model.OPName, new { placeholder = "Name", id = "OPName", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.OPName, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AnnualOperationHour)
+                                            @Html.TextBoxFor(model => model.AnnualOperationHour, new { placeholder = " Annual Operation Hour", id = "AnnualOperationHour", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.AnnualOperationHour, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div id="content">
+                                            <button type="button" class="btn btn-block btn-lg btn-inverse hover">Show More</button>
+                                            
+                                        </div>
+                                        <div id="content1">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.InternalNote)
+                                                @Html.TextAreaFor(model => model.InternalNote, new { placeholder = " InternalNote", id = "InternalNote", @class = "form-control" })
+                                                <h6>This not will be visible to your customer</h6>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.GeneralNote)
+                                                @Html.TextAreaFor(model => model.GeneralNote, new { placeholder = " GeneralNote", id = "GeneralNote", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.GeneralNote, "", new { @class = "text-danger" })
+                                                <text>This May be visible to Your Customer</text>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="panel-footer">
+                                <center>
+                                    <a href="@Url.Action("Index","MgtSchedule")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;
+                                    <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Create</button>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                        }
+                    </div>
+                </div>
+
+
+

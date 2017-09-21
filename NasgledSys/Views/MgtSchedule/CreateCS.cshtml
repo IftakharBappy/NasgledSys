@@ -1,0 +1,192 @@
+﻿@model NasgledSys.Models.CoolingSystemViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#content1').hide();
+        $('button').bind('click', function () {
+            $('div#content').html($('div#content' + ($(this).index() + 1)).html());
+        });
+
+        LoadCoolingSystemTypeDropDown_ToCreate();
+        LoadFuelTypeDropDown_ToCreate();
+        LoadCoolingEfficiencyTypeDropDown_ToCreate();
+    });
+
+    function LoadCoolingSystemTypeDropDown_ToCreate() {
+        var select = $('select[name=CoolingSystemTypeKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtSchedule/LoadCoolingSystemTypeDropDown_ToCreate/",
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "'>" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+
+    function LoadFuelTypeDropDown_ToCreate() {
+        var select = $('select[name=FuelTypeKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtSchedule/LoadFuelTypeDropDown_ToCreate/",
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "'>" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+
+    function LoadCoolingEfficiencyTypeDropDown_ToCreate() {
+        var select = $('select[name=EfficiencyType]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtSchedule/LoadCoolingEfficiencyTypeDropDown_ToCreate/",
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "'>" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+</script>
+
+
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            &nbsp;
+            <div id="progress" class="modal fade">
+                <div class="center">
+                    <img src="~/Content/loader4.gif" />
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("CreateCS", "MgtSchedule", FormMethod.Post))
+            {
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="panel-body">
+                        <h4>
+                            <span class="heading-text pull-left">
+                                <i class="icon-folder-download position-left"></i>
+                                <span class="position-left">New Cooling Schedule</span>
+
+                            </span>
+
+                        </h4>
+                    </div>
+                    <div class="panel panel-default ">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SystemName)
+                                        @Html.HiddenFor(model => model.CoolingSystemKey, new { id = "CoolingSystemKey" })
+                                        @Html.TextBoxFor(model => model.SystemName, new { placeholder = "System Name", id = "SystemName", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.SystemName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AnnualRunTime)
+                                        @Html.TextBoxFor(model => model.AnnualRunTime, new { placeholder = " Annual RunTime", id = "AnnualRunTime", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.AnnualRunTime, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CoolingSystemTypeKey)
+                                        <div class="">
+                                            <select name="CoolingSystemTypeKey" placeholder="Select" class="select select-search form-control"></select>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.CoolingSystemTypeKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FuelTypeKey)
+                                        <div class="">
+                                            <select name="FuelTypeKey" placeholder="Select" class="select select-search form-control"></select>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.FuelTypeKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FuelCost)
+                                        @Html.TextBoxFor(model => model.FuelCost, new { placeholder = " Fuel Cost", id = "FuelCost", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.FuelCost, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EfficiencyType)
+                                        <div class="">
+                                            <select name="EfficiencyType" placeholder="Select" class="select select-search form-control"></select>
+                                            @Html.ValidationMessageFor(model => model.EfficiencyType, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EfficiencyValue)
+                                        @Html.TextBoxFor(model => model.EfficiencyValue, new { placeholder = "EfficiencyValue", id = "Efficiency Value", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.EfficiencyValue, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div id="content">
+                                        <button type="button" class="btn btn-block btn-lg btn-inverse hover">Show More</button>
+
+                                    </div>
+                                    <div id="content1">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.InternalNote)
+                                            @Html.TextAreaFor(model => model.InternalNote, new { placeholder = " Internal Note", id = "InternalNote", @class = "form-control" })
+                                            <text>This not will be visible to your Customer</text>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.GeneralNote)
+                                            @Html.TextAreaFor(model => model.GeneralNote, new { placeholder = " General Note", id = "GeneralNote", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.GeneralNote, "", new { @class = "text-danger" })
+                                            <text>This may be visible to your Customer</text>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <center>
+                            <a href="@Url.Action("Index","MgtSchedule")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;
+                            <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Create</button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
