@@ -12,8 +12,6 @@
 <script type="text/javascript" src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
 <script src="~/Scripts/jquery.maskedinput.js"></script>
 
- 
-
 
 @section CenterTitle{
     @ViewBag.heading
@@ -36,12 +34,11 @@
 
 }
 <div class="content-wrapper">
-    @using (Html.BeginForm("Edit", "AreaPhoto", FormMethod.Post, new { enctype = "multipart/form-data", @id = "thisForm" }))
+    @using (Html.BeginForm("Edit", "AreaPhoto", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary()
         @Html.HiddenFor(m => m.AreaKey, new { id = "AreaKey" })
         @Html.HiddenFor(m => m.PhotoKey, new { id = "PhotoKey" })
-        
 
         <div class="form-horizontal">
             <div class="row">
@@ -89,38 +86,41 @@
 
                                                 <tbody>
 
-                                                    @foreach (var item in Model.AreaPhotoList)
-                {
+                                                    @for (int i = 0; i < Model.AreaPhotoList.Count(); i++)
+                                                    {
+
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].PhotoKey)
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].FileContent)
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].FileType)
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].FileName)
+                                                        @Html.HiddenFor(m => Model.AreaPhotoList[i].AreaKey)
+
                                                         <tr>
                                                             <td>
+                                                              
                                                                 @{
-                                                                var base64 = Convert.ToBase64String(item.FileContent);
-                                                                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                                    var base64 = Convert.ToBase64String(Model.AreaPhotoList[i].FileContent);
+                                                                    var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
                                                                     <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
                                                                 }
                                                             </td>
+
                                                             <td>
                                                                 <div class="form-group">
-                                                                    @Html.LabelFor(model => model.Description)
-                                                                    @Html.TextBoxFor(model => model.Description, new { placeholder = "description area", id = "Description", @class = "form-control" })
-
-                                                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                                                    @Html.TextBoxFor(model => model.AreaPhotoList[i].Description, new { placeholder = "description area", id = "Description" + i, @class = "form-control" })
                                                                 </div>
                                                             </td>
 
-
                                                             <td>
-                                                                @*<label for="PostedLogo" class="btn btn-primary btn-xlg col-md-4 col-md-offset-2">Select a new avatar to update profile</label>*@
                                                                 <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
-                                                                <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtEnvironmentalImpact", new { id = item.AreaKey })'">Change Photo</button>
-                                                                @*<a href="@Url.Action("Delete", "MgtArea",new { id=Model.AreaKey})" class="btn btn-info btn-xlg col-lg-12" role="button" onclick="return confirm('Are you sure you want to Remove this?')">Save Changes</a>*@
-                                                                <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Delete","AreaPhoto", new { id = item.PhotoKey })'">Remove Photo</button>
+                                                                @*<button type="button" id="btnUpdate" class="btn btn-primary" onclick="">Change Photo</button>*@
+                                                                <button type="button" class="open-AddBookDialog btn btn-primary" data-toggle="modal" data-id="@Model.AreaPhotoList[i].PhotoKey" data-target="#modal_image" onclick="">Change Photo</button>
+                                                                <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Delete", "AreaPhoto", new { id = Model.AreaPhotoList[i].PhotoKey })'">Remove Photo</button>
                                                             </td>
-                                                            <td>
-                                                               
-                                                            </td>
+                                                            <td></td>
                                                         </tr>
-                                                                }
+                                                                    }
+                                                  
                                                 </tbody>
                                             </table>
 
@@ -131,8 +131,7 @@
 
                                     <br />
                                     <div class="panel-footer">
-                                        <button type="submit" class="btn btn-info btn-xlg col-md-6" id="btnsave" name="btnsave">Save Changes</button>
-                                        @*<a href="@Url.Action("Delete", "MgtArea",new { id=Model.AreaKey})" class="btn btn-info btn-xlg col-lg-12" role="button" onclick="return confirm('Are you sure you want to Remove this?')">Save Changes</a>*@
+                                        <button type="submit" class="btn btn-info btn-xlg col-lg-12" id="btnsave" name="btnsave">Save Changes</button>
                                     </div>
 
                                 </div>
@@ -141,17 +140,65 @@
                     </div>
                 </div>
                 <div class="col-md-2">&nbsp;</div>
+
+                
+            </div>
+        </div>
+       }
+
+    <div id="modal_image" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">Change Area Photo</h4></center>
+                </div>
+                @using (Html.BeginForm("UpdatePhoto", "AreaPhoto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="container-fluid">
+
+                                @Html.HiddenFor(m => Model.PhotoKey)
+
+                                <div class="form-group">
+                                    @*<label for="UpdatePostedLogo" class="btn btn-primary btn-xlg col-md-4 col-md-offset-2">Select a new Photo</label>*@
+
+                                    @*<input id="UpdatePostedLogo" name="UpdatePostedLogo" style="visibility:hidden;" type="file">*@
+
+                                    <input class="btn btn-primary btn-xlg col-lg-8 col-md-offset-2" id="UpdatePostedLogo" name="UpdatePostedLogo"  type="file">
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                                <div class="modal-footer">
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                            <input type="submit" class="btn btn-primary" name="Save" id="Save" value="Save" />
+                                        </div>
+                                    </div>
+                                </div>
+                }
             </div>
         </div>
 
-
-       
-                                                                    }
-
-
-
-
+    </div>
 
 </div>
+
+<script>
+
+    $(document).on("click", ".open-AddBookDialog", function () {
+        var photoId = $(this).data('id');
+        $(".modal-body #PhotoKey").val(photoId);
+    });
+
+</script>
 
 

@@ -12,6 +12,10 @@ namespace NasgledSys.Models
         public byte[] FileContent { get; set; }
 
         public string Description { get; set; }
+
+
+        //private List<AreaPhotoModel> _areaPhotoList = new List<AreaPhotoModel>();
+        //public List<AreaPhotoModel> AreaPhotoList { get => _areaPhotoList; set => _areaPhotoList = value; }
         public List<AreaPhotoModel> AreaPhotoList { get; set; }
     }
 }

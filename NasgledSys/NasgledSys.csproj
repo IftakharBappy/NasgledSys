@@ -374,6 +374,7 @@
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CoolingSystemTypeViewModel.cs" />
+    <Compile Include="Models\CoolingSystemViewModel.cs" />
     <Compile Include="Models\dbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -415,6 +416,7 @@
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HeatingSystemTypeViewModel.cs" />
+    <Compile Include="Models\HeatingSystemViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageFile.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -473,6 +475,7 @@
     <Compile Include="Models\NewRateSchedule.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NewRateScheduleViewModel.cs" />
     <Compile Include="Models\OperatingSchedule.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -512,6 +515,7 @@
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SalesReachSetupViewModel.cs" />
+    <Compile Include="Models\ScheduleViewModel.cs" />
     <Compile Include="Models\StaffList.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3842,11 +3846,20 @@
     <Content Include="Views\MgtSubArea\Index.cshtml" />
     <Content Include="Views\MgtSubArea\Create.cshtml" />
     <Content Include="Views\MgtSubArea\Edit.cshtml" />
+    <Content Include="Views\MgtAddProducts\Index.cshtml" />
     <Content Include="Views\MgtSchedule\Index.cshtml" />
     <Content Include="Views\MgtAddProducts\Index.cshtml" />
     <Content Include="Views\MgtAddProducts\Create.cshtml" />
     <Content Include="Views\AreaPhoto\Edit.cshtml" />
     <Content Include="Views\MgtAddProducts\Edit.cshtml" />
+    <Content Include="Views\MgtSchedule\CreateOS.cshtml" />
+    <Content Include="Views\MgtSchedule\CreateHS.cshtml" />
+    <Content Include="Views\MgtSchedule\CreateRS.cshtml" />
+    <Content Include="Views\MgtSchedule\CreateCS.cshtml" />
+    <Content Include="Views\MgtSchedule\EditOS.cshtml" />
+    <Content Include="Views\MgtSchedule\EditHS.cshtml" />
+    <Content Include="Views\MgtSchedule\EditRS.cshtml" />
+    <Content Include="Views\MgtSchedule\EditCS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
