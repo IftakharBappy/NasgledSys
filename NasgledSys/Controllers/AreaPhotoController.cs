@@ -114,6 +114,76 @@ namespace NasgledSys.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult UpdatePhoto(AreaPhotoViewModel model, HttpPostedFileBase UpdatePostedLogo)
+        {
+            if (GlobalClass.MasterSession)
+            {
+              
+
+                model.AreaPhotoList = new List<AreaPhotoModel>();
+
+                if (UpdatePostedLogo != null)
+                {
+
+                    AreaPhoto entity = db.AreaPhoto.Find(model.PhotoKey);
+                    model.AreaKey = entity.AreaKey;
+                     
+                    AreaPhotoModel _photoobj = new AreaPhotoModel();
+                    _photoobj.PhotoKey = model.PhotoKey;
+                    _photoobj.AreaKey = model.AreaKey;
+
+                    byte[] imgBinaryData = new byte[UpdatePostedLogo.ContentLength];
+                    int readresult = UpdatePostedLogo.InputStream.Read(imgBinaryData, 0, UpdatePostedLogo.ContentLength);
+                    _photoobj.FileContent = imgBinaryData;
+                    _photoobj.FileName = UpdatePostedLogo.FileName;
+                    _photoobj.FileType = UpdatePostedLogo.ContentType;
+
+                   // AreaPhoto entity = new AreaPhoto();
+                    entity = EM_AreaPhoto.ConvertToEntity(_photoobj);
+
+                    #region Remove Data
+
+                    AreaPhoto entityrem = db.AreaPhoto.Find(model.PhotoKey);
+                    db.AreaPhoto.Remove(entityrem);
+                    db.SaveChanges();
+
+                    #endregion
+
+                    db.AreaPhoto.Add(entity);
+                    db.SaveChanges();
+                   
+
+
+                   
+
+                }
+
+
+                IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
+
+                var data = query.Select(asset => new AreaPhotoModel()
+                {
+                    AreaKey = asset.AreaKey,
+                    PhotoKey = asset.PhotoKey,
+                    Description = asset.Description,
+                    FileContent = asset.FileContent,
+                    FileName = asset.FileName,
+                    FileType = asset.FileType
+                }).ToList();
+
+                model.AreaPhotoList = data;
+                return RedirectToAction("Edit", "AreaPhoto", new { @id = model.AreaKey });
+
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+
+
 
         public ActionResult Delete(Guid id)
         {
@@ -122,10 +192,8 @@ namespace NasgledSys.Controllers
                 try
                 {
                     AreaPhoto entity = db.AreaPhoto.Find(id);
-
                     Guid? areaId;
                     areaId = entity.AreaKey;
-                    //entity.remo = true;
                     db.AreaPhoto.Remove(entity);
                     db.SaveChanges();
                   
