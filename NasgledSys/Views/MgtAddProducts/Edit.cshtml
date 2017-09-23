@@ -12,7 +12,7 @@
 
         LoadArea();
         LoadFixture();
-        LoadItemList();
+       // LoadItemList();
         $("#deletemsg").show().delay(1000).fadeOut();
     });
     //$(function () {
@@ -202,6 +202,205 @@
                                     <div id="AutoSuggestion"></div>
                                     <div id="elementContainer">
 
+                                    </div>
+                                    <h3>Browse for Items</h3> <div class='sidebar-main sidebar-default'>
+                                        <div class='sidebar-fixed'>
+                                            <div class='sidebar-content'>
+                                                <div class='sidebar-category sidebar-category-visible'>
+                                                    <div class='category-content no-padding'>
+                                                        @{
+                                                            var list = (from asset in db.ProfileProduct
+                                                                        where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                                        && asset.MainItemKey == null
+                                                                        select new BrowseItemClass
+                                                                        {
+
+                                                                            FixtureKey = asset.FixtureKey,
+                                                                            TypeCount = asset.TypeCount,
+                                                                            ProductName = asset.ProductName,
+                                                                            ModelNo = asset.ModelNo
+                                                                        }).OrderBy(m => m.ProductName).ToList();
+                                                        }
+                                                        <ul class='navigation navigation-main navigation-accordion'>
+                                                            @foreach (var item in list)
+                                                            {
+
+                                                                ProfileProduct pr = db.ProfileProduct.Find(item.FixtureKey);
+                                                                var sublist = (from asset in db.ProfileProduct
+                                                                               where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                                               && asset.MainItemKey == item.FixtureKey
+                                                                               select new BrowseItemClass
+                                                                               {
+
+                                                                                   FixtureKey = asset.FixtureKey,
+                                                                                   TypeCount = asset.TypeCount,
+                                                                                   ProductName = asset.ProductName,
+                                                                                   ModelNo = asset.ModelNo,
+                                                                                   MainItemKey = asset.MainItemKey
+                                                                               }).OrderBy(m => m.ProductName).ToList();
+                                                                if (sublist.Count() > 0)
+                                                                {
+                                                                    <li>
+                                                                        <a href='#' discussKey='@item.FixtureKey'>@item.ProductName  <label>(</label> @item.TypeCount<label>)</label></a>
+                                                                        <ul>
+
+                                                                            @foreach (var sitem in sublist)
+                                                                            {
+                                                                                var sublist1 = (from asset in db.ProfileProduct
+                                                                                                where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                                                                && asset.MainItemKey == sitem.FixtureKey
+                                                                                                select new BrowseItemClass
+                                                                                                {
+
+                                                                                                    FixtureKey = asset.FixtureKey,
+                                                                                                    TypeCount = asset.TypeCount,
+                                                                                                    ProductName = asset.ProductName,
+                                                                                                    ModelNo = asset.ModelNo,
+                                                                                                    MainItemKey = asset.MainItemKey
+                                                                                                }).OrderBy(m => m.ProductName).ToList();
+                                                                                if (sublist1.Count() > 0)
+                                                                                {
+                                                                                    <li>
+                                                                                        <a href='#' discussKey='@sitem.FixtureKey'>@sitem.ProductName  <label>(</label> @sitem.TypeCount<label>)</label></a>
+                                                                                        <ul>
+
+                                                                                            @foreach (var sitem1 in sublist1)
+                                                                                            {
+                                                                                                var sublist2 = (from asset in db.ProfileProduct
+                                                                                                                where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                                                                                && asset.MainItemKey == sitem1.FixtureKey
+                                                                                                                select new BrowseItemClass
+                                                                                                                {
+
+                                                                                                                    FixtureKey = asset.FixtureKey,
+                                                                                                                    TypeCount = asset.TypeCount,
+                                                                                                                    ProductName = asset.ProductName,
+                                                                                                                    ModelNo = asset.ModelNo,
+                                                                                                                    MainItemKey = asset.MainItemKey
+                                                                                                                }).OrderBy(m => m.ProductName).ToList();
+                                                                                                if (sublist2.Count() > 0)
+                                                                                                {
+                                                                                                    <li>
+                                                                                                        <a href='#' discussKey='@sitem1.FixtureKey'>@sitem1.ProductName  <label>(</label> @sitem1.TypeCount<label>)</label></a>
+                                                                                                        <ul>
+
+                                                                                                            @foreach (var sitem2 in sublist2)
+                                                                                                            {
+                                                                                                                var sublist3 = (from asset in db.ProfileProduct
+                                                                                                                                where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                                                                                                && asset.MainItemKey == sitem2.FixtureKey
+                                                                                                                                select new BrowseItemClass
+                                                                                                                                {
+
+                                                                                                                                    FixtureKey = asset.FixtureKey,
+                                                                                                                                    TypeCount = asset.TypeCount,
+                                                                                                                                    ProductName = asset.ProductName,
+                                                                                                                                    ModelNo = asset.ModelNo,
+                                                                                                                                    MainItemKey = asset.MainItemKey
+                                                                                                                                }).OrderBy(m => m.ProductName).ToList();
+                                                                                                                if (sublist3.Count() > 0)
+                                                                                                                {
+                                                                                                                    <li>
+                                                                                                                        <a href='#' discussKey='@sitem2.FixtureKey'>@sitem2.ProductName  <label>(</label> @sitem2.TypeCount<label>)</label></a>
+                                                                                                                        <ul>
+
+                                                                                                                            @foreach (var sitem3 in sublist3)
+                                                                                                                            {
+                                                                                                                                var sublist4 = (from asset in db.ProfileProduct
+                                                                                                                                                where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                                                                                                                && asset.MainItemKey == sitem3.FixtureKey
+                                                                                                                                                select new BrowseItemClass
+                                                                                                                                                {
+
+                                                                                                                                                    FixtureKey = asset.FixtureKey,
+                                                                                                                                                    TypeCount = asset.TypeCount,
+                                                                                                                                                    ProductName = asset.ProductName,
+                                                                                                                                                    ModelNo = asset.ModelNo,
+                                                                                                                                                    MainItemKey = asset.MainItemKey
+                                                                                                                                                }).OrderBy(m => m.ProductName).ToList();
+                                                                                                                                if (sublist4.Count() > 0)
+                                                                                                                                {
+                                                                                                                                    <li>
+                                                                                                                                        <a href='#' discussKey='@sitem3.FixtureKey'>@sitem3.ProductName  <label>(</label> @sitem3.TypeCount<label>)</label></a>
+                                                                                                                                        <ul>
+
+                                                                                                                                            @foreach (var sitem4 in sublist4)
+                                                                                                                                            {
+                                                                                                                                                var sublist5 = (from asset in db.ProfileProduct
+                                                                                                                                                                where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                                                                                                                                && asset.MainItemKey == sitem4.FixtureKey
+                                                                                                                                                                select new BrowseItemClass
+                                                                                                                                                                {
+
+                                                                                                                                                                    FixtureKey = asset.FixtureKey,
+                                                                                                                                                                    TypeCount = asset.TypeCount,
+                                                                                                                                                                    ProductName = asset.ProductName,
+                                                                                                                                                                    ModelNo = asset.ModelNo,
+                                                                                                                                                                    MainItemKey = asset.MainItemKey
+                                                                                                                                                                }).OrderBy(m => m.ProductName).ToList();
+                                                                                                                                                if (sublist5.Count() > 0)
+                                                                                                                                                {
+                                                                                                                                                    <li>
+                                                                                                                                                        <a href='#' discussKey='@sitem3.FixtureKey'>@sitem3.ProductName  <label>(</label> @sitem3.TypeCount<label>)</label></a>
+                                                                                                                                                        <ul>
+
+                                                                                                                                                            @foreach (var sitem5 in sublist5)
+                                                                                                                                                            {
+                                                                                                                                                                <li><a href='#' discussKey='@sitem5.FixtureKey'>@sitem5.ProductName  <label>(</label> @sitem5.TypeCount<label>)</label></a></li>
+                                                                                                                                                            }
+                                                                                                                                                        </ul>
+                                                                                                                                                    </li>
+                                                                                                                                                }
+                                                                                                                                                else
+                                                                                                                                                {
+                                                                                                                                                    <li><a href='#' discussKey='@sitem4.FixtureKey'>@sitem4.ProductName  <label>(</label> @sitem4.TypeCount<label>)</label></a></li>
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                        </ul>
+                                                                                                                                    </li>
+                                                                                                                                }
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                    <li><a href='#' discussKey='@sitem3.FixtureKey'>@sitem3.ProductName  <label>(</label> @sitem3.TypeCount<label>)</label></a></li>
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        </ul>
+                                                                                                                    </li>
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+                                                                                                                    <li><a href='#' discussKey='@sitem2.FixtureKey'>@sitem2.ProductName  <label>(</label> @sitem2.TypeCount<label>)</label></a></li>
+                                                                                                                }
+                                                                                                            }
+                                                                                                        </ul>
+                                                                                                    </li>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <li><a href='#' discussKey='@sitem1.FixtureKey'>@sitem1.ProductName  <label>(</label> @sitem1.TypeCount<label>)</label></a></li>
+                                                                                                }
+                                                                                            }
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <li><a href='#' discussKey='@sitem.FixtureKey'>@sitem.ProductName  <label>(</label> @sitem.TypeCount<label>)</label></a></li>
+                                                                                }
+                                                                            }
+                                                                        </ul>
+                                                                    </li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li><a href='#' discussKey='@item.FixtureKey'>@item.ProductName  <label>(</label> @item.TypeCount<label>)</label></a></li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

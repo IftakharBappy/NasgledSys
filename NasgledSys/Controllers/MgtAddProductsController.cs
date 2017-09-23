@@ -234,11 +234,16 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }
-
-        public ActionResult GetItemList()
+        public JsonResult GetItemList()
         {
             JsonResult result = new JsonResult();
-            string obj = manage.CreateProductListHTML();           
+            string obj = manage.CreateProductListHTML1();
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetSuggestList()
+        {
+            JsonResult result = new JsonResult();
+            string obj = manage.GetSuggestiveItem(GlobalClass.Project.ProjectKey);
             result.Data = obj;
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;

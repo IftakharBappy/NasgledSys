@@ -123,12 +123,10 @@
                 <div class="panel-heading">
                     <ul class="nav nav-pills">
                         <li><a href="@Url.Action("Edit","MgtArea",new { id=Model.AreaKey})">Area</a></li>
-                        <li><a href="#" data-toggle="tab">Product</a></li>
-                        <li><a href="#" data-toggle="tab">Details</a></li>
-
+                        <li><a href="@Url.Action("Index", "MgtAddProducts", new { id = Model.AreaKey })">Product</a></li>
+                        <li><a href="@Url.Action("Edit", "AreaDetail", new { id = Model.AreaKey })">Details</a></li>
                         <li  class="active"><a href="#" data-toggle="tab-demo1">Sub-Areas</a></li>
-
-                        <li><a href="#" data-toggle="tab">Photos</a></li>
+                        <li><a href="@Url.Action("Edit", "AreaPhoto", new { id = Model.AreaKey })">Photos</a></li>
                         <li><a href="#" data-toggle="tab">Documents</a></li>
                         <li><a href="#" data-toggle="tab">Notes</a></li>
                         <li><a href="#" data-toggle="tab">Copy</a></li>
