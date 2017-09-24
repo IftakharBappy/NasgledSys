@@ -81,7 +81,9 @@
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.UnitName, "Unit Name")
-                                                <select name="UnitName" placeholder="Select" class="select select-search"></select>
+                                                <div>
+                                                    <select name="UnitName" placeholder="Select" class="select select-search form-control"></select>
+                                                </div>
                                                 @Html.ValidationMessageFor(model => model.UnitName, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="form-group">

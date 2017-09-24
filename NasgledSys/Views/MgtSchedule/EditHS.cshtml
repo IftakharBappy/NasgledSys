@@ -1,0 +1,193 @@
+﻿@model NasgledSys.Models.HeatingSystemViewModel
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#content1').hide();
+        $('button').bind('click', function () {
+            $('div#content').html($('div#content' + ($(this).index() + 1)).html());
+        });
+
+        LoadSystemTypeDropDown_ToEdit();
+        LoadFuelTypeDropDown_ToEdit();
+        LoadEfficiencyTypDropDown_ToEdit();
+    });
+
+    function LoadSystemTypeDropDown_ToEdit() {
+        var select = $('select[name=HeatingSystemTypeKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtSchedule/LoadSystemTypeDropDown_ToEdit/",
+            data: JSON.stringify({ HeatingSystemTypeKey: '@Model.HeatingSystemTypeKey' }),
+                success: function (data) {
+                    var res = "<option>Select</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                    }
+                    select.html(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+    }
+
+        function LoadFuelTypeDropDown_ToEdit() {
+            var select = $('select[name=FuelTypeKey]');
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/MgtSchedule/LoadFuelTypeDropDown_ToEdit/",
+                data: JSON.stringify({ FuelTypeKey: '@Model.FuelTypeKey' }),
+                success: function (data) {
+                    var res = "<option>Select</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                    }
+                    select.html(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+
+            function LoadEfficiencyTypDropDown_ToEdit() {
+                var select = $('select[name=EfficiencyType]');
+                $.ajax({
+                    traditional: true,
+                    type: "post",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "/MgtSchedule/LoadEfficiencyTypDropDown_ToEdit/",
+                    data: JSON.stringify({ EfficiencyType: '@Model.EfficiencyType' }),
+                    success: function (data) {
+                        var res = "<option>Select</option>";
+                        for (var i = 0; i < data.length; i++) {
+                            res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                        }
+                        select.html(res);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log("Error on ajax call");
+                    }
+                });
+    }
+</script>
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            &nbsp;
+            <div id="progress" class="modal fade">
+                <div class="center">
+                    <img src="~/Content/loader4.gif" />
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("EditHS", "MgtSchedule", FormMethod.Post))
+            {
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="panel-body">
+                        <h4>
+                            <span class="heading-text pull-left">
+                                <i class="icon-folder-download position-left"></i>
+                                <span class="position-left">Update Heating System</span>
+
+                            </span>
+
+                        </h4>
+                    </div>
+                    <div class="panel panel-default ">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SystemName)
+                                        @Html.HiddenFor(model => model.HeatingSystemKey, new { id = "HeatingSystemKey" })
+                                        @Html.TextBoxFor(model => model.SystemName, new { placeholder = "System Name", id = "SystemName", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.SystemName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AnnualRunTime)
+                                        @Html.TextBoxFor(model => model.AnnualRunTime, new { placeholder = " Annual Run Time", id = "AnnualRunTime", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.AnnualRunTime, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.HeatingSystemTypeKey)
+                                        <div class="">
+                                            <select name="HeatingSystemTypeKey" placeholder="Select" class="select select-search form-control"></select>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.HeatingSystemTypeKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FuelTypeKey)
+                                        <div class="">
+                                            <select name="FuelTypeKey" placeholder="Select" class="select select-search form-control"></select>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.FuelTypeKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FuelCost)
+                                        @Html.TextBoxFor(model => model.FuelCost, new { placeholder = " Fuel Cost", id = "FuelCost", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.FuelCost, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EfficiencyType)
+                                        <div class="">
+                                            <select name="EfficiencyType" placeholder="Select" class="select select-search form-control"></select>
+                                            @Html.ValidationMessageFor(model => model.EfficiencyType, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EfficiencyValue)
+                                        @Html.TextBoxFor(model => model.EfficiencyValue, new { placeholder = "EfficiencyValue", id = "Efficiency Value", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.EfficiencyValue, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div id="content">
+                                        <button type="button" class="btn btn-block btn-lg btn-inverse hover">Show More</button>
+
+                                    </div>
+                                    <div id="content1">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.InternalNote)
+                                            @Html.TextAreaFor(model => model.InternalNote, new { placeholder = " InternalNote", id = "InternalNote", @class = "form-control" })
+                                            <h6>This not will be visible to Your Customer</h6>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.GeneralNote)
+                                            @Html.TextAreaFor(model => model.GeneralNote, new { placeholder = " GeneralNote", id = "GeneralNote", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.GeneralNote, "", new { @class = "text-danger" })
+                                            <h6>This may  visible to Your Customer</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <center>
+                            <a href="@Url.Action("Index","MgtSchedule")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;
+                            <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Update</button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
