@@ -8,41 +8,41 @@ using System.Web.Mvc;
 
 namespace NasgledSys.Controllers
 {
-    public class AreaPhotoController : BaseController
+    public class AreaDocumentController : BaseController
     {
-        // GET: AreaPhoto
+        // GET: AreaDocument
         public ActionResult Edit(Guid id)
         {
             if (GlobalClass.MasterSession)
             {
-                AreaPhotoViewModel model = new AreaPhotoViewModel();
-                model.AreaPhotoList = new List<AreaPhotoModel>();
+                AreaDocumentViewModel model = new AreaDocumentViewModel();
+                model.AreaDocumentList = new List<AreaDocumentModel>();
                 model.AreaKey = id;
                 try
                 {
 
-                    if (db.AreaPhoto.Any(o => o.AreaKey == id))
+                    if (db.AreaDocument.Any(o => o.AreaKey == id))
                     {
-                        IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
+                        IQueryable<AreaDocument> query = db.AreaDocument.Where(m => m.AreaKey == model.AreaKey);
 
-                        var data = query.Select(asset => new AreaPhotoModel()
+                        var data = query.Select(asset => new AreaDocumentModel()
                         {
                             AreaKey = asset.AreaKey,
-                            PhotoKey = asset.PhotoKey,
+                            DocumentKey = asset.DocumentKey,
                             Description = asset.Description,
                             FileContent = asset.FileContent,
                             FileName = asset.FileName,
                             FileType = asset.FileType
                         }).ToList();
 
-                        model.AreaPhotoList = data;
+                        model.AreaDocumentList = data;
                     }
 
                     else
                     {
                         model.AreaKey = id;
-                        model.PhotoKey = Guid.Empty;
-                       
+                        model.DocumentKey = Guid.Empty;
+
                     }
 
                     Session["GlobalMessege"] = "";
@@ -63,16 +63,16 @@ namespace NasgledSys.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(AreaPhotoViewModel model,  HttpPostedFileBase PostedLogo)
+        public ActionResult Edit(AreaDocumentViewModel model, HttpPostedFileBase PostedLogo)
         {
             if (GlobalClass.MasterSession)
             {
-               
+
 
                 if (PostedLogo != null)
                 {
-                     AreaPhotoModel _photoobj = new AreaPhotoModel();
-                    _photoobj.PhotoKey = Guid.NewGuid();
+                    AreaDocumentModel _photoobj = new AreaDocumentModel();
+                    _photoobj.DocumentKey = Guid.NewGuid();
                     _photoobj.AreaKey = model.AreaKey;
 
                     byte[] imgBinaryData = new byte[PostedLogo.ContentLength];
@@ -81,10 +81,10 @@ namespace NasgledSys.Controllers
                     _photoobj.FileName = PostedLogo.FileName;
                     _photoobj.FileType = PostedLogo.ContentType;
 
-                    AreaPhoto entity = new AreaPhoto();
-                    entity = EM_AreaPhoto.ConvertToEntity(_photoobj);
+                    AreaDocument entity = new AreaDocument();
+                    entity = EM_DocumentPhoto.ConvertToEntity(_photoobj);
 
-                    db.AreaPhoto.Add(entity);
+                    db.AreaDocument.Add(entity);
                     db.SaveChanges();
 
                 }
@@ -92,41 +92,43 @@ namespace NasgledSys.Controllers
                 else
                 {
                     // Remove Photo
-                    foreach (var item in model.AreaPhotoList)
+                    foreach (var item in model.AreaDocumentList)
                     {
-                        AreaPhoto entityrem = db.AreaPhoto.Find(item.PhotoKey);
-                        db.AreaPhoto.Remove(entityrem);
+                        AreaDocument entityrem = db.AreaDocument.Find(item.DocumentKey);
+                        db.AreaDocument.Remove(entityrem);
                         db.SaveChanges();
                     }
 
                     // Add Photo
-                    foreach (var item in model.AreaPhotoList)
+                    foreach (var item in model.AreaDocumentList)
                     {
-                        AreaPhoto entity = new AreaPhoto();
-                        entity = EM_AreaPhoto.ConvertToEntity(item);
-                        db.AreaPhoto.Add(entity);
+                        AreaDocument entity = new AreaDocument();
+                        entity = EM_DocumentPhoto.ConvertToEntity(item);
+                        db.AreaDocument.Add(entity);
                         db.SaveChanges();
                     }
 
-                    model.AreaPhotoList = new List<AreaPhotoModel>();
-
-                    IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
-
-                    var data = query.Select(asset => new AreaPhotoModel()
-                    {
-                        AreaKey = asset.AreaKey,
-                        PhotoKey = asset.PhotoKey,
-                        Description = asset.Description,
-                        FileContent = asset.FileContent,
-                        FileName = asset.FileName,
-                        FileType = asset.FileType
-                    }).ToList();
-
-                    model.AreaPhotoList = data;
+                   
                 }
 
+                model.AreaDocumentList = new List<AreaDocumentModel>();
+
+                IQueryable<AreaDocument> query = db.AreaDocument.Where(m => m.AreaKey == model.AreaKey);
+
+                var data = query.Select(asset => new AreaDocumentModel()
+                {
+                    AreaKey = asset.AreaKey,
+                    DocumentKey = asset.DocumentKey,
+                    Description = asset.Description,
+                    FileContent = asset.FileContent,
+                    FileName = asset.FileName,
+                    FileType = asset.FileType
+                }).ToList();
+
+                model.AreaDocumentList = data;
+
                 return View(model);
-                 
+
             }
             else
             {
@@ -136,22 +138,22 @@ namespace NasgledSys.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdatePhoto(AreaPhotoViewModel model, HttpPostedFileBase UpdatePostedLogo)
+        public ActionResult UpdatePhoto(AreaDocumentViewModel model, HttpPostedFileBase UpdatePostedLogo)
         {
             if (GlobalClass.MasterSession)
             {
-              
 
-                model.AreaPhotoList = new List<AreaPhotoModel>();
+
+                model.AreaDocumentList = new List<AreaDocumentModel>();
 
                 if (UpdatePostedLogo != null)
                 {
 
-                    AreaPhoto entity = db.AreaPhoto.Find(model.PhotoKey);
+                    AreaDocument entity = db.AreaDocument.Find(model.DocumentKey);
                     model.AreaKey = entity.AreaKey;
-                     
-                    AreaPhotoModel _photoobj = new AreaPhotoModel();
-                    _photoobj.PhotoKey = model.PhotoKey;
+
+                    AreaDocumentModel _photoobj = new AreaDocumentModel();
+                    _photoobj.DocumentKey = model.DocumentKey;
                     _photoobj.AreaKey = model.AreaKey;
 
                     byte[] imgBinaryData = new byte[UpdatePostedLogo.ContentLength];
@@ -160,37 +162,37 @@ namespace NasgledSys.Controllers
                     _photoobj.FileName = UpdatePostedLogo.FileName;
                     _photoobj.FileType = UpdatePostedLogo.ContentType;
 
-                   // AreaPhoto entity = new AreaPhoto();
-                    entity = EM_AreaPhoto.ConvertToEntity(_photoobj);
+                    // AreaDocument entity = new AreaDocument();
+                    entity = EM_DocumentPhoto.ConvertToEntity(_photoobj);
 
                     #region Remove Data
 
-                    AreaPhoto entityrem = db.AreaPhoto.Find(model.PhotoKey);
-                    db.AreaPhoto.Remove(entityrem);
+                    AreaDocument entityrem = db.AreaDocument.Find(model.DocumentKey);
+                    db.AreaDocument.Remove(entityrem);
                     db.SaveChanges();
 
                     #endregion
 
-                    db.AreaPhoto.Add(entity);
+                    db.AreaDocument.Add(entity);
                     db.SaveChanges();
-                   
+
                 }
 
 
-                IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
+                IQueryable<AreaDocument> query = db.AreaDocument.Where(m => m.AreaKey == model.AreaKey);
 
-                var data = query.Select(asset => new AreaPhotoModel()
+                var data = query.Select(asset => new AreaDocumentModel()
                 {
                     AreaKey = asset.AreaKey,
-                    PhotoKey = asset.PhotoKey,
+                    DocumentKey = asset.DocumentKey,
                     Description = asset.Description,
                     FileContent = asset.FileContent,
                     FileName = asset.FileName,
                     FileType = asset.FileType
                 }).ToList();
 
-                model.AreaPhotoList = data;
-                return RedirectToAction("Edit", "AreaPhoto", new { @id = model.AreaKey });
+                model.AreaDocumentList = data;
+                return RedirectToAction("Edit", "AreaDocument", new { @id = model.AreaKey });
 
             }
             else
@@ -207,14 +209,14 @@ namespace NasgledSys.Controllers
             {
                 try
                 {
-                    AreaPhoto entity = db.AreaPhoto.Find(id);
+                    AreaDocument entity = db.AreaDocument.Find(id);
                     Guid? areaId;
                     areaId = entity.AreaKey;
-                    db.AreaPhoto.Remove(entity);
+                    db.AreaDocument.Remove(entity);
                     db.SaveChanges();
-                  
+
                     Session["GlobalMessege"] = "Area Photo has been DELETED successfully.";
-                    return RedirectToAction("Edit", "AreaPhoto", new { @id = areaId });
+                    return RedirectToAction("Edit", "AreaDocument", new { @id = areaId });
                 }
                 catch (Exception e)
                 {
