@@ -51,7 +51,7 @@
                                         </ul>
                                     </div>
                                     <div class="panel-title pull-right">
-                                        <a href="@Url.Action("Create","MgtArea",new { id= @ViewBag.ProjectKey})" class="btn btn-success btn-xlg col-lg-12" role="button">Add Area</a>
+                                        <a href="@Url.Action("Create","MgtArea",new { id= @ViewBag.ProjectKey})" class="btn border-success btn-xlg col-md-12" role="button">Add Area</a>
                                     </div>
                                 </div>
                                 </diV>
@@ -67,7 +67,7 @@
 
                                             </div>
                                             <div class="panel-title pull-right">
-                                                <a href="@Url.Action("CreateOS","MgtSchedule",new { id= @ViewBag.ProjectKey })" class="btn btn-success btn-xlg col-lg-12" role="button">Add Operating Schedule</a>
+                                                <a href="@Url.Action("CreateOS","MgtSchedule",new { id= @ViewBag.ProjectKey })" class="btn border-success btn-xlg col-md-12" role="button">Add Operating Schedule</a>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -89,7 +89,7 @@
                                                                 @{
                                                                     if (@item.IsDefault == false)
                                                                     {
-                                                                        <text>Set As Default</text>
+                                                                        <a href="@Url.Action("SetDefaultOS","MgtSchedule",new { id= @item.PKey })">Set As Default</a>
                                                                     }
                                                                     else
                                                                     {
@@ -98,8 +98,7 @@
                                                                 }
                                                             </td>
                                                             <td>
-                                                                @*<button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("EditOS","MgtSchedule", new { id= @ViewBag.ProjectKey })'">Edit</button>*@
-
+                                                               
                                                                 <a href="@Url.Action("EditOS","MgtSchedule",new { id= @item.PKey })" class="btn btn-primary" role="button">Edit</a>
                                                             </td>
                                                         </tr>
@@ -121,7 +120,7 @@
 
                                             </div>
                                             <div class="panel-title pull-right">
-                                                <a href="@Url.Action("CreateRS","MgtSchedule",new { id= @ViewBag.ProjectKey})" class="btn btn-success btn-xlg col-lg-12" role="button">Add Rate Schedule</a>
+                                                <a href="@Url.Action("CreateRS","MgtSchedule",new { id= @ViewBag.ProjectKey})" class="btn border-success btn-xlg col-md-12" role="button">Add Rate Schedule</a>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -143,7 +142,7 @@
                                                             @{
                                                                 if (@item.IsDefault == false)
                                                                 {
-                                                                    <text>Set As Default</text>
+                                                                    <a href="@Url.Action("SetRS","MgtSchedule",new { id= @item.PKey })">Set As Default</a>
                                                                 }
                                                                 else
                                                                 {
@@ -172,7 +171,7 @@
 
                                             </div>
                                             <div class="panel-title pull-right">
-                                                <a href="@Url.Action("CreateHS","MgtSchedule",new { id= @ViewBag.ProjectKey })" class="btn btn-success btn-xlg col-lg-12" role="button">Add Heating Schedule</a>
+                                                <a href="@Url.Action("CreateHS","MgtSchedule",new { id= @ViewBag.ProjectKey })" class="btn border-success btn-xlg col-md-12" role="button">Add Heating Schedule</a>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -194,7 +193,8 @@
                                                                 @{
                                                                     if (@item.IsDefault == false)
                                                                     {
-                                                                        <text>Set As Default</text>
+                                                                        <a href="@Url.Action("SetDefaultHS","MgtSchedule",new { id= @item.HeatingSystemKey })" >Set As Default</a>
+                                                                        
                                                                     }
                                                                     else
                                                                     {
@@ -223,7 +223,7 @@
 
                                             </div>
                                             <div class="panel-title pull-right">
-                                                <a href="@Url.Action("CreateCS","MgtSchedule",new { id= @ViewBag.ProjectKey })" class="btn btn-success btn-xlg col-lg-12" role="button">Add Cooling Schedule</a>
+                                                <a href="@Url.Action("CreateCS","MgtSchedule",new { id= @ViewBag.ProjectKey })" class="btn border-success btn-xlg col-md-12" role="button">Add Cooling Schedule</a>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -245,7 +245,8 @@
                                                                 @{
                                                                     if (@item.IsDefault == false)
                                                                     {
-                                                                        <text>Set As Default</text>
+                                                                        <a href="@Url.Action("SetDefaultCS","MgtSchedule",new { id= @item.CoolingSystemKey })">Set As Default</a>
+                                                                       
                                                                     }
                                                                     else
                                                                     {

@@ -167,5 +167,14 @@ namespace NasgledSys.Controllers
             return query;
 
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

@@ -127,7 +127,11 @@
     <div class="page-header">
         <div class="page-header-content">
             <div class="page-title">
+                <div class="heading-text text-center alert alert-info" id="ConfirmationMessegeSlot">
 
+                    <h5>@Html.DisplayFor(m => Session["GlobalMessege"])</h5>
+
+                </div>
                 @if (IsSectionDefined(("SideBar")))
                 {
                     @RenderSection("SideBar", required: false)
@@ -159,11 +163,7 @@
             <!-- Main content -->
           
                
-                    <div class="row" id="ConfirmationMessegeSlot">
-
-                        <h5 class="alert alert-info">@Html.DisplayFor(m => Session["GlobalMessege"])</h5>
-
-                    </div>
+                    
                 
                @RenderBody()
               

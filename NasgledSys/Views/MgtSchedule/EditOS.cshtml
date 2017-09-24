@@ -3,26 +3,40 @@
     ViewBag.Title = "Update";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<script src="~/Scripts/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+
 <script type="text/javascript" src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#content1').hide();
-        $('button').bind('click', function () {
-            $('div#content').html($('div#content' + ($(this).index() + 1)).html());
+        $('#showmore').show();
+      
+    });
+    $(function () {
+        $('#showless').click(function () {
+            $('#showmore').show();
+            $('#content1').hide();
         });
     });
+    $(function () {
+        $('#showmore').click(function () {
 
+            $('#content1').show();
+            $('#showmore').hide();
+        });
+    });
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
 
+        return true;
+    }
 </script>
-
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             &nbsp;
             <div id="progress" class="modal fade">
                 <div class="center">
@@ -57,24 +71,27 @@
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.AnnualOperationHour)
-                                        @Html.TextBoxFor(model => model.AnnualOperationHour, new { placeholder = " Annual Operation Hour", id = "AnnualOperationHour", @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.AnnualOperationHour, new { @onkeypress = "return isNumberKey(event)", placeholder = " Annual Operation Hour", id = "AnnualOperationHour", @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.AnnualOperationHour, "", new { @class = "text-danger" })
                                     </div>
-                                    <div id="content">
-                                        <button type="button" class="btn btn-block btn-lg btn-inverse hover">Show More</button>
 
-                                    </div>
+                                    <button type="button" class="btn btn-block btn-lg btn-inverse hover" id="showmore">Show More</button>
+
+
                                     <div id="content1">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.InternalNote)
                                             @Html.TextAreaFor(model => model.InternalNote, new { placeholder = " InternalNote", id = "InternalNote", @class = "form-control" })
-                                            <h6>This not will be visible to Your Customer</h6>
+                                            <span class="small text-muted">This not will be visible to your customer</span>
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.GeneralNote)
                                             @Html.TextAreaFor(model => model.GeneralNote, new { placeholder = " GeneralNote", id = "GeneralNote", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.GeneralNote, "", new { @class = "text-danger" })
-                                            <h6>This may be visible to Your Customer</h6>
+                                            <span class="small text-muted">This May be visible to Your Customer</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn border-block btn-lg btn-inverse hover" id="showless">Show Less</button>
                                         </div>
                                     </div>
                                 </div>
@@ -90,5 +107,9 @@
                 </div>
             </div>
         }
+        <div class="col-md-2">
+            &nbsp;
+            
+        </div>
     </div>
 </div>
