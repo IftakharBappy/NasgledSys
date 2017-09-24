@@ -12,6 +12,14 @@
         LoadOperatingSchedule();
         LoadLightingSatisfaction();
     });
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
     function LoadLightingSatisfaction() {
         var select = $('select[name=LightingSatisfactionKey]');
         $.ajax({
@@ -182,22 +190,22 @@
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.WorkingFixtureCount)
-                                            @Html.TextBoxFor(model => model.WorkingFixtureCount, new { type = "number", placeholder = "Working Fixture Count", id = "WorkingFixtureCount", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.WorkingFixtureCount, new { @onkeypress = "return isNumberKey(event)", placeholder = "Working Fixture Count", id = "WorkingFixtureCount", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.WorkingFixtureCount, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.ReplacementCost)
-                                            @Html.TextBoxFor(model => model.ReplacementCost, new { type = "number", placeholder = "Replacement Cost", id = "ReplacementCost", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.ReplacementCost, new { @onkeypress = "return isNumberKey(event)", placeholder = "Replacement Cost", id = "ReplacementCost", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.ReplacementCost, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.AnnualMaintenance)
-                                            @Html.TextBoxFor(model => model.AnnualMaintenance, new { type = "number", placeholder = "Annual Maintenance", id = "AnnualMaintenance", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.AnnualMaintenance, new { @onkeypress = "return isNumberKey(event)", placeholder = "Annual Maintenance", id = "AnnualMaintenance", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.AnnualMaintenance, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.InstallationInTime)
-                                            @Html.TextBoxFor(model => model.InstallationInTime, new { type = "number", placeholder = "minutes", id = "InstallationInTime", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.InstallationInTime, new { @onkeypress = "return isNumberKey(event)", placeholder = "minutes", id = "InstallationInTime", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.InstallationInTime, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
@@ -218,7 +226,7 @@
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.MountingHeight)
-                                            @Html.TextBoxFor(model => model.MountingHeight, new { placeholder = "feet", id = "MountingHeight", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.MountingHeight, new { @onkeypress = "return isNumberKey(event)", placeholder = "feet", id = "MountingHeight", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.MountingHeight, "", new { @class = "text-danger" })
                                         </div>
 

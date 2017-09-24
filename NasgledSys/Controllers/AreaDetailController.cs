@@ -34,8 +34,6 @@ namespace NasgledSys.Controllers
 
                     Session["GlobalMessege"] = "";
 
-                    ViewBag.LightingSatisfactionKey = new SelectList(db.LightingSatisfactionFactor.Where(m => m.IsDelete == false).OrderBy(m => m.FactorName), "PKey", "FactorName");
-
                     return View(model);
                 }
                 catch (Exception e)
@@ -75,21 +73,34 @@ namespace NasgledSys.Controllers
                         if (model.AreaWidth == null) model.AreaWidth = 0;
 
                         if (model.Length == null) model.Length = 0;
-
-                        model.DetailKey = Guid.NewGuid();
-
-                        AreaDetail entity = new AreaDetail();
-                        entity = EM_AreaDetail.ConvertToEntity(model);
-
-                        db.AreaDetail.Add(entity);
-                        db.SaveChanges();
+                        if (model.DetailKey == Guid.Empty)
+                        {
+                            model.DetailKey = Guid.NewGuid();
+                            AreaDetail entity = new AreaDetail();
+                            entity = EM_AreaDetail.ConvertToEntity(model);                           
+                            db.AreaDetail.Add(entity);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                           
+                            AreaDetail ent =db.AreaDetail.Find(model.DetailKey);
+                            ent.Description = model.Description;
+                            ent.AverageIlluminnce = model.AverageIlluminnce;
+                            ent.LightingSatisfactionKey = model.LightingSatisfactionKey;
+                            ent.CeilingHeight = model.CeilingHeight;
+                            ent.Reflectance = model.Reflectance;
+                            ent.AreaWidth = model.AreaWidth;
+                            ent.Length = model.Length;
+                            db.SaveChanges();
+                        }
                        
                         Session["GlobalMessege"] = "Area Details was successfully Created.";
                         GlobalClass.AreaHeading = model.Description;
-                        return RedirectToAction("Edit", "AreaDetail", new { id = model.AreaKey });
+                        AreaDetail entityModel = db.AreaDetail.Find(model.DetailKey);
+                        model = EM_AreaDetail.ConvertToModel(entityModel);
+                        ViewBag.heading = model.Description;
                     }
-
-                    ViewBag.LightingSatisfactionKey = new SelectList(db.LightingSatisfactionFactor.Where(m => m.IsDelete == false).OrderBy(m => m.FactorName), "PKey", "FactorName");
 
                     return View(model);
                 }

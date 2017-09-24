@@ -12,8 +12,62 @@
 
 <script src="~/Content/assets/js/plugins/forms/inputs/formatter.min.js"></script>
 <script src="~/Content/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+       
+        LoadLightingSatisfaction();
+    });
+    function LoadLightingSatisfaction() {
+        var select = $('select[name=LightingSatisfactionKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/LoadLightingSatisfaction/",
+            data: JSON.stringify({ LightingSatisfactionKey: '@Model.LightingSatisfactionKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].FactorName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.AreaKey;
+    string areaLink = "";
+    for (;;)
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+
+        if (area.ParentAreaKey == null)
+        {
+            break;
+        }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
 
 
+}
 @section CenterTitle{
     @ViewBag.heading
 }
@@ -23,8 +77,7 @@
         <span class="heading-text">
 
             <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
-            <label>></label>
-            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Areas</a>
+            <label>></label>@MvcHtmlString.Create(areaLink)
 
         </span>
         <span class="heading-text">
@@ -39,7 +92,6 @@
     {
         @Html.ValidationSummary()
         @Html.HiddenFor(m => m.AreaKey, new { id = "AreaKey" })
-        @Html.HiddenFor(m => m.LightingSatisfactionKey, new { id = "LightingSatisfactionKey" })
         @Html.HiddenFor(m => m.DetailKey, new { id = "DetailKey" })
         
         <div class="form-horizontal">
@@ -85,33 +137,32 @@
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.AverageIlluminnce)
-                                            @Html.TextBoxFor(model => model.AverageIlluminnce, new { type = "number", placeholder = "foot-candels", id = "AverageIlluminnce", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.AverageIlluminnce, new { @onkeypress = "return isNumberKey(event)", placeholder = "foot-candels", id = "AverageIlluminnce", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.AverageIlluminnce, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.LightingSatisfactionKey)
-                                            @Html.DropDownList("LightingSatisfactionKey", null, string.Empty, new { @required = "required", placeholder = "select", id = "LightingSatisfactionKey", @class = "select select-search" })
-                                             
+                                            <select name="LightingSatisfactionKey" placeholder="Select" id="LightingSatisfactionKey" class="select"></select>
                                             @Html.ValidationMessageFor(model => model.LightingSatisfactionKey, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.CeilingHeight)
-                                            @Html.TextBoxFor(model => model.CeilingHeight, new { type = "number", placeholder = "feet", id = "CeilingHeight", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.CeilingHeight, new { @onkeypress = "return isNumberKey(event)", placeholder = "feet", id = "CeilingHeight", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.CeilingHeight, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Reflectance)
-                                            @Html.TextBoxFor(model => model.Reflectance, new { type = "number", placeholder = "30", id = "Reflectance", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.Reflectance, new { @onkeypress = "return isNumberKey(event)", placeholder = "30", id = "Reflectance", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.Reflectance, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.AreaWidth)
-                                            @Html.TextBoxFor(model => model.AreaWidth, new { type = "number", placeholder = "5", id = "AreaWidth", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.AreaWidth, new { @onkeypress = "return isNumberKey(event)", placeholder = "5", id = "AreaWidth", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.AreaWidth, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Length)
-                                            @Html.TextBoxFor(model => model.Length, new { type = "number", placeholder = "feet", id = "Length", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.Length, new { @onkeypress = "return isNumberKey(event)", placeholder = "feet", id = "Length", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.Length, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
