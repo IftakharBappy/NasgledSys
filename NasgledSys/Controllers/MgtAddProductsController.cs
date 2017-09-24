@@ -240,172 +240,7 @@ namespace NasgledSys.Controllers
             }
         }
 
-        public ActionResult EditAreaProductDetail(FormCollection form)
-        {
-            Guid AreaProductId = Guid.Parse(form["AreaProductId"]);
-            AreaProductDetail _apd;
-            var _DetailKey = form["DetailKey"];
-            if (_DetailKey == "00000000-0000-0000-0000-000000000000")
-            {
-                _apd = new AreaProductDetail();
-            }
-            else
-            {
-                var _DetailKeyGuid = Guid.Parse(_DetailKey);
-                _apd = db.AreaProductDetail.Where(apd => apd.DetailKey == _DetailKeyGuid ).Select(apd => apd).FirstOrDefault();
-            }
-            var _ExistingControl = form["ExistingControl"];
-            if (_ExistingControl == "true")
-            {
-                _apd.ExistingControl = true;
-            }
-            else if (_ExistingControl == "false")
-            {
-                _apd.ExistingControl = false;
-            }
-
-            if (form["OperationScheduleKey"] != "")
-            {
-                _apd.OperationScheduleKey = Guid.Parse(form["OperationScheduleKey"]);
-            }
-
-            if (form["WorkingFixtureCount"] != "")
-            {
-                _apd.WorkingFixtureCount = Convert.ToInt32(form["WorkingFixtureCount"]);
-            }
-            
-            
-            if (form["ReplacementCost"] == "")
-            {
-                _apd.ReplacementCost = 0;
-            }
-            else
-            {
-                _apd.ReplacementCost = Convert.ToDecimal(form["ReplacementCost"]);
-            }
-
-            if (form["AnnualMaintenance"] == "")
-            {
-                _apd.AnnualMaintenance = 0;
-            }
-            else
-            {
-                _apd.AnnualMaintenance = Convert.ToDecimal(form["AnnualMaintenance"]);
-            }
-
-            var v = form["InstallationInTime"];
-            if (form["InstallationInTime"] == "")
-            {
-                _apd.InstallationInTime = 0;
-            }
-            else
-            {
-                _apd.InstallationInTime = Convert.ToDecimal(form["InstallationInTime"]);
-            }
-
-            _apd.Location = form["Location"];
-
-            if (form["Year"] != "")
-            {
-                _apd.Year = Convert.ToInt32(form["Year"]);
-            }
-
-
-            if (form["LightingSatisfactionKey"] != "")
-            {
-                _apd.LightingSatisfactionKey = Guid.Parse(form["LightingSatisfactionKey"]);
-            }
-            
-            if (form["MountingHeight"] == "")
-            {
-                _apd.MountingHeight= 0;
-            }
-            else
-            {
-                _apd.MountingHeight = Convert.ToDecimal(form["MountingHeight"]);
-            }
-
-            if (_DetailKey == "00000000-0000-0000-0000-000000000000")
-            {
-                _apd.DetailKey = Guid.NewGuid();
-                db.AreaProductDetail.Add(_apd);
-            }
-            
-            db.SaveChanges();
-
-            return RedirectToAction("Edit", new { id = AreaProductId });
-        }
-        public ActionResult EditAreaProductNote(FormCollection form)
-        {
-            Guid AreaProductId = Guid.Parse(form["AreaProductId"]);
-            if (
-                form["Description"] == "" &&
-                form["Condition"] == "" &&
-                form["InternalNotes"] == "" &&
-                form["GeneralNote"] == "" 
-                )
-            {
-                return RedirectToAction("Edit", new { id = AreaProductId });
-            }
-
-            AreaProductNote _apn;
-            var _NoteKey = form["NoteKey"];
-            if (_NoteKey == "00000000-0000-0000-0000-000000000000")
-            {
-                _apn = new AreaProductNote();
-            }
-            else
-            {
-                var _NoteKeyGuid = Guid.Parse(_NoteKey);
-                _apn = db.AreaProductNote.Where(apn => apn.NoteKey == _NoteKeyGuid).Select(apd => apd).FirstOrDefault();
-            }
-
-            if (form["Description"] == "")
-            {
-                _apn.Description = "not required";
-            }
-            else
-            {
-                _apn.Description = form["Description"];
-            }
-
-            if (form["Condition"] == "")
-            {
-                _apn.Condition = "not required";
-            }
-            else
-            {
-                _apn.Condition = form["Condition"];
-            }
-
-            if (form["InternalNotes"] == "")
-            {
-                _apn.InternalNotes = "not required";
-            }
-            else
-            {
-                _apn.InternalNotes = form["InternalNotes"];
-            }
-
-            if (form["GeneralNote"] == "")
-            {
-                _apn.GeneralNote = "not required";
-            }
-            else
-            {
-                _apn.GeneralNote = form["GeneralNote"];
-            }
-
-            if (_NoteKey == "00000000-0000-0000-0000-000000000000")
-            {
-                _apn.NoteKey = Guid.NewGuid();
-                db.AreaProductNote.Add(_apn);
-            }
-           
-            db.SaveChanges();
-
-            return RedirectToAction("Edit", new { id = AreaProductId });
-        }
+      
         public ActionResult Delete(Guid id)
         {
             if (GlobalClass.MasterSession)
@@ -434,14 +269,21 @@ namespace NasgledSys.Controllers
             }
         }
 
-        public ActionResult GetItemList()
+        public JsonResult GetItemList()
         {
             JsonResult result = new JsonResult();
-            string obj = manage.CreateProductListHTML();
+            string obj = manage.CreateProductListHTML1();
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetSuggestList()
+        {
+            JsonResult result = new JsonResult();
+            string obj = manage.GetSuggestiveItem(GlobalClass.Project.ProjectKey);
             result.Data = obj;
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -226,6 +226,7 @@
     <Compile Include="Controllers\MgtAdminItemController.cs" />
     <Compile Include="Controllers\MgtAnnualSalesRevenueSetupController.cs" />
     <Compile Include="Controllers\MgtAreaController.cs" />
+    <Compile Include="Controllers\MgtAreaProductDetailController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
     <Compile Include="Controllers\MgtClientContactController.cs" />
     <Compile Include="Controllers\MgtEnvironmentalImpactController.cs" />
@@ -3860,6 +3861,8 @@
     <Content Include="Views\MgtSchedule\EditHS.cshtml" />
     <Content Include="Views\MgtSchedule\EditRS.cshtml" />
     <Content Include="Views\MgtSchedule\EditCS.cshtml" />
+    <Content Include="Views\MgtAreaProductDetail\Details.cshtml" />
+    <Content Include="Views\MgtAreaProductDetail\Notes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

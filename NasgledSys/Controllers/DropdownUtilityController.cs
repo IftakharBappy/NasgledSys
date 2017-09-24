@@ -12,6 +12,57 @@ namespace NasgledSys.Controllers
     {
         // GET: DropdownUtility
         private NasgledDBEntities db = new NasgledDBEntities();
+        public JsonResult LoadLightingSatisfaction(Guid? LightingSatisfactionKey)
+        {
+            if (LightingSatisfactionKey == Guid.Empty || LightingSatisfactionKey == null)
+            {
+                var list = (from a in db.LightingSatisfactionFactor
+                            where a.IsDelete == false
+                            select new { a.PKey, a.FactorName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from a in db.LightingSatisfactionFactor
+                            where a.IsDelete == false
+                            select new
+                            {
+                                a.PKey,
+                                a.FactorName,
+                                Selected = a.PKey == LightingSatisfactionKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult LoadExistingControl(bool? id)
+        {
+            List<GenericListType> test = new List<GenericListType>();
+           
+                GenericListType a = new GenericListType();
+                a.Text = "No";
+                a.Value = false.ToString();
+                a.Selected = "";
+                test.Add(a);
+            GenericListType b = new GenericListType();
+            b.Text = "Yes";
+            b.Value = true.ToString();
+            b.Selected = "";
+            test.Add(b);
+
+            if (id == null)
+            {
+                var list = (from x in test select new { x.Text, x.Value, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string temp = id.ToString();
+                var list = (from x in test select new { x.Text, x.Value, Selected = x.Value == temp ? "selected" : "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
         public JsonResult loadFixture(Guid? FixtureKey)
         {
@@ -79,6 +130,30 @@ namespace NasgledSys.Controllers
             else
             {
                 string temp = Month.ToString();
+                var list = (from city in test select new { city.Text, city.Value, Selected = city.Value == temp ? "selected" : "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadPrevious(int? Year)
+        {
+            List<GenericListType> test = new List<GenericListType>();
+            for (int x = (DateTime.Today.Year - 50); x < (DateTime.Today.Year + 10); x++)
+            {
+                GenericListType a = new GenericListType();
+                a.Text = x.ToString();
+                a.Value = x.ToString();
+                a.Selected = "";
+                test.Add(a);
+            }
+            if (Year == null)
+            {
+                var list = (from city in test select new { city.Text, city.Value, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string temp = Year.ToString();
                 var list = (from city in test select new { city.Text, city.Value, Selected = city.Value == temp ? "selected" : "" }).ToList();
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
