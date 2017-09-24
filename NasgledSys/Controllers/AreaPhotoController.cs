@@ -67,7 +67,7 @@ namespace NasgledSys.Controllers
         {
             if (GlobalClass.MasterSession)
             {
-                model.AreaPhotoList = new List<AreaPhotoModel>();
+               
 
                 if (PostedLogo != null)
                 {
@@ -89,20 +89,41 @@ namespace NasgledSys.Controllers
 
                 }
 
-
-                IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
-
-                var data = query.Select(asset => new AreaPhotoModel()
+                else
                 {
-                    AreaKey = asset.AreaKey,
-                    PhotoKey = asset.PhotoKey,
-                    Description = asset.Description,
-                    FileContent = asset.FileContent,
-                    FileName = asset.FileName,
-                    FileType = asset.FileType 
-                }).ToList();
+                    // Remove Photo
+                    foreach (var item in model.AreaPhotoList)
+                    {
+                        AreaPhoto entityrem = db.AreaPhoto.Find(item.PhotoKey);
+                        db.AreaPhoto.Remove(entityrem);
+                        db.SaveChanges();
+                    }
 
-                model.AreaPhotoList = data;
+                    // Add Photo
+                    foreach (var item in model.AreaPhotoList)
+                    {
+                        AreaPhoto entity = new AreaPhoto();
+                        entity = EM_AreaPhoto.ConvertToEntity(item);
+                        db.AreaPhoto.Add(entity);
+                        db.SaveChanges();
+                    }
+
+                    model.AreaPhotoList = new List<AreaPhotoModel>();
+
+                    IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
+
+                    var data = query.Select(asset => new AreaPhotoModel()
+                    {
+                        AreaKey = asset.AreaKey,
+                        PhotoKey = asset.PhotoKey,
+                        Description = asset.Description,
+                        FileContent = asset.FileContent,
+                        FileName = asset.FileName,
+                        FileType = asset.FileType
+                    }).ToList();
+
+                    model.AreaPhotoList = data;
+                }
 
                 return View(model);
                  
@@ -153,10 +174,6 @@ namespace NasgledSys.Controllers
                     db.AreaPhoto.Add(entity);
                     db.SaveChanges();
                    
-
-
-                   
-
                 }
 
 
