@@ -3847,7 +3847,6 @@
     <Content Include="Views\MgtSubArea\Index.cshtml" />
     <Content Include="Views\MgtSubArea\Create.cshtml" />
     <Content Include="Views\MgtSubArea\Edit.cshtml" />
-    <Content Include="Views\MgtAddProducts\Index.cshtml" />
     <Content Include="Views\MgtSchedule\Index.cshtml" />
     <Content Include="Views\MgtAddProducts\Create.cshtml" />
     <Content Include="Views\AreaPhoto\Edit.cshtml" />
@@ -3862,6 +3861,7 @@
     <Content Include="Views\MgtSchedule\EditCS.cshtml" />
     <Content Include="Views\MgtAreaProductDetail\Details.cshtml" />
     <Content Include="Views\MgtAreaProductDetail\Notes.cshtml" />
+    <Content Include="Views\MgtAddProducts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
