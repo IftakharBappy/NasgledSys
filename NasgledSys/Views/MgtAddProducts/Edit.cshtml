@@ -194,6 +194,7 @@
                             @using (Html.BeginForm("Edit", "MgtAddProducts", FormMethod.Post, new { @class = "form-horizontal" }))
                             {
                             @Html.HiddenFor(m => m.ProductKey, new { id = "ProductKey" })
+                                <input type="hidden" id="temp" name="temp" />
                                 @Html.ValidationSummary()
                                 @Html.HiddenFor(m => m.AreaObj.AreaKey)
                             <div class="tab-pane fade in active" id="tab-demo1">

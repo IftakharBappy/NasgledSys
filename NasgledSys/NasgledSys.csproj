@@ -3862,6 +3862,7 @@
     <Content Include="Views\MgtAreaProductDetail\Details.cshtml" />
     <Content Include="Views\MgtAreaProductDetail\Notes.cshtml" />
     <Content Include="Views\MgtAddProducts\Index.cshtml" />
+    <Content Include="Views\MgtProject\Existing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
