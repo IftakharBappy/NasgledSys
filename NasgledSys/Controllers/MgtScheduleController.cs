@@ -218,9 +218,7 @@ namespace NasgledSys.Controllers
                         if (obj.InternalNote == null) { model.InternalNote = "N/A"; }
                         else { model.InternalNote = obj.InternalNote; }
                         if (obj.GeneralNote == null) { model.GeneralNote = "N/A"; }
-                        else { model.GeneralNote = obj.GeneralNote; }
-
-                        model.IsDefault = false;
+                        else { model.GeneralNote = obj.GeneralNote; }                     
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Operating Schedule is Update Successfully";
@@ -512,7 +510,7 @@ namespace NasgledSys.Controllers
                         if (obj.GeneralNote == null) { model.GeneralNote = "N/A"; }
                         else { model.GeneralNote = obj.GeneralNote; }
 
-                        model.IsDefault = false;
+                       // model.IsDefault = false;
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Heating Schedule is Updated Successfully";
@@ -816,9 +814,7 @@ namespace NasgledSys.Controllers
                         else { model.InternalNote = obj.InternalNote; }
                         if (obj.GeneralNote == null) { model.GeneralNote = "N/A"; }
                         else { model.GeneralNote = obj.GeneralNote; }
-
-                        model.IsDefault = false;
-
+                        
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Cooling Schedule is Updated Successfully";
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
