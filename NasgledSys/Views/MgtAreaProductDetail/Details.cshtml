@@ -156,13 +156,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <ul class="nav nav-pills">
-                           
+
                             <li><a href="@Url.Action("Edit", "MgtAddProducts", new { id = Model.ProductKey })">Products</a></li>
                             <li class="active"><a href="#tab-demo2" data-toggle="tab">Details</a></li>
-                          
                             <li><a href="@Url.Action("Notes", "MgtAreaProductDetail", new { id = Model.ProductKey })">Notes</a></li>
-                            <li><a href="#">Photos</a></li>
-                            <li><a href="#">Documents</a></li>
+                            <li><a href="@Url.Action("Photos", "MgtAreaProductPhoto", new { id = Model.ProductKey })">Photos</a></li>
+                            <li><a href="@Url.Action("Documents", "MgtAreaProductDocument", new { id = Model.ProductKey })">Documents</a></li>
                         </ul>
                     </div>
                     <div class="panel-body">

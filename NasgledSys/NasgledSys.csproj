@@ -227,6 +227,7 @@
     <Compile Include="Controllers\MgtAnnualSalesRevenueSetupController.cs" />
     <Compile Include="Controllers\MgtAreaController.cs" />
     <Compile Include="Controllers\MgtAreaProductDetailController.cs" />
+    <Compile Include="Controllers\MgtAreaProductPhotoController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
     <Compile Include="Controllers\MgtClientContactController.cs" />
     <Compile Include="Controllers\MgtEnvironmentalImpactController.cs" />
@@ -345,6 +346,7 @@
     <Compile Include="Models\AreaProductPhoto.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AreaProductPhotoViewModel.cs" />
     <Compile Include="Models\CityList.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3863,6 +3865,7 @@
     <Content Include="Views\MgtSchedule\EditCS.cshtml" />
     <Content Include="Views\MgtAreaProductDetail\Details.cshtml" />
     <Content Include="Views\MgtAreaProductDetail\Notes.cshtml" />
+    <Content Include="Views\MgtAreaProductPhoto\Photos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

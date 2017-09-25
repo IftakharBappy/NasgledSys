@@ -1,0 +1,305 @@
+﻿@model NasgledSys.Models.AreaProductPhotoViewModel
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            LoadYear();
+            LoadExistingControl();
+            LoadOperatingSchedule();
+            LoadLightingSatisfaction();
+        });
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+        function LoadLightingSatisfaction() {
+            var select = $('select[name=LightingSatisfactionKey]');
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/DropdownUtility/LoadLightingSatisfaction/",
+                data: JSON.stringify({ LightingSatisfactionKey: '@Model.LightingSatisfactionKey' }),
+                success: function (data) {
+                    var res = "<option>Use Default</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].FactorName + "</option>";
+                    }
+                    select.html(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+        function LoadOperatingSchedule() {
+            var select = $('select[name=OperationScheduleKey]');
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/DropdownUtility/loadOperationSchedule/",
+                data: JSON.stringify({ OperationScheduleKey: '@Model.OperationScheduleKey' }),
+                success: function (data) {
+                    var res = "<option>Use Default</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].OPName + "</option>";
+                    }
+                    select.html(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+        function LoadExistingControl() {
+            var select = $('select[name=ExistingControl]');
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/DropdownUtility/LoadExistingControl/",
+                data: JSON.stringify({ id: '@Model.ExistingControl' }),
+                success: function (data) {
+                    var res = "<option></option>";
+                    for (var i = 0; i < data.length; i++) {
+                        res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
+                    }
+                    select.html(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+        function LoadYear() {
+            var select = $('select[name=Year]');
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/DropdownUtility/loadPrevious/",
+                data: JSON.stringify({ Year: '@Model.Year' }),
+                success: function (data) {
+                    var res = "<option></option>";
+                    for (var i = 0; i < data.length; i++) {
+                        res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
+                    }
+                    select.html(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+
+    </script>*@
+
+@*@{
+        NasgledDBEntities db = new NasgledDBEntities();
+        Guid? ak = Model.AreaKey;
+        string areaLink = "";
+        for (; ; )
+        {
+            Area area = db.Area.Find(ak);
+            areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+
+            if (area.ParentAreaKey == null)
+            {
+                break;
+            }
+            else
+            {
+                ak = area.ParentAreaKey;
+            }
+        }
+
+
+    }*@
+@section CenterTitle{
+    Edit Existing Product
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
+            @*<label>></label>@MvcHtmlString.Create(areaLink)*@
+
+        </span>
+
+    </center>
+
+
+}
+
+<div class="content-wrapper">
+    @using (Html.BeginForm("Photos", "MgtAreaProductPhoto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(m => m.AreaKey, new { id = "AreaKey" })
+        @Html.HiddenFor(m => m.FixtureKey, new { id = "FixtureKey" })
+        @Html.HiddenFor(m => m.ProductKey, new { id = "ProductKey" })
+        @Html.HiddenFor(m => m.PhotoKey, new { id = "PhotoKey" })
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-2">&nbsp;</div>
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <ul class="nav nav-pills">
+                                <li><a href="@Url.Action("Edit", "MgtAddProducts", new { id = Model.ProductKey })">Products</a></li>
+                                <li><a href="@Url.Action("Details", "MgtAreaProductDetail", new { id = Model.ProductKey })">Details</a></li>
+                                <li><a href="@Url.Action("Notes", "MgtAreaProductDetail", new { id = Model.ProductKey })">Notes</a></li>
+                                <li class="active"><a href="#tab-demo2" data-toggle="tab">Photos</a></li>
+                                <li><a href="@Url.Action("Documents", "MgtAreaProductDocument", new { id = Model.ProductKey })">Documents</a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-demo2">
+
+                                    <div class="panel-heading">
+                                        <div class="col-md-12"><h3>Add new area product photo</h3></div>
+                                    </div>
+                                    <div class="panel-body">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Description)
+                                            @Html.TextAreaFor(model => model.Description, new { placeholder = "description", id = "Description", @class = "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="PostedLogo" class="btn btn-default border-blue btn-xlg col-md-4">Select a new Photo</label>
+                                            <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success btn-xlg col-lg-12" id="btnsave" name="btnsave">Add Photo</button>
+                                        </div>
+                                        <hr />
+
+                                        <div class="form-group">
+                                            <table class="table">
+
+                                                <tbody>
+
+                                                    @for (int i = 0; i < Model.AreaProductPhotoList.Count(); i++)
+                                                    {
+                                                        <tr>
+                                                            <td>
+
+                                                                @{
+                                                                    var base64 = Convert.ToBase64String(Model.AreaProductPhotoList[i].FileContent);
+                                                                    var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                                    <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
+                                                                }
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="col-lg-offset-1">@Model.AreaProductPhotoList[i].Description</div>
+                                                            </td>
+
+                                                            <td>
+                                                                <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductPhotoList[i].PhotoKey" data-description="@Model.AreaProductPhotoList[i].Description" data-target="#modal_image" onclick="">Change Photo</button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" id="btnUpdate" class="btn btn-default border-green col-md-offset-1" onclick="location.href='@Url.Action("Delete", "MgtAreaProductPhoto", new { id = Model.AreaProductPhotoList[i].PhotoKey })'">Remove Photo</button>
+                                                            </td>
+
+                                                        </tr>
+                                                     }
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">&nbsp;</div>
+
+
+            </div>
+        </div>
+     }
+
+    <div id="modal_image" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">Change Area Photo</h4></center>
+                </div>
+                @using (Html.BeginForm("UpdatePhoto", "MgtAreaProductPhoto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="container-fluid">
+
+                                @Html.HiddenFor(m => Model.PhotoKey)
+                                @Html.HiddenFor(m => Model.ProductKey)
+                                @*@Html.HiddenFor(m => Model.AreaKey)
+                                    @Html.HiddenFor(m => Model.FixtureKey)*@
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description)
+                                    @Html.TextAreaFor(model => model.Description, new { placeholder = "description", id = "Description", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn btn-primary btn-xlg col-lg-8 col-md-offset-2" id="UpdatePostedLogo" name="UpdatePostedLogo" type="file">
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="Save" id="Save" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    $(document).on("click", ".open-AddBookDialog", function () {
+        var photoId = $(this).data('id');
+        $(".modal-body #PhotoKey").val(photoId);
+
+        var description = $(this).data('description');
+        $(".modal-body #Description").val(description);
+    });
+
+</script>
