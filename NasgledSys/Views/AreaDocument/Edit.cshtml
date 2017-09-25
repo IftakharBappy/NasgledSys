@@ -99,9 +99,7 @@
                                                             <td>
 
                                                                 @{
-                                                                    var base64 = Convert.ToBase64String(Model.AreaDocumentList[i].FileContent);
-                                                                    var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-                                                                    <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
+                                                                    @Html.ActionLink("View File", "GetJobFileAttachement", "AreaDocument", new { id = Model.AreaDocumentList[i].DocumentKey }, new { target = "_blank" })
                                                                 }
                                                             </td>
 
@@ -113,7 +111,6 @@
 
                                                             <td>
                                                                 <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
-                                                                @*<button type="button" id="btnUpdate" class="btn btn-primary" onclick="">Change Photo</button>*@
                                                                 <button type="button" class="open-AddBookDialog btn btn-primary" data-toggle="modal" data-id="@Model.AreaDocumentList[i].DocumentKey" data-target="#modal_image" onclick="">Change Document</button>
                                                                 <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Delete", "AreaDocument", new { id = Model.AreaDocumentList[i].DocumentKey })'">Remove Document</button>
                                                             </td>
