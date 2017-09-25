@@ -217,6 +217,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AreaDetailController.cs" />
     <Compile Include="Controllers\AreaDocumentController.cs" />
+    <Compile Include="Controllers\AreaNoteController.cs" />
     <Compile Include="Controllers\AreaPhotoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityController.cs" />
@@ -297,6 +298,7 @@
     <Compile Include="EM\EM_AdminAccess.cs" />
     <Compile Include="EM\EM_Area.cs" />
     <Compile Include="EM\EM_AreaDetail.cs" />
+    <Compile Include="EM\EM_AreaNote.cs" />
     <Compile Include="EM\EM_AreaPhoto.cs" />
     <Compile Include="EM\EM_City.cs" />
     <Compile Include="EM\EM_DocumentPhoto.cs" />
@@ -330,6 +332,7 @@
     <Compile Include="Models\AreaNote.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AreaNoteViewModel.cs" />
     <Compile Include="Models\AreaPhoto.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3871,6 +3874,7 @@
     <Content Include="Views\MgtProject\Existing.cshtml" />
     <Content Include="Views\AreaDocument\Edit.cshtml" />
     <Content Include="Views\MgtAreaProductPhoto\Photos.cshtml" />
+    <Content Include="Views\AreaNote\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
