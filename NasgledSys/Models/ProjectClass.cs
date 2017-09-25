@@ -6,6 +6,14 @@ using System.Web;
 
 namespace NasgledSys.Models
 {
+    public class ExistingClass
+    {
+        public string Product { get; set; }
+        public string AreaName { get; set; }
+        public string Description { get; set; }
+        public int? ProductCount { get; set; }
+        public Guid? ProductKey { get; set; }
+    }
     public class ViewSubAreaList
     {
         public string SubAreaName { get; set; }

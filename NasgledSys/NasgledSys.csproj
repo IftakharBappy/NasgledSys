@@ -216,6 +216,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AreaDetailController.cs" />
+    <Compile Include="Controllers\AreaDocumentController.cs" />
     <Compile Include="Controllers\AreaPhotoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CityController.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="EM\EM_AreaDetail.cs" />
     <Compile Include="EM\EM_AreaPhoto.cs" />
     <Compile Include="EM\EM_City.cs" />
+    <Compile Include="EM\EM_DocumentPhoto.cs" />
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
     <Compile Include="EM\EM_Project.cs" />
@@ -323,6 +325,8 @@
     <Compile Include="Models\AreaDocument.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AreaDocumentModel.cs" />
+    <Compile Include="Models\AreaDocumentViewModel.cs" />
     <Compile Include="Models\AreaNote.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3849,9 +3853,7 @@
     <Content Include="Views\MgtSubArea\Index.cshtml" />
     <Content Include="Views\MgtSubArea\Create.cshtml" />
     <Content Include="Views\MgtSubArea\Edit.cshtml" />
-    <Content Include="Views\MgtAddProducts\Index.cshtml" />
     <Content Include="Views\MgtSchedule\Index.cshtml" />
-    <Content Include="Views\MgtAddProducts\Index.cshtml" />
     <Content Include="Views\MgtAddProducts\Create.cshtml" />
     <Content Include="Views\AreaPhoto\Edit.cshtml" />
     <Content Include="Views\MgtAddProducts\Edit.cshtml" />
@@ -3865,6 +3867,9 @@
     <Content Include="Views\MgtSchedule\EditCS.cshtml" />
     <Content Include="Views\MgtAreaProductDetail\Details.cshtml" />
     <Content Include="Views\MgtAreaProductDetail\Notes.cshtml" />
+    <Content Include="Views\MgtAddProducts\Index.cshtml" />
+    <Content Include="Views\MgtProject\Existing.cshtml" />
+    <Content Include="Views\AreaDocument\Edit.cshtml" />
     <Content Include="Views\MgtAreaProductPhoto\Photos.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -10,36 +10,32 @@ namespace NasgledSys.Models
     {
         public System.Guid HeatingSystemKey { get; set; }
         public Nullable<System.Guid> ProjectKey { get; set; }
-        [Display(Name = " Name*")]
+        [Display(Name = "Name*")]
         [Required(ErrorMessage = "Name is Required.")]
         public string SystemName { get; set; }
-        [Display(Name = " Annual RunTime")]
+        [Display(Name = "Annual Runtime")]
         [Required(ErrorMessage = "Annual RunTime is Required.")]
         public Nullable<decimal> AnnualRunTime { get; set; }
-        [Display(Name = " Heating System Type")]
+        [Display(Name = "Heating System Type")]
         [Required(ErrorMessage = "Heating System is Required.")]
         public Nullable<System.Guid> HeatingSystemTypeKey { get; set; }
-        [Display(Name = " Fuel Type")]
+        [Display(Name = "Fuel Type")]
         [Required(ErrorMessage = "Fuel Type is Required.")]
         public Nullable<System.Guid> FuelTypeKey { get; set; }
-        [Display(Name = " Fuel Cost")]
-        [Required(ErrorMessage = "Name is Required.")]
+        [Display(Name = "Fuel Cost")]
+        [Required(ErrorMessage = "Fuel Cost is Required.")]
         public Nullable<decimal> FuelCost { get; set; }
-        [Display(Name = " Efficiency Type")]
+        [Display(Name = "Efficiency Type")]
         [Required(ErrorMessage = "Efficiency Type is Required.")]
         public Nullable<System.Guid> EfficiencyType { get; set; }
-        [Display(Name = " Efficiency Value")]
+        [Display(Name = "Efficiency Value")]
         [Required(ErrorMessage = "Efficiency Value is Required.")]
         public Nullable<decimal> EfficiencyValue { get; set; }
-        [Display(Name = " Internal Note")]
+        [Display(Name = "Internal Note")]
         public string InternalNote { get; set; }
-        [Display(Name = " General Note")]
+        [Display(Name = "General Note")]
         public string GeneralNote { get; set; }
         public Nullable<bool> IsDefault { get; set; }
-        [Display(Name = " Fuel Type")]
-        public virtual FuelType FuelType { get; set; }
-        public virtual HeatingEfficiencyType HeatingEfficiencyType { get; set; }
-        public virtual HeatingSystemType HeatingSystemType { get; set; }
-        public virtual Project Project { get; set; }
+       
     }
 }

@@ -3,33 +3,47 @@
     ViewBag.Title = "Update";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<script src="~/Scripts/jquery-3.1.1.js"></script>
+
 <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#content1').hide();
-        $('button').bind('click', function () {
-            $('div#content').html($('div#content' + ($(this).index() + 1)).html());
-        });
+        $('#showmore').show();
 
-        LoadSystemTypeDropDown_ToEdit();
-        LoadFuelTypeDropDown_ToEdit();
-        LoadEfficiencyTypDropDown_ToEdit();
+        LoadSystemTypeDropDown_ToCreate();
+        LoadFuelTypeDropDown_ToCreate();
+        LoadEfficiencyTypeDropDown_ToCreate();
     });
+    $(function () {
+        $('#showless').click(function () {
+            $('#showmore').show();
+            $('#content1').hide();
+        });
+    });
+    $(function () {
+        $('#showmore').click(function () {
 
-    function LoadSystemTypeDropDown_ToEdit() {
+            $('#content1').show();
+            $('#showmore').hide();
+        });
+    });
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    function LoadSystemTypeDropDown_ToCreate() {
         var select = $('select[name=HeatingSystemTypeKey]');
-        $.ajax({
-            traditional: true,
-            type: "post",
-            dataType: "json",
-            contentType: "application/json",
-            url: "/MgtSchedule/LoadSystemTypeDropDown_ToEdit/",
-            data: JSON.stringify({ HeatingSystemTypeKey: '@Model.HeatingSystemTypeKey' }),
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/MgtSchedule/LoadSystemTypeDropDown_ToCreate/",
+                data: JSON.stringify({ id: '@Model.HeatingSystemTypeKey' }),
                 success: function (data) {
                     var res = "<option>Select</option>";
                     for (var i = 0; i < data.length; i++) {
@@ -43,15 +57,15 @@
             });
     }
 
-        function LoadFuelTypeDropDown_ToEdit() {
+        function LoadFuelTypeDropDown_ToCreate() {
             var select = $('select[name=FuelTypeKey]');
             $.ajax({
                 traditional: true,
                 type: "post",
                 dataType: "json",
                 contentType: "application/json",
-                url: "/MgtSchedule/LoadFuelTypeDropDown_ToEdit/",
-                data: JSON.stringify({ FuelTypeKey: '@Model.FuelTypeKey' }),
+                url: "/MgtSchedule/LoadFuelTypeDropDown_ToCreate/",
+                data: JSON.stringify({ id: '@Model.FuelTypeKey' }),
                 success: function (data) {
                     var res = "<option>Select</option>";
                     for (var i = 0; i < data.length; i++) {
@@ -65,15 +79,15 @@
             });
         }
 
-            function LoadEfficiencyTypDropDown_ToEdit() {
+            function LoadEfficiencyTypeDropDown_ToCreate() {
                 var select = $('select[name=EfficiencyType]');
                 $.ajax({
                     traditional: true,
                     type: "post",
                     dataType: "json",
                     contentType: "application/json",
-                    url: "/MgtSchedule/LoadEfficiencyTypDropDown_ToEdit/",
-                    data: JSON.stringify({ EfficiencyType: '@Model.EfficiencyType' }),
+                    url: "/MgtSchedule/LoadEfficiencyTypeDropDown_ToCreate/",
+                    data: JSON.stringify({ id: '@Model.EfficiencyType' }),
                     success: function (data) {
                         var res = "<option>Select</option>";
                         for (var i = 0; i < data.length; i++) {
@@ -90,7 +104,7 @@
 
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             &nbsp;
             <div id="progress" class="modal fade">
                 <div class="center">
@@ -116,7 +130,7 @@
                         <div class="panel-body">
                             <div class="form-horizontal">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="col-md-6">
+                               
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.SystemName)
                                         @Html.HiddenFor(model => model.HeatingSystemKey, new { id = "HeatingSystemKey" })
@@ -125,58 +139,58 @@
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.AnnualRunTime)
-                                        @Html.TextBoxFor(model => model.AnnualRunTime, new { placeholder = " Annual Run Time", id = "AnnualRunTime", @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.AnnualRunTime, new { @onkeypress = "return isNumberKey(event)", placeholder = " Annual Run Time", id = "AnnualRunTime", @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.AnnualRunTime, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.HeatingSystemTypeKey)
                                         <div class="">
-                                            <select name="HeatingSystemTypeKey" placeholder="Select" class="select select-search form-control"></select>
+                                            <select name="HeatingSystemTypeKey"id="HeatingSystemTypeKey" placeholder="Select" class="select select-search form-control"></select>
                                         </div>
                                         @Html.ValidationMessageFor(model => model.HeatingSystemTypeKey, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.FuelTypeKey)
                                         <div class="">
-                                            <select name="FuelTypeKey" placeholder="Select" class="select select-search form-control"></select>
+                                            <select name="FuelTypeKey" id="FuelTypeKey" placeholder="Select" class="select select-search form-control"></select>
                                         </div>
                                         @Html.ValidationMessageFor(model => model.FuelTypeKey, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.FuelCost)
-                                        @Html.TextBoxFor(model => model.FuelCost, new { placeholder = " Fuel Cost", id = "FuelCost", @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.FuelCost, new { @onkeypress = "return isNumberKey(event)", placeholder = " Fuel Cost", id = "FuelCost", @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.FuelCost, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.EfficiencyType)
                                         <div class="">
-                                            <select name="EfficiencyType" placeholder="Select" class="select select-search form-control"></select>
+                                            <select name="EfficiencyType" id="EfficiencyType" placeholder="Select" class="select select-search form-control"></select>
                                             @Html.ValidationMessageFor(model => model.EfficiencyType, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.EfficiencyValue)
-                                        @Html.TextBoxFor(model => model.EfficiencyValue, new { placeholder = "EfficiencyValue", id = "Efficiency Value", @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.EfficiencyValue, new { @onkeypress = "return isNumberKey(event)", placeholder = "EfficiencyValue", id = "Efficiency Value", @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.EfficiencyValue, "", new { @class = "text-danger" })
                                     </div>
-                                    <div id="content">
-                                        <button type="button" class="btn btn-block btn-lg btn-inverse hover">Show More</button>
-
-                                    </div>
+                                    <button type="button" class="btn btn-block btn-lg btn-inverse hover" id="showmore">Show More</button>
                                     <div id="content1">
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.InternalNote)
                                             @Html.TextAreaFor(model => model.InternalNote, new { placeholder = " InternalNote", id = "InternalNote", @class = "form-control" })
-                                            <h6>This not will be visible to Your Customer</h6>
+                                            <span class="text-size-mini text-muted">This not will be visible to Your Customer</span>
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.GeneralNote)
                                             @Html.TextAreaFor(model => model.GeneralNote, new { placeholder = " GeneralNote", id = "GeneralNote", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.GeneralNote, "", new { @class = "text-danger" })
-                                            <h6>This may  visible to Your Customer</h6>
+                                            <span class="text-size-mini text-muted">This may  visible to Your Customer</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn border-block btn-lg btn-inverse hover" id="showless">Show Less</button>
                                         </div>
                                     </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -189,5 +203,9 @@
                 </div>
             </div>
         }
+        <div class="col-md-2">
+            &nbsp;
+           
+        </div>
     </div>
 </div>

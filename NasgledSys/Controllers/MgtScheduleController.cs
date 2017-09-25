@@ -58,9 +58,7 @@ namespace NasgledSys.Controllers
                                             {
                                                 HeatingSystemKey = os.HeatingSystemKey,
                                                 SystemName = os.SystemName,
-                                                AnnualRunTime = os.AnnualRunTime,
-                                                HeatingSystemType = os.HeatingSystemType,
-                                                FuelType = os.FuelType,
+                                                AnnualRunTime = os.AnnualRunTime,                                               
                                                 FuelCost = os.FuelCost,
                                                 EfficiencyType = os.EfficiencyType,
                                                 EfficiencyValue = os.EfficiencyValue,
@@ -220,9 +218,7 @@ namespace NasgledSys.Controllers
                         if (obj.InternalNote == null) { model.InternalNote = "N/A"; }
                         else { model.InternalNote = obj.InternalNote; }
                         if (obj.GeneralNote == null) { model.GeneralNote = "N/A"; }
-                        else { model.GeneralNote = obj.GeneralNote; }
-
-                        model.IsDefault = false;
+                        else { model.GeneralNote = obj.GeneralNote; }                     
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Operating Schedule is Update Successfully";
@@ -243,6 +239,135 @@ namespace NasgledSys.Controllers
             }
         }
 
+        public ActionResult SetDefaultOS(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                Session["GlobalMessege"] = " ";
+                try
+                {
+                        OperatingSchedule model = db.OperatingSchedule.Find(id);
+                        OperatingSchedule model1 = db.OperatingSchedule.FirstOrDefault(m=>m.ProjectKey==model.ProjectKey && m.IsDefault==true);
+
+                        if (model1 == null) { }
+                        else
+                        {
+                            model1.IsDefault = false;
+                        }
+                        model.IsDefault = true;
+
+                        db.SaveChanges();
+                        Session["GlobalMessege"] = "Operating Schedule is Updated Successfully";
+                        return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
+                   
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new HandleErrorInfo(ex, "MgtSchedule", "Index"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        public ActionResult SetDefaultHS(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                Session["GlobalMessege"] = " ";
+                try
+                {
+                    HeatingSystem model = db.HeatingSystem.Find(id);
+                    HeatingSystem model1 = db.HeatingSystem.FirstOrDefault(m => m.ProjectKey == model.ProjectKey && m.IsDefault == true);
+
+                    if (model1 == null) { }
+                    else
+                    {
+                        model1.IsDefault = false;
+                    }
+                    model.IsDefault = true;
+
+                    db.SaveChanges();
+                    Session["GlobalMessege"] = "Heating System is Updated Successfully";
+                    return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new HandleErrorInfo(ex, "MgtSchedule", "Index"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        public ActionResult SetDefaultCS(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                Session["GlobalMessege"] = " ";
+                try
+                {
+                    CoolingSystem model = db.CoolingSystem.Find(id);
+                    CoolingSystem model1 = db.CoolingSystem.FirstOrDefault(m => m.ProjectKey == model.ProjectKey && m.IsDefault == true);
+
+                    if (model1 == null) { }
+                    else
+                    {
+                        model1.IsDefault = false;
+                    }
+                    model.IsDefault = true;
+
+                    db.SaveChanges();
+                    Session["GlobalMessege"] = "Heating System is Updated Successfully";
+                    return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new HandleErrorInfo(ex, "MgtSchedule", "Index"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        public ActionResult SetRS(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                Session["GlobalMessege"] = " ";
+                try
+                {
+                    NewRateSchedule model = db.NewRateSchedule.Find(id);
+                    NewRateSchedule model1 = db.NewRateSchedule.FirstOrDefault(m => m.ProjectKey == model.ProjectKey && m.IsDefault == true);
+
+                    if (model1 == null) { }
+                    else
+                    {
+                        model1.IsDefault = false;
+                    }
+                    model.IsDefault = true;
+
+                    db.SaveChanges();
+                    Session["GlobalMessege"] = "Rate Schedule is Updated Successfully";
+                    return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new HandleErrorInfo(ex, "MgtSchedule", "Index"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
         public ActionResult CreateHS()
         {
             if (GlobalClass.MasterSession)
@@ -251,7 +376,10 @@ namespace NasgledSys.Controllers
                 try
                 {
                     var model = new HeatingSystemViewModel();
-                    return View("CreateHS", model);
+                    model.FuelTypeKey = Guid.Empty;
+                    model.HeatingSystemTypeKey = Guid.Empty;
+                    model.EfficiencyType = Guid.Empty;
+                    return View(model);
                 }
                 catch (Exception ex)
                 {
@@ -382,7 +510,7 @@ namespace NasgledSys.Controllers
                         if (obj.GeneralNote == null) { model.GeneralNote = "N/A"; }
                         else { model.GeneralNote = obj.GeneralNote; }
 
-                        model.IsDefault = false;
+                       // model.IsDefault = false;
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Heating Schedule is Updated Successfully";
@@ -686,9 +814,7 @@ namespace NasgledSys.Controllers
                         else { model.InternalNote = obj.InternalNote; }
                         if (obj.GeneralNote == null) { model.GeneralNote = "N/A"; }
                         else { model.GeneralNote = obj.GeneralNote; }
-
-                        model.IsDefault = false;
-
+                        
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Cooling Schedule is Updated Successfully";
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
@@ -708,87 +834,115 @@ namespace NasgledSys.Controllers
             }
         }
 
-        public JsonResult LoadSystemTypeDropDown_ToCreate()
+        public JsonResult LoadSystemTypeDropDown_ToCreate(Guid? id)
         {
-            var list = (from st in db.HeatingSystemType where st.IsDelete == false select new { st.PKey, st.TypeName }) .ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+            if (id == Guid.Empty || id == null)
+            {
+                var list = (from st in db.HeatingSystemType where st.IsDelete == false select new { st.PKey, st.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from st in db.HeatingSystemType
+                            where st.IsDelete == false
+                            select new
+                            {
+                                st.PKey,
+                                st.TypeName,
+                                Selected = st.PKey == id ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }           
         }
 
-        public JsonResult LoadFuelTypeDropDown_ToCreate()
+        public JsonResult LoadFuelTypeDropDown_ToCreate(Guid? id)
         {
-            var list = (from ft in db.FuelType where ft.IsDelete == false select new { ft.PKey, ft.TypeName }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+            if (id == Guid.Empty || id == null)
+            {
+                var list = (from st in db.FuelType where st.IsDelete == false select new { st.PKey, st.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from st in db.FuelType
+                            where st.IsDelete == false
+                            select new
+                            {
+                                st.PKey,
+                                st.TypeName,
+                                Selected = st.PKey == id ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
         }
-        public JsonResult LoadEfficiencyTypeDropDown_ToCreate()
+        public JsonResult LoadEfficiencyTypeDropDown_ToCreate(Guid? id)
         {
-            var list = (from et in db.HeatingEfficiencyType where et.IsDelete == false select new { et.PKey, et.TypeName }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+            if (id == Guid.Empty || id == null)
+            {
+                var list = (from st in db.HeatingEfficiencyType where st.IsDelete == false select new { st.PKey, st.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from st in db.HeatingEfficiencyType
+                            where st.IsDelete == false
+                            select new
+                            {
+                                st.PKey,
+                                st.TypeName,
+                                Selected = st.PKey == id ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
         }
-        public JsonResult LoadCoolingSystemTypeDropDown_ToCreate()
-        {
-            var list = (from cs in db.CoolingSystemType where cs.IsDelete == false select new { cs.PKey, cs.TypeName }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+        public JsonResult LoadCoolingSystemTypeDropDown_ToCreate(Guid? id)
+        {           
+            if (id == Guid.Empty || id == null)
+            {
+                var list = (from st in db.CoolingSystemType where st.IsDelete == false select new { st.PKey, st.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from st in db.CoolingSystemType
+                            where st.IsDelete == false
+                            select new
+                            {
+                                st.PKey,
+                                st.TypeName,
+                                Selected = st.PKey == id ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
         }
-        public JsonResult LoadCoolingEfficiencyTypeDropDown_ToCreate()
+        public JsonResult LoadCoolingEfficiencyTypeDropDown_ToCreate(Guid? id)
         {
-            var list = (from ce in db.CoolingEfficientyType where ce.IsDelete == false select new { ce.PKey, ce.TypeName }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult LoadSystemTypeDropDown_ToEdit(Guid HeatingSystemTypeKey)
-        {
-            var list = (from hs in db.HeatingSystemType
-                        select new
-                        {
-                            hs.PKey,
-                            hs.TypeName,
-                            Selected = hs.PKey == HeatingSystemTypeKey ? "selected" : ""
-                        }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult LoadFuelTypeDropDown_ToEdit(Guid FuelTypeKey)
-        {
-            var list = (from ft in db.FuelType
-                        select new
-                        {
-                            ft.PKey,
-                            ft.TypeName,
-                            Selected = ft.PKey == FuelTypeKey ? "selected" : ""
-                        }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult LoadEfficiencyTypDropDown_ToEdit(Guid EfficiencyType)
-        {
-            var list = (from et in db.HeatingEfficiencyType
-                        select new
-                        {
-                            et.PKey,
-                            et.TypeName,
-                            Selected = et.PKey == EfficiencyType ? "selected" : ""
-                        }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+            if (id == Guid.Empty || id == null)
+            {
+                var list = (from st in db.CoolingEfficientyType where st.IsDelete == false select new { st.PKey, st.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from st in db.CoolingEfficientyType
+                            where st.IsDelete == false
+                            select new
+                            {
+                                st.PKey,
+                                st.TypeName,
+                                Selected = st.PKey == id ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        public JsonResult LoadCoolingSystemTypeDropDown_ToEdit(Guid CoolingSystemTypeKey)
+        protected override void Dispose(bool disposing)
         {
-            var list = (from et in db.HeatingEfficiencyType
-                        select new
-                        {
-                            et.PKey,
-                            et.TypeName,
-                            Selected = et.PKey == CoolingSystemTypeKey ? "selected" : ""
-                        }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult LoadCoolingEfficiencyDropDown_ToEdit(Guid EfficiencyType)
-        {
-            var list = (from et in db.HeatingEfficiencyType
-                        select new
-                        {
-                            et.PKey,
-                            et.TypeName,
-                            Selected = et.PKey == EfficiencyType ? "selected" : ""
-                        }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

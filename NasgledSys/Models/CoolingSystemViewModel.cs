@@ -13,7 +13,7 @@ namespace NasgledSys.Models
         [Display(Name = " Name*")]
         [Required(ErrorMessage = "Name is Required.")]
         public string SystemName { get; set; }
-        [Display(Name = " Annual Run Time*")]
+        [Display(Name = " Annual Runtime*")]
         [Required(ErrorMessage = "Annual Run Time is Required.")]
         public Nullable<decimal> AnnualRunTime { get; set; }
         [Display(Name = " Cooling System Type*")]
@@ -36,10 +36,6 @@ namespace NasgledSys.Models
         [Display(Name = " General Note")]
         public string GeneralNote { get; set; }
         public Nullable<bool> IsDefault { get; set; }
-
-        public virtual CoolingEfficientyType CoolingEfficientyType { get; set; }
-        public virtual CoolingSystemType CoolingSystemType { get; set; }
-        public virtual FuelType FuelType { get; set; }
-        public virtual Project Project { get; set; }
+        
     }
 }

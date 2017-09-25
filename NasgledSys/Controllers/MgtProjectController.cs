@@ -11,6 +11,7 @@ using NasgledSys.EM;
 using NasgledSys.Validation;
 using System.Globalization;
 using NasgledSys.DAL;
+using DataTables.Mvc;
 
 namespace NasgledSys.Controllers
 {
@@ -20,6 +21,57 @@ namespace NasgledSys.Controllers
         private NasgledDBEntities db = new NasgledDBEntities();
         private FormValidation validate = new FormValidation();
         private ManageProject manage = new ManageProject();
+        private ManageProjectArea ma = new ManageProjectArea();
+        public ActionResult GetExistingProducts([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestModel, AdvancedSearchViewModel searchViewModel)
+        {
+            IQueryable<AreaProduct> query = db.AreaProduct.Where(m => m.ProjectKey == GlobalClass.Project.ProjectKey && m.IsDelete == false).OrderBy(m=>m.ExistingProductName);
+            var totalCount = query.Count();
+
+            // searching and sorting
+            //query = Search(requestModel, searchViewModel, query);
+            var filteredCount = query.Count();
+
+            // Paging
+            query = query.Skip(requestModel.Start).Take(requestModel.Length);
+
+            List<ExistingClass> data = new List<ExistingClass>();
+            foreach (var item in query)
+            {
+                ExistingClass obj = new ExistingClass();
+                obj.Product = item.ExistingProductName;
+                obj.AreaName= ma.GetAllAreaNamesForSubArea(item.AreaKey);
+                obj.Description = item.Description;
+                obj.ProductCount = item.Count;
+                obj.ProductKey = item.ProductKey;
+                data.Add(obj);
+            }
+           
+            return Json(new DataTablesResponse(requestModel.Draw, data.ToList(), filteredCount, totalCount), JsonRequestBehavior.AllowGet);
+
+        }
+
+       
+        public ActionResult Existing(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    Project model = db.Project.Find(id);
+                    return View(model);
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
         public ActionResult ProjectByCompany()
         {
             if (GlobalClass.MasterSession)

@@ -1,6 +1,7 @@
-﻿@using NasgledSys.Models;
+﻿@model NasgledSys.Models.Project
+@using NasgledSys.Models
 @{
-    ViewBag.Title = "AddAreas";
+    ViewBag.Title = "Existing";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
@@ -20,34 +21,29 @@
                         "serverSide": true,
                         "processing": true,
                         "ajax": {
-                            "url": "@Url.Action("GetArea", "MgtArea")",
+                            "url": "@Url.Action("GetExistingProducts", "MgtProject")",
                             "data": function (data) {
 
-                                data.AreaKey = $("#AreaKey").val();
+                                data.Product = $("#Product").val();
                                 data.AreaName = $("#AreaName").val();
-                                data.SubArea = $("#SubArea").val();
+                                data.Description = $("#Description").val();
+                                data.ProductCount = $("#ProductCount").val();
+                                data.ProductKey = $("#ProductKey").val();
                             }
                         },
                         "columns": [
 
-                            { "title": "Area Name", "data": "AreaName", "searchable": true, "sortable": true },
-                            { "title": "Sub Area", "data": "SubArea", "searchable": false, "sortable": false },
+                            { "title": "Existing Product", "data": "Product", "searchable": true, "sortable": true },
+                            { "title": "Area", "data": "AreaName", "searchable": true, "sortable": true },
+                             { "title": "Description", "data": "Description", "searchable": true, "sortable": true },
+                              { "title": "Count", "data": "ProductCount", "searchable": true, "sortable": true },
                             {
-                                "title": "Add Products",
-                                "data": "AreaKey",
+                                "title": "Edit",
+                                "data": "ProductKey",
                                 "searchable": false,
                                 "sortable": false,
                                 "render": function (data, type, full, meta) {
-                                    return '<a href="@Url.Action("Create", "MgtAddProducts")?id=' + data + '" class="btn btn-success btn-xlg col-lg-6">Add Products</a>';
-                                }
-                            },
-                            {
-                                "title": "View Area",
-                                "data": "AreaKey",
-                                "searchable": false,
-                                "sortable": false,
-                                "render": function (data, type, full, meta) {
-                                    return '<a href="@Url.Action("Edit", "MgtArea")?id=' + data + '" class="btn btn-info btn-xlg col-lg-6">View Area</a>';
+                                    return '<a href="@Url.Action("Edit", "MgtAddProducts")?id=' + data + '" class="btn border-success btn-xlg col-lg-12">edit</a>';
                                 }
                             }
                         ],
@@ -78,18 +74,18 @@
 
 </script>
 @section CenterTitle{
-    @Html.DisplayFor(m=>GlobalClass.Project.ProjectName)
+    @Html.DisplayFor(m => m.ProjectName)
 }
 @section SideBar{
     <center>
-       
-            <span class="heading-text">
-              
-                    <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
-              
-            </span>       
+
         <span class="heading-text">
-            <a class="btn btn-primary" href="@Url.Action("Create","MgtProject",new { id=GlobalClass.Project.ProjectKey})"><i class="add-on"></i>Edit Project</a>
+
+            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=Model.ProjectKey})">Projects</a>
+
+        </span>
+        <span class="heading-text">
+            <a class="btn btn-primary" href="@Url.Action("Create","MgtProject",new { id=Model.ProjectKey})"><i class="add-on"></i>Edit Project</a>
         </span>
     </center>
 
@@ -114,19 +110,16 @@
                                 <div class="col-md-6">
 
                                     <ul class="nav nav-pills">
-                                        <li class="active"><a href="#tab-demo2" data-toggle="tab">Areas</a></li>
-                                        <li><a href="@Url.Action("Existing","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Existing</a></li>
-                                        <li><a href="@Url.Action("Index","MgtSchedule",new { id=GlobalClass.Project.ProjectKey})">Schedule</a></li>
+                                        <li><a href="@Url.Action("Created","MgtProject")">Areas</a></li>
+                                        <li class="active"><a href="#tab-demo2" data-toggle="tab">Existing</a></li>
+                                        <li><a href="@Url.Action("Index","MgtSchedule",new { id=Model.ProjectKey})">Schedule</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-6">
-                                    <a href="@Url.Action("Create","MgtArea",new { id=GlobalClass.Project.ProjectKey})" class="btn btn-success btn-xlg col-lg-12" role="button">Add Area</a>
+                                    <a href="@Url.Action("Create","MgtArea",new { id=Model.ProjectKey})" class="btn btn-success btn-xlg col-lg-12" role="button">Add Area</a>
                                 </div>
                             </div>
-                            <div class="panel-body">
-                                <div class="row"><br /><br /></div>
-                                <div class="alert alert-info"> To add your first area click on the "Add Area" button above</div>
-                            </div>
+                           
                             <div class="tab-pane fade in active" id="tab-demo2">
                                 <div class="panel-body">
                                     <table id="Citys-data-table" class="table table-striped table-bordered" style="width:100%;"></table>

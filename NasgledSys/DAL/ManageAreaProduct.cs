@@ -64,9 +64,10 @@ namespace NasgledSys.DAL
                             ModelNo = asset.ModelNo
                         }).OrderBy(m => m.ProductName).ToList();
 
-            string content = "<h3>Browse for Items</h3>";
-            content = content + " <div class='sidebar-main sidebar-default'><div class='sidebar-fixed'><div class='sidebar-content'><div class='sidebar-category sidebar-category-visible'><div class='category-content no-padding'>";
-            content = content + "<ul class='navigation navigation-main navigation-accordion'>";
+            //string content = "<h3>Browse for Items</h3>";
+            string content = "";
+           //content = content + " <div class='sidebar-main sidebar-default'><div class='sidebar-fixed'><div class='sidebar-content'><div class='sidebar-category sidebar-category-visible'><div class='category-content no-padding'>";
+           //content = content + "<ul class='navigation navigation-main navigation-accordion'>";
             foreach (var item in list)
             {
 
@@ -99,8 +100,8 @@ namespace NasgledSys.DAL
                     content = content + "<li><a href= '#' class='fix' discussKey='" + item.FixtureKey + "' >" + item.ProductName + "(" + item.TypeCount + ")</a></li>";
                 }
             }
-            content = content + "</ul>";
-            content = content + "</div></div></div></div></div>";
+            //content = content + "</ul>";
+            //content = content + "</div></div></div></div></div>";
             return content;
         }
 
