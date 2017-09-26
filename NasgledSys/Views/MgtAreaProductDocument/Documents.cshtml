@@ -112,10 +112,11 @@
                                                         </td>
 
                                                         <td>
+                                                            @Html.DisplayFor(m => Model.AreaProductDocumentList[i].FileName)
                                                             <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductDocumentList[i].DocumentKey" data-description="@Model.AreaProductDocumentList[i].Description" data-target="#modal_image" onclick="">Change Document</button>
+                                                            <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductDocumentList[i].DocumentKey" data-description="@Model.AreaProductDocumentList[i].Description" data-target="#modal_image" onclick="">Change Document/Edit Description</button>
                                                         </td>
                                                         <td>
                                                             <button type="button" id="btnUpdate" class="btn btn-default border-green" onclick="location.href='@Url.Action("Delete", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey })'">Remove Document</button>

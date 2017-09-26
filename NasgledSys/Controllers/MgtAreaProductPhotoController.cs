@@ -43,10 +43,10 @@ namespace NasgledSys.Controllers
                         {
                             //AreaKey = asset.AreaKey,
                             PhotoKey = asset.PhotoKey,
-                            Description = asset.Description,
-                            FileContent = asset.FileContent,
-                            FileName = asset.FileName,
-                            FileType = asset.FileType
+                            Description = asset.Description
+                            //FileContent = asset.FileContent,
+                            //FileName = asset.FileName,
+                            //FileType = asset.FileType
                         }).ToList();
 
                         model.AreaProductPhotoList = data;
@@ -54,7 +54,7 @@ namespace NasgledSys.Controllers
 
                     else
                     {
-                        model.AreaKey = id;
+                       
                         model.PhotoKey = Guid.Empty;
 
                     }

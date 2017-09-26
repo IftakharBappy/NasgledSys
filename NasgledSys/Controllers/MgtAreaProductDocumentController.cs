@@ -45,7 +45,7 @@ namespace NasgledSys.Controllers
                             //AreaKey = asset.AreaKey,
                             DocumentKey = asset.DocumentKey,
                             Description = asset.Description,
-                            FileContent = asset.FileContent,
+                            //FileContent = asset.FileContent,
                             FileName = asset.FileName,
                             //FileType = asset.FileType
                         }).ToList();
@@ -55,7 +55,6 @@ namespace NasgledSys.Controllers
 
                     else
                     {
-                        model.AreaKey = id;
                         model.DocumentKey = Guid.Empty;
 
                     }

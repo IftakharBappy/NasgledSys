@@ -29,6 +29,19 @@ namespace NasgledSys.Controllers
                 return File(faoimagefile.FileContent, faoimagefile.FileType);
             }
         }
+        public ActionResult GetAreaProductPhoto(Guid id)
+        {
+
+            AreaProductPhoto obj = db.AreaProductPhoto.SingleOrDefault(m => m.PhotoKey == id);
+
+            if (obj.FileContent != null)
+                return File(obj.FileContent, obj.FileType);
+            else
+            {
+                ImageFile faoimagefile = db.ImageFile.Single(f => f.ImageFileKey == 1);
+                return File(faoimagefile.FileContent, faoimagefile.FileType);
+            }
+        }
         public ActionResult GetProfileProductPic(Guid id)
         {
 

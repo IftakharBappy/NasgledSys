@@ -100,10 +100,10 @@
                                                         <td>
 
                                                             @{
-                                                                var base64 = Convert.ToBase64String(Model.AreaProductPhotoList[i].FileContent);
-                                                                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-                                                                //var imgSrc = String.Format(Model.AreaProductPhotoList[i].FileType, base64);
-                                                                <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
+//var base64 = Convert.ToBase64String(Model.AreaProductPhotoList[i].FileContent);
+//var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+
+                                                                <img src='@Url.Action("GetAreaProductPhoto", "ShowImage", new { id=Model.AreaProductPhotoList[i].PhotoKey})' style="max-height:50px;border-radius: 10px;" />
                                                             }
                                                         </td>
 
@@ -114,7 +114,7 @@
 
                                                        
                                                         <td>
-                                                            <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductPhotoList[i].PhotoKey" data-description="@Model.AreaProductPhotoList[i].Description" data-target="#modal_image" onclick="">Change Photo</button>
+                                                            <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductPhotoList[i].PhotoKey" data-description="@Model.AreaProductPhotoList[i].Description" data-target="#modal_image" onclick="">Change Photo/ Edit Description</button>
                                                         </td>
                                                         <td>
                                                             <button type="button" id="btnUpdate" class="btn btn-default border-green col-md-offset-1" onclick="location.href='@Url.Action("Delete", "MgtAreaProductPhoto", new { id = Model.AreaProductPhotoList[i].PhotoKey })'">Remove Photo</button>
