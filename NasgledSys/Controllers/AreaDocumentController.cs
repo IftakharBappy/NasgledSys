@@ -202,6 +202,22 @@ namespace NasgledSys.Controllers
             }
         }
 
+        public ActionResult GetJobFileAttachement(Guid id)
+        {
+
+            AreaDocument obj = db.AreaDocument.Find(id);
+            //obj.IsFileNew = false;
+            //db.SaveChanges();
+
+            if (obj.FileContent != null)
+                return File(obj.FileContent, obj.FileType, obj.FileName);
+            else
+            {
+                ImageFile faoimagefile = db.ImageFile.Single(f => f.ImageFileKey == 1);
+                return File(faoimagefile.FileContent, faoimagefile.FileType);
+            }
+        }
+
 
         public ActionResult Delete(Guid id)
         {

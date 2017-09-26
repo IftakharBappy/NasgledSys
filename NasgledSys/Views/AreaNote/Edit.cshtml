@@ -1,0 +1,123 @@
+﻿@model NasgledSys.Models.AreaNoteViewModel
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+
+<script src="~/Content/assets/js/plugins/forms/inputs/formatter.min.js"></script>
+<script src="~/Content/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+ 
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.AreaKey;
+    string areaLink = "";
+    for (; ; )
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+
+        if (area.ParentAreaKey == null)
+        {
+            break;
+        }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
+
+
+}
+@section CenterTitle{
+    @ViewBag.heading
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
+            <label>></label>@MvcHtmlString.Create(areaLink)
+
+        </span>
+        <span class="heading-text">
+            <a class="btn btn-primary" href="@Url.Action("Create","MgtAddProducts",new { id=Model.AreaKey})"><i class="add-on"></i>Add Product</a>
+        </span>
+    </center>
+
+
+}
+<div class="content-wrapper">
+    @using (Html.BeginForm("Edit", "AreaNote", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(m => m.AreaKey, new { id = "AreaKey" })
+        @Html.HiddenFor(m => m.NoteKey, new { id = "NoteKey" })
+
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-2">&nbsp;</div>
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <ul class="nav nav-pills">
+                                <li><a href="@Url.Action("Edit", "MgtSubArea", new { id = Model.AreaKey })">Area</a></li>
+                                <li><a href="@Url.Action("Index", "MgtAddProducts", new { id = Model.AreaKey })">Product</a></li>
+                                <li  >
+                                    <a href="#tab-demo1" data-toggle="tab">Details</a>
+                                </li>
+                                <li><a href="@Url.Action("Index", "MgtSubArea", new { id = Model.AreaKey })">Sub-Areas</a></li>
+                                <li><a href="#">Photos</a></li>
+                                <li><a href="#">Documents</a></li>
+                                <li class="active">
+                                    <a href="#tab-demo1" data-toggle="tab">Notes</a>
+                                </li>
+                                <li><a href="#">Copy</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-demo1">
+
+                                    <div class="panel-heading">
+                                        <div class="col-md-8"><h3>Notes</h3></div>
+                                        <div class="col-md-4">
+                                            <button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Save</button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="h3 alert-info" id="deletemsg"></div>
+                                        </div>
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.NoteContent)
+                                            @Html.TextBoxFor(model => model.NoteContent, new { placeholder = "this will not be visible to your customer", id = "NoteContent", @class = "form-control" })
+
+                                            @Html.ValidationMessageFor(model => model.NoteContent, "", new { @class = "text-danger" })
+                                        </div>
+                                       
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">&nbsp;</div>
+            </div>
+        </div>
+    }
+
+
+
+
+
+</div>
