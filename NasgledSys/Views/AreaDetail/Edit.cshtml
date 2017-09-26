@@ -107,9 +107,15 @@
                                     <a href="#tab-demo1" data-toggle="tab">Details</a>
                                 </li>
                                 <li><a href="@Url.Action("Index", "MgtSubArea", new { id = Model.AreaKey })">Sub-Areas</a></li>
-                                <li><a href="#">Photos</a></li>
-                                <li><a href="#">Documents</a></li>
-                                <li><a href="#">Notes</a></li>
+                                <li>
+                                    <a href="@Url.Action("Edit", "AreaPhoto", new { id = Model.AreaKey })">Photos</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Edit", "AreaDocument", new { id = Model.AreaKey })">Documents</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Edit", "AreaNote", new { id = Model.AreaKey })">Notes</a>
+                                </li>
                                 <li><a href="#">Copy</a></li>
 
                             </ul>

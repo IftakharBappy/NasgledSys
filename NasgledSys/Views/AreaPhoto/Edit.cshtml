@@ -53,8 +53,13 @@
                                 <li><a href="@Url.Action("Index", "MgtSubArea", new { id = Model.AreaKey })">Sub-Areas</a></li>
                                
                                 <li class="active"><a href="#" data-toggle="tab">Photos</a></li>
-                                <li><a href="#">Documents</a></li>
-                                <li><a href="#">Notes</a></li>
+                                
+                                <li>
+                                    <a href="@Url.Action("Edit", "AreaDocument", new { id = Model.AreaKey })">Documents</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Edit", "AreaNote", new { id = Model.AreaKey })">Notes</a>
+                                </li>
                                 <li><a href="#">Copy</a></li>
 
                             </ul>
