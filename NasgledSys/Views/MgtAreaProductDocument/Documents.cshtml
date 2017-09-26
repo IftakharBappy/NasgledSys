@@ -1,4 +1,4 @@
-﻿@model NasgledSys.Models.AreaProductPhotoViewModel
+﻿@model NasgledSys.Models.AreaProductDocumentViewModel
 @using NasgledSys.Models;
 @{
     ViewBag.Title = "Product";
@@ -147,13 +147,13 @@
 }
 
 <div class="content-wrapper">
-    @using (Html.BeginForm("Photos", "MgtAreaProductPhoto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Documents", "MgtAreaProductDocument", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary()
         @Html.HiddenFor(m => m.AreaKey, new { id = "AreaKey" })
         @Html.HiddenFor(m => m.FixtureKey, new { id = "FixtureKey" })
         @Html.HiddenFor(m => m.ProductKey, new { id = "ProductKey" })
-        @Html.HiddenFor(m => m.PhotoKey, new { id = "PhotoKey" })
+        @Html.HiddenFor(m => m.DocumentKey, new { id = "DocumentKey" })
 
         <div class="form-horizontal">
             <div class="row">
@@ -165,8 +165,9 @@
                                 <li><a href="@Url.Action("Edit", "MgtAddProducts", new { id = Model.ProductKey })">Products</a></li>
                                 <li><a href="@Url.Action("Details", "MgtAreaProductDetail", new { id = Model.ProductKey })">Details</a></li>
                                 <li><a href="@Url.Action("Notes", "MgtAreaProductNote", new { id = Model.ProductKey })">Notes</a></li>
-                                <li class="active"><a href="#tab-demo2" data-toggle="tab">Photos</a></li>
-                                <li><a href="@Url.Action("Documents", "MgtAreaProductDocument", new { id = Model.ProductKey })">Documents</a></li>
+                                <li><a href="@Url.Action("Photos", "MgtAreaProductPhoto", new { id = Model.ProductKey })">Documents</a></li>
+                                <li class="active"><a href="#tab-demo2" data-toggle="tab">Documents</a></li>
+                                
                             </ul>
                         </div>
                         <div class="panel-body">
@@ -174,7 +175,7 @@
                                 <div class="tab-pane fade in active" id="tab-demo2">
 
                                     <div class="panel-heading">
-                                        <div class="col-md-12"><h3>Add new area product photo</h3></div>
+                                        <div class="col-md-12"><h3>Add new area product document</h3></div>
                                     </div>
                                     <div class="panel-body">
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -183,11 +184,11 @@
                                             @Html.TextAreaFor(model => model.Description, new { placeholder = "description", id = "Description", @class = "form-control" })
                                         </div>
                                         <div class="form-group">
-                                            <label for="PostedLogo" class="btn btn-default border-blue btn-xlg col-md-4">Select a new Photo</label>
+                                            <label for="PostedLogo" class="btn btn-default border-blue btn-xlg col-md-4">Select a new Document</label>
                                             <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-success btn-xlg col-lg-12" id="btnsave" name="btnsave">Add Photo</button>
+                                            <button type="submit" class="btn btn-success btn-xlg col-lg-12" id="btnsave" name="btnsave">Add Document</button>
                                         </div>
                                         <hr />
 
@@ -196,34 +197,31 @@
 
                                                 <tbody>
 
-                                                    @for (int i = 0; i < Model.AreaProductPhotoList.Count(); i++)
+                                                    @for (int i = 0; i < Model.AreaProductDocumentList.Count(); i++)
                                                     {
                                                         <tr>
                                                             <td>
-
-                                                                @{
-                                                                    var base64 = Convert.ToBase64String(Model.AreaProductPhotoList[i].FileContent);
-                                                                    var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-                                                                    <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
-                                                                }
+                                                                
+                                                                <button type="button" class="btn btn-default border-bottom-brown" onclick="location.href='@Url.Action("DowloadFile", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey })'">Dowload</button>
+                                                                @*@Html.ActionLink(Model.AreaProductDocumentList[i].FileName, "DowloadFile", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey }, null)*@
                                                             </td>
 
                                                             <td>
-                                                                <div class="col-lg-offset-1">@Model.AreaProductPhotoList[i].Description</div>
+                                                                @*<div class="col-lg-offset-1">*@@Model.AreaProductDocumentList[i].Description@*</div>*@
                                                             </td>
 
                                                             <td>
                                                                 <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
                                                             </td>
                                                             <td>
-                                                                <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductPhotoList[i].PhotoKey" data-description="@Model.AreaProductPhotoList[i].Description" data-target="#modal_image" onclick="">Change Photo</button>
+                                                                <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductDocumentList[i].DocumentKey" data-description="@Model.AreaProductDocumentList[i].Description" data-target="#modal_image" onclick="">Change Document</button>
                                                             </td>
                                                             <td>
-                                                                <button type="button" id="btnUpdate" class="btn btn-default border-green col-md-offset-1" onclick="location.href='@Url.Action("Delete", "MgtAreaProductPhoto", new { id = Model.AreaProductPhotoList[i].PhotoKey })'">Remove Photo</button>
+                                                                <button type="button" id="btnUpdate" class="btn btn-default border-green" onclick="location.href='@Url.Action("Delete", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey })'">Remove Document</button>
                                                             </td>
 
                                                         </tr>
-                                                     }
+                                                      }
 
                                                 </tbody>
                                             </table>
@@ -249,9 +247,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <center><h4 class="modal-title panel panel-success panel-heading">Change Area Photo</h4></center>
+                    <center><h4 class="modal-title panel panel-success panel-heading">Change Area Document</h4></center>
                 </div>
-                @using (Html.BeginForm("UpdatePhoto", "MgtAreaProductPhoto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("UpdateDocument", "MgtAreaProductDocument", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div class="modal-body">
                         <div class="form-horizontal">
@@ -259,7 +257,7 @@
 
                             <div class="container-fluid">
 
-                                @Html.HiddenFor(m => Model.PhotoKey)
+                                @Html.HiddenFor(m => Model.DocumentKey)
                                 @Html.HiddenFor(m => Model.ProductKey)
                                 @*@Html.HiddenFor(m => Model.AreaKey)
                                     @Html.HiddenFor(m => Model.FixtureKey)*@
@@ -287,7 +285,7 @@
                 }
             </div>
         </div>
-
+        
     </div>
 
 </div>
@@ -296,7 +294,7 @@
 
     $(document).on("click", ".open-AddBookDialog", function () {
         var photoId = $(this).data('id');
-        $(".modal-body #PhotoKey").val(photoId);
+        $(".modal-body #DocumentKey").val(photoId);
 
         var description = $(this).data('description');
         $(".modal-body #Description").val(description);

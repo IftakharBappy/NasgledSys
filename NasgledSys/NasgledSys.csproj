@@ -228,6 +228,8 @@
     <Compile Include="Controllers\MgtAnnualSalesRevenueSetupController.cs" />
     <Compile Include="Controllers\MgtAreaController.cs" />
     <Compile Include="Controllers\MgtAreaProductDetailController.cs" />
+    <Compile Include="Controllers\MgtAreaProductDocumentController.cs" />
+    <Compile Include="Controllers\MgtAreaProductNoteController.cs" />
     <Compile Include="Controllers\MgtAreaProductPhotoController.cs" />
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
     <Compile Include="Controllers\MgtClientContactController.cs" />
@@ -344,6 +346,7 @@
     <Compile Include="Models\AreaProductDocument.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AreaProductDocumentViewModel.cs" />
     <Compile Include="Models\AreaProductNote.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3866,11 +3869,12 @@
     <Content Include="Views\MgtSchedule\EditRS.cshtml" />
     <Content Include="Views\MgtSchedule\EditCS.cshtml" />
     <Content Include="Views\MgtAreaProductDetail\Details.cshtml" />
-    <Content Include="Views\MgtAreaProductDetail\Notes.cshtml" />
+    <Content Include="Views\MgtAreaProductNote\Notes.cshtml" />
     <Content Include="Views\MgtAddProducts\Index.cshtml" />
     <Content Include="Views\MgtProject\Existing.cshtml" />
     <Content Include="Views\AreaDocument\Edit.cshtml" />
     <Content Include="Views\MgtAreaProductPhoto\Photos.cshtml" />
+    <Content Include="Views\MgtAreaProductDocument\Documents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
