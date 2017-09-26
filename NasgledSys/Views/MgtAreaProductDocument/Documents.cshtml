@@ -4,110 +4,12 @@
     ViewBag.Title = "Product";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 
-@*<script type="text/javascript">
-        $(document).ready(function () {
-            LoadYear();
-            LoadExistingControl();
-            LoadOperatingSchedule();
-            LoadLightingSatisfaction();
-        });
-        function isNumberKey(evt) {
-            var charCode = (evt.which) ? evt.which : event.keyCode;
-            if (charCode != 46 && charCode > 31
-                && (charCode < 48 || charCode > 57))
-                return false;
 
-            return true;
-        }
-        function LoadLightingSatisfaction() {
-            var select = $('select[name=LightingSatisfactionKey]');
-            $.ajax({
-                traditional: true,
-                type: "post",
-                dataType: "json",
-                contentType: "application/json",
-                url: "/DropdownUtility/LoadLightingSatisfaction/",
-                data: JSON.stringify({ LightingSatisfactionKey: '@Model.LightingSatisfactionKey' }),
-                success: function (data) {
-                    var res = "<option>Use Default</option>";
-                    for (var i = 0; i < data.length; i++) {
-                        res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].FactorName + "</option>";
-                    }
-                    select.html(res);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("Error on ajax call");
-                }
-            });
-        }
-        function LoadOperatingSchedule() {
-            var select = $('select[name=OperationScheduleKey]');
-            $.ajax({
-                traditional: true,
-                type: "post",
-                dataType: "json",
-                contentType: "application/json",
-                url: "/DropdownUtility/loadOperationSchedule/",
-                data: JSON.stringify({ OperationScheduleKey: '@Model.OperationScheduleKey' }),
-                success: function (data) {
-                    var res = "<option>Use Default</option>";
-                    for (var i = 0; i < data.length; i++) {
-                        res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].OPName + "</option>";
-                    }
-                    select.html(res);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("Error on ajax call");
-                }
-            });
-        }
-        function LoadExistingControl() {
-            var select = $('select[name=ExistingControl]');
-            $.ajax({
-                traditional: true,
-                type: "post",
-                dataType: "json",
-                contentType: "application/json",
-                url: "/DropdownUtility/LoadExistingControl/",
-                data: JSON.stringify({ id: '@Model.ExistingControl' }),
-                success: function (data) {
-                    var res = "<option></option>";
-                    for (var i = 0; i < data.length; i++) {
-                        res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
-                    }
-                    select.html(res);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("Error on ajax call");
-                }
-            });
-        }
-        function LoadYear() {
-            var select = $('select[name=Year]');
-            $.ajax({
-                traditional: true,
-                type: "post",
-                dataType: "json",
-                contentType: "application/json",
-                url: "/DropdownUtility/loadPrevious/",
-                data: JSON.stringify({ Year: '@Model.Year' }),
-                success: function (data) {
-                    var res = "<option></option>";
-                    for (var i = 0; i < data.length; i++) {
-                        res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
-                    }
-                    select.html(res);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("Error on ajax call");
-                }
-            });
-        }
-
-    </script>*@
-
-@*@{
+@{
         NasgledDBEntities db = new NasgledDBEntities();
         Guid? ak = Model.AreaKey;
         string areaLink = "";
@@ -127,7 +29,7 @@
         }
 
 
-    }*@
+    }
 @section CenterTitle{
     Edit Existing Product
 }
@@ -137,7 +39,7 @@
         <span class="heading-text">
 
             <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
-            @*<label>></label>@MvcHtmlString.Create(areaLink)*@
+            <label>></label>@MvcHtmlString.Create(areaLink)
 
         </span>
 
@@ -165,7 +67,7 @@
                                 <li><a href="@Url.Action("Edit", "MgtAddProducts", new { id = Model.ProductKey })">Products</a></li>
                                 <li><a href="@Url.Action("Details", "MgtAreaProductDetail", new { id = Model.ProductKey })">Details</a></li>
                                 <li><a href="@Url.Action("Notes", "MgtAreaProductNote", new { id = Model.ProductKey })">Notes</a></li>
-                                <li><a href="@Url.Action("Photos", "MgtAreaProductPhoto", new { id = Model.ProductKey })">Documents</a></li>
+                                <li><a href="@Url.Action("Photos", "MgtAreaProductPhoto", new { id = Model.ProductKey })">Photos</a></li>
                                 <li class="active"><a href="#tab-demo2" data-toggle="tab">Documents</a></li>
                                 
                             </ul>
@@ -175,7 +77,7 @@
                                 <div class="tab-pane fade in active" id="tab-demo2">
 
                                     <div class="panel-heading">
-                                        <div class="col-md-12"><h3>Add new area product document</h3></div>
+                                       <h3 class="text-center alert-info">Add Area Product Document</h3>
                                     </div>
                                     <div class="panel-body">
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -192,41 +94,40 @@
                                         </div>
                                         <hr />
 
-                                        <div class="form-group">
-                                            <table class="table">
+                                        <table class="table table-bordered table-hover" id="ctable">
 
-                                                <tbody>
+                                            <tbody>
 
-                                                    @for (int i = 0; i < Model.AreaProductDocumentList.Count(); i++)
-                                                    {
-                                                        <tr>
-                                                            <td>
-                                                                
-                                                                <button type="button" class="btn btn-default border-bottom-brown" onclick="location.href='@Url.Action("DowloadFile", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey })'">Dowload</button>
-                                                                @*@Html.ActionLink(Model.AreaProductDocumentList[i].FileName, "DowloadFile", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey }, null)*@
-                                                            </td>
+                                                @for (int i = 0; i < Model.AreaProductDocumentList.Count(); i++)
+                                                {
+                                                    <tr>
+                                                        <td>
 
-                                                            <td>
-                                                                @*<div class="col-lg-offset-1">*@@Model.AreaProductDocumentList[i].Description@*</div>*@
-                                                            </td>
+                                                            <button type="button" class="btn btn-default border-bottom-brown" onclick="location.href='@Url.Action("DowloadFile", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey })'">Download</button>
+                                                            @*@Html.ActionLink(Model.AreaProductDocumentList[i].FileName, "DowloadFile", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey }, null)*@
+                                                        </td>
 
-                                                            <td>
-                                                                <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductDocumentList[i].DocumentKey" data-description="@Model.AreaProductDocumentList[i].Description" data-target="#modal_image" onclick="">Change Document</button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" id="btnUpdate" class="btn btn-default border-green" onclick="location.href='@Url.Action("Delete", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey })'">Remove Document</button>
-                                                            </td>
+                                                        <td>
+                                                           @Html.DisplayFor(m=>Model.AreaProductDocumentList[i].Description)
+                                                        </td>
 
-                                                        </tr>
-                                                      }
+                                                        <td>
+                                                            <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductDocumentList[i].DocumentKey" data-description="@Model.AreaProductDocumentList[i].Description" data-target="#modal_image" onclick="">Change Document</button>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" id="btnUpdate" class="btn btn-default border-green" onclick="location.href='@Url.Action("Delete", "MgtAreaProductDocument", new { id = Model.AreaProductDocumentList[i].DocumentKey })'">Remove Document</button>
+                                                        </td>
 
-                                                </tbody>
-                                            </table>
+                                                    </tr>
+                                                }
 
-                                        </div>
+                                            </tbody>
+                                        </table>
+
+
 
                                     </div>
 

@@ -14,6 +14,8 @@ namespace NasgledSys.Models
         public byte[] FileContent { get; set; }
 
         public string Description { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
 
 
         //private List<AreaPhotoModel> _areaPhotoList = new List<AreaPhotoModel>();

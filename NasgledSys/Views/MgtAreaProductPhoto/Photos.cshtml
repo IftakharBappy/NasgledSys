@@ -4,130 +4,31 @@
     ViewBag.Title = "Product";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+@{
+   
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.AreaKey;
+    string areaLink = "";
+    for (;;)
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
 
-@*<script type="text/javascript">
-        $(document).ready(function () {
-            LoadYear();
-            LoadExistingControl();
-            LoadOperatingSchedule();
-            LoadLightingSatisfaction();
-        });
-        function isNumberKey(evt) {
-            var charCode = (evt.which) ? evt.which : event.keyCode;
-            if (charCode != 46 && charCode > 31
-                && (charCode < 48 || charCode > 57))
-                return false;
-
-            return true;
-        }
-        function LoadLightingSatisfaction() {
-            var select = $('select[name=LightingSatisfactionKey]');
-            $.ajax({
-                traditional: true,
-                type: "post",
-                dataType: "json",
-                contentType: "application/json",
-                url: "/DropdownUtility/LoadLightingSatisfaction/",
-                data: JSON.stringify({ LightingSatisfactionKey: '@Model.LightingSatisfactionKey' }),
-                success: function (data) {
-                    var res = "<option>Use Default</option>";
-                    for (var i = 0; i < data.length; i++) {
-                        res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].FactorName + "</option>";
-                    }
-                    select.html(res);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("Error on ajax call");
-                }
-            });
-        }
-        function LoadOperatingSchedule() {
-            var select = $('select[name=OperationScheduleKey]');
-            $.ajax({
-                traditional: true,
-                type: "post",
-                dataType: "json",
-                contentType: "application/json",
-                url: "/DropdownUtility/loadOperationSchedule/",
-                data: JSON.stringify({ OperationScheduleKey: '@Model.OperationScheduleKey' }),
-                success: function (data) {
-                    var res = "<option>Use Default</option>";
-                    for (var i = 0; i < data.length; i++) {
-                        res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].OPName + "</option>";
-                    }
-                    select.html(res);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("Error on ajax call");
-                }
-            });
-        }
-        function LoadExistingControl() {
-            var select = $('select[name=ExistingControl]');
-            $.ajax({
-                traditional: true,
-                type: "post",
-                dataType: "json",
-                contentType: "application/json",
-                url: "/DropdownUtility/LoadExistingControl/",
-                data: JSON.stringify({ id: '@Model.ExistingControl' }),
-                success: function (data) {
-                    var res = "<option></option>";
-                    for (var i = 0; i < data.length; i++) {
-                        res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
-                    }
-                    select.html(res);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("Error on ajax call");
-                }
-            });
-        }
-        function LoadYear() {
-            var select = $('select[name=Year]');
-            $.ajax({
-                traditional: true,
-                type: "post",
-                dataType: "json",
-                contentType: "application/json",
-                url: "/DropdownUtility/loadPrevious/",
-                data: JSON.stringify({ Year: '@Model.Year' }),
-                success: function (data) {
-                    var res = "<option></option>";
-                    for (var i = 0; i < data.length; i++) {
-                        res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
-                    }
-                    select.html(res);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("Error on ajax call");
-                }
-            });
-        }
-
-    </script>*@
-
-@*@{
-        NasgledDBEntities db = new NasgledDBEntities();
-        Guid? ak = Model.AreaKey;
-        string areaLink = "";
-        for (; ; )
+        if (area.ParentAreaKey == null)
         {
-            Area area = db.Area.Find(ak);
-            areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
-
-            if (area.ParentAreaKey == null)
-            {
-                break;
-            }
-            else
-            {
-                ak = area.ParentAreaKey;
-            }
+            break;
         }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
 
 
-    }*@
+}
 @section CenterTitle{
     Edit Existing Product
 }
@@ -137,7 +38,7 @@
         <span class="heading-text">
 
             <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
-            @*<label>></label>@MvcHtmlString.Create(areaLink)*@
+            <label>></label>@MvcHtmlString.Create(areaLink)
 
         </span>
 
@@ -174,7 +75,7 @@
                                 <div class="tab-pane fade in active" id="tab-demo2">
 
                                     <div class="panel-heading">
-                                        <div class="col-md-12"><h3>Add new area product photo</h3></div>
+                                       <h3 class="text-center alert-info">Add Area Product Photo</h3>
                                     </div>
                                     <div class="panel-body">
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -190,45 +91,44 @@
                                             <button type="submit" class="btn btn-success btn-xlg col-lg-12" id="btnsave" name="btnsave">Add Photo</button>
                                         </div>
                                         <hr />
+                                        <table class="table table-bordered table-hover" id="ctable">
+                                            <tbody>
 
-                                        <div class="form-group">
-                                            <table class="table">
+                                                @for (int i = 0; i < Model.AreaProductPhotoList.Count(); i++)
+                                                {
+                                                    <tr>
+                                                        <td>
 
-                                                <tbody>
+                                                            @{
+                                                                var base64 = Convert.ToBase64String(Model.AreaProductPhotoList[i].FileContent);
+                                                                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                                //var imgSrc = String.Format(Model.AreaProductPhotoList[i].FileType, base64);
+                                                                <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
+                                                            }
+                                                        </td>
 
-                                                    @for (int i = 0; i < Model.AreaProductPhotoList.Count(); i++)
-                                                    {
-                                                        <tr>
-                                                            <td>
+                                                        <td>
+                                                            @Html.DisplayFor(m=>Model.AreaProductPhotoList[i].Description)
+                                                            <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
+                                                        </td>
 
-                                                                @{
-                                                                    var base64 = Convert.ToBase64String(Model.AreaProductPhotoList[i].FileContent);
-                                                                    var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-                                                                    <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
+                                                       
+                                                        <td>
+                                                            <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductPhotoList[i].PhotoKey" data-description="@Model.AreaProductPhotoList[i].Description" data-target="#modal_image" onclick="">Change Photo</button>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" id="btnUpdate" class="btn btn-default border-green col-md-offset-1" onclick="location.href='@Url.Action("Delete", "MgtAreaProductPhoto", new { id = Model.AreaProductPhotoList[i].PhotoKey })'">Remove Photo</button>
+                                                        </td>
+
+                                                    </tr>
                                                                 }
-                                                            </td>
 
-                                                            <td>
-                                                                <div class="col-lg-offset-1">@Model.AreaProductPhotoList[i].Description</div>
-                                                            </td>
+                                            </tbody>
+                                        </table>
 
-                                                            <td>
-                                                                <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductPhotoList[i].PhotoKey" data-description="@Model.AreaProductPhotoList[i].Description" data-target="#modal_image" onclick="">Change Photo</button>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" id="btnUpdate" class="btn btn-default border-green col-md-offset-1" onclick="location.href='@Url.Action("Delete", "MgtAreaProductPhoto", new { id = Model.AreaProductPhotoList[i].PhotoKey })'">Remove Photo</button>
-                                                            </td>
 
-                                                        </tr>
-                                                     }
 
-                                                </tbody>
-                                            </table>
-
-                                        </div>
+                                       
 
                                     </div>
 

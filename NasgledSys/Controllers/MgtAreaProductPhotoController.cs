@@ -44,9 +44,9 @@ namespace NasgledSys.Controllers
                             //AreaKey = asset.AreaKey,
                             PhotoKey = asset.PhotoKey,
                             Description = asset.Description,
-                            FileContent = asset.FileContent
-                            //FileName = asset.FileName,
-                            //FileType = asset.FileType
+                            FileContent = asset.FileContent,
+                            FileName = asset.FileName,
+                            FileType = asset.FileType
                         }).ToList();
 
                         model.AreaProductPhotoList = data;
@@ -158,7 +158,7 @@ namespace NasgledSys.Controllers
                     db.SaveChanges();
 
                     Session["GlobalMessege"] = "Photo has been DELETED successfully.";
-                    return RedirectToAction("Photos", new { @id = productKey });
+                    return RedirectToAction("Photos", new { id = productKey });
                 }
                 catch (Exception e)
                 {
