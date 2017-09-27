@@ -22,7 +22,7 @@ namespace NasgledSys.Controllers
 
                     if (db.AreaNote.Any(o => o.AreaKey == id))
                     {
-                        AreaNote entityrem = db.AreaNote.Find(model.AreaKey);
+                        AreaNote entityrem = db.AreaNote.FirstOrDefault(m => m.AreaKey == id);
                         model = EM_AreaNote.ConvertToModel(entityrem);
                     }
 
@@ -59,10 +59,9 @@ namespace NasgledSys.Controllers
                 try
                 {
 
-                    if (db.AreaNote.Any(o => o.NoteKey == model.AreaKey))
+                    if (db.AreaNote.Any(o => o.AreaKey == model.AreaKey))
                     {
                         AreaNote entityrem = db.AreaNote.Find(model.AreaKey);
-                        db.AreaNote.Remove(entityrem);
                         db.SaveChanges();
                     }
 
@@ -76,8 +75,9 @@ namespace NasgledSys.Controllers
 
                     }
 
-                    AreaNote entityDetails = db.AreaNote.Find(model.AreaKey);
-                    model = EM_AreaNote.ConvertToModel(entityDetails);
+                    AreaNote entitydata = db.AreaNote.FirstOrDefault(m => m.AreaKey == model.AreaKey);
+                    
+                    model = EM_AreaNote.ConvertToModel(entitydata);
 
                     Session["GlobalMessege"] = "";
 
