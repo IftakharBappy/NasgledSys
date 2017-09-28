@@ -127,9 +127,9 @@
                         <li><a href="@Url.Action("Edit", "AreaDetail", new { id = Model.AreaKey })">Details</a></li>
                         <li  class="active"><a href="#" data-toggle="tab-demo1">Sub-Areas</a></li>
                         <li><a href="@Url.Action("Edit", "AreaPhoto", new { id = Model.AreaKey })">Photos</a></li>
-                        <li><a href="#" data-toggle="tab">Documents</a></li>
-                        <li><a href="#" data-toggle="tab">Notes</a></li>
-                        <li><a href="#" data-toggle="tab">Copy</a></li>
+                        <li><a href="@Url.Action("Edit", "AreaDocument", new { id = Model.AreaKey })">Documents</a></li>
+                        <li><a href="@Url.Action("Edit", "AreaNote", new { id = Model.AreaKey })">Note</a></li>
+                        <li><a href="@Url.Action("Index", "AreaCopy", new { id = Model.AreaKey })" onclick="return confirm('Are you sure you want to Copy this Area?')">Copy</a></li>
 
                     </ul>
                 </div>

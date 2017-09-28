@@ -397,7 +397,7 @@
                                 <li>
                                     <a href="@Url.Action("Edit", "AreaNote", new { id = Model.AreaKey })">Notes</a>
                                 </li>
-                                <li><a href="#">Copy</a></li>
+                                <li><a href="@Url.Action("Index", "AreaCopy", new { id = Model.AreaKey })" onclick = "return confirm('Are you sure you want to Copy this Area?')">Copy</a></li>
 
 
 

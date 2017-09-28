@@ -95,18 +95,19 @@ namespace NasgledSys.Controllers
                     foreach (var item in model.AreaDocumentList)
                     {
                         AreaDocument entityrem = db.AreaDocument.Find(item.DocumentKey);
-                        db.AreaDocument.Remove(entityrem);
+                        entityrem.Description = item.Description;
                         db.SaveChanges();
+                        db = new NasgledDBEntities();
                     }
 
                     // Add Photo
-                    foreach (var item in model.AreaDocumentList)
-                    {
-                        AreaDocument entity = new AreaDocument();
-                        entity = EM_DocumentPhoto.ConvertToEntity(item);
-                        db.AreaDocument.Add(entity);
-                        db.SaveChanges();
-                    }
+                    //foreach (var item in model.AreaDocumentList)
+                    //{
+                    //    AreaDocument entity = new AreaDocument();
+                    //    entity = EM_DocumentPhoto.ConvertToEntity(item);
+                    //    db.AreaDocument.Add(entity);
+                    //    db.SaveChanges();
+                    //}
 
                    
                 }

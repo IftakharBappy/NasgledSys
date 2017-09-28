@@ -91,22 +91,23 @@ namespace NasgledSys.Controllers
 
                 else
                 {
-                    // Remove Photo
+                    
                     foreach (var item in model.AreaPhotoList)
                     {
                         AreaPhoto entityrem = db.AreaPhoto.Find(item.PhotoKey);
-                        db.AreaPhoto.Remove(entityrem);
+                        entityrem.Description = item.Description;
                         db.SaveChanges();
+                        db = new NasgledDBEntities();
                     }
 
-                    // Add Photo
-                    foreach (var item in model.AreaPhotoList)
-                    {
-                        AreaPhoto entity = new AreaPhoto();
-                        entity = EM_AreaPhoto.ConvertToEntity(item);
-                        db.AreaPhoto.Add(entity);
-                        db.SaveChanges();
-                    }
+                    
+                    //foreach (var item in model.AreaPhotoList)
+                    //{
+                    //    AreaPhoto entity = new AreaPhoto();
+                    //    entity = EM_AreaPhoto.ConvertToEntity(item);
+                    //    db.AreaPhoto.Add(entity);
+                    //    db.SaveChanges();
+                    //}
 
                     model.AreaPhotoList = new List<AreaPhotoModel>();
 

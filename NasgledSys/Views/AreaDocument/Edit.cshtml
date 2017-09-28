@@ -12,7 +12,27 @@
 <script type="text/javascript" src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
 <script src="~/Scripts/jquery.maskedinput.js"></script>
 
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.AreaKey;
+    string areaLink = "";
+    for (;;)
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
 
+        if (area.ParentAreaKey == null)
+        {
+            break;
+        }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
+
+
+}
 @section CenterTitle{
     @ViewBag.heading
 }
@@ -21,9 +41,8 @@
 
         <span class="heading-text">
 
-            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Edit","AreaPhoto",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
-            <label>></label>
-            <a class="h4" href="@Url.Action("Edit","AreaPhoto",new { id=GlobalClass.Project.ProjectKey})">Areas</a>
+            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
+            <label>></label>@MvcHtmlString.Create(areaLink)
 
         </span>
         <span class="heading-text">
@@ -56,10 +75,10 @@
                                     <a href="@Url.Action("Edit", "AreaPhoto", new { id = Model.AreaKey })">Photos</a>
                                 </li>
                                 <li class="active"><a href="#" data-toggle="tab">Documents</a></li>
-                                <li>
-                                    <a href="@Url.Action("Edit", "AreaNote", new { id = Model.AreaKey })">Notes</a>
-                                </li>
-                                <li><a href="#">Copy</a></li>
+                                
+                                <li><a href="@Url.Action("Edit", "AreaNote", new { id = Model.AreaKey })">Notes</a></li>
+                                <li><a href="@Url.Action("Index", "AreaCopy", new { id = Model.AreaKey })" onclick="return confirm('Are you sure you want to Copy this Area?')">Copy</a></li>
+
 
                             </ul>
                         </div>
@@ -78,7 +97,7 @@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         <div class="form-group">
 
-                                            <label for="PostedLogo" class="btn border-primary btn-xlg col-md-4 ">Select a new Photo</label>
+                                            <label for="PostedLogo" class="btn border-primary btn-xlg col-md-4">Select a new File</label>
                                             <button type="submit" class="btn btn-primary btn-xlg col-lg-4 col-md-offset-2" id="btnAdd">Add</button>
                                             <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
                                         </div>
@@ -107,7 +126,7 @@
 
                                                             <td>
                                                                 <div class="form-group">
-                                                                    @Html.TextBoxFor(model => model.AreaDocumentList[i].Description, new { placeholder = "description area", id = "Description" + i, @class = "form-control" })
+                                                                    @Html.TextAreaFor(model => model.AreaDocumentList[i].Description,5,20, new { placeholder = "description area", id = "Description" + i, @class = "form-control" })
                                                                 </div>
                                                             </td>
 
