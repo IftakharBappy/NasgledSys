@@ -86,7 +86,7 @@ namespace NasgledSys.Controllers
 
                     db.AreaDocument.Add(entity);
                     db.SaveChanges();
-
+                    Session["GlobalMessege"] = "Document has been Added.";
                 }
 
                 else

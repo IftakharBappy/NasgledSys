@@ -105,11 +105,11 @@
                                             
 
                                             @Html.LabelFor(model => model.Internal)
-                                            @Html.TextBoxFor(model => model.Internal, new { placeholder = "Internal Notes", id = "Internal", @class = "form-control" })
+                                            @Html.TextAreaFor(model => model.Internal,10,20, new { placeholder = "Internal Notes", id = "Internal", @class = "form-control" })
 
                                             @Html.ValidationMessageFor(model => model.Internal, "", new { @class = "text-danger" })
 
-                                            <p>These will not be visible to your customer.</p>
+                                            <span class="text-size-small text-muted">These will not be visible to your customer.</span>
                                         </div>
                                        
                                     </div>

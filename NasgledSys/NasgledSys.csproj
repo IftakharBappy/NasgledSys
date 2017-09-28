@@ -215,6 +215,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AreaCopyController.cs" />
     <Compile Include="Controllers\AreaDetailController.cs" />
     <Compile Include="Controllers\AreaDocumentController.cs" />
     <Compile Include="Controllers\AreaNoteController.cs" />
@@ -3883,6 +3884,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AnnualSalesRevenueSetup\" />
+    <Folder Include="Views\AreaCopy\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\DropdownUtility\" />
     <Folder Include="Views\ShowImage\" />

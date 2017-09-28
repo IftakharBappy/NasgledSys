@@ -70,9 +70,7 @@
 
                                     <div class="panel-heading">
                                         <div class="col-md-8"><h3>Area Photo</h3></div>
-                                        <div class="col-md-4">
-                                            <button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Add</button>
-                                        </div>
+                                       
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group">
@@ -81,7 +79,8 @@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         <div class="form-group">
                                             
-                                            <label for="PostedLogo" class="btn btn-primary btn-xlg col-md-4 col-md-offset-2">Select a new Photo</label>
+                                            <label for="PostedLogo" class="btn border-primary btn-xlg col-md-4">Select a new Photo</label>
+                                            <button type="submit" class="btn btn-primary btn-xlg col-md-4 col-md-offset-2" id="btnAdd">Add</button>
                                             <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
                                         </div>
 
@@ -120,7 +119,7 @@
                                                                 <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
                                                                 @*<button type="button" id="btnUpdate" class="btn btn-primary" onclick="">Change Photo</button>*@
                                                                 <button type="button" class="open-AddBookDialog btn btn-primary" data-toggle="modal" data-id="@Model.AreaPhotoList[i].PhotoKey" data-target="#modal_image" onclick="">Change Photo</button>
-                                                                <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Delete", "AreaPhoto", new { id = Model.AreaPhotoList[i].PhotoKey })'">Remove Photo</button>
+                                                                <button type="button" id="btnUpdate" class="btn border-danger" onclick="location.href='@Url.Action("Delete", "AreaPhoto", new { id = Model.AreaPhotoList[i].PhotoKey })'">Remove Photo</button>
                                                             </td>
                                                             <td></td>
                                                         </tr>

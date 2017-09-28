@@ -61,7 +61,9 @@ namespace NasgledSys.Controllers
 
                     if (db.AreaNote.Any(o => o.AreaKey == model.AreaKey))
                     {
-                        AreaNote entityrem = db.AreaNote.Find(model.AreaKey);
+                        AreaNote v  = db.AreaNote.SingleOrDefault(m=>m.AreaKey==model.AreaKey);
+                         v.Internal = model.Internal;
+                        Session["GlobalMessege"] = "Note Has been Saved successfully.";
                         db.SaveChanges();
                     }
 
@@ -72,6 +74,7 @@ namespace NasgledSys.Controllers
                         entity = EM_AreaNote.ConvertToEntity(model);
                         db.AreaNote.Add(entity);
                         db.SaveChanges();
+                        Session["GlobalMessege"] = "Note Has been Saved successfully.";
 
                     }
 
@@ -79,14 +82,14 @@ namespace NasgledSys.Controllers
                     
                     model = EM_AreaNote.ConvertToModel(entitydata);
 
-                    Session["GlobalMessege"] = "";
+                   
 
                     return View(model);
                 }
                 catch (Exception e)
                 {
 
-                    return View("Error", new HandleErrorInfo(e, "Edit", "AreaNote"));
+                    return View("Error", new HandleErrorInfo(e, "MgtProject", "Created"));
                 }
             }
             else
