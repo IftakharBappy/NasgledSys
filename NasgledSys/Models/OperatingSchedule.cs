@@ -19,6 +19,7 @@ namespace NasgledSys.Models
         {
             this.AreaProductDetail = new HashSet<AreaProductDetail>();
             this.Area = new HashSet<Area>();
+            this.AreaProduct = new HashSet<AreaProduct>();
         }
     
         public System.Guid PKey { get; set; }
@@ -34,5 +35,7 @@ namespace NasgledSys.Models
         public virtual Project Project { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Area> Area { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AreaProduct> AreaProduct { get; set; }
     }
 }

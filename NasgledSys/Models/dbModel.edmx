@@ -107,6 +107,7 @@
           <Property Name="ProjectKey" Type="uniqueidentifier" />
           <Property Name="IsDelete" Type="bit" />
           <Property Name="ExistingProductName" Type="nvarchar(max)" />
+          <Property Name="OperatingScheduleKey" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="AreaProductDetail">
           <Key>
@@ -667,6 +668,7 @@
           <Property Name="Summary" Type="nvarchar(max)" />
           <Property Name="Estimal" Type="nvarchar(max)" />
           <Property Name="ProjectDescription" Type="nvarchar(max)" />
+          <Property Name="IsDelete" Type="bit" />
         </EntityType>
         <EntityType Name="ProposalAdditional">
           <Key>
@@ -1005,6 +1007,18 @@
             </Principal>
             <Dependent Role="AreaProduct">
               <PropertyRef Name="IncentiveTypeKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaProduct_OperatingSchedule">
+          <End Role="OperatingSchedule" Type="Self.OperatingSchedule" Multiplicity="0..1" />
+          <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OperatingSchedule">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="AreaProduct">
+              <PropertyRef Name="OperatingScheduleKey" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1975,6 +1989,10 @@
             <End Role="IncentiveType" EntitySet="IncentiveType" />
             <End Role="AreaProduct" EntitySet="AreaProduct" />
           </AssociationSet>
+          <AssociationSet Name="FK_AreaProduct_OperatingSchedule" Association="Self.FK_AreaProduct_OperatingSchedule">
+            <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+            <End Role="AreaProduct" EntitySet="AreaProduct" />
+          </AssociationSet>
           <AssociationSet Name="FK_AreaProduct_ProfileProduct" Association="Self.FK_AreaProduct_ProfileProduct">
             <End Role="ProfileProduct" EntitySet="ProfileProduct" />
             <End Role="AreaProduct" EntitySet="AreaProduct" />
@@ -2803,6 +2821,10 @@
             <End Role="Area" EntitySet="Area" />
             <End Role="AreaProductPhoto" EntitySet="AreaProductPhoto" />
           </AssociationSet>
+          <AssociationSet Name="FK_AreaProduct_OperatingSchedule" Association="NasgledDBModel.FK_AreaProduct_OperatingSchedule">
+            <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+            <End Role="AreaProduct" EntitySet="AreaProduct" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AreaDetail">
           <Key>
@@ -2894,6 +2916,8 @@
           <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProduct_Area" FromRole="AreaProduct" ToRole="Area" />
           <Property Name="IsDelete" Type="Boolean" />
           <Property Name="ExistingProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OperatingScheduleKey" Type="Guid" />
+          <NavigationProperty Name="OperatingSchedule" Relationship="NasgledDBModel.FK_AreaProduct_OperatingSchedule" FromRole="AreaProduct" ToRole="OperatingSchedule" />
         </EntityType>
         <EntityType Name="AreaProductDetail">
           <Key>
@@ -3224,6 +3248,7 @@
           <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_OperatingSchedule" FromRole="OperatingSchedule" ToRole="AreaProductDetail" />
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_OperatingSchedule_Project" FromRole="OperatingSchedule" ToRole="Project" />
           <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_OperatingSchedule" FromRole="OperatingSchedule" ToRole="Area" />
+          <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProduct_OperatingSchedule" FromRole="OperatingSchedule" ToRole="AreaProduct" />
         </EntityType>
         <EntityType Name="ProfileProduct">
           <Key>
@@ -3349,6 +3374,7 @@
           <Property Name="ProjectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Proposal_Project" FromRole="Proposal" ToRole="Project" />
           <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_Proposal_UserProfile" FromRole="Proposal" ToRole="UserProfile" />
+          <Property Name="IsDelete" Type="Boolean" />
         </EntityType>
         <EntityType Name="ProposalAdditional">
           <Key>
@@ -4687,6 +4713,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AreaProduct_OperatingSchedule">
+          <End Type="NasgledDBModel.OperatingSchedule" Role="OperatingSchedule" Multiplicity="0..1" />
+          <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OperatingSchedule">
+              <PropertyRef Name="PKey" />
+            </Principal>
+            <Dependent Role="AreaProduct">
+              <PropertyRef Name="OperatingScheduleKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4832,6 +4870,7 @@
           <EntitySetMapping Name="AreaProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.AreaProduct">
               <MappingFragment StoreEntitySet="AreaProduct">
+                <ScalarProperty Name="OperatingScheduleKey" ColumnName="OperatingScheduleKey" />
                 <ScalarProperty Name="ExistingProductName" ColumnName="ExistingProductName" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="ProjectKey" ColumnName="ProjectKey" />
@@ -5243,6 +5282,7 @@
           <EntitySetMapping Name="Proposal">
             <EntityTypeMapping TypeName="NasgledDBModel.Proposal">
               <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
                 <ScalarProperty Name="Estimal" ColumnName="Estimal" />
                 <ScalarProperty Name="Summary" ColumnName="Summary" />

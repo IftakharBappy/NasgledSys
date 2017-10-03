@@ -51,6 +51,7 @@ namespace NasgledSys.Models
         public Nullable<System.Guid> ProjectKey { get; set; }
         public Nullable<bool> IsDelete { get; set; }
         public string ExistingProductName { get; set; }
+        public Nullable<System.Guid> OperatingScheduleKey { get; set; }
     
         public virtual IncentiveMaxType IncentiveMaxType { get; set; }
         public virtual IncentiveType IncentiveType { get; set; }
@@ -64,5 +65,6 @@ namespace NasgledSys.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AreaProductPhoto> AreaProductPhoto { get; set; }
         public virtual Area Area { get; set; }
+        public virtual OperatingSchedule OperatingSchedule { get; set; }
     }
 }

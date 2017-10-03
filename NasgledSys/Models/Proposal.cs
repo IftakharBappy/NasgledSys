@@ -33,6 +33,7 @@ namespace NasgledSys.Models
         public string Summary { get; set; }
         public string Estimal { get; set; }
         public string ProjectDescription { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
     
         public virtual Project Project { get; set; }
         public virtual UserProfile UserProfile { get; set; }

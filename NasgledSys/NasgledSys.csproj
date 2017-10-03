@@ -260,6 +260,7 @@
     <Compile Include="Controllers\MgtProfileProductController.cs" />
     <Compile Include="Controllers\MgtProjectController.cs" />
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
+    <Compile Include="Controllers\MgtProposalController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtScheduleController.cs" />
@@ -513,6 +514,7 @@
     <Compile Include="Models\ProposalAdditional.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProposalClass.cs" />
     <Compile Include="Models\ProposalLoanTerms.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3880,6 +3882,7 @@
     <Content Include="Views\MgtAreaProductPhoto\Photos.cshtml" />
     <Content Include="Views\AreaNote\Edit.cshtml" />
     <Content Include="Views\MgtAreaProductDocument\Documents.cshtml" />
+    <Content Include="Views\MgtProposal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
