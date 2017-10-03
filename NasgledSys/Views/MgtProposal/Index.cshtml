@@ -1,14 +1,29 @@
-﻿@model NasgledSys.Models.ProposalClass
+﻿@model NasgledSys.Models.Proposal
 @using NasgledSys.Models;
 @{
     ViewBag.Title = "Proposal";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+
 <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
 <script src="~/Content/datatables/jquery.dataTables.js"></script>
 <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
 <script type="text/javascript">
+    $(document).ready(function () {
 
+      
+        var item = "#PreparedByUser";         
+        var urlX = '@Url.Content("~/")' + "MgtProposal/GetProfileUsername";
+            $.getJSON(urlX, { id: $(item).val() }, function (data) {
+                $('#PreparedByUser').val(data);
+            });
+      
+     
+    });
 
         var CityListVM;
         $(function () {
@@ -48,7 +63,7 @@
                                 "searchable": false,
                                 "sortable": false,
                                 "render": function (data, type, full, meta) {
-                                    return '<a href="@Url.Action("Copy", "MgtProposal")?id=' + data + '" class="btn btn-success btn-xlg col-lg-6">Copy</a>';
+                                    return '<a href="@Url.Action("Copy", "MgtProposal")?id=' + data + '" class="btn btn-success btn-xlg col-lg-12">Copy</a>';
                                 }
                             },
                             {
@@ -57,7 +72,7 @@
                                 "searchable": false,
                                 "sortable": false,
                                 "render": function (data, type, full, meta) {
-                                    return '<a href="@Url.Action("Edit", "MgtProposal")?id=' + data + '" class="btn btn-info btn-xlg col-lg-6">View</a>';
+                                    return '<a href="@Url.Action("Summary", "MgtProposal")?id=' + data + '" class="btn btn-info btn-xlg col-lg-12">View</a>';
                                 }
                             }
                         ],
@@ -83,10 +98,24 @@
 
 
 
+    function CreatePoposal(data) {
 
+        if (data != "success") {
+            $('#deleteCityContainer').html(data);
+            $('#modal_Operating').modal('show');
+        }
+        else {
+            $('#ProposalName').val("");
+            $('#PreparedByUser').val("");
+            $('#deleteCityContainer').html("Data has been Saved Successfully");
+            window.location.href = "@Url.Action("Summary", "MgtProposal", new { id = GlobalClass.ProposalGuid })";
+        }
+    }
 
 
 </script>
+
+
 @section CenterTitle{
     @Html.DisplayFor(m => GlobalClass.Project.ProjectName)
 }
@@ -123,7 +152,9 @@
                             <div class="panel-heading">
                                 
                                 <div class="col-md-12">
-                                    <a href="@Url.Action("Create","MgtProposal",new { id=GlobalClass.Project.ProjectKey})" class="btn btn-success btn-xlg col-lg-12" role="button">Add Proposal</a>
+                                    <button type="button" class="btn btn-success btn-xlg col-lg-12" id="Add" data-toggle="modal" data-target="#modal_Operating">
+                                        <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Add Proposal
+                                    </button>                                   
                                 </div>
                             </div>
                             <div class="panel-body">
@@ -138,6 +169,52 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div id="modal_Operating" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <center><h4 class="modal-title panel panel-success panel-heading">New Proposal</h4></center>
+                        </div>
+                        @using (Ajax.BeginForm("Create", "MgtProposal", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreatePoposal" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                           @Html.HiddenFor(model => model.ProposalKey,new { id= "ProposalKey" })
+                            <div class="modal-body">
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    <div class="form-group">
+                                        <div class="control-label">Proposal Name <span class="alert-danger">*..</span></div>
+                                        <input type="text" required="required" id="ProposalName" name="ProposalName" placeholder="proposal name" class="form-control" />
+                                        <span class="small text-muted">This will appear on the cover page of the proposal</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="control-label">Annual Operating Hours<span class="alert-danger">*..</span></div>
+                                        <input type="text" id="PreparedByUser" name="PreparedByUser" required="required" placeholder="Prepared By" class="form-control" />
+                                        <span class="small text-muted">This will appear on the cover page of the proposal</span>
+                                    </div>
+
+
+                                    <div class="h3 alert-info" id="deleteCityContainer">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-primary" name="Save" id="Save" value="Save" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="col-md-2">&nbsp;</div>

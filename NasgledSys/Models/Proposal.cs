@@ -34,6 +34,15 @@ namespace NasgledSys.Models
         public string Estimal { get; set; }
         public string ProjectDescription { get; set; }
         public Nullable<bool> IsDelete { get; set; }
+        public string PreparedByText { get; set; }
+        public Nullable<decimal> MarkupPercentage { get; set; }
+        public Nullable<decimal> LaborCost { get; set; }
+        public Nullable<decimal> ShippingCost { get; set; }
+        public Nullable<decimal> MiscCost { get; set; }
+        public Nullable<decimal> TaxIncentives { get; set; }
+        public Nullable<decimal> ProductMargin { get; set; }
+        public Nullable<decimal> Incentives { get; set; }
+        public Nullable<decimal> InstallationRates { get; set; }
     
         public virtual Project Project { get; set; }
         public virtual UserProfile UserProfile { get; set; }

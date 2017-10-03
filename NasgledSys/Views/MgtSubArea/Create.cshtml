@@ -29,6 +29,14 @@
         LoadEfficiencyTypeH();
         $("#deletemsg").show().delay(1000).fadeOut();
     });
+     function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
     $(function () {
         $('#ParentAreaKey').change(function() {    
             var item = $(this);
@@ -460,7 +468,7 @@
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.SquareFeet)
-                                            @Html.TextBoxFor(model => model.SquareFeet, new { type = "number", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.SquareFeet, new { @onkeypress = "return isNumberKey(event)", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.SquareFeet, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
@@ -519,7 +527,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Annual Run Time %<span class="alert-danger">*..</span></div>
-                                <input type="number" name="RunTime1" required="required" placeholder="annual runtime percentage" class="form-control" />
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="RunTime1" required="required" placeholder="annual runtime percentage" class="form-control" />
                                 <p class="text-muted">% of Year running, enter 50 for 50%</p>
                             </div>
                             <div class="form-group">
@@ -532,7 +540,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
-                                <input type="number" name="FCost1" required="required" placeholder="fuel cost" class="form-control" />
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="FCost1" required="required" placeholder="fuel cost" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
@@ -540,7 +548,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
-                                <input type="number" name="EfficiencyValue1" required="required" placeholder="efficiency value" class="form-control" />
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="EfficiencyValue1" required="required" placeholder="efficiency value" class="form-control" />
                             </div>
                             <div class="h3 alert-info" id="deleteCityContainer3">
                             </div>
@@ -580,7 +588,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Annual Run Time %<span class="alert-danger">*..</span></div>
-                                <input type="number" name="RunTime" required="required" placeholder="annual runtime percentage" class="form-control" />
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="RunTime" required="required" placeholder="annual runtime percentage" class="form-control" />
                                 <p class="text-muted">% of Year running, enter 50 for 50%</p>
                             </div>
                             <div class="form-group">
@@ -593,7 +601,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
-                                <input type="number" name="FCost" required="required" placeholder="fuel cost" class="form-control" />
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="FCost" required="required" placeholder="fuel cost" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
@@ -601,7 +609,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
-                                <input type="number" name="EfficiencyValue" required="required" placeholder="efficiency value" class="form-control" />
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="EfficiencyValue" required="required" placeholder="efficiency value" class="form-control" />
                             </div>
                             <div class="h3 alert-info" id="deleteCityContainer2">
                             </div>
@@ -641,7 +649,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Blended Electricity Rate<span class="alert-danger">*..</span></div>
-                                <input type="number" name="Rate" required="required" placeholder="$/kWh" class="form-control" />
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="Rate" required="required" placeholder="$/kWh" class="form-control" />
                             </div>
 
 
@@ -683,7 +691,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label">Annual Operating Hours<span class="alert-danger">*..</span></div>
-                                <input type="number" name="OptHour" required="required" placeholder="annual hours" class="form-control" />
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="OptHour" required="required" placeholder="annual hours" class="form-control" />
                             </div>
 
 

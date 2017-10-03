@@ -1,5 +1,16 @@
 ﻿@model NasgledSys.Models.ProjectClass
 @using NasgledSys.Models;
+<script type="text/javascript">
+  
+     function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+     }
+    </script>
 @{
     ViewBag.Title = "Create Project";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -291,7 +302,7 @@
 
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.ProbabilityOfCompletion)
-                                    @Html.TextBoxFor(model => model.ProbabilityOfCompletion, new { placeholder = "Probability the project will be completed (%)", type = "number", id = "ProbabilityOfCompletion", @class = "form-control" })
+                                    @Html.TextBoxFor(model => model.ProbabilityOfCompletion, new { placeholder = "Probability the project will be completed (%)", @onkeypress = "return isNumberKey(event)", id = "ProbabilityOfCompletion", @class = "form-control" })
 
                                     @Html.ValidationMessageFor(model => model.ProbabilityOfCompletion, "", new { @class = "text-danger" })
                                     <span class="small text-muted">Enter whole number without % (i.e. enter 6 for 6% not 0.06)</span>
@@ -346,7 +357,7 @@
                                         <div class="input-group bootstrap-touchspin">
 
                                             <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
-                                            @Html.TextBoxFor(model => model.MarkupPercentage, new { type = "number", id = "MarkupPercentage", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                                            @Html.TextBoxFor(model => model.MarkupPercentage, new { @onkeypress = "return isNumberKey(event)", id = "MarkupPercentage", @class = "touchspin-prefix form-control", @style = "display: block;" })
                                             <span class="input-group-addon bootstrap-touchspin-postfix">%</span>
                                         </div>
                                         <p class="small text-muted">
@@ -360,7 +371,7 @@
                                         <div class="input-group bootstrap-touchspin">
 
                                             <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
-                                            @Html.TextBoxFor(model => model.ProductMargin, new { type = "number", id = "ProductMargin", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                                            @Html.TextBoxFor(model => model.ProductMargin, new { @onkeypress = "return isNumberKey(event)", id = "ProductMargin", @class = "touchspin-prefix form-control", @style = "display: block;" })
                                             <span class="input-group-addon bootstrap-touchspin-postfix">%</span>
                                         </div>
                                         <p class="small text-muted">
@@ -373,7 +384,7 @@
                                         <div class="input-group bootstrap-touchspin">
 
                                             <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
-                                            @Html.TextBoxFor(model => model.ShippingCost, new { type = "number", placeholder = "SHIPPING COST", id = "ShippingCost", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                                            @Html.TextBoxFor(model => model.ShippingCost, new { @onkeypress = "return isNumberKey(event)", placeholder = "SHIPPING COST", id = "ShippingCost", @class = "touchspin-prefix form-control", @style = "display: block;" })
 
                                             <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
                                         </div>
@@ -382,7 +393,7 @@
                                         @Html.LabelFor(model => model.MiscCost)
                                         <div class="input-group bootstrap-touchspin">
                                             <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
-                                            @Html.TextBoxFor(model => model.MiscCost, new { type = "number", placeholder = "MISC COST", id = "MiscCost", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                                            @Html.TextBoxFor(model => model.MiscCost, new { @onkeypress = "return isNumberKey(event)", placeholder = "MISC COST", id = "MiscCost", @class = "touchspin-prefix form-control", @style = "display: block;" })
                                             <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
                                         </div>
                                     </div>
@@ -390,7 +401,7 @@
                                         @Html.LabelFor(model => model.LaborCost)
                                         <div class="input-group bootstrap-touchspin">
                                             <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
-                                            @Html.TextBoxFor(model => model.LaborCost, new { type = "number", placeholder = "LABOR COST NOT INCLUDED IN PRODUCT COST", id = "LaborCost", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                                            @Html.TextBoxFor(model => model.LaborCost, new { @onkeypress = "return isNumberKey(event)", placeholder = "LABOR COST NOT INCLUDED IN PRODUCT COST", id = "LaborCost", @class = "touchspin-prefix form-control", @style = "display: block;" })
                                             <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
                                         </div>
                                     </div>
@@ -403,7 +414,7 @@
                                         @Html.LabelFor(model => model.TaxIncentives)
                                         <div class="input-group bootstrap-touchspin">
                                             <span class="input-group-addon bootstrap-touchspin-prefix">$</span>
-                                            @Html.TextBoxFor(model => model.TaxIncentives, new { type = "number", placeholder = "cash value of 179D TAX depreciation. Enter a positive number.", id = "TaxIncentives", @class = "touchspin-prefix form-control", @style = "display: block;" })
+                                            @Html.TextBoxFor(model => model.TaxIncentives, new { @onkeypress = "return isNumberKey(event)", placeholder = "cash value of 179D TAX depreciation. Enter a positive number.", id = "TaxIncentives", @class = "touchspin-prefix form-control", @style = "display: block;" })
                                             <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
                                         </div>
                                     </div>

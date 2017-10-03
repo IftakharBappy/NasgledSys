@@ -258,5 +258,25 @@ namespace NasgledSys.Models
                 HttpContext.Current.Session[GlobalClass._AreaHeading] = value;
             }
         }
+
+        static private string _ProposalGuid = "ProposalGuid";
+        public static Guid ProposalGuid
+        {
+            get
+            {
+                if (HttpContext.Current.Session[GlobalClass._ProposalGuid] == null)
+                {
+                    return Guid.Empty;
+                }
+                else
+                {
+                    return (Guid)(HttpContext.Current.Session[GlobalClass._ProposalGuid]);
+                }
+            }
+            set
+            {
+                HttpContext.Current.Session[GlobalClass._ProposalGuid] = value;
+            }
+        }
     }
 }

@@ -87,5 +87,6 @@ namespace NasgledSys.Models
         public virtual DbSet<EnvironmentalImpact> EnvironmentalImpact { get; set; }
         public virtual DbSet<Unit> Unit { get; set; }
         public virtual DbSet<Area> Area { get; set; }
+        public virtual DbSet<FinanceCompany> FinanceCompany { get; set; }
     }
 }

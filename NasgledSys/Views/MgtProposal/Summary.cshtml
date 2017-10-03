@@ -1,0 +1,111 @@
+﻿@model NasgledSys.Models.SummaryClass
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Proposal";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@section CenterTitle{
+    @Html.DisplayFor(m => GlobalClass.Project.ProjectName) <label>Proposal</label>
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m=>m.CompanyName)</a> <label>></label>
+              <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>> Proposal</label>
+        </span>
+        <span class="heading-text pull-right">
+            <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
+        </span>
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+                       
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Summary</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Solutions</a></li>
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Financing</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Notes</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Customize</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>                      
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+                         
+                                <div class="col-md-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><h3>Savings</h3></div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-bordered">
+                                            <tr><td>Total Project Savings</td><td><label>$ </label>@Html.DisplayFor(m=>m.TotalProjectSaving)</td></tr>
+                                            <tr><td>Annual Cost Savings</td><td><label>$ </label>@Html.DisplayFor(m => m.AnnualCostSaving)</td></tr>
+                                            <tr><td>Annual Energy Savings</td><td>@Html.DisplayFor(m => m.AnnualEnergySaving) <label> kWh </label></td></tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><h3>Investment</h3></div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-bordered">
+                                            <tr><td>Net Savings</td><td><label>$ </label>@Html.DisplayFor(m => m.NetSavings)</td></tr>
+                                            <tr><td>Simple Payback</td><td>@Html.DisplayFor(m => m.SimplePaybackYears) <label> year(s) </label></td></tr>
+                                            <tr><td>Simple ROI</td><td>@Html.DisplayFor(m => m.SimpleROI) <label> % </label></td></tr>
+                                        </table>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><h3>Cost of Waiting</h3></div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-bordered">
+                                            <tr><td>One Month</td><td><label>$ </label>@Html.DisplayFor(m => m.CostOfWaitingOneMonth)</td></tr>
+                                            <tr><td>One Year</td><td><label>$ </label>@Html.DisplayFor(m => m.CostOfWaitingOneYear)</td></tr>
+                                            <tr><td>Five Years</td><td><label>$ </label>@Html.DisplayFor(m => m.CostOfWaitingFiveYear)</td></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><h3>Project Economics</h3></div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-bordered">
+                                            <tr><td>+ Product Costs</td><td><label>$ </label>@Html.DisplayFor(m => m.ProductCosts)</td></tr>
+                                            <tr><td>+ Labor Costs</td><td><label>$ </label>@Html.DisplayFor(m => m.LaborCosts)</td></tr>
+                                            <tr><td>+ Shipping Costs</td><td><label>$ </label>@Html.DisplayFor(m => m.ShippingCosts)</td></tr>
+                                            <tr><td>+ Misc Product Costs</td><td><label>$ </label>@Html.DisplayFor(m => m.MiscProductCost)</td></tr>
+                                            <tr><td>+ Estimated Sales Tax</td><td><label>$ </label>@Html.DisplayFor(m => m.EstimatedSalesTax)</td></tr>
+                                            <tr><td><label class="bg-green">Cost of Goods Sold (COGS)</label></td><td><label class="bg-green">$ @Html.DisplayFor(m => m.CostOfGoodsSold)</label></td></tr>
+                                            <tr><td>Gross Margin</td><td><label>$ </label>@Html.DisplayFor(m => m.GrossMargin)</td></tr>
+                                            <tr><td><label class="bg-green">Total Project Price</label></td><td><label class="bg-green">$ @Html.DisplayFor(m => m.TotalProjectPrice)</label></td></tr>
+
+                                            <tr><td>- Estimated Incentive Rebates</td><td><label>$ </label>@Html.DisplayFor(m => m.EstimatedIncentiveRebate)</td></tr>
+                                            <tr><td><label class="bg-green">Net Project Price</label></td><td><label class="bg-green">$ @Html.DisplayFor(m => m.NetProjectPrice)</label></td></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>
+</div>

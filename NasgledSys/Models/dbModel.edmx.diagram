@@ -152,6 +152,7 @@
         <AssociationConnector Association="NasgledDBModel.FK_AreaProductNote_Area" />
         <AssociationConnector Association="NasgledDBModel.FK_AreaProductPhoto_Area" />
         <AssociationConnector Association="NasgledDBModel.FK_AreaProduct_OperatingSchedule" />
+        <EntityTypeShape EntityType="NasgledDBModel.FinanceCompany" Width="1.5" PointX="14.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

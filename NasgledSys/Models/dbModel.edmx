@@ -333,6 +333,18 @@
           <Property Name="LogoType" Type="nvarchar(max)" />
           <Property Name="Filename" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="FinanceCompany">
+          <Key>
+            <PropertyRef Name="FinanceKey" />
+          </Key>
+          <Property Name="FinanceKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FinancingCompanyName" Type="nvarchar(max)" />
+          <Property Name="IntroText" Type="nvarchar(max)" />
+          <Property Name="Hyperlink" Type="nvarchar(max)" />
+          <Property Name="LogoType" Type="nvarchar(max)" />
+          <Property Name="Logo" Type="image" />
+          <Property Name="FileName" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Forms">
           <Key>
             <PropertyRef Name="FormID" />
@@ -669,6 +681,15 @@
           <Property Name="Estimal" Type="nvarchar(max)" />
           <Property Name="ProjectDescription" Type="nvarchar(max)" />
           <Property Name="IsDelete" Type="bit" />
+          <Property Name="PreparedByText" Type="nvarchar(max)" />
+          <Property Name="MarkupPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LaborCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ShippingCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="MiscCost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TaxIncentives" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProductMargin" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Incentives" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="InstallationRates" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ProposalAdditional">
           <Key>
@@ -1896,6 +1917,7 @@
           <EntitySet Name="CoolingSystemType" EntityType="Self.CoolingSystemType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DefaultEmail" EntityType="Self.DefaultEmail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EnvironmentalImpact" EntityType="Self.EnvironmentalImpact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinanceCompany" EntityType="Self.FinanceCompany" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Forms" EntityType="Self.Forms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FuelType" EntityType="Self.FuelType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HeatingEfficiencyType" EntityType="Self.HeatingEfficiencyType" Schema="dbo" store:Type="Tables" />
@@ -2825,6 +2847,7 @@
             <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
             <End Role="AreaProduct" EntitySet="AreaProduct" />
           </AssociationSet>
+          <EntitySet Name="FinanceCompany" EntityType="NasgledDBModel.FinanceCompany" />
           </EntityContainer>
         <EntityType Name="AreaDetail">
           <Key>
@@ -3375,6 +3398,15 @@
           <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Proposal_Project" FromRole="Proposal" ToRole="Project" />
           <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_Proposal_UserProfile" FromRole="Proposal" ToRole="UserProfile" />
           <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="PreparedByText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MarkupPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LaborCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ShippingCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MiscCost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TaxIncentives" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductMargin" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Incentives" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InstallationRates" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ProposalAdditional">
           <Key>
@@ -4725,6 +4757,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FinanceCompany">
+          <Key>
+            <PropertyRef Name="FinanceKey" />
+          </Key>
+          <Property Name="FinanceKey" Type="Guid" Nullable="false" />
+          <Property Name="FinancingCompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IntroText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Hyperlink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LogoType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5282,6 +5326,15 @@
           <EntitySetMapping Name="Proposal">
             <EntityTypeMapping TypeName="NasgledDBModel.Proposal">
               <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="InstallationRates" ColumnName="InstallationRates" />
+                <ScalarProperty Name="Incentives" ColumnName="Incentives" />
+                <ScalarProperty Name="ProductMargin" ColumnName="ProductMargin" />
+                <ScalarProperty Name="TaxIncentives" ColumnName="TaxIncentives" />
+                <ScalarProperty Name="MiscCost" ColumnName="MiscCost" />
+                <ScalarProperty Name="ShippingCost" ColumnName="ShippingCost" />
+                <ScalarProperty Name="LaborCost" ColumnName="LaborCost" />
+                <ScalarProperty Name="MarkupPercentage" ColumnName="MarkupPercentage" />
+                <ScalarProperty Name="PreparedByText" ColumnName="PreparedByText" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
                 <ScalarProperty Name="Estimal" ColumnName="Estimal" />
@@ -5639,6 +5692,19 @@
                 <ScalarProperty Name="Reception" ColumnName="Reception" />
                 <ScalarProperty Name="AreaName" ColumnName="AreaName" />
                 <ScalarProperty Name="AreaKey" ColumnName="AreaKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinanceCompany">
+            <EntityTypeMapping TypeName="NasgledDBModel.FinanceCompany">
+              <MappingFragment StoreEntitySet="FinanceCompany">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="LogoType" ColumnName="LogoType" />
+                <ScalarProperty Name="Hyperlink" ColumnName="Hyperlink" />
+                <ScalarProperty Name="IntroText" ColumnName="IntroText" />
+                <ScalarProperty Name="FinancingCompanyName" ColumnName="FinancingCompanyName" />
+                <ScalarProperty Name="FinanceKey" ColumnName="FinanceKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

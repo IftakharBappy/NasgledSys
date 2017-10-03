@@ -6,6 +6,46 @@ using System.Web;
 
 namespace NasgledSys.Models
 {
+    public class SummaryClass
+    {
+        public Guid? ProjectKey { get; set; }
+        public Guid? CompanyKey { get; set; }
+        public string CompanyName { get; set; }
+        public Guid? ProposalKey { get; set; }
+        public decimal? TotalProjectSaving { get; set; }
+        public decimal? AnnualCostSaving { get; set; }
+        public decimal? AnnualEnergySaving { get; set; }
+        public decimal? ProductCosts { get; set; }
+        public decimal? LaborCosts { get; set; }
+        public decimal? ShippingCosts { get; set; }
+        public decimal? MiscProductCost { get; set; }
+        public decimal? EstimatedSalesTax { get; set; }
+        public decimal? CostOfGoodsSold { get; set; }
+        public decimal? NetSavings { get; set; }
+        public decimal? SimplePaybackYears { get; set; }
+        public decimal? SimpleROI { get; set; }
+        public decimal? GrossMargin { get; set; }
+        public decimal? GrossMarginPercentage { get; set; }
+        public decimal? TotalProjectPrice { get; set; }
+        public decimal? EstimatedIncentiveRebate { get; set; }
+        public decimal? NetProjectPrice { get; set; }
+        public decimal? CostOfWaitingOneMonth { get; set; }
+        public decimal? CostOfWaitingOneYear { get; set; }
+        public decimal? CostOfWaitingFiveYear { get; set; }
+        [Display(Name = "Product Markup Percentage")]
+        public decimal? MarkupPercentage { get; set; }
+        [Display(Name = "Labor Cost")]
+        public decimal? LaborCost { get; set; }
+        [Display(Name = "Shipping Cost")]
+        public decimal? ShippingCost { get; set; }
+        [Display(Name = "Misc Cost")]
+        public decimal? MiscCost { get; set; }
+        [Display(Name = "179D Tax Incentive")]
+        public decimal? TaxIncentives { get; set; }
+        [Display(Name = "Installation Labor Charge")]
+        public decimal? InstallationLaborCharge { get; set; }
+
+    }
     public class ProposalListClass
     {
         public Guid? ProjectKey { get; set; }
@@ -13,6 +53,9 @@ namespace NasgledSys.Models
         [Display(Name = "Proposal Name*...")]
         [Required(ErrorMessage = "Name is required")]
         public string ProposalName { get; set; }
+        [Display(Name = "Prepared By User*...")]
+        [Required(ErrorMessage = "Prepared By User is required")]
+        public string PreparedByUser { get; set; }
 
         public decimal? TotalPrice { get; set; }
         public decimal? Incentives { get; set; }

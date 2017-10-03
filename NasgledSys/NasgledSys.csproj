@@ -412,6 +412,9 @@
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EnvironmentalImpactViewModel.cs" />
+    <Compile Include="Models\FinanceCompany.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Forms.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3883,6 +3886,8 @@
     <Content Include="Views\AreaNote\Edit.cshtml" />
     <Content Include="Views\MgtAreaProductDocument\Documents.cshtml" />
     <Content Include="Views\MgtProposal\Index.cshtml" />
+    <Content Include="Views\MgtProposal\Summary.cshtml" />
+    <Content Include="Views\MgtProposal\Cost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
