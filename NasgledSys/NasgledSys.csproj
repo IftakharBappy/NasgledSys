@@ -236,6 +236,7 @@
     <Compile Include="Controllers\MgtClientCompanyController.cs" />
     <Compile Include="Controllers\MgtClientContactController.cs" />
     <Compile Include="Controllers\MgtEnvironmentalImpactController.cs" />
+    <Compile Include="Controllers\MgtFinanceCompanyController.cs" />
     <Compile Include="Controllers\MgtHeatingEfficiencyTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MgtCityController.cs" />
@@ -416,6 +417,7 @@
     <Compile Include="Models\FinanceCompany.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FinanceCompanyViewModel.cs" />
     <Compile Include="Models\Forms.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3892,6 +3894,9 @@
     <Content Include="Views\ReportTemplates\Create.cshtml" />
     <Content Include="Views\ReportTemplates\Edit.cshtml" />
     <Content Include="Views\ReportTemplates\Index.cshtml" />
+    <Content Include="Views\MgtFinanceCompany\Index.cshtml" />
+    <Content Include="Views\MgtFinanceCompany\Create.cshtml" />
+    <Content Include="Views\MgtFinanceCompany\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
