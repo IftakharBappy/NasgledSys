@@ -14,17 +14,8 @@ namespace NasgledSys.Models
     
     public partial class ReportTemplate
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ReportTemplate()
-        {
-            this.ProposalTemplate = new HashSet<ProposalTemplate>();
-        }
-    
         public System.Guid TemplateKey { get; set; }
         public string FactorName { get; set; }
         public Nullable<int> TLevel { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProposalTemplate> ProposalTemplate { get; set; }
     }
 }

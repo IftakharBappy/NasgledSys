@@ -68,8 +68,6 @@ namespace NasgledSys.Models
         public virtual DbSet<ProposalAdditional> ProposalAdditional { get; set; }
         public virtual DbSet<ProposalLoanTerms> ProposalLoanTerms { get; set; }
         public virtual DbSet<ProposalNote> ProposalNote { get; set; }
-        public virtual DbSet<ProposalTemplate> ProposalTemplate { get; set; }
-        public virtual DbSet<ReportTemplate> ReportTemplate { get; set; }
         public virtual DbSet<Team> Team { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
@@ -88,5 +86,7 @@ namespace NasgledSys.Models
         public virtual DbSet<Unit> Unit { get; set; }
         public virtual DbSet<Area> Area { get; set; }
         public virtual DbSet<FinanceCompany> FinanceCompany { get; set; }
+        public virtual DbSet<ProposalTemplate> ProposalTemplate { get; set; }
+        public virtual DbSet<ReportTemplate> ReportTemplate { get; set; }
     }
 }

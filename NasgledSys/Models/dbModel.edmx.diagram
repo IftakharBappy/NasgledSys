@@ -51,8 +51,6 @@
         <EntityTypeShape EntityType="NasgledDBModel.ProposalAdditional" Width="1.5" PointX="8.75" PointY="15.75" />
         <EntityTypeShape EntityType="NasgledDBModel.ProposalLoanTerms" Width="1.5" PointX="0.75" PointY="16.75" />
         <EntityTypeShape EntityType="NasgledDBModel.ProposalNote" Width="1.5" PointX="2.75" PointY="18.75" />
-        <EntityTypeShape EntityType="NasgledDBModel.ProposalTemplate" Width="1.5" PointX="6" PointY="15.875" />
-        <EntityTypeShape EntityType="NasgledDBModel.ReportTemplate" Width="1.5" PointX="3.75" PointY="16.125" />
         <EntityTypeShape EntityType="NasgledDBModel.Team" Width="1.5" PointX="21.625" PointY="12.25" />
         <EntityTypeShape EntityType="NasgledDBModel.UserProfile" Width="1.5" PointX="14.125" PointY="6.125" />
         <EntityTypeShape EntityType="NasgledDBModel.UserRole" Width="1.5" PointX="11.875" PointY="12.875" />
@@ -97,7 +95,6 @@
         <AssociationConnector Association="NasgledDBModel.FK_Proposal_Project" />
         <AssociationConnector Association="NasgledDBModel.FK_Team_Project" />
         <AssociationConnector Association="NasgledDBModel.FK_Proposal_UserProfile" />
-        <AssociationConnector Association="NasgledDBModel.FK_ProposalTemplate_ReportTemplate" />
         <AssociationConnector Association="NasgledDBModel.FK_UserProfile_StateList" />
         <AssociationConnector Association="NasgledDBModel.FK_Team_UserProfile" />
         <AssociationConnector Association="NasgledDBModel.FK_Team_UserRole" />
@@ -153,6 +150,8 @@
         <AssociationConnector Association="NasgledDBModel.FK_AreaProductPhoto_Area" />
         <AssociationConnector Association="NasgledDBModel.FK_AreaProduct_OperatingSchedule" />
         <EntityTypeShape EntityType="NasgledDBModel.FinanceCompany" Width="1.5" PointX="14.375" PointY="16.75" />
+        <EntityTypeShape EntityType="NasgledDBModel.ProposalTemplate" Width="1.5" PointX="5.375" PointY="13.75" />
+        <EntityTypeShape EntityType="NasgledDBModel.ReportTemplate" Width="1.5" PointX="5.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

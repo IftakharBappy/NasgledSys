@@ -732,7 +732,7 @@
           <Property Name="ReportKey" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectKey" Type="uniqueidentifier" />
           <Property Name="ProposalKey" Type="uniqueidentifier" />
-          <Property Name="TemplateFactorKey" Type="uniqueidentifier" />
+          <Property Name="FactorName" Type="nvarchar(max)" />
           <Property Name="DisplayIndex" Type="int" />
         </EntityType>
         <EntityType Name="ReportTemplate">
@@ -1680,18 +1680,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProposalTemplate_ReportTemplate">
-          <End Role="ReportTemplate" Type="Self.ReportTemplate" Multiplicity="0..1" />
-          <End Role="ProposalTemplate" Type="Self.ProposalTemplate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReportTemplate">
-              <PropertyRef Name="TemplateKey" />
-            </Principal>
-            <Dependent Role="ProposalTemplate">
-              <PropertyRef Name="TemplateFactorKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_StaffList_Usergroup">
           <End Role="Usergroup" Type="Self.Usergroup" Multiplicity="0..1" />
           <End Role="StaffList" Type="Self.StaffList" Multiplicity="*" />
@@ -2228,10 +2216,6 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Proposal" EntitySet="Proposal" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProposalTemplate_ReportTemplate" Association="Self.FK_ProposalTemplate_ReportTemplate">
-            <End Role="ReportTemplate" EntitySet="ReportTemplate" />
-            <End Role="ProposalTemplate" EntitySet="ProposalTemplate" />
-          </AssociationSet>
           <AssociationSet Name="FK_StaffList_Usergroup" Association="Self.FK_StaffList_Usergroup">
             <End Role="Usergroup" EntitySet="Usergroup" />
             <End Role="StaffList" EntitySet="StaffList" />
@@ -2501,8 +2485,6 @@
           <EntitySet Name="ProposalAdditional" EntityType="NasgledDBModel.ProposalAdditional" />
           <EntitySet Name="ProposalLoanTerms" EntityType="NasgledDBModel.ProposalLoanTerms" />
           <EntitySet Name="ProposalNote" EntityType="NasgledDBModel.ProposalNote" />
-          <EntitySet Name="ProposalTemplate" EntityType="NasgledDBModel.ProposalTemplate" />
-          <EntitySet Name="ReportTemplate" EntityType="NasgledDBModel.ReportTemplate" />
           <EntitySet Name="Team" EntityType="NasgledDBModel.Team" />
           <EntitySet Name="UserProfile" EntityType="NasgledDBModel.UserProfile" />
           <EntitySet Name="UserRole" EntityType="NasgledDBModel.UserRole" />
@@ -2669,10 +2651,6 @@
           <AssociationSet Name="FK_Proposal_UserProfile" Association="NasgledDBModel.FK_Proposal_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Proposal" EntitySet="Proposal" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProposalTemplate_ReportTemplate" Association="NasgledDBModel.FK_ProposalTemplate_ReportTemplate">
-            <End Role="ReportTemplate" EntitySet="ReportTemplate" />
-            <End Role="ProposalTemplate" EntitySet="ProposalTemplate" />
           </AssociationSet>
           <AssociationSet Name="FK_UserProfile_StateList" Association="NasgledDBModel.FK_UserProfile_StateList">
             <End Role="StateList" EntitySet="StateList" />
@@ -2849,6 +2827,8 @@
             <End Role="AreaProduct" EntitySet="AreaProduct" />
           </AssociationSet>
           <EntitySet Name="FinanceCompany" EntityType="NasgledDBModel.FinanceCompany" />
+          <EntitySet Name="ProposalTemplate" EntityType="NasgledDBModel.ProposalTemplate" />
+          <EntitySet Name="ReportTemplate" EntityType="NasgledDBModel.ReportTemplate" />
           </EntityContainer>
         <EntityType Name="AreaDetail">
           <Key>
@@ -3443,26 +3423,6 @@
           <Property Name="ProposalKey" Type="Guid" />
           <Property Name="InternalNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="ProposalTemplate">
-          <Key>
-            <PropertyRef Name="ReportKey" />
-          </Key>
-          <Property Name="ReportKey" Type="Guid" Nullable="false" />
-          <Property Name="ProjectKey" Type="Guid" />
-          <Property Name="ProposalKey" Type="Guid" />
-          <Property Name="TemplateFactorKey" Type="Guid" />
-          <Property Name="DisplayIndex" Type="Int32" />
-          <NavigationProperty Name="ReportTemplate" Relationship="NasgledDBModel.FK_ProposalTemplate_ReportTemplate" FromRole="ProposalTemplate" ToRole="ReportTemplate" />
-        </EntityType>
-        <EntityType Name="ReportTemplate">
-          <Key>
-            <PropertyRef Name="TemplateKey" />
-          </Key>
-          <Property Name="TemplateKey" Type="Guid" Nullable="false" />
-          <Property Name="FactorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProposalTemplate" Relationship="NasgledDBModel.FK_ProposalTemplate_ReportTemplate" FromRole="ReportTemplate" ToRole="ProposalTemplate" />
-          <Property Name="TLevel" Type="Int32" />
-        </EntityType>
         <EntityType Name="Team">
           <Key>
             <PropertyRef Name="TeamKey" />
@@ -4015,18 +3975,6 @@
             </Principal>
             <Dependent Role="Proposal">
               <PropertyRef Name="PreparedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProposalTemplate_ReportTemplate">
-          <End Type="NasgledDBModel.ReportTemplate" Role="ReportTemplate" Multiplicity="0..1" />
-          <End Type="NasgledDBModel.ProposalTemplate" Role="ProposalTemplate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReportTemplate">
-              <PropertyRef Name="TemplateKey" />
-            </Principal>
-            <Dependent Role="ProposalTemplate">
-              <PropertyRef Name="TemplateFactorKey" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4771,6 +4719,24 @@
           <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ProposalTemplate">
+          <Key>
+            <PropertyRef Name="ReportKey" />
+          </Key>
+          <Property Name="ReportKey" Type="Guid" Nullable="false" />
+          <Property Name="ProjectKey" Type="Guid" />
+          <Property Name="ProposalKey" Type="Guid" />
+          <Property Name="FactorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayIndex" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ReportTemplate">
+          <Key>
+            <PropertyRef Name="TemplateKey" />
+          </Key>
+          <Property Name="TemplateKey" Type="Guid" Nullable="false" />
+          <Property Name="FactorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TLevel" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5397,26 +5363,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProposalTemplate">
-            <EntityTypeMapping TypeName="NasgledDBModel.ProposalTemplate">
-              <MappingFragment StoreEntitySet="ProposalTemplate">
-                <ScalarProperty Name="DisplayIndex" ColumnName="DisplayIndex" />
-                <ScalarProperty Name="TemplateFactorKey" ColumnName="TemplateFactorKey" />
-                <ScalarProperty Name="ProposalKey" ColumnName="ProposalKey" />
-                <ScalarProperty Name="ProjectKey" ColumnName="ProjectKey" />
-                <ScalarProperty Name="ReportKey" ColumnName="ReportKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReportTemplate">
-            <EntityTypeMapping TypeName="NasgledDBModel.ReportTemplate">
-              <MappingFragment StoreEntitySet="ReportTemplate">
-                <ScalarProperty Name="TLevel" ColumnName="TLevel" />
-                <ScalarProperty Name="FactorName" ColumnName="FactorName" />
-                <ScalarProperty Name="TemplateKey" ColumnName="TemplateKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Team">
             <EntityTypeMapping TypeName="NasgledDBModel.Team">
               <MappingFragment StoreEntitySet="Team">
@@ -5708,6 +5654,26 @@
                 <ScalarProperty Name="IntroText" ColumnName="IntroText" />
                 <ScalarProperty Name="FinancingCompanyName" ColumnName="FinancingCompanyName" />
                 <ScalarProperty Name="FinanceKey" ColumnName="FinanceKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProposalTemplate">
+            <EntityTypeMapping TypeName="NasgledDBModel.ProposalTemplate">
+              <MappingFragment StoreEntitySet="ProposalTemplate">
+                <ScalarProperty Name="DisplayIndex" ColumnName="DisplayIndex" />
+                <ScalarProperty Name="FactorName" ColumnName="FactorName" />
+                <ScalarProperty Name="ProposalKey" ColumnName="ProposalKey" />
+                <ScalarProperty Name="ProjectKey" ColumnName="ProjectKey" />
+                <ScalarProperty Name="ReportKey" ColumnName="ReportKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportTemplate">
+            <EntityTypeMapping TypeName="NasgledDBModel.ReportTemplate">
+              <MappingFragment StoreEntitySet="ReportTemplate">
+                <ScalarProperty Name="TLevel" ColumnName="TLevel" />
+                <ScalarProperty Name="FactorName" ColumnName="FactorName" />
+                <ScalarProperty Name="TemplateKey" ColumnName="TemplateKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

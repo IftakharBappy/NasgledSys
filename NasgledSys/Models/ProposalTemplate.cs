@@ -17,9 +17,7 @@ namespace NasgledSys.Models
         public System.Guid ReportKey { get; set; }
         public Nullable<System.Guid> ProjectKey { get; set; }
         public Nullable<System.Guid> ProposalKey { get; set; }
-        public Nullable<System.Guid> TemplateFactorKey { get; set; }
+        public string FactorName { get; set; }
         public Nullable<int> DisplayIndex { get; set; }
-    
-        public virtual ReportTemplate ReportTemplate { get; set; }
     }
 }
