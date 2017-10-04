@@ -269,6 +269,7 @@
     <Compile Include="Controllers\MgtSubAreaController.cs" />
     <Compile Include="Controllers\MgtUnitController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
+    <Compile Include="Controllers\ReportTemplatesController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
     <Compile Include="Controllers\tcityController.cs" />
     <Compile Include="Controllers\UserItemCategoryController.cs" />
@@ -3888,6 +3889,9 @@
     <Content Include="Views\MgtProposal\Index.cshtml" />
     <Content Include="Views\MgtProposal\Summary.cshtml" />
     <Content Include="Views\MgtProposal\Cost.cshtml" />
+    <Content Include="Views\ReportTemplates\Create.cshtml" />
+    <Content Include="Views\ReportTemplates\Edit.cshtml" />
+    <Content Include="Views\ReportTemplates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -741,6 +741,7 @@
           </Key>
           <Property Name="TemplateKey" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FactorName" Type="nvarchar(max)" />
+          <Property Name="TLevel" Type="int" />
         </EntityType>
         <EntityType Name="SalesReachSetup">
           <Key>
@@ -3460,6 +3461,7 @@
           <Property Name="TemplateKey" Type="Guid" Nullable="false" />
           <Property Name="FactorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProposalTemplate" Relationship="NasgledDBModel.FK_ProposalTemplate_ReportTemplate" FromRole="ReportTemplate" ToRole="ProposalTemplate" />
+          <Property Name="TLevel" Type="Int32" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
@@ -5409,6 +5411,7 @@
           <EntitySetMapping Name="ReportTemplate">
             <EntityTypeMapping TypeName="NasgledDBModel.ReportTemplate">
               <MappingFragment StoreEntitySet="ReportTemplate">
+                <ScalarProperty Name="TLevel" ColumnName="TLevel" />
                 <ScalarProperty Name="FactorName" ColumnName="FactorName" />
                 <ScalarProperty Name="TemplateKey" ColumnName="TemplateKey" />
               </MappingFragment>
