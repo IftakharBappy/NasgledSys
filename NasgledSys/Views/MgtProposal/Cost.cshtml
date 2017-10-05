@@ -38,7 +38,8 @@
             <i class="icon-folder-download position-left"></i>
             <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
             <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
-            <label>> Proposal</label>
+            <label>> </label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
         </span>
         <span class="heading-text pull-right">
             <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>

@@ -16,7 +16,8 @@
             <i class="icon-folder-download position-left"></i>
             <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
             <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
-            <label>> Proposal</label>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
         </span>
         <span class="heading-text pull-right">
             <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
@@ -33,12 +34,12 @@
                 <div class="panel-heading">
                     <ul class="nav nav-pills">
 
-                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Summary</a></li>
+                        <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Solutions</a></li>
                         <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Financing</a></li>
-                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Notes</a></li>
+                        <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Customize</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
                     </ul>
@@ -172,6 +173,10 @@
                         </div>
                         }
                     </div>
+                </div>
+
+                <div class="panel-footer">
+                    <a href="@Url.Action("Delete", "MgtProposal",new { id=Model.ProposalKey})" class="btn btn-warning btn-xlg col-lg-12" role="button" onclick="return confirm('Are you sure you want to Remove this?')">Remove this Area?</a>
                 </div>
             </div>
         </div>

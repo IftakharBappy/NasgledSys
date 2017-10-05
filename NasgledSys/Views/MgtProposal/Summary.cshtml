@@ -16,7 +16,8 @@
             <i class="icon-folder-download position-left"></i>
             <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m=>m.CompanyName)</a> <label>></label>
               <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
-            <label>> Proposal</label>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
         </span>
         <span class="heading-text pull-right">
             <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
@@ -38,10 +39,10 @@
                         <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Financing</a></li>
-                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Notes</a></li>
+                       
                         <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
                         <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
-                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Customize</a></li>
+                       
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>                      
                     </ul>
                 </div>

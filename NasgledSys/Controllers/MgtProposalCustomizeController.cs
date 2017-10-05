@@ -45,7 +45,7 @@ namespace NasgledSys.Controllers
                     viewModel.Pic = proposal.Pic;
                     viewModel.Picname = proposal.Picname;
                     viewModel.PicType = proposal.PicType;
-
+                    Session["GlobalMessege"] = "";
                     return View(viewModel);
                 }
                 catch (Exception e)
@@ -87,6 +87,7 @@ namespace NasgledSys.Controllers
                         proposal.PicType = Pic.ContentType;
                     }
                     db.SaveChanges();
+                    Session["GlobalMessege"] = "Data has been Saved successfully.";
                     return RedirectToAction("Customize", new { id = viewModel.ProposalKey });
                 }
                 catch (Exception e)

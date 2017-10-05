@@ -20,7 +20,29 @@ namespace NasgledSys.Controllers
     {
         // GET: MgtProposal
         private NasgledDBEntities db = new NasgledDBEntities();
-     
+
+        public ActionResult Delete(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    Proposal model = db.Proposal.Find(id);
+                    model.IsDelete = true;
+                    return RedirectToAction("Index", "MgtProposal",new { id=model.ProjectKey});
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "MgtProject", "Created"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
         public ActionResult Index(Guid id)
         {
             if (GlobalClass.MasterSession)
