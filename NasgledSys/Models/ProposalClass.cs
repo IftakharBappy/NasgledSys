@@ -46,6 +46,22 @@ namespace NasgledSys.Models
         public decimal? InstallationLaborCharge { get; set; }
 
     }
+
+    public class NoteClass
+    {
+        public Guid? ProjectKey { get; set; }
+        public Guid? CompanyKey { get; set; }
+        public string CompanyName { get; set; }
+        public Guid? ProposalKey { get; set; }
+        [Display(Name = "Internal Notes")]
+        [Required(ErrorMessage = "Please include some Notes if you want to save any Information.")]
+        public string Notes { get; set; }
+       
+       
+        
+    
+
+    }
     public class ProposalListClass
     {
         public Guid? ProjectKey { get; set; }

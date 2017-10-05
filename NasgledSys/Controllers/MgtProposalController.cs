@@ -248,6 +248,36 @@ namespace NasgledSys.Controllers
             }
         }
 
+        public ActionResult Notes(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
+                    Proposal p = db.Proposal.Find(id);
+                    NoteClass model = new NoteClass();
+                    model.CompanyKey = company.ClientCompanyKey;
+                    model.CompanyName = company.CompanyName;
+                    model.ProjectKey = p.ProjectKey;
+                    model.ProposalKey = p.ProposalKey;
+                    model.Notes = p.Notes;
+                   
+                    return View(model);
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "MgtProject", "Created"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> EditCost(SummaryClass model)
         {
