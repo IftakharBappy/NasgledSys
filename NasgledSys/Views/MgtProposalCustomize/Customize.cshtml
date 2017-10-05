@@ -1,0 +1,180 @@
+﻿@model NasgledSys.Models.ProposalToCustomizeViewModel
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Proposal";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@section CenterTitle{
+    @Html.DisplayFor(m => GlobalClass.Project.ProjectName) <label>Proposal</label>
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>> Proposal</label>
+        </span>
+        <span class="heading-text pull-right">
+            <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
+        </span>
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Summary</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Solutions</a></li>
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Financing</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Notes</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Customize</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        @using (Html.BeginForm("Customize", "MgtProposalCustomize", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                        {
+                        <div class="tab-pane fade in active" id="tab-demo1">
+                            @Html.HiddenFor(model => model.ProposalKey)
+                            @Html.HiddenFor(model => model.ProjectKey)
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Proposal Cover Page
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active">
+                                                <span class="small text-muted">This will appear on the cover page of your proposal.</span>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.ProposalName)
+                                                    @Html.TextBoxFor(model => model.ProposalName, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.ProposalName, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.PreparedByText)
+                                                    @Html.TextBoxFor(model => model.PreparedByText, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.PreparedByText, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="row">
+                                                    @Html.LabelFor(model => model.Pic)
+                                                    @if (Model.Pic != null)
+                                                    {
+                                                        var base64 = Convert.ToBase64String(Model.Pic);
+                                                        var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                        <img src='@imgSrc' style="max-height:300px;border-radius: 25px;" class="col-md-8 col-md-offset-2" />
+
+                                                    }
+                                                </div>
+                                                <div class="form-group">
+                                                    <br />
+                                                    <label for="Pic" class="btn btn-default border-blue btn-xlg col-md-12">Select a new Photo</label>
+                                                    @Html.TextBoxFor(model => model.Pic, new { @class = "form-control", @style = "visibility:hidden", @type = "file" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Proposal Introduction Page
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active">
+                                                <span class="small text-muted">This will appear on the introduction page of your proposal.</span>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.IntroductionText)
+                                                    <br/>
+                                                    <span class="small text-muted">Start with compelling introduction in your proposal</span>
+                                                    @Html.TextAreaFor(model => model.IntroductionText, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.IntroductionText, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Team)
+                                                    <br />
+                                                    <span class="small text-muted">Tell your client about your team</span>
+                                                    @Html.TextAreaFor(model => model.Team, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.Team, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Legal)
+                                                    <br />
+                                                    <span class="small text-muted">Enter any legalese here</span>
+                                                    @Html.TextAreaFor(model => model.Legal, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.Legal, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Disclaimer)
+                                                    <br />
+                                                    <span class="small text-muted">Enter your disclaimer and fine print here</span>
+                                                    @Html.TextAreaFor(model => model.Disclaimer, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.Disclaimer, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Reference)
+                                                    <br />
+                                                    <span class="small text-muted">wow customers with your references</span>
+                                                    @Html.TextAreaFor(model => model.Reference, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.Reference, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Billing Documents
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Billing)
+                                                    @Html.TextAreaFor(model => model.Billing, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.Billing, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Summary)
+                                                    @Html.TextAreaFor(model => model.Summary, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <center><button type="submit" class="btn btn-primary btn-xlg col-md-6 col-md-offset-3">Save</button></center>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>
+</div>

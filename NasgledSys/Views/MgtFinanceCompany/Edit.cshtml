@@ -1,0 +1,113 @@
+﻿@model NasgledSys.Models.FinanceCompanyViewModel
+@{
+    ViewBag.Title = "FinanceCompany Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
+<script src="~/Scripts/jquery.maskedinput.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#msgSuccess').hide();
+
+        LoadUnitDropDown_ToEdit();
+    });
+
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            &nbsp;
+            <div id="progress" class="modal fade">
+                <div class="center">
+                    <img src="~/Content/loader4.gif" />
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("Edit", "MgtFinanceCompany", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="panel-body">
+                        <h4>
+                            <span class="heading-text pull-left">
+                                <i class="icon-download10 position-left"></i>
+                                <span class="position-left"><a href="@Url.Action("Index", "MgtFinanceCompany")">Back </a></span>
+
+                            </span>
+
+                        </h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="panel panel-default ">
+                                <div class="panel-body">
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.FinancingCompanyName , "Company Name")
+                                                @Html.HiddenFor(model => model.FinanceKey, new { id = "FinanceKey" })
+                                                @Html.TextBoxFor(model => model.FinancingCompanyName, new { placeholder = "Company Name", id = "FinancingCompanyName", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.FinancingCompanyName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.IntroText, "Introduction")
+                                                @Html.TextBoxFor(model => model.IntroText, new {placeholder = " Introduction", id = "IntroText", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.IntroText, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Hyperlink)
+                                                @Html.TextBoxFor(model => model.Hyperlink, new { type = "link", placeholder = "Hyperlink", id = "Hyperlink", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Hyperlink, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="container-fluid">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.PostedLogo , "Logo")
+                                                    @if (Model.Logo != null)
+                                                    {
+                                                        var base64 = Convert.ToBase64String(Model.Logo);
+                                                        var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                        <img src='@imgSrc' style="max-height:80px;border-radius: 10px;" />
+                                                    }
+                                                </div>
+                                                <br /><br />
+                                                <div class="form-group">
+                                                    <label for="PostedLogo" class="btn btn-primary btn-xlg col-md-4 col-md-offset-2">Select a new avatar to update profile</label>
+                                                    <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="form-group" id="msgSuccess"><h4 class="alert alert-success">Data is successfully Saved on database.</h4></div>
+
+                    <center>
+                        <a href="@Url.Action("Index","MgtFinanceCompany")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;
+                        <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Update</button>
+                    </center>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
