@@ -1,0 +1,193 @@
+﻿@model NasgledSys.Models.FinanceClass
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Financing";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script type="text/javascript">   
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    function CreatePoposal(data) {
+
+        if (data != "success") {
+            $('#deleteCityContainer').html(data);
+            $('#modal_Operating').modal('show');
+        }
+        else {
+         
+            $('#deleteCityContainer').html("Data has been Saved Successfully");
+            window.location.href = "@Url.Action("Finance", "MgtProposal", new { id = Model.ProposalKey })";
+        }
+    }
+
+    </script>
+@section CenterTitle{
+    @Html.DisplayFor(m => GlobalClass.Project.ProjectName) <label>Proposal</label>
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+        </span>
+        <span class="heading-text pull-right">
+            <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
+        </span>
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Solutions</a></li>
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Financing</a></li>
+                        <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
+                        <li class="active"><a href="@Url.Action("Notes","MgtProposalCustomize",new { id=Model.ProposalKey})">Notes</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
+                    </ul>
+                </div>
+<div class="panel-body">
+    <div class="alert alert-info">Pro top: Proposals are more likely to get accepted with financing. Click the edit button to set Loan Terms.</div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+              
+                   
+               
+                <div class="panel-body">
+                    <h2 class="pull-left"> Loan terms</h2>
+                    <button type="button" class="btn btn-success pull-right" id="Add" data-toggle="modal" data-target="#modal_Operating">
+                        Edit
+                    </button>
+                    <table class="table table-bordered">
+                        <tr><td>@Html.LabelFor(m=>m.Principle)</td><td>@Html.DisplayFor(m => m.Principle)</td></tr>
+                        <tr><td>@Html.LabelFor(m => m.InterestRate)</td><td>@Html.DisplayFor(m => m.InterestRate)</td></tr>
+                        <tr><td>@Html.LabelFor(m => m.DisplayLoanMonth)</td><td>@Html.DisplayFor(m => m.DisplayLoanMonth)</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                
+                <div class="panel-body">
+                    <h3 class="pull-left">Loan Payments</h3>
+                    <table class="table table-bordered">
+                        <tr><td>@Html.LabelFor(m => m.MonthlyPayment)</td><td>@Html.DisplayFor(m => m.MonthlyPayment)</td></tr>
+                        <tr><td><span>*</span>@Html.LabelFor(m => m.DisplayLoanMonth)</td><td>@Html.DisplayFor(m => m.DisplayLoanMonth)</td></tr>
+                        <tr><td>@Html.LabelFor(m => m.TotalPayment)</td><td>@Html.DisplayFor(m => m.TotalPayment)</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+              
+                <div class="panel-body">
+                    <h3 class="pull-left">Monthly Cash Flow</h3>
+                    <table class="table table-bordered">
+                        <tr><td>@Html.LabelFor(m => m.CostSavings)</td><td>@Html.DisplayFor(m => m.CostSavings)</td></tr>
+                        <tr><td>@Html.LabelFor(m => m.LoanPayment)</td><td>@Html.DisplayFor(m => m.LoanPayment)</td></tr>
+                        <tr><td>@Html.LabelFor(m => m.MonthlyCashFlow)</td><td>@Html.DisplayFor(m => m.MonthlyCashFlow)</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+            </div>
+            <div id="modal_Operating" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <center><h4 class="modal-title panel panel-success panel-heading">Edit Loan Terms</h4></center>
+                        </div>
+                        @using (Ajax.BeginForm("EditLoanTerms", "MgtProposal", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreatePoposal" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                            @Html.HiddenFor(model => model.ProposalKey, new { id = "ProposalKey" })
+                            <div class="modal-body">
+                                <div class="form-horizontal">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <p class="small text-muted">enter all of the loan terms below and we will calculate the numbers for you.</p>
+                                    <div class="form-group">
+                                        <div class="input-group bootstrap-touchspin">
+
+                                            <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+                                            @Html.LabelFor(model => model.PercentageOfProjectCost)
+                                            @Html.TextBoxFor(model => model.PercentageOfProjectCost, new { @onkeypress = "return isNumberKey(event)", placeholder = "debt percentage of Project Cost", id = "PercentageOfProjectCost", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.PercentageOfProjectCost, "", new { @class = "text-danger" })
+                                            <span class="input-group-addon bootstrap-touchspin-postfix">%</span>
+                                        </div>
+                                            <span class="small text-muted">Enter a Percentage without % (and enter 6 for 6% not 0.06).</span>
+                                        </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group bootstrap-touchspin">
+
+                                            <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+                                            @Html.LabelFor(model => model.FinancingInterestRate)
+                                            @Html.TextBoxFor(model => model.FinancingInterestRate, new { @onkeypress = "return isNumberKey(event)", placeholder = "Loan Interest Rate", id = "FinancingInterestRate", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.FinancingInterestRate, "", new { @class = "text-danger" })
+                                            <span class="input-group-addon bootstrap-touchspin-postfix">%</span>
+                                        </div>
+                                        <span class="small text-muted">Enter a Percentage without % (and enter 6 for 6% not 0.06).</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group bootstrap-touchspin">
+
+                                            <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+                                            @Html.LabelFor(model => model.LoanMonth)
+                                            @Html.TextBoxFor(model => model.LoanMonth, new { @onkeypress = "return isNumberKey(event)", placeholder = "Loan months", id = "LoanMonth", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.LoanMonth, "", new { @class = "text-danger" })
+                                            <span class="input-group-addon bootstrap-touchspin-postfix">Months</span>
+                                        </div>                                     
+                                    </div>
+
+                                    <div class="h3 alert-info" id="deleteCityContainer">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-primary" name="Save" id="Save" value="Save" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>
+</div>

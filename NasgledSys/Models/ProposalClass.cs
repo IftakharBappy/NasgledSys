@@ -47,6 +47,38 @@ namespace NasgledSys.Models
 
     }
 
+    public class FinanceClass
+    {
+        public Guid? ProjectKey { get; set; }
+        public Guid? CompanyKey { get; set; }
+        public string CompanyName { get; set; }
+        public Guid? ProposalKey { get; set; }
+        [Display(Name = "Percentage Of Project Cost Financed")]
+        [Required(ErrorMessage = "Percentage Of Project Cost Financed is required.")]
+        public Nullable<decimal> PercentageOfProjectCost { get; set; }
+        [Display(Name = "Financing Interest Rate")]
+        [Required(ErrorMessage = "Financing Interest Rate is required.")]
+        public Nullable<decimal> FinancingInterestRate { get; set; }
+        [Display(Name = "Financing Loan Month")]
+        [Required(ErrorMessage = "Financing Loan Month is required.")]
+        public Nullable<decimal> LoanMonth { get; set; }
+        [Display(Name = "Principle")]
+        public Nullable<decimal> Principle { get; set; }
+        [Display(Name = "Interest Rate")]
+        public Nullable<decimal> InterestRate { get; set; }
+        [Display(Name = "Loan Months")]
+        public Nullable<decimal> DisplayLoanMonth { get; set; }
+        [Display(Name = "Monthly Payments")]
+        public Nullable<decimal> MonthlyPayment { get; set; }
+        [Display(Name = "Total Payments")]
+        public Nullable<decimal> TotalPayment { get; set; }
+        [Display(Name = "Cost Savings")]
+        public Nullable<decimal> CostSavings { get; set; }
+        [Display(Name = "-Loan Payment")]
+        public Nullable<decimal> LoanPayment { get; set; }
+        [Display(Name = "MOnthly Cash Flow")]
+        public Nullable<decimal> MonthlyCashFlow { get; set; }
+    }
     public class NoteClass
     {
         public Guid? ProjectKey { get; set; }
@@ -56,11 +88,6 @@ namespace NasgledSys.Models
         [Display(Name = "Internal Notes")]
         [Required(ErrorMessage = "Please include some Notes if you want to save any Information.")]
         public string Notes { get; set; }
-       
-       
-        
-    
-
     }
     public class ProposalListClass
     {

@@ -1,4 +1,5 @@
 ﻿@model NasgledSys.Models.SummaryClass
+
 @using NasgledSys.Models;
 @{
     ViewBag.Title = "Proposal";
@@ -38,8 +39,8 @@
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Solutions</a></li>
                         <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
-                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Financing</a></li>
-                       
+                      
+                        <li class="active"><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
                         <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
                         <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
                        

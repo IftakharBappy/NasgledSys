@@ -3900,6 +3900,8 @@
     <Content Include="Views\MgtFinanceCompany\Index.cshtml" />
     <Content Include="Views\MgtFinanceCompany\Create.cshtml" />
     <Content Include="Views\MgtFinanceCompany\Edit.cshtml" />
+    <Content Include="Views\MgtProposal\Notes.cshtml" />
+    <Content Include="Views\MgtProposal\Finance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

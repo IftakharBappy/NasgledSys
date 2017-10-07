@@ -299,6 +299,128 @@ namespace NasgledSys.Controllers
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
         }
+        [HttpPost]
+        public ActionResult Notes(NoteClass model)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
+                    Proposal p = db.Proposal.Find(model.ProposalKey);
+                    p.Notes = model.Notes;
+                    db.SaveChanges();
+                    model.CompanyKey = company.ClientCompanyKey;
+                    model.CompanyName = company.CompanyName;
+                    model.ProjectKey = p.ProjectKey;
+                    model.ProposalKey = p.ProposalKey;
+                    model.Notes = p.Notes;
+                    Session["GlobalMessege"] = "Note has been saved.";
+                    return View(model);
+                    
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "MgtProject", "Created"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+
+        public ActionResult Finance(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                    ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
+                    Proposal p = db.Proposal.Find(id);
+                    ProposalLoanTerms terms = db.ProposalLoanTerms.FirstOrDefault(m=>m.ProposalKey==id);
+                   
+                    FinanceClass model = new FinanceClass();
+                    model.CompanyKey = company.ClientCompanyKey;
+                    model.CompanyName = company.CompanyName;
+                    model.ProjectKey = p.ProjectKey;
+                    model.ProposalKey = p.ProposalKey;
+                    if (terms == null)
+                    {
+                        model.PercentageOfProjectCost = 0;
+                        model.FinancingInterestRate = 0;
+                        model.LoanMonth = 0;
+                    }
+                    else
+                    {
+                        model.PercentageOfProjectCost =terms.PercentageOfProjectCost;
+                        model.FinancingInterestRate = terms.FinancingInterestRate;
+                        model.LoanMonth =terms.LoanMonth;
+                    }
+                    model.Principle = 0;
+                    model.InterestRate = 0;
+                    model.DisplayLoanMonth = 0;
+                    model.MonthlyPayment = 0;
+                    model.TotalPayment = 0;
+                    model.CostSavings = 0;                   
+                    model.MonthlyCashFlow = 0;
+                    return View(model);
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "MgtProject", "Created"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> EditLoanTerms(FinanceClass model)
+        {
+            try
+            {
+                ProposalLoanTerms terms = db.ProposalLoanTerms.FirstOrDefault(m => m.ProposalKey == model.ProposalKey);
+
+              
+                if (terms == null)
+                {
+                    ProposalLoanTerms abc = new ProposalLoanTerms();
+                    abc.ProposalKey = model.ProposalKey;
+                    abc.ProjectKey = GlobalClass.Project.ProjectKey;
+                    abc.LoanTermKey = Guid.NewGuid();
+
+                    abc.PercentageOfProjectCost = model.PercentageOfProjectCost;
+                    abc.FinancingInterestRate = model.FinancingInterestRate;
+                    abc.LoanMonth = model.LoanMonth;
+                    db.ProposalLoanTerms.Add(abc);
+                    var task = db.SaveChangesAsync();
+                    await task;
+                }
+                else
+                {
+
+                    terms.PercentageOfProjectCost = model.PercentageOfProjectCost;
+                    terms.FinancingInterestRate = model.FinancingInterestRate;
+                    terms.LoanMonth = model.LoanMonth;                   
+                    var task = db.SaveChangesAsync();
+                    await task;
+                }              
+              
+                Session["GlobalMessege"] = "Proposal has been updated successfully.";
+
+                return Content("success");
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message.ToString());
+            }
+        }
 
         [HttpPost]
         public async Task<ActionResult> EditCost(SummaryClass model)
