@@ -19,6 +19,7 @@ namespace NasgledSys.Controllers
     {
         // GET: MgtProposalSolution
         private NasgledDBEntities db = new NasgledDBEntities();
+        private ManageProjectArea manage = new ManageProjectArea();
         public ActionResult Index(Guid id)
         {
             if (GlobalClass.MasterSession)
@@ -27,14 +28,49 @@ namespace NasgledSys.Controllers
                 {
                     ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
                     Proposal p = db.Proposal.Find(id);
-                    SummaryClass model = new SummaryClass();
+                    SolutionMainListClass model = new SolutionMainListClass();
                     model.CompanyKey = company.ClientCompanyKey;
                     model.CompanyName = company.CompanyName;
                     model.ProjectKey = p.ProjectKey;
                     model.ProposalKey = p.ProposalKey;
-                    model.TotalProjectSaving = 0;
-                    model.AnnualCostSaving = 0;
-                 
+                    model.AreaList = new List<AreaProductViewClass>();
+                    var area = from x in db.Area where x.IsDelete == false && x.ProjectKey == model.ProjectKey select x;
+                    if (area.Count() > 0)
+                    {
+                        foreach(var item in area)
+                        {
+                            AreaProductViewClass obj = new AreaProductViewClass();
+                            obj.AreaKey = item.AreaKey;
+                            obj.AreaName= manage.GetAllAreaNamesForSubArea(item.AreaKey);
+                            obj.ProductList = new List<ProposalSolutionListClass>();
+                            var prod = from x in db.AreaProduct where x.AreaKey == item.AreaKey && x.IsDelete == false select x;
+                            if (prod.Count() > 0)
+                            {
+                                foreach(var pitem in prod)
+                                {
+                                    ProposalSolutionListClass m = new ProposalSolutionListClass();
+                                    m.ProductKey = pitem.ProductKey;
+                                    m.ExistingProduct = pitem.ExistingProductName;
+                                    m.ExistingCount = pitem.Count;
+                                    m.ProposedProduct = pitem.ProductName==null?"":pitem.ProductName;
+                                    m.ProposedCount= pitem.ReplaceQty == null ? "" : pitem.ReplaceQty.ToString();
+                                    m.OperatingScheduleName = pitem.OperatingSchedule.OPName;
+                                    m.OperatingHours = pitem.OperatingSchedule.AnnualOperationHour;
+                                    m.SolutionLevel= pitem.SolutionLevel == null ? "" : pitem.SolutionLevel.ToString();
+                                    m.IsAdd = pitem.ProductName == null ? true : false;
+                                    obj.ProductList.Add(m);
+                                }
+                            }
+                            model.AreaList.Add(obj);
+                        }
+                    }
+                    else
+                    {
+                        AreaProductViewClass o = new AreaProductViewClass();
+                        o.ProductList = new List<ProposalSolutionListClass>();
+                        model.AreaList.Add(o);
+                    }
+
 
                     return View(model);
                 }

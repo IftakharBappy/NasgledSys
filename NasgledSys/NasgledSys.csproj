@@ -3903,6 +3903,7 @@
     <Content Include="Views\MgtFinanceCompany\Edit.cshtml" />
     <Content Include="Views\MgtProposal\Notes.cshtml" />
     <Content Include="Views\MgtProposal\Finance.cshtml" />
+    <Content Include="Views\MgtProposalSolution\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3910,7 +3911,6 @@
     <Folder Include="Views\AreaCopy\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\DropdownUtility\" />
-    <Folder Include="Views\MgtProposalSolution\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
   </ItemGroup>

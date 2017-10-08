@@ -1,0 +1,91 @@
+﻿@model NasgledSys.Models.SolutionMainListClass
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Solution";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@section CenterTitle{
+    @Html.DisplayFor(m => GlobalClass.Project.ProjectName) <label>Proposal</label>
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+        </span>
+        <span class="heading-text pull-right">
+            <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
+        </span>
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+
+                        <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Solution</a></li>
+                        
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
+
+                        <li class="active"><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
+                        <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
+                        <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
+
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+
+                         <div class="panel panel-default">
+                             <div class="panel-heading">
+                                 <ul class="nav nav-pills">
+
+                                    
+                                     <li class="active"><a href="#tab-main" data-toggle="tab">Summary</a></li>
+                                     <li class="active"><a href="@Url.Action("Details","MgtProposalSolution",new { id=Model.ProposalKey})">Details</a></li>  
+                                     <li class="active"><a href="@Url.Action("Manage","MgtProposalSolution",new { id=Model.ProposalKey})">Manage</a></li>                                     
+                                 </ul>
+                             </div>
+                             <div class="panel-body">
+                                 <div class="tab-content">
+                                     <div class="tab-pane fade in active" id="tab-main">
+                                        @{ 
+                                            foreach(var Item in Model.AreaList)
+                                            {
+                                                <h3>@Html.DisplayFor(m=>Item.AreaName)</h3>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr><th>Existing</th></tr>
+                                                    </thead>
+                                                </table>
+                                            }
+                                        }
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>
+</div>

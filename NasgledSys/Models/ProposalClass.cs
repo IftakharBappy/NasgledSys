@@ -12,14 +12,30 @@ namespace NasgledSys.Models
         public Guid? CompanyKey { get; set; }
         public string CompanyName { get; set; }
         public Guid? ProposalKey { get; set; }
-        public string ExistingProduct { get; set; }
        
+      public List<AreaProductViewClass> AreaList { get; set; }
+
+    }
+    public class AreaProductViewClass
+    {
+        public Guid? AreaKey { get; set; }
+        public string AreaName { get; set; }
+        public List<ProposalSolutionListClass> ProductList { get; set; }
+    }
+    public class ProposalSolutionListClass
+    {
+        public Guid? ProductKey { get; set; }       
+        public string ExistingProduct { get; set; }
+
         public decimal? ExistingCount { get; set; }
         public string ProposedProduct { get; set; }
-        public decimal? OperatingSchedule { get; set; }
+        public string ProposedCount { get; set; }
+        public string OperatingScheduleName { get; set; }
+        public Guid? OperatingScheduleKey { get; set; }
         public decimal? OperatingHours { get; set; }
-        public decimal? SolutionLevel { get; set; }
-      
+        public string SolutionLevel { get; set; }
+        public bool? IsAdd { get; set; }
+
 
     }
     public class SummaryClass

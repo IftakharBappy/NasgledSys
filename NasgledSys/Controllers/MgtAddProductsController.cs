@@ -103,10 +103,12 @@ namespace NasgledSys.Controllers
                         }
 
                         AreaProduct obj = new AreaProduct();
+                        Area area = db.Area.Find(model.AreaKey);
                         obj.ProductKey = Guid.NewGuid();
                         obj.FixtureKey = model.FixtureKey;
                         obj.ProjectKey = GlobalClass.Project.ProjectKey;
                         obj.AreaKey = model.AreaKey;
+                        obj.OperatingScheduleKey = area.OperationScheduleKey;
                         obj.Count = model.Count;
                         obj.Description = model.Description;
                         obj.ExistingProductName = manage.GetAllFixtureNamesForExistingKey(model.FixtureKey);
