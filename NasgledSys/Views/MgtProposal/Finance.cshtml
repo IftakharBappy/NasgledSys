@@ -7,7 +7,53 @@
 }
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
-<script type="text/javascript">   
+<script type="text/javascript">  
+    $(document).ready(function () {
+        GetCompanyList();
+    });
+    function GetCompanyList() {
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtProposal/GetFinanceCompanyList/",
+            success: function (data) {
+                baseList = data;
+                filteredList = data;
+                remakeGrid();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function remakeGrid() {
+        var res = "";
+        $("#elementContainer").html("");
+
+        for (var i = 0; i < filteredList.length; i++) {
+
+            res = res + "<div class='col-sm-12 col-md-4'>"
+                    + "<div class='panel panel-body panel-body-accent'>"
+                    + "<div class='media no-margin'>"
+                    + "<div class='media-body'>"
+                    + "<img src='/ShowImage/GetFinanceCompanyLogo?id=" + filteredList[i].FinanceKey + "' class='img-responsive img-rounded' width='80px' height='50px' alt=''>"
+                    + "</div>"
+                    + "<div class='media-body'>"
+                    + " <h3 class='no-margin text-semibold'>" + filteredList[i].FinancingCompanyName + "</h3>"
+                    + " <p>" + filteredList[i].IntroText + "</p>"
+                    + "</div>"
+                    + "  <div class='media-bottom'>"
+                    + "  <span class='text-uppercase text-size-mini text-muted'><a href='" + filteredList[i].AboutUsLink + "' class='btn btn-default btn-xs' role='button'>About</a></span>"
+                    + "  <span class='text-uppercase text-size-mini text-muted'><a href='" + filteredList[i].Hyperlink + "' class='btn btn-primary btn-xs' role='button'>Apply Now</a></span>"
+                    + "</div>"
+                    + "</div>"
+                    + "</div>"
+                    + "</div>";
+        }
+        $("#elementContainer").html(res);
+    }
     function isNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode;
         if (charCode != 46 && charCode > 31
@@ -118,6 +164,8 @@
         </div>
 
     </div>
+    <div class="alert alert-warning">Looking for Project Financing? Below are Financial Partners we recommend.</div>
+    <div class="row" id="elementContainer"></div>
 </div>
             </div>
             <div id="modal_Operating" class="modal fade">

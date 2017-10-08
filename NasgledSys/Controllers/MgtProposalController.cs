@@ -20,6 +20,20 @@ namespace NasgledSys.Controllers
     {
         // GET: MgtProposal
         private NasgledDBEntities db = new NasgledDBEntities();
+        public JsonResult GetFinanceCompanyList()
+        {
+            var list = (from x in db.FinanceCompany
+                        select new
+                        {
+                            FinancingCompanyName = x.FinancingCompanyName,
+                            FinanceKey =x.FinanceKey,
+                            IntroText = x.IntroText,
+                            Hyperlink =x.Hyperlink,
+                            AboutUsLink = x.AboutUsLink
+                        }).OrderBy(m => m.FinancingCompanyName).ToList();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Delete(Guid id)
         {

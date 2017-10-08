@@ -42,6 +42,19 @@ namespace NasgledSys.Controllers
                 return File(faoimagefile.FileContent, faoimagefile.FileType);
             }
         }
+        public ActionResult GetFinanceCompanyLogo(Guid id)
+        {
+
+            FinanceCompany obj = db.FinanceCompany.Find(id);
+
+            if (obj.Logo != null)
+                return File(obj.Logo, obj.LogoType);
+            else
+            {
+                ImageFile faoimagefile = db.ImageFile.Single(f => f.ImageFileKey == 1);
+                return File(faoimagefile.FileContent, faoimagefile.FileType);
+            }
+        }
         public ActionResult GetProfileProductPic(Guid id)
         {
 
