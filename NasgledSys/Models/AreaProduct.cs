@@ -52,6 +52,7 @@ namespace NasgledSys.Models
         public Nullable<bool> IsDelete { get; set; }
         public string ExistingProductName { get; set; }
         public Nullable<System.Guid> OperatingScheduleKey { get; set; }
+        public Nullable<int> SolutionLevel { get; set; }
     
         public virtual IncentiveMaxType IncentiveMaxType { get; set; }
         public virtual IncentiveType IncentiveType { get; set; }

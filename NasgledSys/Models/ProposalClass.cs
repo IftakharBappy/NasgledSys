@@ -6,6 +6,22 @@ using System.Web;
 
 namespace NasgledSys.Models
 {
+    public class SolutionMainListClass
+    {
+        public Guid? ProjectKey { get; set; }
+        public Guid? CompanyKey { get; set; }
+        public string CompanyName { get; set; }
+        public Guid? ProposalKey { get; set; }
+        public string ExistingProduct { get; set; }
+       
+        public decimal? ExistingCount { get; set; }
+        public string ProposedProduct { get; set; }
+        public decimal? OperatingSchedule { get; set; }
+        public decimal? OperatingHours { get; set; }
+        public decimal? SolutionLevel { get; set; }
+      
+
+    }
     public class SummaryClass
     {
         public Guid? ProjectKey { get; set; }

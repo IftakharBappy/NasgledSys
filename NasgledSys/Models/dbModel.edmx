@@ -108,6 +108,7 @@
           <Property Name="IsDelete" Type="bit" />
           <Property Name="ExistingProductName" Type="nvarchar(max)" />
           <Property Name="OperatingScheduleKey" Type="uniqueidentifier" />
+          <Property Name="SolutionLevel" Type="int" />
         </EntityType>
         <EntityType Name="AreaProductDetail">
           <Key>
@@ -2923,6 +2924,7 @@
           <Property Name="ExistingProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OperatingScheduleKey" Type="Guid" />
           <NavigationProperty Name="OperatingSchedule" Relationship="NasgledDBModel.FK_AreaProduct_OperatingSchedule" FromRole="AreaProduct" ToRole="OperatingSchedule" />
+          <Property Name="SolutionLevel" Type="Int32" />
         </EntityType>
         <EntityType Name="AreaProductDetail">
           <Key>
@@ -4884,6 +4886,7 @@
           <EntitySetMapping Name="AreaProduct">
             <EntityTypeMapping TypeName="NasgledDBModel.AreaProduct">
               <MappingFragment StoreEntitySet="AreaProduct">
+                <ScalarProperty Name="SolutionLevel" ColumnName="SolutionLevel" />
                 <ScalarProperty Name="OperatingScheduleKey" ColumnName="OperatingScheduleKey" />
                 <ScalarProperty Name="ExistingProductName" ColumnName="ExistingProductName" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />

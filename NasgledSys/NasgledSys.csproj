@@ -263,6 +263,7 @@
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtProposalController.cs" />
     <Compile Include="Controllers\MgtProposalCustomizeController.cs" />
+    <Compile Include="Controllers\MgtProposalSolutionController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtScheduleController.cs" />
@@ -3909,6 +3910,7 @@
     <Folder Include="Views\AreaCopy\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\DropdownUtility\" />
+    <Folder Include="Views\MgtProposalSolution\" />
     <Folder Include="Views\ShowImage\" />
     <Folder Include="Views\Utility\" />
   </ItemGroup>
