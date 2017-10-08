@@ -344,6 +344,7 @@
           <Property Name="LogoType" Type="nvarchar(max)" />
           <Property Name="Logo" Type="image" />
           <Property Name="FileName" Type="nvarchar(max)" />
+          <Property Name="AboutUsLink" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Forms">
           <Key>
@@ -4718,6 +4719,7 @@
           <Property Name="LogoType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AboutUsLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ProposalTemplate">
           <Key>
@@ -5647,6 +5649,7 @@
           <EntitySetMapping Name="FinanceCompany">
             <EntityTypeMapping TypeName="NasgledDBModel.FinanceCompany">
               <MappingFragment StoreEntitySet="FinanceCompany">
+                <ScalarProperty Name="AboutUsLink" ColumnName="AboutUsLink" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="Logo" ColumnName="Logo" />
                 <ScalarProperty Name="LogoType" ColumnName="LogoType" />

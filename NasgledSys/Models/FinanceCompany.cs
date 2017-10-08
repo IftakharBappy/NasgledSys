@@ -21,5 +21,6 @@ namespace NasgledSys.Models
         public string LogoType { get; set; }
         public byte[] Logo { get; set; }
         public string FileName { get; set; }
+        public string AboutUsLink { get; set; }
     }
 }
