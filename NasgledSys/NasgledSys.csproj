@@ -3904,6 +3904,11 @@
     <Content Include="Views\MgtProposal\Notes.cshtml" />
     <Content Include="Views\MgtProposal\Finance.cshtml" />
     <Content Include="Views\MgtProposalSolution\Index.cshtml" />
+    <Content Include="Views\MgtProposalSolution\ChangeOperatingSchedule.cshtml" />
+    <Content Include="Views\MgtProposalSolution\AddProduct.cshtml" />
+    <Content Include="Views\MgtProposalSolution\Ratio.cshtml" />
+    <Content Include="Views\MgtProposalSolution\ProductDetails.cshtml" />
+    <Content Include="Views\MgtProposalSolution\Existing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

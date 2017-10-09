@@ -87,6 +87,173 @@ namespace NasgledSys.Controllers
             }
 
         }
+        public JsonResult loadCategory(Guid? CategoryKey)
+        {
+            if (CategoryKey == Guid.Empty || CategoryKey == null)
+            {
+                var list = (from a in db.ItemCategory where a.IsDelete==false
+                           
+                            select new { a.PKey, a.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from a in db.ItemCategory where a.IsDelete==false
+                            select new
+                            {
+                                a.PKey,
+                                a.TypeName,
+                                Selected = a.PKey == CategoryKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult LoadIncentiveType(Guid? IncentiveTypeKey)
+        {
+            if (IncentiveTypeKey == Guid.Empty || IncentiveTypeKey == null)
+            {
+                var list = (from a in db.IncentiveType
+                            where a.IsDelete == false
+
+                            select new { a.PKey, a.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from a in db.IncentiveType
+                            where a.IsDelete == false
+                            select new
+                            {
+                                a.PKey,
+                                a.TypeName,
+                                Selected = a.PKey == IncentiveTypeKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public JsonResult LoadIncentiveMaxType(Guid? IncentiveMaxTypeKey)
+        {
+            if (IncentiveMaxTypeKey == Guid.Empty || IncentiveMaxTypeKey == null)
+            {
+                var list = (from a in db.IncentiveMaxType
+                            where a.IsDelete == false
+
+                            select new { a.PKey, a.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from a in db.IncentiveMaxType
+                            where a.IsDelete == false
+                            select new
+                            {
+                                a.PKey,
+                                a.TypeName,
+                                Selected = a.PKey == IncentiveMaxTypeKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadSubcategory(Guid? CategoryKey)
+        {
+            if (CategoryKey == Guid.Empty || CategoryKey == null)
+            {
+                var list = (from a in db.ItemSubcategory
+                            where a.IsDelete == false
+
+                            select new { a.PKey, a.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from a in db.ItemSubcategory
+                            where a.IsDelete == false
+                            select new
+                            {
+                                a.PKey,
+                                a.TypeName,
+                                Selected = a.PKey == CategoryKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadProductType(Guid? CategoryKey)
+        {
+            if (CategoryKey == Guid.Empty || CategoryKey == null)
+            {
+                var list = (from a in db.ItemType
+                            where a.IsDelete == false
+
+                            select new { a.PKey, a.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from a in db.ItemType
+                            where a.IsDelete == false
+                            select new
+                            {
+                                a.PKey,
+                                a.TypeName,
+                                Selected = a.PKey == CategoryKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadCatelogue(Guid? CategoryKey)
+        {
+            if (CategoryKey == Guid.Empty || CategoryKey == null)
+            {
+                var list = (from a in db.ItemCatelogue
+                            where a.IsDelete == false
+
+                            select new { a.PKey, a.TypeName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from a in db.ItemCatelogue
+                            where a.IsDelete == false
+                            select new
+                            {
+                                a.PKey,
+                                a.TypeName,
+                                Selected = a.PKey == CategoryKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public JsonResult loadManufacturer(Guid? CategoryKey)
+        {
+            if (CategoryKey == Guid.Empty || CategoryKey == null)
+            {
+                var list = (from a in db.Manufacturer
+                            where a.IsDelete == false
+
+                            select new { a.PKey, a.ManufacturerName, Selected = "" }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var list = (from a in db.Manufacturer
+                            where a.IsDelete == false
+                            select new
+                            {
+                                a.PKey,
+                                a.ManufacturerName,
+                                Selected = a.PKey == CategoryKey ? "selected" : ""
+                            }).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
         public JsonResult loadArea(Guid? AreaKey)
         {

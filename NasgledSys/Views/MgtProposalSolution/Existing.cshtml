@@ -1,0 +1,116 @@
+﻿@model NasgledSys.Models.ProductSolution
+
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Solution";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+@section CenterTitle{
+    Add Solution
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+        </span>
+
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <h2>Add Solution</h2>
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+
+                        <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
+                        <li class="active"><a href="@Url.Action("Index","MgtProposalSolution",new { id=Model.ProposalKey})">Solutions</a></li>
+
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
+
+                        <li class="active"><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
+                        <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
+                        <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
+
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <ul class="nav nav-pills">
+
+                                        <li class="active"><a href="#tab-main" data-toggle="tab">1. Existing</a></li>
+                                        <li class="active"><a href="@Url.Action("AddProduct","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">2. Proposed</a></li>
+                                        <li class="active"><a href="@Url.Action("Ratio","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">3. Ratio</a></li>
+                                        <li class="active"><a href="@Url.Action("ProductDetails","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">1. Details</a></li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab-main">
+                                          
+                                                <div class="form-horizontal">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            Select an Existing Product
+                                                        </div>
+                                                        <div class="panel-body">
+                                                           
+                                                            @{
+                                                                if (Model.ExistingList.Count() > 0)
+                                                                {
+                                                                    <table class="table table-bordered">
+                                                                        @foreach (var item in Model.ExistingList)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@Html.DisplayFor(m => item.ExsistingName)</td>
+                                                                                <td><a href="@Url.Action("AddProduct","MgtProposalSolution",new { id=item.ProductKey,id2=Model.ProposalKey})">Select</a></td>
+                                                                            </tr>
+
+                                                                        }
+                                                                    </table>
+                                                                }
+                                                               
+                                                            }
+                                                          
+
+                                                        </div>
+                                                        <div class="panel-footer">
+                                                            <a href="@Url.Action("Index", "MgtProposalSolution",new { id=Model.ProposalKey})" class="btn btn-warning btn-xlg col-md-4" role="button">Cancel</a>
+                                                           
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

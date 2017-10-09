@@ -29,15 +29,15 @@
 }
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-2">&nbsp;</div>
-        <div class="col-md-8">
+      
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <ul class="nav nav-pills">
 
                         <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Solution</a></li>
-                        
+
                         <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
 
@@ -52,40 +52,75 @@
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tab-demo1">
 
-                         <div class="panel panel-default">
-                             <div class="panel-heading">
-                                 <ul class="nav nav-pills">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <ul class="nav nav-pills">
 
-                                    
-                                     <li class="active"><a href="#tab-main" data-toggle="tab">Summary</a></li>
-                                     <li class="active"><a href="@Url.Action("Details","MgtProposalSolution",new { id=Model.ProposalKey})">Details</a></li>  
-                                     <li class="active"><a href="@Url.Action("Manage","MgtProposalSolution",new { id=Model.ProposalKey})">Manage</a></li>                                     
-                                 </ul>
-                             </div>
-                             <div class="panel-body">
-                                 <div class="tab-content">
-                                     <div class="tab-pane fade in active" id="tab-main">
-                                        @{ 
-                                            foreach(var Item in Model.AreaList)
-                                            {
-                                                <h3>@Html.DisplayFor(m=>Item.AreaName)</h3>
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr><th>Existing</th></tr>
-                                                    </thead>
-                                                </table>
+
+                                        <li class="active"><a href="#tab-main" data-toggle="tab">Summary</a></li>
+                                        <li class="active"><a href="@Url.Action("Details","MgtProposalSolution",new { id=Model.ProposalKey})">Details</a></li>
+                                        <li class="active"><a href="@Url.Action("Manage","MgtProposalSolution",new { id=Model.ProposalKey})">Manage</a></li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab-main">
+                                            @{
+                                                foreach (var Item in Model.AreaList)
+                                                {
+                                                    <h3>@Html.DisplayFor(m => Item.AreaName)</h3>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr><th>Existing</th><th>Existing Count</th><th>Proposed Product</th><th>Proposed Count</th>
+                                                                <th>Operating Schedule</th><th>Operating Hour</th><th>Solution Level</th><th>Edit</th><th>New</th><th>View</th>
+                                                                <th>Operating Schedule</th></tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @{
+                                                                    foreach (var miten in Item.ProductList)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@Html.DisplayFor(m => miten.ExistingProduct)</td>
+                                                                            <td>@Html.DisplayFor(m => miten.ExistingCount)</td>
+                                                                            <td>@Html.DisplayFor(m => miten.ProposedProduct)</td>
+                                                                            <td>@Html.DisplayFor(m => miten.ProposedCount)</td>
+                                                                            <td>@Html.DisplayFor(m => miten.OperatingScheduleName)</td>
+                                                                            <td>@Html.DisplayFor(m => miten.OperatingHours)</td>
+                                                                            <td>@Html.DisplayFor(m => miten.SolutionLevel)</td>
+                                                                            <td>
+                                                                            @{
+                                                                                if (miten.IsAdd == false)
+                                                                                {
+                                                                                    @Html.ActionLink("Edit", "EditProduct", "MgtProposalSolutionEdit",new { id = miten.ProductKey, id2 = Model.ProposalKey },new {@class = "btn btn-default"})
+                                                                               }
+                                                                            }</td>
+                                                                            <td>@{
+                                                                                if (miten.IsAdd == true)
+                                                                                {
+                                                                                    @Html.ActionLink("Add", "AddProduct", "MgtProposalSolution", new { id = miten.ProductKey, id2 = Model.ProposalKey }, new { @class = "btn btn-Primary" })
+                                                                                }
+                                                                            }</td>
+                                                                            <td><a href="#" class = "btn btn-default"></a></td>
+                                                                            <td>@Html.ActionLink("Change", "ChangeOperatingSchedule", "MgtProposalSolution", new { id = miten.ProductKey, id2=Model.ProposalKey }, new { @class = "btn btn-Primary" })</td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                }
                                             }
-                                        }
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-2">&nbsp;</div>
+       
     </div>
 </div>

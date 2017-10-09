@@ -1,0 +1,260 @@
+﻿@model NasgledSys.Models.ProposalProductDetailClass
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Solution";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    $(document).ready(function () {
+
+        LoadIncentiveType();
+        LoadIncentiveMaxType();
+
+    });
+
+
+    function LoadIncentiveType() {
+        var select = $('select[name=IncentiveTypeKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/LoadIncentiveType/",
+            data: JSON.stringify({ IncentiveTypeKey: '@Model.IncentiveTypeKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadIncentiveMaxType() {
+        var select = $('select[name=IncentiveMaxTypeKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/LoadIncentiveMaxType/",
+            data: JSON.stringify({ IncentiveMaxTypeKey: '@Model.IncentiveMaxTypeKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+  
+</script>
+@section CenterTitle{
+    Add Solution
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+        </span>
+
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <h2>Add Solution</h2>
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+
+                        <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
+                        <li class="active"><a href="@Url.Action("Index","MgtProposalSolution",new { id=Model.ProposalKey})">Solutions</a></li>
+
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
+
+                        <li class="active"><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
+                        <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
+                        <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
+
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <ul class="nav nav-pills">
+
+                                        <li class="active"><a href="@Url.Action("Existing","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">1. Existing</a></li>
+                                        <li class="active"><a href="@Url.Action("AddProduct","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">2. Proposed</a></li>
+                                        <li class="active"><a href="@Url.Action("Ratio","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">3. Ratio</a></li>
+                                     
+                                        <li class="active"><a href="#tab-main" data-toggle="tab">1. Details</a></li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab-main">
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.HiddenFor(model => model.ProductKey, new { id = "ProductKey" })
+                                                @Html.HiddenFor(model => model.ProposalKey, new { id = "ProposalKey" })
+                                                @Html.ValidationSummary()
+                                                <div class="form-horizontal">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                           Add Solution
+                                                        </div>
+                                                        <div class="panel-body">
+                                                             <div class="form-group">
+                                                                    @Html.LabelFor(model => model.ApplyTo)<span class="alert-danger">*...</span>
+                                                                    @Html.TextBoxFor(model=>model.ApplyTo,new { id= "ApplyTo",@readonly="readonly", @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(model => model.ApplyTo, "", new { @class = "text-danger" })
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.SolutionName)<span class="alert-danger">*...</span>
+                                                                    @Html.TextBoxFor(model => model.SolutionName, new { id = "SolutionName", @readonly = "readonly", @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(model => model.SolutionName, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.IncentiveTypeKey)
+                                                                <select name="IncentiveTypeKey" placeholder="Select" id="IncentiveTypeKey" class="select select-search"></select>
+                                                                @Html.ValidationMessageFor(model => model.IncentiveTypeKey, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.IncentiveAmount)
+                                                                @Html.TextBoxFor(model => model.IncentiveAmount, new {placeholder="Incentive Amount", id = "IncentiveAmount", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.IncentiveAmount, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.IncentiveMaxTypeKey)
+                                                                <select name="IncentiveMaxTypeKey" placeholder="Select" id="IncentiveMaxTypeKey" class="select select-search"></select>
+                                                                @Html.ValidationMessageFor(model => model.IncentiveMaxTypeKey, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.IncentiveMaxAmount)
+                                                                @Html.TextBoxFor(model => model.IncentiveMaxAmount, new { id = "IncentiveMaxAmount", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.IncentiveMaxAmount, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.ProductName)<span class="alert-danger">*...</span>
+                                                                @Html.TextBoxFor(model => model.ProductName, new { placeholder = "product name", id = "ProductName",  @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.ModelNo)<span class="alert-danger">*...</span>
+                                                                @Html.TextBoxFor(model => model.ModelNo, new { placeholder = "product model numver", id = "ModelNo", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.ModelNo, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.WattPerProduct)<span class="alert-danger">*...</span>
+                                                                @Html.TextBoxFor(model => model.WattPerProduct, new { placeholder = "watt per product", id = "WattPerProduct", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.WattPerProduct, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.L70)<span class="alert-danger">*...</span>
+                                                                @Html.TextBoxFor(model => model.L70, new { placeholder = "L70", id = "L70", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.L70, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.ThermalEfficency)
+                                                                @Html.TextBoxFor(model => model.ThermalEfficency, new { placeholder = "Thermal Efficiency", id = "ThermalEfficency", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.ThermalEfficency, "", new { @class = "text-danger" })
+                                                                <span class="small text-muted">The amount of input energy converted to light. A 10% thermal efficiency means the fixture converts 10% of 
+                                                                the input energy to light and 90% to Heat.</span>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.CustomNotes)
+                                                                @Html.TextAreaFor(model => model.CustomNotes, new { placeholder = "Custom Product Notes", id = "CustomNotes", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.CustomNotes, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.ProductCost)
+                                                                @Html.TextBoxFor(model => model.ProductCost, new { placeholder = "Product Cost", id = "ProductCost", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.ProductCost, "", new { @class = "text-danger" })                                                                
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.MarkupPercentage)
+                                                                @Html.TextBoxFor(model => model.MarkupPercentage, new { placeholder = "product Markup Percentage", id = "MarkupPercentage", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.MarkupPercentage, "", new { @class = "text-danger" })
+                                                                <span class="small text-muted">
+                                                                    Enter percentage without  % (and enter 6 for 6% not 0.06). Product price to your customer equals product cost*( 1 + markup),so a $20 product cost and a 50% Markup
+                                                                    will have a price of $30.
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.InstallationTime)
+                                                                @Html.TextBoxFor(model => model.InstallationTime, new { placeholder = "minutes", id = "InstallationTime", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.InstallationTime, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.InstallationCost)
+                                                                @Html.TextBoxFor(model => model.InstallationCost, new { placeholder = "dollar or leave blank to calculate from time", id = "InstallationCost", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.InstallationCost, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.ShipingCost)
+                                                                @Html.TextBoxFor(model => model.ShipingCost, new { placeholder = "dollar", id = "ShipingCost", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.ShipingCost, "", new { @class = "text-danger" })
+                                                            </div>
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.MiscCost)
+                                                                @Html.TextBoxFor(model => model.MiscCost, new { placeholder = "dollar", id = "MiscCost", @onkeypress = "return isNumberKey(event)", @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.MiscCost, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-footer">
+                                                            <a href="@Url.Action("Ratio","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})" class="btn border-warning btn-xlg col-md-4" role="button">Back</a>
+                                                            <span class="col-md-2">&nbsp;</span>
+                                                            <input type="submit" class="btn border-info btn-xlg col-md-6" id="btnsave" name="btnsave" value="Save" />
+                                                        </div>
+                                                        <div id="elementContainer"></div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+

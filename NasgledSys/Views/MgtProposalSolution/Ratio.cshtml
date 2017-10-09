@@ -1,0 +1,136 @@
+﻿@model NasgledSys.Models.ProductSolution
+
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Solution";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+  
+</script>
+@section CenterTitle{
+    Add Solution
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+        </span>
+
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <h2>Add Solution</h2>
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+
+                        <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
+                        <li class="active"><a href="@Url.Action("Index","MgtProposalSolution",new { id=Model.ProposalKey})">Solutions</a></li>
+
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
+
+                        <li class="active"><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
+                        <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
+                        <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
+
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <ul class="nav nav-pills">
+
+                                        <li class="active"><a href="@Url.Action("Existing","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">1. Existing</a></li>
+                                        <li class="active"><a href="@Url.Action("AddProduct","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">2. Proposed</a></li>
+                                        <li class="active"><a href="#tab-main" data-toggle="tab">3. Ratio</a></li>
+                                      
+                                        <li class="active"><a href="@Url.Action("ProductDetails","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">1. Details</a></li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab-main">
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.HiddenFor(model => model.ProductKey, new { id = "ProductKey" })
+                                                @Html.HiddenFor(model => model.ProposalKey, new { id = "ProposalKey" })
+                                                @Html.ValidationSummary()
+                                                <div class="form-horizontal">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                           <h2>Add Solution</h2>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <table class="table table-bordered">
+                                                                <tr><td class="text-center">
+                                                                        <div class="form-group">
+                                                                            <label class="text-center">for every</label>
+                                                                            @Html.TextBoxFor(model => model.forEvery, new { @onkeypress = "return isNumberKey(event)", id = "forEvery", @class = "form-control" })
+                                                                            @Html.ValidationMessageFor(model => model.forEvery, "", new { @class = "text-danger" })
+                                                                            <span class="small text-muted">@Html.DisplayFor(model => model.ExsistingName)</span>
+                                                                        </div>
+                                                                    </td>
+                                                                <td class="text-center">
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.replaceWith)
+                                                                        @Html.TextBoxFor(model => model.replaceWith, new { @onkeypress = "return isNumberKey(event)", id = "replaceWith", @class = "form-control" })
+                                                                        @Html.ValidationMessageFor(model => model.replaceWith, "", new { @class = "text-danger" })
+                                                                        <span class="small text-muted">@Html.DisplayFor(model => model.newItem)</span>
+                                                                    </div>
+                                                                    </td></tr>
+                                                            </table>
+                                                          
+                                                            
+
+                                                        </div>
+                                                        <div class="panel-footer">
+                                                           
+                                                            <a href="@Url.Action("AddProduct", "MgtProposalSolution",new { id = Model.ProductKey, id2 = Model.ProposalKey })" class="btn border-warning btn-xlg col-md-3" role="button">back</a>
+                                                            <span class="col-md-4">&nbsp;</span>
+                                                            <input type="submit" class="btn border-info btn-xlg col-md-5" id="btnsave" name="btnsave" value="Next" />
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

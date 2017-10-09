@@ -1,0 +1,454 @@
+﻿@model NasgledSys.Models.ProductSolution
+
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Solution";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript">
+    var baseList = [];
+    var filteredList = [];
+    $(document).ready(function () {
+
+        LoadFixture();
+        LoadCategoryKey();
+        LoadSubcategory();
+        loadManufacturer();
+        loadCatelogue();
+        LoadItemType();
+
+
+    });
+    $(function () {
+        $('#ProduictTypeKey').change(function () {
+            $("#elementContainer").html("");
+            var ddd = $(this);
+            GetItemListData();
+            filteredList = [];
+            var searchText = $(ddd).val();
+            if (searchText == "") {
+                filteredList = baseList;
+                remakeGrid();
+            }
+            else {
+                baseList.forEach(function (item) {
+                    if (item.ItemTypeKey == $(ddd).val()) {
+                        filteredList.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+        });
+    });
+    $(function () {
+        $('#CatelogueKey').change(function () {
+            var ddd = $(this);
+            GetItemListData();
+            filteredList = [];
+            var searchText = $(ddd).val();
+            if (searchText == "") {
+                filteredList = baseList;
+                remakeGrid();
+            }
+            else {
+                baseList.forEach(function (item) {
+                    if (item.CatelogueKey == $(ddd).val()) {
+                        filteredList.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+        });
+    });
+    $(function () {
+        $('#ManufacturerKey').change(function () {
+            var ddd = $(this);
+            GetItemListData();
+            filteredList = [];
+            var searchText = $(ddd).val();
+            if (searchText == "") {
+                filteredList = baseList;
+                remakeGrid();
+            }
+            else {
+                baseList.forEach(function (item) {
+                    if (item.ManufacturerKey == $(ddd).val()) {
+                        filteredList.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+        });
+    });
+    $(function () {
+        $('#SubcategoryKey').change(function () {
+            var ddd = $(this);
+            GetItemListData();
+            filteredList = [];
+            var searchText = $(ddd).val();
+            if (searchText == "") {
+                filteredList = baseList;
+                remakeGrid();
+            }
+            else {
+                baseList.forEach(function (item) {
+                    if (item.SubcategoryKey == $(ddd).val()) {
+                        filteredList.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+        });
+    });
+    $(function () {
+        $('#CategoryKey').change(function () {
+            $("#elementContainer").html("");
+            var ddd = $(this);
+            GetItemListData();
+            filteredList = [];
+            var searchText = $(ddd).val();
+            if (searchText == "") {
+                filteredList = baseList;
+                remakeGrid();
+            }
+            else {
+               // alert($(item).val());
+                baseList.forEach(function (item) {
+                    if (item.CategoryKey == $(ddd).val()) {
+                        filteredList.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+        });
+    });
+    $(function () {
+        $('#ItemKey').change(function () {
+            $("#elementContainer").html("");
+            var res = "";
+            res = res + "<br/> <input type='submit' class='btn btn-info btn-xlg col-md-6' id='btnAdd' name='btnAdd' value='Add Product' />";
+            $("#elementContainer").html(res);
+        });
+    });
+    function GetItemListData() {
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtProfileProduct/GetProfileProductList/",
+            success: function (data) {
+                baseList = data;
+                filteredList = data;
+               
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function remakeGrid() {
+        var res = "";
+        $("#elementContainer").html("");
+        res = res + "   <table class='table table-bordered'><thead>"
+
+                   + "<tr><th>Name</th><th>Model No</th><th>Watt Per Luminaire</th><th>Hrs Lamp Life</th><th>Light Output</th><th>Select</th></tr></thead>"
+                    + "<tbody>";
+        for (var i = 0; i < filteredList.length; i++) {
+
+
+            res = res + "<tr><td>" + filteredList[i].ProductName + "</td>"
+                 + "<td>" + filteredList[i].ModelNo + "</td>"
+                + "<td>" + filteredList[i].Watt + "</td>"
+                + "<td>" + filteredList[i].LampLife + "</td>"
+                + "<td>" + filteredList[i].LightOutput + "</td>"
+                + "<td><a href='/MgtProposalSolution/AddItem?id=" + filteredList[i].FixtureKey + "&id2=@Model.ProductKey&id3=@Model.ProposalKey' class='btn btn-default btn-xs' role='button'>Select</a></td></tr>";
+
+        }
+        res = res + "</tbody></table>";
+        $("#elementContainer").html(res);
+    }
+    function LoadFixture() {
+        var select = $('select[name=ItemKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadFixture/",
+            data: JSON.stringify({ FixtureKey: '@Model.ItemKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].FixtureKey + "' " + data[i].Selected + ">" + data[i].ProductName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadItemType() {
+        var select = $('select[name=ProduictTypeKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadProductType/",
+            data: JSON.stringify({ CategoryKey: '@Model.ProduictTypeKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadCategoryKey() {
+        var select = $('select[name=CategoryKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadCategory/",
+            data: JSON.stringify({ CategoryKey: '@Model.CategoryKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function loadCatelogue() {
+        var select = $('select[name=CatelogueKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadCatelogue/",
+            data: JSON.stringify({ CategoryKey: '@Model.CatelogueKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function loadManufacturer() {
+        var select = $('select[name=ManufacturerKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadManufacturer/",
+            data: JSON.stringify({ CategoryKey: '@Model.ManufacturerKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].ManufacturerName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadSubcategory() {
+        var select = $('select[name=SubcategoryKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadSubcategory/",
+            data: JSON.stringify({ CategoryKey: '@Model.SubcategoryKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    </script>
+@section CenterTitle{
+    Add Solution
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+        </span>
+
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <h2>Add Solution</h2>
+        <div class="col-md-4">
+            <h3>Reuse a Solution Formula:</h3>
+            @{
+                if (Model.ExistingList.Count() > 0)
+                {
+                    <table class="table table-bordered">
+                        @foreach(var item in Model.ExistingList)
+                        {
+                            <tr><td>@Html.DisplayFor(m=>item.ExsistingName)</td>
+                        <td><a href="@Url.Action("AddExistingSolution","MgtProposalSolution",new { id=item.ProductKey,id2=Model.ProductKey,id3=Model.ProposalKey})">Select</a></td></tr>
+
+                        }
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        It looks like this is the first solution you have created for the selected Existing Product.
+                        Once you have added more solutions to the system, your Top solution will appear here.
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+
+                        <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
+                        <li class="active"><a href="@Url.Action("Index","MgtProposalSolution",new { id=Model.ProposalKey})">Solutions</a></li>
+
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
+
+                        <li class="active"><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
+                        <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
+                        <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
+
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <ul class="nav nav-pills">
+
+                                        <li class="active"><a href="@Url.Action("Existing","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">1. Existing</a></li>
+                                        <li class="active"><a href="#tab-main" data-toggle="tab">2. Proposed</a></li>
+                                        <li class="active"><a href="@Url.Action("Ratio","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">3. Ratio</a></li>
+                                        <li class="active"><a href="@Url.Action("ProductDetails","MgtProposalSolution",new { id=Model.ProductKey,id2=Model.ProposalKey})">1. Details</a></li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab-main">
+                                           @using (Html.BeginForm())
+                                           {
+                                            @Html.AntiForgeryToken()
+                                            @Html.HiddenFor(model => model.ProductKey, new { id = "ProductKey" })
+                                            @Html.HiddenFor(model => model.ProposalKey, new { id = "ProposalKey" })
+                                            @Html.ValidationSummary()
+                                                <div class="form-horizontal">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            Apply an operating Schedule to Solution
+                                                        </div>
+                                                        <div class="panel-body">
+                                                           <h3>Search for a solution product:</h3>
+                                                            <div class="alert-info">Existing : @Html.DisplayFor(m=>m.ExsistingName)</div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.ItemKey)
+                                                                    <select name="ItemKey" placeholder="Please enter a Model Number or Material Name" id="ItemKey" class="select select-search"></select>
+                                                                    @Html.ValidationMessageFor(model => model.ItemKey, "", new { @class = "text-danger" })
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.ProduictTypeKey)
+                                                                    <select name="ProduictTypeKey" placeholder="Select" id="ProduictTypeKey" class="select select-search"></select>
+                                                                    @Html.ValidationMessageFor(model => model.ProduictTypeKey, "", new { @class = "text-danger" })
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.CatelogueKey)
+                                                                    <select name="CatelogueKey" placeholder="Select" id="CatelogueKey" class="select select-search"></select>
+                                                                    @Html.ValidationMessageFor(model => model.CatelogueKey, "", new { @class = "text-danger" })
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.CategoryKey)
+                                                                    <select name="CategoryKey" placeholder="Select" id="CategoryKey" class="select select-search"></select>
+                                                                    @Html.ValidationMessageFor(model => model.CategoryKey, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.ManufacturerKey)
+                                                                    <select name="ManufacturerKey" placeholder="Select" id="ManufacturerKey" class="select select-search"></select>
+                                                                    @Html.ValidationMessageFor(model => model.ManufacturerKey, "", new { @class = "text-danger" })
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.SubcategoryKey)
+                                                                    <select name="SubcategoryKey" placeholder="Select" id="SubcategoryKey" class="select select-search"></select>
+                                                                    @Html.ValidationMessageFor(model => model.SubcategoryKey, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="panel-footer">
+                                                            <a href="@Url.Action("Index", "MgtProposalSolution",new { id=Model.ProposalKey})" class="btn btn-warning btn-xlg col-md-4" role="button">Cancel</a>
+                                                            <input type="submit" class="btn btn-info btn-xlg col-md-6" id="btnsave" name="btnsave" value="Custom Product" />
+                                                        </div>
+                                                        <div id="elementContainer"></div>
+                                                    </div>
+                                                </div>
+                                           }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
