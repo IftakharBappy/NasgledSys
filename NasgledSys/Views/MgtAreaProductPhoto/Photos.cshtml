@@ -103,7 +103,9 @@
 //var base64 = Convert.ToBase64String(Model.AreaProductPhotoList[i].FileContent);
 //var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
 
-                                                                <img src='@Url.Action("GetAreaProductPhoto", "ShowImage", new { id=Model.AreaProductPhotoList[i].PhotoKey})' style="max-height:50px;border-radius: 10px;" />
+                                                                <a href="@Url.Action("GetAreaProductPhoto", "ShowImage", new { id = Model.AreaProductPhotoList[i].PhotoKey })" target="_blank">
+                                                                    <img src='@Url.Action("GetAreaProductPhoto", "ShowImage", new { id=Model.AreaProductPhotoList[i].PhotoKey})' style="max-height:50px;border-radius: 10px;" />
+                                                                </a>
                                                             }
                                                         </td>
 
