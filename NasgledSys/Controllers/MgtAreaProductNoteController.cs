@@ -132,7 +132,7 @@ namespace NasgledSys.Controllers
                             model.Description = obj.Description;
                             model.Condition = obj.Condition;
                         }
-                        Session["GlobalMessege"] = "Detail Saved Successfully";
+                        Session["GlobalMessege"] = "Notes Saved Successfully";
                     }
                     return View(model);
                 }
