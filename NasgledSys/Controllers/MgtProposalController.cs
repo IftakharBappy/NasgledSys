@@ -120,12 +120,14 @@ namespace NasgledSys.Controllers
                 await task;
                 GlobalClass.ProposalGuid = contact.ProposalKey;
                 Session["GlobalMessege"] = "Proposal has been Created successfully.";
-               
-                return Content("success");
+                return Content(contact.ProposalKey.ToString());
+
+                //return Content("success");
+                //return RedirectToAction("Summary", "MgtProposal",new { id=contact.ProposalKey});
             }
             catch (Exception ex)
             {
-                return Content(ex.Message.ToString());
+                return Content("Error");
             }
         }
         public ActionResult GetProposal([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestModel, AdvancedSearchViewModel searchViewModel)
