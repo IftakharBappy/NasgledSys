@@ -120,9 +120,9 @@ namespace NasgledSys.Controllers
                 await task;
                 GlobalClass.ProposalGuid = contact.ProposalKey;
                 Session["GlobalMessege"] = "Proposal has been Created successfully.";
-                return Content(contact.ProposalKey.ToString());
+                //return Content(contact.ProposalKey.ToString());
 
-                //return Content("success");
+                return Content("success");
                 //return RedirectToAction("Summary", "MgtProposal",new { id=contact.ProposalKey});
             }
             catch (Exception ex)

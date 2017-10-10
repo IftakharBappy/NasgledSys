@@ -35,10 +35,10 @@
                 <div class="panel-heading">
                     <ul class="nav nav-pills">
                         <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
-                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Solutions</a></li>
+                        <li class="active"><a href="@Url.Action("Index","MgtProposalSolution",new { id=Model.ProposalKey})">Solutions</a></li>
                         <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
-                        <li class="active"><a href="@Url.Action("Finance","MgtProposalCustomize",new { id=Model.ProposalKey})">Financing</a></li>
+                        <li class="active"><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
                         <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
                        
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Notes</a></li>
@@ -46,7 +46,7 @@
                     </ul>
                 </div>
 
-@using (Html.BeginForm("Create", "MgtArea", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm())
 {
     @Html.ValidationSummary()
     <div class="form-horizontal">

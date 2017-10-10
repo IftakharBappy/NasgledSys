@@ -151,6 +151,7 @@ namespace NasgledSys.Controllers
                             pd.ProjectKey = item.ProjectKey;
                             pd.IsDelete = item.IsDelete;
                             pd.ExistingProductName = item.ExistingProductName;
+                            pd.OperatingScheduleKey = item.OperatingScheduleKey;
                             bc.AreaProduct.Add(pd);
                             bc.SaveChanges();
                             bc = new NasgledDBEntities();
@@ -393,6 +394,7 @@ namespace NasgledSys.Controllers
                                 pd.ProjectKey = item.ProjectKey;
                                 pd.IsDelete = item.IsDelete;
                                 pd.ExistingProductName = item.ExistingProductName;
+                                pd.OperatingScheduleKey = item.OperatingScheduleKey;
                                 bc.AreaProduct.Add(pd);
                                 bc.SaveChanges();
                                 bc = new NasgledDBEntities();
