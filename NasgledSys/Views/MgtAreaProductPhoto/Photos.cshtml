@@ -119,7 +119,8 @@
                                                             <button type="button" class="open-AddBookDialog btn btn-default border-blue" data-toggle="modal" data-id="@Model.AreaProductPhotoList[i].PhotoKey" data-description="@Model.AreaProductPhotoList[i].Description" data-target="#modal_image" onclick="">Change Photo/ Edit Description</button>
                                                         </td>
                                                         <td>
-                                                            <button type="button" id="btnUpdate" class="btn btn-default border-green col-md-offset-1" onclick="location.href='@Url.Action("Delete", "MgtAreaProductPhoto", new { id = Model.AreaProductPhotoList[i].PhotoKey })'">Remove Photo</button>
+                                                            @Html.ActionLink("Remove Photo", "Delete", "MgtAreaProductPhoto", new { id = Model.AreaProductPhotoList[i].PhotoKey }, new { @class = "btn btn-default border-green col-md-offset-1", onclick = "return confirm('Are you sure you want to Remove this?')" })
+                                                            
                                                         </td>
 
                                                     </tr>

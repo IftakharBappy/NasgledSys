@@ -75,12 +75,12 @@
                                     <a href="@Url.Action("Edit", "AreaPhoto", new { id = Model.AreaKey })">Photos</a>
                                 </li>
                                 <li class="active"><a href="#" data-toggle="tab">Documents</a></li>
-                                
+
                                 <li><a href="@Url.Action("Edit", "AreaNote", new { id = Model.AreaKey })">Notes</a></li>
                                 <li><a href="@Url.Action("Index", "AreaCopy", new { id = Model.AreaKey })" onclick="return confirm('Are you sure you want to Copy this Area?')">Copy</a></li>
 
 
-                            </ul>
+</ul>
                         </div>
                         <div class="panel-body">
                             <div class="tab-content">
@@ -133,7 +133,8 @@
                                                             <td>
                                                                 <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
                                                                 <button type="button" class="open-AddBookDialog btn btn-primary" data-toggle="modal" data-id="@Model.AreaDocumentList[i].DocumentKey" data-target="#modal_image" onclick="">Change Document</button>
-                                                                <button type="button" id="btnUpdate" class="btn border-danger" onclick="location.href='@Url.Action("Delete", "AreaDocument", new { id = Model.AreaDocumentList[i].DocumentKey })'">Remove Document</button>
+                                                                @Html.ActionLink("Remove Document", "Delete", "AreaDocument", new { id = Model.AreaDocumentList[i].DocumentKey }, new { @class = "btn border-danger", onclick = "return confirm('Are you sure you want to Remove this?')" })
+                                                               
                                                             </td>
                                                             <td></td>
                                                         </tr>

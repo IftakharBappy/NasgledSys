@@ -135,9 +135,10 @@
 
                                                             <td>
                                                                 <input id="PostedLogo" name="PostedLogo" style="visibility:hidden;" type="file">
-                                                                @*<button type="button" id="btnUpdate" class="btn btn-primary" onclick="">Change Photo</button>*@
+                                                               
                                                                 <button type="button" class="open-AddBookDialog btn btn-primary" data-toggle="modal" data-id="@Model.AreaPhotoList[i].PhotoKey" data-target="#modal_image" onclick="">Change Photo</button>
-                                                                <button type="button" id="btnUpdate" class="btn border-danger" onclick="location.href='@Url.Action("Delete", "AreaPhoto", new { id = Model.AreaPhotoList[i].PhotoKey })'">Remove Photo</button>
+                                                                @Html.ActionLink("Remove Photo","Delete", "AreaPhoto", new { id = Model.AreaPhotoList[i].PhotoKey },new { @class = "btn border-danger", onclick = "return confirm('Are you sure you want to Remove this?')" })
+                                                                @*<button type="button" id="btnUpdate" class="btn border-danger" onclick="location.href='@Url.Action("Delete", "AreaPhoto", new { id = Model.AreaPhotoList[i].PhotoKey })'">Remove Photo</button>*@
                                                             </td>
                                                             <td></td>
                                                         </tr>
