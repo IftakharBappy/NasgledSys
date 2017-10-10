@@ -153,12 +153,12 @@
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Reflectance)
-                                            @Html.TextBoxFor(model => model.Reflectance, new { @onkeypress = "return isNumberKey(event)", placeholder = "30", id = "Reflectance", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.Reflectance, new { @onkeypress = "return isNumberKey(event)", placeholder = "reflectance", id = "Reflectance", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.Reflectance, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.AreaWidth)
-                                            @Html.TextBoxFor(model => model.AreaWidth, new { @onkeypress = "return isNumberKey(event)", placeholder = "5", id = "AreaWidth", @class = "form-control" })
+                                            @Html.TextBoxFor(model => model.AreaWidth, new { @onkeypress = "return isNumberKey(event)", placeholder = "area width", id = "AreaWidth", @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.AreaWidth, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
