@@ -94,7 +94,7 @@ namespace NasgledSys.Controllers
                         }
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { id= GlobalClass.Company.CompanyKey });
             }
             catch (Exception e)
             {
@@ -165,7 +165,7 @@ namespace NasgledSys.Controllers
                         }
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { id= GlobalClass.Company.CompanyKey });
             }
             catch (Exception e)
             {

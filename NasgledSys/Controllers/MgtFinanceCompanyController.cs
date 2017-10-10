@@ -26,7 +26,8 @@ namespace NasgledSys.Controllers
                     FinancingCompanyName = p.FinancingCompanyName,
                     IntroText = p.IntroText,
                     Hyperlink = p.Hyperlink,
-                    Logo = p.Logo
+                    Logo = p.Logo,
+                    AboutUsLink=p.AboutUsLink
                 }).ToList();
 
                 return View(model);
@@ -69,10 +70,13 @@ namespace NasgledSys.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        if (string.IsNullOrEmpty(obj.Hyperlink)) obj.Hyperlink = "#h";
+                        if (string.IsNullOrEmpty(obj.AboutUsLink)) obj.AboutUsLink = "#a";
                         FinanceCompany model = new FinanceCompany();
                         model.FinanceKey = Guid.NewGuid();
                         model.FinancingCompanyName = obj.FinancingCompanyName;
                         model.Hyperlink = obj.Hyperlink;
+                        model.AboutUsLink = obj.AboutUsLink;
                         model.IntroText = obj.IntroText;
 
                         byte[] imgBinaryData = new byte[PostedLogo.ContentLength];
@@ -120,7 +124,7 @@ namespace NasgledSys.Controllers
                     model.IntroText = FinCompany.IntroText;
                     model.Hyperlink = FinCompany.Hyperlink;
                     model.Logo = FinCompany.Logo;
-
+                    model.AboutUsLink = FinCompany.AboutUsLink;
                     if (FinCompany == null)
                     {
                         return HttpNotFound();
@@ -149,12 +153,13 @@ namespace NasgledSys.Controllers
 
                     if (ModelState.IsValid)
                     {
-
+                        if (string.IsNullOrEmpty(obj.Hyperlink)) obj.Hyperlink = "#h";
+                        if (string.IsNullOrEmpty(obj.AboutUsLink)) obj.AboutUsLink = "#a";
                         FinanceCompany model = db.FinanceCompany.Find(obj.FinanceKey);
                         model.FinancingCompanyName = obj.FinancingCompanyName;
                         model.IntroText = obj.IntroText;
                         model.Hyperlink = obj.Hyperlink;
-
+                        model.AboutUsLink = obj.AboutUsLink;
                         if (PostedLogo != null && PostedLogo.ContentLength > 0)
                         {
                             byte[] imgBinaryData = new byte[PostedLogo.ContentLength];
@@ -197,6 +202,14 @@ namespace NasgledSys.Controllers
             {
                 return View("Error", new HandleErrorInfo(e, "MgtFinanceCompany", "Index"));
             }
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

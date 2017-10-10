@@ -16,7 +16,10 @@ namespace NasgledSys.Models
         [Display(Name = "Introduction")]
         [Required(ErrorMessage = "Introduction is required.")]
         public string IntroText { get; set; }
+        [Display(Name = "Link To Apply")]
         public string Hyperlink { get; set; }
+        [Display(Name = "About Us Link")]
+        public string AboutUsLink { get; set; }
         public string LogoType { get; set; }
         public byte[] Logo { get; set; }
         public string FileName { get; set; }
