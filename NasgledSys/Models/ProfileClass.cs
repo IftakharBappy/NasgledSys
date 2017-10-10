@@ -36,8 +36,8 @@ namespace NasgledSys.Models
         public string JobTitle { get; set; }
         [Display(Name = "Phone No*..")]
         [Required(ErrorMessage = "Please Enter your Phone No")]        
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
+        //[DataType(DataType.PhoneNumber)]
+        //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Phone number")]
         public string PhoneNo { get; set; }
 
         [Display(Name = "Email Add*..")]
@@ -56,7 +56,7 @@ namespace NasgledSys.Models
 
         [Display(Name = "Sales Reach")]
         public string SalesReach { get; set; }
-        [Display(Name = "Manufaterers With Whom You Have A Direct Relation:")]
+        [Display(Name = "Manufacturers With Whom You Have A Direct Relation:")]
         public string DirectManufacture { get; set; }
         [Display(Name = "Distributors Through Which You Buy Lighting Products:")]
         public string DirectDistributor { get; set; }

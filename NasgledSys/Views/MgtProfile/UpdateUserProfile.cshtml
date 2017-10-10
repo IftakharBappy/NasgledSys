@@ -110,7 +110,7 @@
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.PhoneNo)
-                            @Html.TextBoxFor(model => model.PhoneNo, new { placeholder = "Phone Number", id = "PhoneNo", @class = "form-control" })
+                            @Html.TextBoxFor(model => model.PhoneNo, new { mask = "(999) 999-9999", placeholder = "Phone Number", id = "PhoneNo", @class = "form-control" })
                             <span class="small text-muted"> We do not provide your Phone Number to outside parties.</span>
                             @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
                         </div>

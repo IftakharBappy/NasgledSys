@@ -177,11 +177,13 @@ namespace NasgledSys.Controllers
                     profile.Email = model.Email;
                     profile.UserStatus = true;
                     profile.RoleKey = (from x in db.UserRole where x.IsDelete == false && x.Rlevel==1 select x).OrderByDescending(m => m.Rlevel).FirstOrDefault().RoleKey;
-                    db.UserProfile.Add(profile);db.SaveChanges();
+                    db.UserProfile.Add(profile);
+                    db.SaveChanges();
                     GlobalClass.MasterSession = true;
                     GlobalClass.ProfileUser = profile;
+                    GlobalClass.LoggedInUser = profile;
+                   
 
-                    
                     return RedirectToAction("Index", "MgtProfile");
                 }
                 catch(Exception ex)

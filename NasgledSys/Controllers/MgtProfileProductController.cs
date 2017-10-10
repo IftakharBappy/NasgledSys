@@ -41,17 +41,17 @@ namespace NasgledSys.Controllers
                     {
                         MgtItemCatelogue manage = new MgtItemCatelogue();
                         NasgledDBEntities bc = new NasgledDBEntities();
-                        var checkForCatelog = from x in db.MainProduct
-                                              join y in db.ProfileProduct on x.FixtureKey equals y.FixtureKey
-                                              where y.ProfileKey == GlobalClass.ProfileUser.ProfileKey
-                                              select x.FixtureKey;
-                        if (checkForCatelog.Count() > 0)
-                        {
+                        //var checkForCatelog = from x in db.MainProduct
+                        //                      join y in db.ProfileProduct on x.FixtureKey equals y.FixtureKey
+                        //                      where y.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                        //                      select x.FixtureKey;
+                        //if (checkForCatelog.Count() > 0)
+                        //{
 
-                        }else
-                        {
-                            int i=manage.AddAdminCatelog();
-                        }
+                        //}else
+                        //{
+                        //    int i=manage.AddAdminCatelog();
+                        //}
                         ItemCatelogue cat = db.ItemCatelogue.FirstOrDefault(m=>m.TypeName.Contains("Admin"));
                         if (cat == null)
                         {
@@ -62,7 +62,7 @@ namespace NasgledSys.Controllers
                         {
                             MainProduct viewModel = db.MainProduct.Find(item);
                             ProfileProduct model = new ProfileProduct();
-                            model.FixtureKey = viewModel.FixtureKey;
+                            model.FixtureKey = Guid.NewGuid();
                             model.ItemTypeKey = viewModel.ItemTypeKey;
                             model.CategoryKey = viewModel.CategoryKey;
                             model.SubcategoryKey = viewModel.SubcategoryKey;
@@ -73,7 +73,7 @@ namespace NasgledSys.Controllers
                             model.ProductName = viewModel.ProductName;
                             model.ModelNo = viewModel.ModelNo;
                             model.Watt = viewModel.Watt;
-                            model.Watt = viewModel.Watt;
+                           
                             model.ThermalEfficacy = viewModel.ThermalEfficacy;
                             model.CRI = viewModel.CRI;
 
@@ -107,7 +107,8 @@ namespace NasgledSys.Controllers
                             model.Logo = viewModel.Logo;
                             model.FileName = viewModel.FileName;
                             model.FileType = viewModel.FileType;
-                            model.MainItemKey = viewModel.MainItemKey;
+                           if(viewModel.MainItemKey!=null)model.MainItemKey = viewModel.MainItemKey;
+                           
                             bc.ProfileProduct.Add(model);
                             bc.SaveChanges();
                             bc = new NasgledDBEntities();

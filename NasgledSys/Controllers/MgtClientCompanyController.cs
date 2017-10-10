@@ -32,7 +32,7 @@ namespace NasgledSys.Controllers
                 {
                     ViewBag.mess = "";
                     ViewBag.IndustryTypeKey = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "IndustryKey", "TypeName");
-
+                    Session["GlobalMessege"] = "";
                     return View();
                 }
                 catch (Exception e)
@@ -92,7 +92,8 @@ namespace NasgledSys.Controllers
                 {
                     TempData["mess"] = "Mandatory fileds(field with *) are empty, Could not save.";
                 }
-                return RedirectToAction("CreateClientCompany");
+                ViewBag.IndustryTypeKey = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "IndustryKey", "TypeName",viewModel.IndustryTypeKey);
+                return View(viewModel);
 
 
             }

@@ -22,6 +22,14 @@ namespace NasgledSys.Controllers
         // GET: MgtProfile
         private NasgledDBEntities db = new NasgledDBEntities();
         private FormValidation validate = new FormValidation();
+        public ActionResult LoadEmail(Guid id)
+        {
+            JsonResult result = new JsonResult();
+           
+            result.Data = "--@gmail.com";
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
         public ActionResult Index()
         {
             if (GlobalClass.MasterSession)
@@ -31,7 +39,7 @@ namespace NasgledSys.Controllers
                     List<SelectListItem> HireOutsiders = new List<SelectListItem>();
                     HireOutsiders.Add(new SelectListItem() { Text = "Yes", Value = "Yes" });
                     HireOutsiders.Add(new SelectListItem() { Text = "No", Value = "No" });
-
+                    ViewBag.email = "--@gmail.com";
                     ViewBag.mess = "";
                     ViewBag.PrimaryBusinessType = new SelectList(db.IndustryType.Where(m => m.IsDelete == false).OrderBy(m => m.TypeName), "TypeName", "TypeName");
                     ViewBag.HireOutsideAuditor = new SelectList(HireOutsiders, "Value", "Text");
@@ -61,6 +69,8 @@ namespace NasgledSys.Controllers
                 List<SelectListItem> HireOutsiders = new List<SelectListItem>();
                 HireOutsiders.Add(new SelectListItem() { Text = "Yes", Value = "Yes" });
                 HireOutsiders.Add(new SelectListItem() { Text = "No", Value = "No" });
+                UserProfile imp = db.UserProfile.Find(GlobalClass.ProfileUser.ProfileKey);
+               
                 if (ModelState.IsValid)
                 {
 
