@@ -86,6 +86,21 @@ namespace NasgledSys.Controllers
 
                     db.AreaPhoto.Add(entity);
                     db.SaveChanges();
+                   
+                        IQueryable<AreaPhoto> query = db.AreaPhoto.Where(m => m.AreaKey == model.AreaKey);
+
+                        var data = query.Select(asset => new AreaPhotoModel()
+                        {
+                            AreaKey = asset.AreaKey,
+                            PhotoKey = asset.PhotoKey,
+                            Description = asset.Description,
+                            FileContent = asset.FileContent,
+                            FileName = asset.FileName,
+                            FileType = asset.FileType
+                        }).ToList();
+
+                        model.AreaPhotoList = data;
+                    
 
                 }
 
@@ -191,7 +206,7 @@ namespace NasgledSys.Controllers
                 }).ToList();
 
                 model.AreaPhotoList = data;
-                return RedirectToAction("Edit", "AreaPhoto", new { @id = model.AreaKey });
+                return RedirectToAction("Edit", "AreaPhoto", new { id = model.AreaKey });
 
             }
             else
@@ -215,7 +230,7 @@ namespace NasgledSys.Controllers
                     db.SaveChanges();
                   
                     Session["GlobalMessege"] = "Area Photo has been DELETED successfully.";
-                    return RedirectToAction("Edit", "AreaPhoto", new { @id = areaId });
+                    return RedirectToAction("Edit", "AreaPhoto", new { id = areaId });
                 }
                 catch (Exception e)
                 {

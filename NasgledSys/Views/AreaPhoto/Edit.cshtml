@@ -117,12 +117,14 @@
 
                                                         <tr>
                                                             <td>
-                                                              
-                                                                @{
+                                                                <a href="@Url.Action("GetAreaPhoto", "ShowImage", new { id = Model.AreaPhotoList[i].PhotoKey })" target="_blank">
+                                                                    <img src='@Url.Action("GetAreaPhoto", "ShowImage", new { id=Model.AreaPhotoList[i].PhotoKey})' style="max-height:50px;border-radius: 10px;" />
+                                                                </a>
+                                                                @*@{
                                                                     var base64 = Convert.ToBase64String(Model.AreaPhotoList[i].FileContent);
                                                                     var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
                                                                     <img src='@imgSrc' style="max-height:50px;border-radius: 10px;" />
-                                                                }
+                                                                }*@
                                                             </td>
 
                                                             <td>
