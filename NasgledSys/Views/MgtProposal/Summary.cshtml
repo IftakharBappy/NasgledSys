@@ -44,7 +44,7 @@
                         <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
                         <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
                        
-                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>  
+                        <li class="active"><a href="@Url.Action("Report","ProposalReport",new { id=Model.ProposalKey})">Reports</a></li>  
                                             
                     </ul>
                 </div>

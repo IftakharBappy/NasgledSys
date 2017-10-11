@@ -272,6 +272,7 @@
     <Compile Include="Controllers\MgtSubAreaController.cs" />
     <Compile Include="Controllers\MgtUnitController.cs" />
     <Compile Include="Controllers\MgtUsergroupController.cs" />
+    <Compile Include="Controllers\ProposalReportController.cs" />
     <Compile Include="Controllers\ReportTemplatesController.cs" />
     <Compile Include="Controllers\ShowImageController.cs" />
     <Compile Include="Controllers\tcityController.cs" />
@@ -3909,6 +3910,7 @@
     <Content Include="Views\MgtProposalSolution\Ratio.cshtml" />
     <Content Include="Views\MgtProposalSolution\ProductDetails.cshtml" />
     <Content Include="Views\MgtProposalSolution\Existing.cshtml" />
+    <Content Include="Views\ProposalReport\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
