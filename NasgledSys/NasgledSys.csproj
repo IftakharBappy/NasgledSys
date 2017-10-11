@@ -263,6 +263,7 @@
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtProposalController.cs" />
     <Compile Include="Controllers\MgtProposalCustomizeController.cs" />
+    <Compile Include="Controllers\MgtProposalSavingController.cs" />
     <Compile Include="Controllers\MgtProposalSolutionController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
@@ -529,6 +530,7 @@
     <Compile Include="Models\ProposalNote.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProposalSavingViewModel.cs" />
     <Compile Include="Models\ProposalTemplate.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -601,6 +603,7 @@
     <Content Include="Content\assets\css\icons\glyphicons\glyphicons-halflings-regular.svg" />
     <Content Include="Content\assets\css\icons\icomoon\fonts\icomoon.svg" />
     <Content Include="Content\assets\css\icons\icomoon\styles.css" />
+    <Content Include="Content\assets\css\proposalsaving.css" />
     <Content Include="Content\assets\demo_data\maps\vector\gdp_demo_data.js" />
     <Content Include="Content\assets\demo_data\wizard\additional.html" />
     <Content Include="Content\assets\demo_data\wizard\education.html" />
@@ -3909,6 +3912,7 @@
     <Content Include="Views\MgtProposalSolution\Ratio.cshtml" />
     <Content Include="Views\MgtProposalSolution\ProductDetails.cshtml" />
     <Content Include="Views\MgtProposalSolution\Existing.cshtml" />
+    <Content Include="Views\MgtProposalSaving\Saving.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
