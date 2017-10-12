@@ -20,76 +20,95 @@ namespace NasgledSys.Controllers
         private NasgledDBEntities db = new NasgledDBEntities();
         private static Logger logger = LogManager.GetCurrentClassLogger();
         // GET: MgtClientContact
+        public JsonResult GetClientList()
+        {
+           
+            var temp = (from x in db.ClientContact
+                        where x.IsActive == true && x.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                        select new ClientContactViewModel
+                        {
+                            ContactKey = x.ContactKey,
+                            FirstName = x.FirstName,
+                            LastName = x.LastName,
+                            Email = x.Email,
+                            Address = x.Address,
+                            IsActive = x.IsActive
+                        }).OrderBy(m => m.Email).ToList();
+            
+          
+            return Json(temp, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Index()
         {
             if (GlobalClass.MasterSession)
             {
                 try
                 {
-                   // logger.Info("Mgt Client Contact Index() invoked by:" + GlobalClass.ProfileUser.FirstName + " " + GlobalClass.ProfileUser.LastName);
+                    // logger.Info("Mgt Client Contact Index() invoked by:" + GlobalClass.ProfileUser.FirstName + " " + GlobalClass.ProfileUser.LastName);
 
-                    ClientContactViewModel obj = new ClientContactViewModel();
-                    obj.ClientContactViewModelList = new List<ClientContactViewModel>();
-                    obj.ClientContactViewModelList = manage.ListAll();
+                    //ClientContactViewModel obj = new ClientContactViewModel();
+                    //obj.ClientContactViewModelList = new List<ClientContactViewModel>();
+                    //obj.ClientContactViewModelList = manage.ListAll();
 
-                    // Tab Data
-                    ThumbnailViewModel model = new ThumbnailViewModel();
-                    model.ThumbnailModelList = new List<ThumbnailModel>();
+                    //// Tab Data
+                    //ThumbnailViewModel model = new ThumbnailViewModel();
+                    //model.ThumbnailModelList = new List<ThumbnailModel>();
 
-                    // batch your List data for tab view i want batch by 2 you can set your value
+                    //// batch your List data for tab view i want batch by 2 you can set your value
 
-                    //var listOfBatches = obj.ClientContactViewModelList.Batch(2);
-                    var listOfBatches = obj.ClientContactViewModelList.Batch(6);
+                    ////var listOfBatches = obj.ClientContactViewModelList.Batch(2);
+                    //var listOfBatches = obj.ClientContactViewModelList.Batch(6);
 
-                    int tabNo = 1;
+                    //int tabNo = 1;
 
-                    foreach (var batchItem in listOfBatches)
-                    {
-                        // Generating tab
-                        ThumbnailModel thumbObj = new ThumbnailModel();
-                        thumbObj.ThumbnailLabel = "Lebel" + tabNo;
-                        thumbObj.ThumbnailTabId = "tab" + tabNo;
-                        thumbObj.ThumbnailTabNo = tabNo;
-                        thumbObj.Thumbnail_Aria_Controls = "tab" + tabNo;
-                        thumbObj.Thumbnail_Href = "#tab" + tabNo;
+                    //foreach (var batchItem in listOfBatches)
+                    //{
+                    //    // Generating tab
+                    //    ThumbnailModel thumbObj = new ThumbnailModel();
+                    //    thumbObj.ThumbnailLabel = "Lebel" + tabNo;
+                    //    thumbObj.ThumbnailTabId = "tab" + tabNo;
+                    //    thumbObj.ThumbnailTabNo = tabNo;
+                    //    thumbObj.Thumbnail_Aria_Controls = "tab" + tabNo;
+                    //    thumbObj.Thumbnail_Href = "#tab" + tabNo;
 
-                        // batch details
+                    //    // batch details
 
-                        thumbObj.ClientContactDetailsList = new List<ClientContactViewModel>();
+                    //    thumbObj.ClientContactDetailsList = new List<ClientContactViewModel>();
 
-                        foreach (var item in batchItem)
-                        {
-                            ClientContactViewModel detailsObj = new ClientContactViewModel();
-                            detailsObj = item;
-                            thumbObj.ClientContactDetailsList.Add(detailsObj);
-                        }
+                    //    foreach (var item in batchItem)
+                    //    {
+                    //        ClientContactViewModel detailsObj = new ClientContactViewModel();
+                    //        detailsObj = item;
+                    //        thumbObj.ClientContactDetailsList.Add(detailsObj);
+                    //    }
 
-                        model.ThumbnailModelList.Add(thumbObj);
+                    //    model.ThumbnailModelList.Add(thumbObj);
 
-                        tabNo++;
-                    }
+                    //    tabNo++;
+                    //}
 
-                    // Getting first tab data
-                    var first = model.ThumbnailModelList.FirstOrDefault();
+                    //// Getting first tab data
+                    //var first = model.ThumbnailModelList.FirstOrDefault();
 
-                    // Getting first tab data
-                    var last = model.ThumbnailModelList.LastOrDefault();
+                    //// Getting first tab data
+                    //var last = model.ThumbnailModelList.LastOrDefault();
 
-                    foreach (var item in model.ThumbnailModelList)
-                    {
-                        if (item.ThumbnailTabNo == first.ThumbnailTabNo)
-                        {
-                            item.Thumbnail_ItemPosition = "First";
-                        }
+                    //foreach (var item in model.ThumbnailModelList)
+                    //{
+                    //    if (item.ThumbnailTabNo == first.ThumbnailTabNo)
+                    //    {
+                    //        item.Thumbnail_ItemPosition = "First";
+                    //    }
 
-                        if (item.ThumbnailTabNo == last.ThumbnailTabNo)
-                        {
-                            item.Thumbnail_ItemPosition = "Last";
-                        }
+                    //    if (item.ThumbnailTabNo == last.ThumbnailTabNo)
+                    //    {
+                    //        item.Thumbnail_ItemPosition = "Last";
+                    //    }
 
-                    }
+                    //}
 
-                    return View(model);
+                    //return View(model);
+                    return View();
                 }
                 catch (Exception ex)
                 {
@@ -203,8 +222,7 @@ namespace NasgledSys.Controllers
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }
                     ClientContact ClientContact = db.ClientContact.Find(ContactKey);
-                    ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false && m.CityKey==ClientContact.CityKey).OrderBy(m => m.CityName), "CityKey", "CityName");
-                    ViewBag.StateKey = new SelectList(db.StateList.Where(m => m.IsDelete == false && m.PKey==ClientContact.StateKey).OrderBy(m => m.StateName), "Pkey", "StateName");
+                 
                     if (ClientContact == null)
                     {
                         return HttpNotFound();

@@ -12,7 +12,7 @@
     $(document).ready(function () {
 
         //LoadItemList();
-        LoadSuggestItemList();
+        //LoadSuggestItemList();
         LoadArea();
         LoadFixture();
         $("#deletemsg").show().delay(1000).fadeOut();
@@ -233,7 +233,9 @@
                                     <a href="@Url.Action("Delete", "MgtAddProducts", new { id = Model.ProductKey })" onclick="return confirm('Are you sure you want to Remove this?')" class="btn border-warning btn-xlg col-md-12" role="button">Delete</a>
 
                                 </div>
-                                <div id="AutoSuggestion"></div>
+                                <div id="AutoSuggestion">
+                                    @MvcHtmlString.Create(manage.GetSuggestiveItem(GlobalClass.Project.ProjectKey))
+                                </div>
                                 <div id="elementContainer">
 
                                 </div>

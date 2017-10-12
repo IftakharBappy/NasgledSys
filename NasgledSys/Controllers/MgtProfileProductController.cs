@@ -41,17 +41,7 @@ namespace NasgledSys.Controllers
                     {
                         MgtItemCatelogue manage = new MgtItemCatelogue();
                         NasgledDBEntities bc = new NasgledDBEntities();
-                        //var checkForCatelog = from x in db.MainProduct
-                        //                      join y in db.ProfileProduct on x.FixtureKey equals y.FixtureKey
-                        //                      where y.ProfileKey == GlobalClass.ProfileUser.ProfileKey
-                        //                      select x.FixtureKey;
-                        //if (checkForCatelog.Count() > 0)
-                        //{
-
-                        //}else
-                        //{
-                        //    int i=manage.AddAdminCatelog();
-                        //}
+                       
                         ItemCatelogue cat = db.ItemCatelogue.FirstOrDefault(m=>m.TypeName.Contains("Admin"));
                         if (cat == null)
                         {
@@ -107,7 +97,20 @@ namespace NasgledSys.Controllers
                             model.Logo = viewModel.Logo;
                             model.FileName = viewModel.FileName;
                             model.FileType = viewModel.FileType;
-                           if(viewModel.MainItemKey!=null)model.MainItemKey = viewModel.MainItemKey;
+                            if (viewModel.MainItemKey != null)
+                            {
+                                MainProduct mp = db.MainProduct.Find(viewModel.MainItemKey);
+                                ProfileProduct pp = db.ProfileProduct.FirstOrDefault(m=>m.ProductName.StartsWith(mp.ProductName) && m.ProfileKey== GlobalClass.ProfileUser.ProfileKey);
+                                if (pp == null)
+                                {
+
+                                }
+                                else
+                                {
+                                    model.MainItemKey = pp.FixtureKey;
+                                }
+                                
+                            }
                            
                             bc.ProfileProduct.Add(model);
                             bc.SaveChanges();

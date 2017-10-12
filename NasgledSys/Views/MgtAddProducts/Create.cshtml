@@ -12,7 +12,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         //LoadItemList();
-        LoadSuggestItemList();
+       // LoadSuggestItemList();
         LoadArea();
         LoadFixture();
        
@@ -28,8 +28,8 @@
     }
     $(function () {
         $('a').click(function () {
-           // alert($(this).attr('discussKey'));
-           
+          // alert($(this).attr('discussKey'));
+            
             $('#temp').val($(this).attr('discussKey'));
            
             var zz = "#temp";
@@ -245,7 +245,7 @@
 
                                 </div>
                                 <div id="AutoSuggestion">
-
+                                    @MvcHtmlString.Create(manage.GetSuggestiveItem(GlobalClass.Project.ProjectKey))
                                 </div>
                                 <div id="elementContainer">
                                     

@@ -97,6 +97,8 @@
         else {
             baseList.forEach(function (item) {
                 if (item.Category.toLowerCase().includes(searchText) ||
+                    item.ProductName.toLowerCase().includes(searchText) ||
+                     item.ModelNo.toLowerCase().includes(searchText) ||
                     item.Subcategory.toLowerCase().includes(searchText) ||
                     item.Type.toLowerCase().includes(searchText) ||
                     item.Manufacturer.toLowerCase().includes(searchText) ||
