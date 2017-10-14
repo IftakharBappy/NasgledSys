@@ -25,6 +25,7 @@ namespace NasgledSys.Controllers
             }).ToList();
 
             model.FromReportTemplateList = data;
+            model.ToReportTemplateList = new List<ReportTemplateModel>();
 
             return View(model);
         }

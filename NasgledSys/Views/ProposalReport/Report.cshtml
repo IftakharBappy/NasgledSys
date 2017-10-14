@@ -60,49 +60,54 @@
 
                             <div id="soratbleBlock">
 
-                                <div class="column left first">
-
-                                    <ul class="sortable-list" style="background-color: blue;">
-                                        <li class="sortable-item" id="A">Sortable item A</li>
-                                        <li class="sortable-item" id="B">Sortable item B</li>
-                                    </ul>
-
-                                </div>
-
-
-                                @*<div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading"><h3>Select Report</h3></div>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table table-bordered">
-                                          
-                                        </table>
+
+                                        <div class="column left first">
+
+                                            <ul class="sortable-list" >
+                                                @for (int i = 0; i < Model.FromReportTemplateList.Count(); i++)
+                                                {
+                                                    <li class="sortable-item" id="@Model.FromReportTemplateList[i].TemplateKey">@Model.FromReportTemplateList[i].FactorName</li>
+                                                }
+
+                                                @*<li class="sortable-item" id="A">Sortable item A</li>
+                                                <li class="sortable-item" id="B">Sortable item B</li>*@
+
+                                            </ul>
+
+                                        </div>
+
+
                                     </div>
 
-                                </div>*@
-
-
-
-                                <div class="column left">
-
-                                    <ul class="sortable-list" data-category="selected" style="background-color: orange;">
-                                        <li class="sortable-item" id="C">Sortable item C</li>
-                                        <li class="sortable-item" id="D">Sortable item D</li>
-                                    </ul>
                                 </div>
 
-                                @*<div class="col-md-6">
+
+
+                               
+
+                                <div class="col-md-6">
                                     <div class="panel panel-default">
                                         <div class="panel-heading"><h3>Document Reports</h3></div>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table table-bordered">
-                                           
+                                        <div class="column left">
 
-                                        </table>
+                                            <ul class="sortable-list" data-category="selected" >
+                                                @for (int i = 0; i < Model.ToReportTemplateList.Count(); i++)
+                                                {
+                                                    <li class="sortable-item" id="@Model.ToReportTemplateList[i].TemplateKey">@Model.ToReportTemplateList[i].FactorName</li>
+                                                }
+                                                @*<li class="sortable-item" id="C">Sortable item C</li>
+                                                <li class="sortable-item" id="D">Sortable item D</li>*@
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>*@
+                                </div>
 
 
 
