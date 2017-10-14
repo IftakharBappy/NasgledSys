@@ -113,6 +113,33 @@
 
                             </div>
 
+
+                            <table id="#our_table" border="1">
+                                <tr>
+                                    <th>Column 1</th>
+                                    <th>Column 2</th>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @for (int i = 0; i < Model.FromReportTemplateList.Count(); i++)
+                                        {
+                                            @*<li class="sortable-item" id="@Model.FromReportTemplateList[i].TemplateKey">@Model.FromReportTemplateList[i].FactorName</li>*@
+
+                                            <span class="event" id="@Model.FromReportTemplateList[i].TemplateKey" draggable="true">@Model.FromReportTemplateList[i].FactorName</span>
+                                        }
+                                        
+                                    </td>
+                                    <td>
+                                        @*<span class="event" id="item2" draggable="true">Item 2</span>
+                                        <span class="event" id="item3" draggable="true">Item 3</span>*@
+                                    </td>
+                                    <td></td>
+                                </tr>
+                               
+                            </table>
+
+
                         </div>
                     </div>
                 </div>
@@ -146,5 +173,29 @@
         });
         return columns.join('|');
     }
+
+
+
+    $('.event').on("dragstart", function (event) {
+        var dt = event.originalEvent.dataTransfer;
+        dt.setData('Text', $(this).attr('id'));
+    });
+    $('table td').on("dragenter dragover drop", function (event) {
+        event.preventDefault();
+        if (event.type === 'drop') {
+            var data = event.originalEvent.dataTransfer.getData('Text', $(this).attr('id'));
+
+            de = $('#' + data).detach();
+            if (event.originalEvent.target.tagName === "SPAN") {
+                de.insertBefore($(event.originalEvent.target));
+            }
+            else {
+                de.appendTo($(this));
+            }
+        };
+    });
+
+
+
 </script>
 
