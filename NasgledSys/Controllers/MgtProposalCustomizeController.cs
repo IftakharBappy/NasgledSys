@@ -88,6 +88,7 @@ namespace NasgledSys.Controllers
                     }
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Data has been Saved successfully.";
+                    Session["counter"] = 1;
                     return RedirectToAction("Customize", new { id = viewModel.ProposalKey });
                 }
                 catch (Exception e)
@@ -100,6 +101,14 @@ namespace NasgledSys.Controllers
                 Exception e = new Exception("Session Expired");
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

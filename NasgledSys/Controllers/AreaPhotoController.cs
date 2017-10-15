@@ -230,6 +230,7 @@ namespace NasgledSys.Controllers
                     db.SaveChanges();
                   
                     Session["GlobalMessege"] = "Area Photo has been DELETED successfully.";
+                    Session["counter"] = 1;
                     return RedirectToAction("Edit", "AreaPhoto", new { id = areaId });
                 }
                 catch (Exception e)

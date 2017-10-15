@@ -51,6 +51,7 @@ namespace NasgledSys.Controllers
                         db.ItemCatelogue.Add(model);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Item Catelogue is Saved Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index");
                     }
                     return View(obj);
@@ -66,6 +67,14 @@ namespace NasgledSys.Controllers
                 Exception e = new Exception("Session Expired");
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

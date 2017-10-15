@@ -147,6 +147,7 @@ namespace NasgledSys.Controllers
                         db.OperatingSchedule.Add(model);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Operating Schedule is Saved Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                     }
 
@@ -222,6 +223,7 @@ namespace NasgledSys.Controllers
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Operating Schedule is Update Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                     }
 
@@ -258,7 +260,8 @@ namespace NasgledSys.Controllers
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Operating Schedule is Updated Successfully";
-                        return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
+                    Session["counter"] = 1;
+                    return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                    
                 }
                 catch (Exception ex)
@@ -291,6 +294,7 @@ namespace NasgledSys.Controllers
 
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Heating System is Updated Successfully";
+                    Session["counter"] = 1;
                     return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                 }
                 catch (Exception ex)
@@ -323,6 +327,7 @@ namespace NasgledSys.Controllers
 
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Heating System is Updated Successfully";
+                    Session["counter"] = 1;
                     return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                 }
                 catch (Exception ex)
@@ -355,6 +360,7 @@ namespace NasgledSys.Controllers
 
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Rate Schedule is Updated Successfully";
+                    Session["counter"] = 1;
                     return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                 }
                 catch (Exception ex)
@@ -426,6 +432,7 @@ namespace NasgledSys.Controllers
                         db.HeatingSystem.Add(model);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Heating Schedule is Saved Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                     }
 
@@ -514,6 +521,7 @@ namespace NasgledSys.Controllers
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Heating Schedule is Updated Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                     }
 
@@ -579,6 +587,7 @@ namespace NasgledSys.Controllers
                         db.NewRateSchedule.Add(model);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Rate Schedule is Saved Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                     }
 
@@ -659,6 +668,7 @@ namespace NasgledSys.Controllers
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Rate Schedule is Updated Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                     }
 
@@ -730,6 +740,7 @@ namespace NasgledSys.Controllers
                         db.CoolingSystem.Add(model);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Cooling Schedule is Saved Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                     }
 
@@ -817,6 +828,7 @@ namespace NasgledSys.Controllers
                         
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Cooling Schedule is Updated Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", "MgtSchedule", new { ProjectKey = model.ProjectKey });
                     }
 

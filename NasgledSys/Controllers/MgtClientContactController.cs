@@ -190,6 +190,7 @@ namespace NasgledSys.Controllers
                         db.ClientContact.Add(model);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Contact is Saved Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index");
                     }
                     //ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName", obj.CityKey);
@@ -317,6 +318,7 @@ namespace NasgledSys.Controllers
                         model.FaxPhone = obj.FaxPhone;
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Contact Info is Updated";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", new { id = obj.ContactKey });
                     }
                     //ViewBag.CityKey = new SelectList(db.CityList.Where(m => m.IsDelete == false).OrderBy(m => m.CityName), "CityKey", "CityName", obj.CityKey);

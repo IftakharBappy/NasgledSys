@@ -13,10 +13,33 @@
        
         $(document).ready(function () {
          
-            $("#ConfirmationMessegeSlot").show().delay(1000).fadeOut();
+            if ($("#calibri").val().trim() === "") {
+
+            }
+            else {
+                if ($("#counter").val().trim() === "1") {
+                    $("#ConfirmationMessegeSlot").show().delay(1000).fadeOut();
+                    Counter();
+                }
+            }
            
         });
+        function Counter() {
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/Home/RestartCounter/",
+                success: function (data) {
+                   var d = data;     
 
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
     </script>
     @RenderSection("scripts", required: false)
 </head>
@@ -128,8 +151,9 @@
     <div class="page-header">
         <div class="page-header-content">
             <div class="page-title">
-                <div class="heading-text text-center alert alert-info" id="ConfirmationMessegeSlot">
-
+                <div class="heading-text text-center alert-info" id="ConfirmationMessegeSlot">
+                    <input type="hidden" name="calibri" id="calibri" value="@Session["GlobalMessege"]" />
+                    <input type="hidden" name="counter" id="counter" value="@Session["counter"]" />
                     <h5>@Html.DisplayFor(m => Session["GlobalMessege"])</h5>
 
                 </div>

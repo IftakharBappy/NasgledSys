@@ -92,6 +92,7 @@ namespace NasgledSys.Controllers
                         db.EnvironmentalImpact.Add(model);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Environmental Impact is Saved Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index");
                     }
 
@@ -180,7 +181,7 @@ namespace NasgledSys.Controllers
                         }
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Environmental Impact is Updated Successfully";
-            
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", new { id = obj.FactorKey });
                     }
 

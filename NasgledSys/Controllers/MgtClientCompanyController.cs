@@ -81,6 +81,7 @@ namespace NasgledSys.Controllers
                         db.SaveChanges();
                         GlobalClass.CCompany = model;
                         Session["GlobalMessege"] = "Company Information is Saved successfully.";
+                        Session["counter"] = 1;
                         return RedirectToAction("Create", "MgtProject");
                     }
                     catch (Exception e)

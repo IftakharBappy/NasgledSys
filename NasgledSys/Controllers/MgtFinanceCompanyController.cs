@@ -89,6 +89,7 @@ namespace NasgledSys.Controllers
                         db.FinanceCompany.Add(model);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Finance Company is Saved Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index");
                     }
 
@@ -171,7 +172,7 @@ namespace NasgledSys.Controllers
                         }
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Finance Company is Updated Successfully";
-
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", new { id = obj.FinanceKey });
                     }
 

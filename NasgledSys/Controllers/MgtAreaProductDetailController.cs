@@ -163,6 +163,7 @@ namespace NasgledSys.Controllers
                             model.MountingHeight = obj.MountingHeight;
                         }
                         Session["GlobalMessege"] = "Detail Saved Successfully";
+                        Session["counter"] = 1;
                     }
                     return View(model);
                 }

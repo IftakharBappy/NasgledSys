@@ -55,6 +55,7 @@ namespace NasgledSys.Controllers
                     p.IsDelete = true;
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Area has been DELETED successfully.";
+                    Session["counter"] = 1;
                     return RedirectToAction("Created", "MgtArea",new { id=p.ParentAreaKey});
                 }
                 catch (Exception e)
@@ -147,6 +148,7 @@ namespace NasgledSys.Controllers
                         obj.ParentAreaKey = model.ParentAreaKey;
                         db.SaveChanges();
                             Session["GlobalMessege"] = "Subarea was saved successfully.";
+                        Session["counter"] = 1;
                         GlobalClass.AreaGuidForSubArea = (Guid)model.ParentAreaKey;
                         GlobalClass.AreaHeading = model.ParentAreaName;
                         return RedirectToAction("Created", "MgtArea", new { id = model.AreaKey });
@@ -248,6 +250,7 @@ namespace NasgledSys.Controllers
                         db.Area.Add(obj);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Sub-Area was successfully Created.";
+                        Session["counter"] = 1;
                         GlobalClass.AreaGuidForSubArea =(Guid)model.ParentAreaKey;
                         GlobalClass.AreaHeading = model.ParentAreaName;
                         return RedirectToAction("Created", "MgtArea", new { id = obj.AreaKey });
