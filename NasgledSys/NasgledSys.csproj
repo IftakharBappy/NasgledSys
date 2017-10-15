@@ -315,6 +315,7 @@
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
     <Compile Include="EM\EM_Project.cs" />
+    <Compile Include="EM\EM_ReportTemplate.cs" />
     <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -531,6 +532,7 @@
     <Compile Include="Models\ProposalNote.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProposalReportViewModel.cs" />
     <Compile Include="Models\ProposalSavingViewModel.cs" />
     <Compile Include="Models\ProposalTemplate.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
@@ -539,6 +541,7 @@
     <Compile Include="Models\ReportTemplate.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportTemplateModel.cs" />
     <Compile Include="Models\SalesReachSetup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3708,6 +3711,9 @@
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\DrugAndDrop\jquery-drugDrop.min.js" />
+    <Content Include="Scripts\DrugAndDrop\jquery-ui-1.8.custom.min.js" />
+    <Content Include="Scripts\DrugAndDrop\jquery.cookie.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
