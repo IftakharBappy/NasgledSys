@@ -13,6 +13,11 @@
 
 <script src="~/Scripts/DrugAndDrop/jquery.cookie.js"></script>*@
 
+
+<link href="~/Content/assets/dragula/dragula.css" rel="stylesheet" />
+
+<script src="~/Content/assets/dragula/dragula.js"></script>
+
 <script type="text/javascript" src="~/Content/assets/js/pages/extension_dnd.js"></script>
 
 @section CenterTitle{
@@ -62,7 +67,15 @@
                         <div class="tab-pane fade in active" id="tab-demo1">
 
 
-                            <div id="soratbleBlock">
+
+
+
+
+
+
+
+
+                            @*<div id="soratbleBlock">
 
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
@@ -78,8 +91,7 @@
                                                     <li class="sortable-item" id="@Model.FromReportTemplateList[i].TemplateKey">@Model.FromReportTemplateList[i].FactorName</li>
                                                 }
 
-                                                @*<li class="sortable-item" id="A">Sortable item A</li>
-                                                <li class="sortable-item" id="B">Sortable item B</li>*@
+                                                 
 
                                             </ul>
 
@@ -106,8 +118,7 @@
                                                 {
                                                     <li class="sortable-item" id="@Model.ToReportTemplateList[i].TemplateKey">@Model.ToReportTemplateList[i].FactorName</li>
                                                 }
-                                                @*<li class="sortable-item" id="C">Sortable item C</li>
-                                                <li class="sortable-item" id="D">Sortable item D</li>*@
+                                                
                                             </ul>
                                         </div>
                                     </div>
@@ -135,13 +146,12 @@
                                         
                                     </td>
                                     <td>
-                                        @*<span class="event" id="item2" draggable="true">Item 2</span>
-                                        <span class="event" id="item3" draggable="true">Item 3</span>*@
+                                       
                                     </td>
                                     <td></td>
                                 </tr>
                                
-                            </table>
+                            </table>*@
 
 
 
@@ -286,27 +296,27 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
+    //$(document).ready(function () {
 
-        $('#soratbleBlock .sortable-list').sortable({
-            connectWith: '#soratbleBlock .sortable-list'
-        });
+    //    $('#soratbleBlock .sortable-list').sortable({
+    //        connectWith: '#soratbleBlock .sortable-list'
+    //    });
 
-        $('#btn-get').click(function () {
-            alert(getISelectedtems());
-        });
+    //    $('#btn-get').click(function () {
+    //        alert(getISelectedtems());
+    //    });
 
 
-    });
+    //});
 
-    function getISelectedtems() {
-        var columns = [];
+    //function getISelectedtems() {
+    //    var columns = [];
 
-        $('ul[data-category="selected"]').each(function () {
-            columns.push($(this).sortable('toArray').join(','));
-        });
-        return columns.join('|');
-    }
+    //    $('ul[data-category="selected"]').each(function () {
+    //        columns.push($(this).sortable('toArray').join(','));
+    //    });
+    //    return columns.join('|');
+    //}
 
 
 
