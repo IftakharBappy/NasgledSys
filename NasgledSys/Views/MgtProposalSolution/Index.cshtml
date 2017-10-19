@@ -92,7 +92,7 @@
                                                                             @{
                                                                                 if (miten.IsAdd == false)
                                                                                 {
-                                                                                    @Html.ActionLink("Edit", "EditProduct", "MgtProposalSolutionEdit",new { id = miten.ProductKey, id2 = Model.ProposalKey },new {@class = "btn btn-default"})
+                                                                                    @Html.ActionLink("Edit", "Proposed", "MgtProposalSolutionEdit",new { productKey = miten.ProductKey, proposalKey = Model.ProposalKey },new {@class = "btn btn-default"})
                                                                                }
                                                                             }</td>
                                                                             <td>@{

@@ -264,6 +264,7 @@
     <Compile Include="Controllers\MgtProposalController.cs" />
     <Compile Include="Controllers\MgtProposalCustomizeController.cs" />
     <Compile Include="Controllers\MgtProposalSolutionController.cs" />
+    <Compile Include="Controllers\MgtProposalSolutionEditController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
     <Compile Include="Controllers\MgtSalesReachSetupController.cs" />
     <Compile Include="Controllers\MgtScheduleController.cs" />
@@ -3911,6 +3912,9 @@
     <Content Include="Views\MgtProposalSolution\ProductDetails.cshtml" />
     <Content Include="Views\MgtProposalSolution\Existing.cshtml" />
     <Content Include="Views\ProposalReport\Report.cshtml" />
+    <Content Include="Views\MgtProposalSolutionEdit\Existing.cshtml" />
+    <Content Include="Views\MgtProposalSolutionEdit\Proposed.cshtml" />
+    <Content Include="Views\MgtProposalSolutionEdit\Ratios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

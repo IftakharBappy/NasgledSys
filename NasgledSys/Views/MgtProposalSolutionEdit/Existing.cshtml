@@ -1,0 +1,104 @@
+﻿@model NasgledSys.Models.SolutionMainListClass
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Solution";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@section CenterTitle{
+    @Html.DisplayFor(m => GlobalClass.Project.ProjectName) <label>Proposal</label>
+}
+@*@section SideBar{
+        <center>
+
+            <span class="heading-text">
+
+                <i class="icon-folder-download position-left"></i>
+                <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+                <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+                <label>></label>
+                <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+            </span>
+            <span class="heading-text pull-right">
+                <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
+            </span>
+        </center>
+
+
+    }*@
+<div class="content-wrapper">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Existing</a></li>
+                        @*<li class="active"><a href="@Url.Action("Proposed","MgtProposalSolutionEdit",new { productKey=1,proposalKey=1})">Proposed</a></li>
+                        <li class="active"><a href="@Url.Action("Ratios","MgtProposalSolutionEdit",new { productKey=1,proposalKey=1})">Ratios</a></li>
+                        <li class="active"><a href="@Url.Action("Details","MgtProposalSolutionEdit",new { productKey=1,proposalKey=1})">Details</a></li>*@
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+                            <h1>Update Soulution</h1>
+                            <h3>Select an existing product</h3>
+                            <input id="ProductKey"/>
+                            <div class="table-responsive">
+                                
+                                <table id="myTable" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.ExistingProduct)
+                                        {
+                                            <tr id="row_@item.ProductKey" onclick="setProductKey('@item.ProductKey')"><td>@item.ProductName</td></tr>//@item.ProductKey and ViewBag.Proposal key
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-default border-blue" onclick="window.location='/MgtProposalSolution/Index?id=@ViewBag.proposalKey'">Cancel</button>
+                                <button type="button" class="btn btn-success" onclick="RedirectToProposed()">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+        function setProductKey(value) {
+            $("#ProductKey").val(value);
+            $("#row_" + value).addClass('selected').siblings().removeClass("selected");
+        }
+        function RedirectToProposed() {
+
+            var ProductKey = $("#ProductKey").val(value);
+            if (ProductKey!="") {
+
+            }
+
+        }
+</script>
+<style>
+    tr.selected {
+        background-color: rgba(41, 103, 182, 0.89);
+        color: #FFF;
+    }
+</style>
