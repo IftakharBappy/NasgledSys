@@ -3719,9 +3719,6 @@
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\DrugAndDrop\jquery-drugDrop.min.js" />
-    <Content Include="Scripts\DrugAndDrop\jquery-ui-1.8.custom.min.js" />
-    <Content Include="Scripts\DrugAndDrop\jquery.cookie.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
