@@ -11,17 +11,7 @@
         <button type="button" class="btn btn-primary" data-toggle="" data-target="" onclick="location.href='@Url.Action("Create","MgtClientContact")'">Add New Contact Info</button>
         
 
-    <div class="from-group col-md-6" style="margin-left:20em;">
-            @using (Html.BeginForm("Search", "MgtClientContact", FormMethod.Post, new { @class = "form-horizontal" }))
-            {
-                <div class="col-md-3">
-                    <input type="text" name="searchTerm" id="searchTerm" class="form-control" value="" size="10" maxlength="30" />
-                </div>
-                <div class="col-md-3">
-                    <input type="submit" value="Search" class="btn btn-primary" />
-                </div>
-            }
-   </div>
+   
 </div>
 }
 
@@ -56,133 +46,28 @@
 
 
             <div class="container">
+                <div class="row">
 
-                <div class="col-xs-12 col-md-10">
-                    <div class="tab-content">
+                    <div class="col-md-3">
 
-                        @{
-                                    foreach (var item in Model.ThumbnailModelList)
-                                    {
-                                        if (item.Thumbnail_ItemPosition == "First")
-                                        {
-
-                                <div class="tab-pane active" id="@item.ThumbnailTabId" role="tabpanel">
-
-                                    @{
-
-                                                    foreach (var detailsitem in item.ClientContactDetailsList)
-                                                    {
-                                                <div class="col-sm-4">
-
-                                                    <div class="thumbnail">
-                                                        <div class="caption">
-                                                            @Html.DisplayFor(modelItem => detailsitem.FirstName) @Html.DisplayFor(modelItem => detailsitem.LastName)
-                                                        </div>
-                                                        <div class="description">
-                                                            <span class="glyphicon glyphicon-envelope" style="color:orangered;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Email) </span>
-                                                            <span class="glyphicon glyphicon-home" style="color:indianred;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Address) </span>
-                                                        </div>
-                                                        <div class="modal-footer" style="margin-top:5em;">
-                                                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Details","MgtClientContact" , new { ContactKey = detailsitem.ContactKey })'">View</button>
-                                                            <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtClientContact", new { ContactKey = detailsitem.ContactKey })'">Edit</button>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                                    }
-                                    }
-
-
-                                </div>
-                                                    }
-                                                    else
-                                                    {
-                                <div class="tab-pane" id="@item.ThumbnailTabId" role="tabpanel">
-
-                                    @{
-
-                                                                foreach (var detailsitem in item.ClientContactDetailsList)
-                                                                {
-                                                            <div class="col-sm-4">
-                                                                <div class="thumbnail">
-                                                                    <div class="caption">
-                                                                        @Html.DisplayFor(modelItem => detailsitem.FirstName) @Html.DisplayFor(modelItem => detailsitem.LastName)
-                                                                    </div>
-                                                                    <div class="description">
-                                                                        <span class="glyphicon glyphicon-envelope" style="color:orangered;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Email) </span>
-                                                                        <span class="glyphicon glyphicon-home" style="color:indianred;margin-left:1em;"> @Html.DisplayFor(modelItem => detailsitem.Address) </span>
-                                                                    </div>
-                                                                    <div class="modal-footer" style="margin-top:5em;">
-                                                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Details","MgtClientContact" , new { ContactKey = detailsitem.ContactKey })'">View</button>
-                                                                        <button type="button" id="btnUpdate" class="btn btn-primary" onclick="location.href='@Url.Action("Edit","MgtClientContact", new { ContactKey = detailsitem.ContactKey })'">Edit</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                                }
-                                    }
-
-
-                                </div>
-                                                                    }
-
-                                                                }
-                        }
-
+                        <div class="has-feedback has-feedback-left">
+                            <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+                            <div class="form-control-feedback">
+                                <i class="icon-search4 text-size-base text-muted"></i>
+                            </div>
+                        </div>
                     </div>
-
 
                 </div>
                 <br />
-                <div class="col-xs-12 col-md-6 col-xs-offset-1 col-md-offset-3">
-
-                    <div class="row">
-                        <nav aria-label="...">
-                            <ul class="pager" role="tablist">
-                                <li class="previous" onclick="goTo(1);"><a href="#"><span aria-hidden="true">←</span> Previous</a></li>
-                                @{
-                                            foreach (var item in Model.ThumbnailModelList)
-                                            {
-                                                if (item.Thumbnail_ItemPosition == "First")
-                                                {
-                                        <li class="active" id="@item.Thumbnail_ItemPosition">
-                                            <a aria-controls="@item.Thumbnail_Aria_Controls" data-toggle="tab" href="@item.Thumbnail_Href" role="tab">@item.ThumbnailTabNo</a>
-                                        </li>
-                                                }
-
-                                                else if (item.Thumbnail_ItemPosition == "Last")
-                                                {
-                                        <li id="@item.Thumbnail_ItemPosition">
-                                            <a aria-controls="@item.Thumbnail_Aria_Controls" data-toggle="tab" href="@item.Thumbnail_Href" role="tab">@item.ThumbnailTabNo</a>
-                                        </li>
-                                                }
-                                                else
-                                                {
-                                        <li>
-                                            <a aria-controls="@item.Thumbnail_Aria_Controls" data-toggle="tab" href="@item.Thumbnail_Href" role="tab">@item.ThumbnailTabNo</a>
-                                        </li>
-                                                }
-
-                                            }
-                                }
-                                @*<li class="next" onclick="goTo(2);"><a href="#">Next <span aria-hidden="true">→</span></a></li>*@
-                            </ul>
-                        </nav>
-                    </div>
-
-                    <!-- Tab panes -->
-                </div>
+                <br />
+                <div class="container" id="elementContainer"></div>
             </div>
 
 
-
-
-
         </div>
 
-        <div class="panel-footer">
-
-        </div>
+      
 
     </div>
 
@@ -201,30 +86,72 @@
         }
     </style>
 
-    <script>
+    <script type="text/javascript">
 
-    function goTo(number) {
-        $('ul.pager li:eq(' + number + ') a').tab('show');
-        upgradePreNext(number);
-    }
-    function upgradePreNext(number) {
-        if (number > 1) {
-            $('ul.pager li:eq(0)').attr("onclick", "goTo(" + (number - 1) + ")");
-            $('ul.pager li:eq(0)').attr("class", "previous");
-        } else {
-            $('ul.pager li:eq(0)').attr("class", "disabled");
-        }
-        if (number < 11) {
-            $('ul.pager li:eq(12)').attr("onclick", "goTo(" + (number + 1) + ")");
-            $('ul.pager li:eq(12)').attr("class", "next");
-        } else {
-            $('ul.pager li:eq(12)').attr("class", "disabled");
-        }
-    }
+    var baseList = [];
+    var filteredList = [];
     $(document).ready(function () {
-        $('li a').on('click', function (e) {
-            goTo((e.target.innerHTML) - 0);
-        });
+        GetClientCompanyListData();
     });
+    function search() {
+        filteredList = [];
+        var searchText = $("#searchText").val().toLowerCase();
+        if (searchText == "") {
+            filteredList = baseList;
+            remakeGrid();
+        }
+        else {
+            baseList.forEach(function (item) {
+                if (item.FirstName.toLowerCase().includes(searchText) ||
+                    item.LastName.toLowerCase().includes(searchText) ||
+                     item.Email.toLowerCase().includes(searchText)) {
+                    filteredList.push(item);
+                }
+            });
+            remakeGrid();
+        }
+    }
+    function remakeGrid() {
+        var res = "";
+        $("#elementContainer").html("");
 
-    </script>
+        for (var i = 0; i < filteredList.length; i++) {
+
+            res = res +"<div class='col-sm-4'>"
+
+                                                   +"<div class='thumbnail'>"
+                                                      +"<div class='caption'>"
+                                                         +  filteredList[i].FirstName+" "+ filteredList[i].LastName
+                                                       +"</div>"
+                                                       +"<div class='description'>"
+                                                           +"<span class='glyphicon glyphicon-envelope' style='color:orangered;margin-left:1em;'>" +  filteredList[i].Email+"</span>"
+                                                           +"<span class='glyphicon glyphicon-home' style='color:indianred;margin-left:1em;'>" +  filteredList[i].Address+" </span>"
+                                                      +"</div>"
+                                                       +"<div class='modal-footer' style='margin-top:5em;'>"
+                                                       + " <a href='/MgtClientContact/Details?ContactKey=" + filteredList[i].ContactKey + "' class='btn btn-primary btn-xs' role='button'>View</a>"
+                                                       + " <a href='/MgtClientContact/Edit?ContactKey=" + filteredList[i].ContactKey + "' class='btn btn-info btn-xs' role='button'>Edit</a>"
+                                                       +"</div>"
+                                                  +"</div>"
+                                                            +"</div>";
+                       
+        }
+        $("#elementContainer").html(res);
+    }
+    function GetClientCompanyListData() {
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtClientContact/GetClientList/",
+            success: function (data) {
+                baseList = data;
+                filteredList = data;
+                remakeGrid();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+</script>

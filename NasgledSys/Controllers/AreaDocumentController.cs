@@ -87,6 +87,7 @@ namespace NasgledSys.Controllers
                     db.AreaDocument.Add(entity);
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Document has been Added.";
+                    Session["counter"] = 1;
                 }
 
                 else
@@ -233,6 +234,7 @@ namespace NasgledSys.Controllers
                     db.SaveChanges();
 
                     Session["GlobalMessege"] = "Area Photo has been DELETED successfully.";
+                    Session["counter"] = 1;
                     return RedirectToAction("Edit", "AreaDocument", new { @id = areaId });
                 }
                 catch (Exception e)

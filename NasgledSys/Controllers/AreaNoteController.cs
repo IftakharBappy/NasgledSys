@@ -64,6 +64,7 @@ namespace NasgledSys.Controllers
                         AreaNote v  = db.AreaNote.SingleOrDefault(m=>m.AreaKey==model.AreaKey);
                          v.Internal = model.Internal;
                         Session["GlobalMessege"] = "Note Has been Saved successfully.";
+                        Session["counter"] = 1;
                         db.SaveChanges();
                     }
 
@@ -75,7 +76,7 @@ namespace NasgledSys.Controllers
                         db.AreaNote.Add(entity);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Note Has been Saved successfully.";
-
+                        Session["counter"] = 1;
                     }
 
                     AreaNote entitydata = db.AreaNote.FirstOrDefault(m => m.AreaKey == model.AreaKey);

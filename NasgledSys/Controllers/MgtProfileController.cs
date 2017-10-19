@@ -97,6 +97,7 @@ namespace NasgledSys.Controllers
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Profile is Saved";
+                        Session["counter"] = 1;
                         return RedirectToAction("Company");
                     }
                     catch (Exception e)

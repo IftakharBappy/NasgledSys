@@ -117,6 +117,7 @@ namespace NasgledSys.Controllers
                         db.AreaProduct.Add(obj);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Product was Saved successfully Created.";
+                        Session["counter"] = 1;
                         if (!string.IsNullOrEmpty(Save))
                             return RedirectToAction("Index", "MgtAddProducts", new { id = obj.AreaKey });
                         else if (!string.IsNullOrEmpty(Add))
@@ -131,6 +132,7 @@ namespace NasgledSys.Controllers
                 catch (Exception e)
                 {
                     Session["GlobalMessege"] = e.Message.ToString();
+                    Session["counter"] = 1;
                     return View(model);
                 }
             }
@@ -224,7 +226,7 @@ namespace NasgledSys.Controllers
 
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Product was Saved successfully Created.";
-
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", "MgtAddProducts", new { id = obj.AreaKey });
                     }
                     return View(model);

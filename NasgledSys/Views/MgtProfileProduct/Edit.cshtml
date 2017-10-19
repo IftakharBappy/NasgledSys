@@ -77,12 +77,12 @@
                     <div class="form-group">
                         @*onkeypress = "return ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 46))"*@
                         @Html.LabelFor(model => model.Watt)
-                        @Html.TextBoxFor(model => model.Watt, new { @class = "form-control", @type = "number" })
+                        @Html.TextBoxFor(model => model.Watt, new { @class = "form-control", @onkeypress = "return isNumberKey(event)" })
                         @Html.ValidationMessageFor(model => model.Watt, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.ThermalEfficacy)
-                        @Html.TextBoxFor(model => model.ThermalEfficacy, new { @class = "form-control", @type = "number", @min = "0" })
+                        @Html.TextBoxFor(model => model.ThermalEfficacy, new { @class = "form-control", @onkeypress = "return isNumberKey(event)", @min = "0" })
                         @Html.ValidationMessageFor(model => model.ThermalEfficacy, "", new { @class = "text-danger" })
                         <span class="small text-muted">The amount of input energy converted to light. A 10% thermal efficiency means the fixture converts 10% of the input energy to light and 90% to heat.</span>
                     </div>
@@ -91,27 +91,27 @@
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
                         @Html.LabelFor(model => model.CRI)
-                        @Html.TextBoxFor(model => model.CRI, new { @class = "form-control", @type = "number", @min = "0" })
+                        @Html.TextBoxFor(model => model.CRI, new { @class = "form-control", @onkeypress = "return isNumberKey(event)", @min = "0" })
                         @Html.ValidationMessageFor(model => model.CRI, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Lumen)
-                        @Html.TextBoxFor(model => model.Lumen, new { @class = "form-control", @type = "number", @min = "0" })
+                        @Html.TextBoxFor(model => model.Lumen, new { @class = "form-control", @onkeypress = "return isNumberKey(event)", @min = "0" })
                         @Html.ValidationMessageFor(model => model.Lumen, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.LightApparent)
-                        @Html.TextBoxFor(model => model.LightApparent, new { @class = "form-control", @type = "number", @min = "0" })
+                        @Html.TextBoxFor(model => model.LightApparent, new { @class = "form-control", @onkeypress = "return isNumberKey(event)", @min = "0" })
                         @Html.ValidationMessageFor(model => model.LightApparent, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.LightOutput)
-                        @Html.TextBoxFor(model => model.LightOutput, new { @class = "form-control", @type = "number", @min = "0" })
+                        @Html.TextBoxFor(model => model.LightOutput, new { @class = "form-control", @onkeypress = "return isNumberKey(event)", @min = "0" })
                         @Html.ValidationMessageFor(model => model.LightOutput, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.CCT)
-                        @Html.TextBoxFor(model => model.CCT, new { @class = "form-control", @type = "number", @min = "0" })
+                        @Html.TextBoxFor(model => model.CCT, new { @class = "form-control", @onkeypress = "return isNumberKey(event)", @min = "0" })
                         @Html.ValidationMessageFor(model => model.CCT, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
@@ -131,12 +131,12 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.LampLife)
-                        @Html.TextBoxFor(model => model.LampLife, new { @class = "form-control", @type = "number", @min = "0" })
+                        @Html.TextBoxFor(model => model.LampLife, new { @class = "form-control", @onkeypress = "return isNumberKey(event)", @min = "0" })
                         @Html.ValidationMessageFor(model => model.LampLife, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.TypeCount)
-                        @Html.TextBoxFor(model => model.TypeCount, new { @class = "form-control", @type = "number", @min = "1" })
+                        @Html.TextBoxFor(model => model.TypeCount, new { @class = "form-control", @onkeypress = "return isNumberKey(event)", @min = "1" })
                         @Html.ValidationMessageFor(model => model.TypeCount, "", new { @class = "text-danger" })
                     </div>
                     <div class="row">

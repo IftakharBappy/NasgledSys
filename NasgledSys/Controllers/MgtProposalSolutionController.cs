@@ -381,6 +381,7 @@ namespace NasgledSys.Controllers
                     obj.MiscCost = model.MiscCost;
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Product Added successfully.";
+                    Session["counter"] = 1;
                     return RedirectToAction("Index", "MgtProposalSolution",new { id=model.ProposalKey});
                 }
                 catch (Exception e)
@@ -475,10 +476,10 @@ namespace NasgledSys.Controllers
             {
                 try
                 {
-                    
 
-                    AreaProduct tosave = db.AreaProduct.Find(id);
-                    AreaProduct old = db.AreaProduct.Find(id2);
+                    NasgledDBEntities bc = new NasgledDBEntities();
+                    AreaProduct old = db.AreaProduct.Find(id);
+                    AreaProduct tosave = bc.AreaProduct.Find(id2);
 
                     tosave.ForEveryMainQty = old.ForEveryMainQty;
                     tosave.ReplaceQty = old.ReplaceQty;
@@ -502,7 +503,8 @@ namespace NasgledSys.Controllers
                     tosave.IsOn = old.IsOn;
                     tosave.SolutionLevel = (from x in db.AreaProduct where x.ProjectKey == old.ProjectKey && x.IsDelete == false && x.ProductName != null select x).Count()+1 ;
                    
-                    db.SaveChanges();
+                    bc.SaveChanges();
+                    bc.Dispose();
                    
                     return RedirectToAction("Ratio", "MgtProposalSolution", new { id = tosave.ProductKey, id2 = id3 });
                 }

@@ -58,6 +58,7 @@ namespace NasgledSys.Controllers
                         db.Unit.Add(model);
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Contact is Saved Successfully";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index");
                     }
                     
@@ -92,6 +93,7 @@ namespace NasgledSys.Controllers
                         if (string.IsNullOrEmpty(obj.UnitName)) model.UnitName = obj.UnitShortname;
                         db.SaveChanges();
                         Session["GlobalMessege"] = "Unit Info is Updated";
+                        Session["counter"] = 1;
                         return RedirectToAction("Index", new { id = obj.UnitKey });
                     }
 

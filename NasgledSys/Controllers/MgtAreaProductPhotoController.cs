@@ -101,6 +101,7 @@ namespace NasgledSys.Controllers
                     db.AreaProductPhoto.Add(_photoobj);
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Photo is ADDED successfully.";
+                    Session["counter"] = 1;
                 }
                 else
                 {
@@ -134,7 +135,7 @@ namespace NasgledSys.Controllers
                 }
                 db.SaveChanges();
                 Session["GlobalMessege"] = "Photo is CHANGED successfully.";
-
+                Session["counter"] = 1;
                 return RedirectToAction("Photos", new { id = model.ProductKey });
             }
             else
@@ -156,7 +157,7 @@ namespace NasgledSys.Controllers
                     productKey = entity.ProductKey;
                     db.AreaProductPhoto.Remove(entity);
                     db.SaveChanges();
-
+                    Session["counter"] = 1;
                     Session["GlobalMessege"] = "Photo has been DELETED successfully.";
                     return RedirectToAction("Photos", new { id = productKey });
                 }

@@ -120,7 +120,7 @@ namespace NasgledSys.Controllers
                 await task;
                 GlobalClass.ProposalGuid = contact.ProposalKey;
                 Session["GlobalMessege"] = "Proposal has been Created successfully.";
-                //return Content(contact.ProposalKey.ToString());
+                Session["counter"] = 1;
 
                 return Content("success");
                 //return RedirectToAction("Summary", "MgtProposal",new { id=contact.ProposalKey});
@@ -332,6 +332,7 @@ namespace NasgledSys.Controllers
                     model.ProposalKey = p.ProposalKey;
                     model.Notes = p.Notes;
                     Session["GlobalMessege"] = "Note has been saved.";
+                    Session["counter"] = 1;
                     return View(model);
                     
                 }
@@ -429,7 +430,7 @@ namespace NasgledSys.Controllers
                 }              
               
                 Session["GlobalMessege"] = "Proposal has been updated successfully.";
-
+                Session["counter"] = 1;
                 return Content("success");
             }
             catch (Exception ex)
@@ -463,8 +464,7 @@ namespace NasgledSys.Controllers
                 await task;
            
                 Session["GlobalMessege"] = "Proposal has been Updated successfully.";
-
-                // return Content("success");
+                Session["counter"] = 1;
                 return RedirectToAction("Cost","MgtProposal",new { id=model.ProposalKey});
             }
             catch (Exception ex)

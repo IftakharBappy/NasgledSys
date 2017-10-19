@@ -124,6 +124,7 @@ namespace NasgledSys.Controllers
                     p.IsDelete = true;
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Project has been DELETED successfully.";
+                    Session["counter"] = 1;
                     return RedirectToAction("Userhome","Home");
                 }
                 catch (Exception e)
@@ -268,6 +269,7 @@ namespace NasgledSys.Controllers
                         {
                             DataReturn dt = manage.SaveNewProject(model);
                             Session["GlobalMessege"] = dt.mess;
+                            Session["counter"] = 1;
                             if (dt.flag == 1)
                             {
                                 return RedirectToAction("Created");
@@ -278,6 +280,7 @@ namespace NasgledSys.Controllers
                         {
                             DataReturn dt = manage.UpdateProject(model);
                             Session["GlobalMessege"] = dt.mess;
+                            Session["counter"] = 1;
                             if (dt.flag == 1)
                             {
                                 return RedirectToAction("Created");

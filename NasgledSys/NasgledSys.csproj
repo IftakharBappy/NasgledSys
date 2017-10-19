@@ -263,6 +263,7 @@
     <Compile Include="Controllers\MgtProjectStatusController.cs" />
     <Compile Include="Controllers\MgtProposalController.cs" />
     <Compile Include="Controllers\MgtProposalCustomizeController.cs" />
+    <Compile Include="Controllers\MgtProposalSavingController.cs" />
     <Compile Include="Controllers\MgtProposalSolutionController.cs" />
     <Compile Include="Controllers\MgtProposalSolutionEditController.cs" />
     <Compile Include="Controllers\MgtRoleController.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
     <Compile Include="EM\EM_Project.cs" />
+    <Compile Include="EM\EM_ReportTemplate.cs" />
     <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -531,6 +533,8 @@
     <Compile Include="Models\ProposalNote.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProposalReportViewModel.cs" />
+    <Compile Include="Models\ProposalSavingViewModel.cs" />
     <Compile Include="Models\ProposalTemplate.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -538,6 +542,7 @@
     <Compile Include="Models\ReportTemplate.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportTemplateModel.cs" />
     <Compile Include="Models\SalesReachSetup.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -603,6 +608,7 @@
     <Content Include="Content\assets\css\icons\glyphicons\glyphicons-halflings-regular.svg" />
     <Content Include="Content\assets\css\icons\icomoon\fonts\icomoon.svg" />
     <Content Include="Content\assets\css\icons\icomoon\styles.css" />
+    <Content Include="Content\assets\css\proposalsaving.css" />
     <Content Include="Content\assets\demo_data\maps\vector\gdp_demo_data.js" />
     <Content Include="Content\assets\demo_data\wizard\additional.html" />
     <Content Include="Content\assets\demo_data\wizard\education.html" />
@@ -3706,6 +3712,9 @@
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\DrugAndDrop\jquery-drugDrop.min.js" />
+    <Content Include="Scripts\DrugAndDrop\jquery-ui-1.8.custom.min.js" />
+    <Content Include="Scripts\DrugAndDrop\jquery.cookie.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -3912,6 +3921,7 @@
     <Content Include="Views\MgtProposalSolution\ProductDetails.cshtml" />
     <Content Include="Views\MgtProposalSolution\Existing.cshtml" />
     <Content Include="Views\ProposalReport\Report.cshtml" />
+    <Content Include="Views\MgtProposalSaving\Saving.cshtml" />
     <Content Include="Views\MgtProposalSolutionEdit\Existing.cshtml" />
     <Content Include="Views\MgtProposalSolutionEdit\Proposed.cshtml" />
     <Content Include="Views\MgtProposalSolutionEdit\Ratios.cshtml" />

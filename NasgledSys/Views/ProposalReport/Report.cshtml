@@ -1,8 +1,335 @@
-﻿
+﻿@model NasgledSys.Models.ProposalReportViewModel
+
+@using NasgledSys.Models;
 @{
-    ViewBag.Title = "Report";
+    ViewBag.Title = "Proposal";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<h2>Report</h2>
+
+@*<script src="~/Scripts/DrugAndDrop/jquery-drugDrop.min.js"></script>
+<script src="~/Scripts/DrugAndDrop/jquery-ui-1.8.custom.min.js"></script>
+<script src="~/Scripts/DrugAndDrop/jquery.cookie.js"></script>
+
+<script src="~/Scripts/DrugAndDrop/jquery.cookie.js"></script>*@
+
+<script type="text/javascript" src="~/Content/assets/js/pages/extension_dnd.js"></script>
+
+@section CenterTitle{
+    @Html.DisplayFor(m => GlobalClass.Project.ProjectName) <label>Report</label>
+}
+@section SideBar{
+    @*<center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+        </span>
+        <span class="heading-text pull-right">
+            <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
+        </span>
+    </center>*@
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Summary</a></li>
+                        <li class="active"><a href="@Url.Action("Index","MgtProposalSolution",new { id=Model.ProposalKey})">Solutions</a></li>
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="@Url.Action("Saving","MgtProposalSaving",new { id=Model.ProposalKey})">Saving</a></li>
+
+                        <li class="active"><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
+                        <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
+                        <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
+
+                        <li class="active"><a href="@Url.Action("Report","ProposalReport",new { id=Model.ProposalKey})">Reports</a></li>
+
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+
+
+                            <div id="soratbleBlock">
+
+                                <div class="col-md-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><h3>Select Report</h3></div>
+                                    </div>
+                                    <div class="panel-body">
+
+                                        <div class="column left first">
+
+                                            <ul class="sortable-list" >
+                                                @for (int i = 0; i < Model.FromReportTemplateList.Count(); i++)
+                                                {
+                                                    <li class="sortable-item" id="@Model.FromReportTemplateList[i].TemplateKey">@Model.FromReportTemplateList[i].FactorName</li>
+                                                }
+
+                                                @*<li class="sortable-item" id="A">Sortable item A</li>
+                                                <li class="sortable-item" id="B">Sortable item B</li>*@
+
+                                            </ul>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+
+                               
+
+                                <div class="col-md-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><h3>Document Reports</h3></div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="column left">
+
+                                            <ul class="sortable-list" data-category="selected" >
+                                                @for (int i = 0; i < Model.ToReportTemplateList.Count(); i++)
+                                                {
+                                                    <li class="sortable-item" id="@Model.ToReportTemplateList[i].TemplateKey">@Model.ToReportTemplateList[i].FactorName</li>
+                                                }
+                                                @*<li class="sortable-item" id="C">Sortable item C</li>
+                                                <li class="sortable-item" id="D">Sortable item D</li>*@
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                            <table id="#our_table" border="1">
+                                <tr>
+                                    <th>Column 1</th>
+                                    <th>Column 2</th>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @for (int i = 0; i < Model.FromReportTemplateList.Count(); i++)
+                                        {
+                                           
+
+                                            <span class="event" id="@Model.FromReportTemplateList[i].TemplateKey" draggable="true">@Model.FromReportTemplateList[i].FactorName</span>
+                                        }
+                                        
+                                    </td>
+                                    <td>
+                                        @*<span class="event" id="item2" draggable="true">Item 2</span>
+                                        <span class="event" id="item3" draggable="true">Item 3</span>*@
+                                    </td>
+                                    <td></td>
+                                </tr>
+                               
+                            </table>
+
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">Left form container</h6>
+                                            <div class="heading-elements">
+                                                <ul class="icons-list">
+                                                    <li><a data-action="collapse"></a></li>
+                                                    <li><a data-action="reload"></a></li>
+                                                    <li><a data-action="close"></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-body" id="forms-target-left">
+                                            <div class="form-group">
+                                                <label class="cursor-move">Enter your name:</label>
+                                                <input type="text" class="form-control" placeholder="Eugene Kopyov">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="cursor-move">Enter your password:</label>
+                                                <input type="password" class="form-control" placeholder="Your strong password">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="cursor-move">Attach screenshot:</label>
+                                                <input type="file" class="file-styled">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="cursor-move">Your message:</label>
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter your message here"></textarea>
+                                            </div>
+
+                                            <div class="text-right">
+                                                <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-left13 position-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">Right form container</h6>
+                                            <div class="heading-elements">
+                                                <ul class="icons-list">
+                                                    <li><a data-action="collapse"></a></li>
+                                                    <li><a data-action="reload"></a></li>
+                                                    <li><a data-action="close"></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-body" id="forms-target-right">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="cursor-move">Full name:</label>
+                                                        <input type="text" placeholder="Eugene Kopyov" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="cursor-move">Your email:</label>
+                                                        <input type="text" placeholder="email@domain.com" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="cursor-move">Country:</label>
+                                                        <select data-placeholder="Select your country" class="select">
+                                                            <option></option>
+                                                            <option value="Cambodia">Cambodia</option>
+                                                            <option value="Cameroon">Cameroon</option>
+                                                            <option value="Canada">Canada</option>
+                                                            <option value="Cape Verde">Cape Verde</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="cursor-move">State/Province:</label>
+                                                        <input type="text" placeholder="Bayern" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="cursor-move">ZIP code:</label>
+                                                        <input type="text" placeholder="1031" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="cursor-move">City:</label>
+                                                        <input type="text" placeholder="Munich" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="cursor-move">Address line:</label>
+                                                        <input type="text" placeholder="Ring street 12" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="cursor-move">Additional message:</label>
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter your message here"></textarea>
+                                            </div>
+
+                                            <div class="text-right">
+                                                <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-left13 position-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#soratbleBlock .sortable-list').sortable({
+            connectWith: '#soratbleBlock .sortable-list'
+        });
+
+        $('#btn-get').click(function () {
+            alert(getISelectedtems());
+        });
+
+
+    });
+
+    function getISelectedtems() {
+        var columns = [];
+
+        $('ul[data-category="selected"]').each(function () {
+            columns.push($(this).sortable('toArray').join(','));
+        });
+        return columns.join('|');
+    }
+
+
+
+    //$('.event').on("dragstart", function (event) {
+    //    var dt = event.originalEvent.dataTransfer;
+    //    dt.setData('Text', $(this).attr('id'));
+    //});
+    //$('table td').on("dragenter dragover drop", function (event) {
+    //    event.preventDefault();
+    //    if (event.type === 'drop') {
+    //        var data = event.originalEvent.dataTransfer.getData('Text', $(this).attr('id'));
+
+    //        de = $('#' + data).detach();
+    //        if (event.originalEvent.target.tagName === "SPAN") {
+    //            de.insertBefore($(event.originalEvent.target));
+    //        }
+    //        else {
+    //            de.appendTo($(this));
+    //        }
+    //    };
+    //});
+
+
+
+</script>
 

@@ -33,7 +33,7 @@ namespace NasgledSys.Controllers
                     }
 
                     Session["GlobalMessege"] = "";
-
+                    Session["counter"] = 0;
                     return View(model);
                 }
                 catch (Exception e)
@@ -96,6 +96,7 @@ namespace NasgledSys.Controllers
                         }
                        
                         Session["GlobalMessege"] = "Area Details was successfully Created.";
+                        Session["counter"] = 1;
                         GlobalClass.AreaHeading = model.Description;
                         AreaDetail entityModel = db.AreaDetail.Find(model.DetailKey);
                         model = EM_AreaDetail.ConvertToModel(entityModel);

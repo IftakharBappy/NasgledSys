@@ -206,6 +206,8 @@ namespace NasgledSys.Controllers
                 {
                     GlobalClass.AreaGuidForSubArea = Guid.Empty;
                     GlobalClass.AreaHeading = null;
+                    Session["counter"] = 0;
+                    Session["GlobalMessege"] = "";
                     return View();
                 }
                 catch (Exception e)
@@ -219,6 +221,13 @@ namespace NasgledSys.Controllers
                 Exception e = new Exception("Session Expired");
                 return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
             }
+        }
+        public JsonResult RestartCounter()
+        {
+            Session["counter"] = 0;
+            var list = Session["counter"];
+
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ProjectByCompanyReroute()
         {

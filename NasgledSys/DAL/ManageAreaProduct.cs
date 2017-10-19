@@ -109,16 +109,17 @@ namespace NasgledSys.DAL
       
         public string GetSuggestiveItem(Guid ProjectKey)
         {
-            var list = (from x in db.AreaProduct
-                        where x.ProjectKey == ProjectKey && x.IsDelete==false
-                        group x by x.ProductKey into g
+            var list = (from g in db.AreaProduct
+                        where g.ProjectKey == ProjectKey && g.IsDelete==false
+                       
                         select new
                         {
 
-                            FixtureKey = g.FirstOrDefault().ProductKey,
-                            TypeCount = g.FirstOrDefault().ProfileProduct.TypeCount,
-                            ProductName = g.FirstOrDefault().ProfileProduct.ProductName,
-                            ModelNo = g.FirstOrDefault().ProfileProduct.ModelNo
+                            FixtureKey = g.FixtureKey,
+                            TypeCount = g.ProfileProduct.TypeCount,
+                            ProductName = g.ProfileProduct.ProductName,
+                            AreaName = g.Area.AreaName,
+                            ModelNo = g.ProfileProduct.ModelNo
                         }).OrderBy(m => m.ProductName).ToList();
 
             string content = "<h3>Existing Products used in this Project</h3>";
@@ -126,7 +127,7 @@ namespace NasgledSys.DAL
             foreach (var item in list)
             {
 
-                content = content + "<li><a href= '#' class='fix' discussKey='" + item.FixtureKey + "' >" + item.ProductName + "(" + item.TypeCount + ")</a></li>";
+                content = content + "<li><a href= '#' class='fix' discussKey='" + item.FixtureKey + "' >" + item.ProductName + "(" + item.TypeCount + ")</a> =>>"+ item.AreaName + " </li>";
             }               
                 content = content + "</ul>";
 

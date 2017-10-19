@@ -101,10 +101,12 @@ namespace NasgledSys.Controllers
                     db.AreaProductDocument.Add(_documentobj);
                     db.SaveChanges();
                     Session["GlobalMessege"] = "Document is ADDED successfully.";
+                    Session["counter"] = 1;
                 }
                 else
                 {
                     Session["GlobalMessege"] = "No document is provided";
+                    Session["counter"] = 1;
                 }
                 return RedirectToAction("Documents", new { id = model.ProductKey });
 
@@ -134,7 +136,7 @@ namespace NasgledSys.Controllers
                 }
                 db.SaveChanges();
                 Session["GlobalMessege"] = "Document is CHANGED successfully.";
-
+                Session["counter"] = 1;
                 return RedirectToAction("Documents", new { id = model.ProductKey });
             }
             else
@@ -165,6 +167,7 @@ namespace NasgledSys.Controllers
                     db.SaveChanges();
 
                     Session["GlobalMessege"] = "Document has been DELETED successfully.";
+                    Session["counter"] = 1;
                     return RedirectToAction("Documents", new { @id = productKey });
                 }
                 catch (Exception e)

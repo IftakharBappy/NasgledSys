@@ -133,6 +133,7 @@ namespace NasgledSys.Controllers
                             model.Condition = obj.Condition;
                         }
                         Session["GlobalMessege"] = "Notes Saved Successfully";
+                        Session["counter"] = 1;
                     }
                     return View(model);
                 }
