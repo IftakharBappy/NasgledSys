@@ -57,7 +57,63 @@
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tab-demo1">
 
-                            <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h3>Select Report</h3></div>
+                                </div>
+                                <div class="panel-body" id="forms-target-left">
+                                    <table class="table table-bordered">
+                                        @for (int i = 0; i < Model.FromReportTemplateList.Count(); i++)
+                                        {
+
+                                                <div class="row">
+
+                                                    <div class="form-group">
+                                                        
+                                                            <label class="cursor-move" id="@Model.FromReportTemplateList[i].TemplateKey">@Model.FromReportTemplateList[i].FactorName</label>
+                                                        
+</div>
+                                                </div>
+
+                                           
+                                        }
+
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h3>Document Reports</h3></div>
+                                </div>
+                                <div class="panel-body" id="forms-target-right">
+                                    <table class="table table-bordered">
+                                        @for (int i = 0; i < Model.ToReportTemplateList.Count(); i++)
+                                        {
+
+                                            <div class="row">
+
+                                                <div class="form-group">
+
+                                                    <label class="cursor-move" id="@Model.ToReportTemplateList[i].TemplateKey">@Model.ToReportTemplateList[i].FactorName</label>
+
+                                                </div>
+                                            </div>
+
+
+                                        }
+
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+
+
+                            @*<div class="row">
                                 <div class="col-md-6">
                                     <div class="panel panel-flat">
                                         <div class="panel-heading">
@@ -119,7 +175,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
