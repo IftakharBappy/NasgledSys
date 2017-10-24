@@ -1,5 +1,4 @@
-﻿@model NasgledSys.Models.SolutionMainListClass
-
+﻿
 @using NasgledSys.Models;
 @{
     ViewBag.Title = "Solution";
@@ -45,7 +44,7 @@
                         <div class="tab-pane fade in active" id="tab-demo1">
                             <h1>Update Soulution</h1>
                             <h3>Select an existing product</h3>
-                            <input id="ProductKey"/>
+                            <input id="ProductKey" style="display:none;"/>
                             <div class="table-responsive">
                                 
                                 <table id="myTable" class="table table-bordered">
@@ -85,20 +84,24 @@
         });
         function setProductKey(value) {
             $("#ProductKey").val(value);
-            $("#row_" + value).addClass('selected').siblings().removeClass("selected");
+            $("#row_" + value).siblings().removeClass("selected");
+            $("#row_" + value).addClass('selected');
         }
         function RedirectToProposed() {
+            var proposalKey = '@ViewBag.proposalKey';
+            var ProductKey = $("#ProductKey").val();
 
-            var ProductKey = $("#ProductKey").val(value);
-            if (ProductKey!="") {
-
+            if (ProductKey != "") {
+                window.location.href ="/MgtProposalSolutionEdit/Proposed?productKey=" + ProductKey + "&proposalKey=" + proposalKey;
+            } else {
+                alert("No Area Product Is Selected");
             }
 
         }
 </script>
 <style>
     tr.selected {
-        background-color: rgba(41, 103, 182, 0.89);
-        color: #FFF;
+        background-color: rgb(169, 241, 236);
+        color: #000066;
     }
 </style>

@@ -535,6 +535,9 @@
     </Compile>
     <Compile Include="Models\ProposalReportViewModel.cs" />
     <Compile Include="Models\ProposalSavingViewModel.cs" />
+    <Compile Include="Models\ProposalSolutionEditDetailViewModel.cs" />
+    <Compile Include="Models\ProposalSolutionEditProposedViewModel.cs" />
+    <Compile Include="Models\ProposalSolutionEditRatioViewModel.cs" />
     <Compile Include="Models\ProposalTemplate.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
@@ -3929,6 +3932,7 @@
     <Content Include="Views\MgtProposalSolutionEdit\Existing.cshtml" />
     <Content Include="Views\MgtProposalSolutionEdit\Proposed.cshtml" />
     <Content Include="Views\MgtProposalSolutionEdit\Ratios.cshtml" />
+    <Content Include="Views\MgtProposalSolutionEdit\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
