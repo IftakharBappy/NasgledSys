@@ -1,0 +1,157 @@
+﻿@model NasgledSys.Models.ThumbnailViewModel
+@{
+    ViewBag.Title = "Contact Details";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+@section SideBar{
+    <div class="panel-body col-md-12">
+        <button type="button" class="btn btn-primary" data-toggle="" data-target="" onclick="location.href='@Url.Action("Create","MgtClientContact")'">Add New Contact Info</button>
+        
+
+   
+</div>
+}
+
+@section CenterTitle{
+    Profile
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">
+            &nbsp;
+        </div>
+        @using (Html.BeginForm("Index", "MgtClientContact", FormMethod.Get, new { @class = "form-horizontal" }))
+    {
+
+    <div class="panel panel-primary col-md-8">
+        <div class="panel-body">
+            <h4>
+                <span class="heading-text pull-left">
+                    <i class="icon-folder-download position-left"></i>
+                    <span class="position-left"><a href="@Url.Action("Index","MgtClientContact")">Contact > </a></span>
+
+                </span>
+
+            </h4>
+        </div>
+        <div>
+        </div>
+        <div class="panel-heading">
+            <h3>Contact Setup</h3>
+        </div>
+        <div class="panel-body">
+
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-3">
+
+                        <div class="has-feedback has-feedback-left">
+                            <input id="searchText" type="text" class="form-control" placeholder="Search with name" onkeyup="search()" />
+                            <div class="form-control-feedback">
+                                <i class="icon-search4 text-size-base text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <br />
+                <div class="container" id="elementContainer"></div>
+            </div>
+
+
+        </div>
+
+      
+
+    </div>
+
+    }
+        <div class="col-md-2">
+            &nbsp;
+        </div>
+    </div>
+
+</div>
+    <style>
+        .pager .active a {
+            background-color: #337AB7;
+            color: #FFF;
+            border: 0px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+    var baseList = [];
+    var filteredList = [];
+    $(document).ready(function () {
+        GetClientCompanyListData();
+    });
+    function search() {
+        filteredList = [];
+        var searchText = $("#searchText").val().toLowerCase();
+        if (searchText == "") {
+            filteredList = baseList;
+            remakeGrid();
+        }
+        else {
+            baseList.forEach(function (item) {
+                if (item.FirstName.toLowerCase().includes(searchText) ||
+                    item.LastName.toLowerCase().includes(searchText) ||
+                     item.Email.toLowerCase().includes(searchText)) {
+                    filteredList.push(item);
+                }
+            });
+            remakeGrid();
+        }
+    }
+    function remakeGrid() {
+        var res = "";
+        $("#elementContainer").html("");
+
+        for (var i = 0; i < filteredList.length; i++) {
+
+            res = res +"<div class='col-sm-4'>"
+
+                                                   +"<div class='thumbnail'>"
+                                                      +"<div class='caption'>"
+                                                         +  filteredList[i].FirstName+" "+ filteredList[i].LastName
+                                                       +"</div>"
+                                                       +"<div class='description'>"
+                                                           +"<span class='glyphicon glyphicon-envelope' style='color:orangered;margin-left:1em;'>" +  filteredList[i].Email+"</span>"
+                                                           +"<span class='glyphicon glyphicon-home' style='color:indianred;margin-left:1em;'>" +  filteredList[i].Address+" </span>"
+                                                      +"</div>"
+                                                       +"<div class='modal-footer' style='margin-top:5em;'>"
+                                                       + " <a href='/MgtClientContact/Details?ContactKey=" + filteredList[i].ContactKey + "' class='btn btn-primary btn-xs' role='button'>View</a>"
+                                                       + " <a href='/MgtClientContact/Edit?ContactKey=" + filteredList[i].ContactKey + "' class='btn btn-info btn-xs' role='button'>Edit</a>"
+                                                       +"</div>"
+                                                  +"</div>"
+                                                            +"</div>";
+                       
+        }
+        $("#elementContainer").html(res);
+    }
+    function GetClientCompanyListData() {
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtClientContact/GetClientList/",
+            success: function (data) {
+                baseList = data;
+                filteredList = data;
+                remakeGrid();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+</script>

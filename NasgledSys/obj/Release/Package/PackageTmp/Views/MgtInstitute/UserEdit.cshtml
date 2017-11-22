@@ -1,0 +1,226 @@
+﻿@model NasgledSys.Models.CompanyClass
+@{
+    ViewBag.Title = "InstituteEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadCityDropDown_ToEdit();
+        LoadStateDropDown_ToEdit();
+        $('#StateCode').change(function () {
+            $.ajax({
+                type: "post",
+                url: "/DropdownUtility/GetCity",
+                data: { stateId: $('#StateCode').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    var ddltarget = "#CityKey";
+                    $(ddltarget).empty();
+                    for (var i = 0; i < data.length; i++) {
+                        $(ddltarget).append("<option value='" + data[i].Value + "'>" + data[i].Text + "</option>");
+                    }
+
+                    //var district = "<select id='CityKey'>";
+                    //district = district + '<option value="">--Select--</option>';
+                    //for (var i = 0; i < data.length; i++)
+                    //{
+                    //    district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                    //}
+                    //district = district + '</select>';
+                    //$('#CityName').html(district);
+                }
+            });
+        });
+    });
+    function LoadCityDropDown_ToEdit() {
+        var select = $('select[name=CityKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtClientCompany/loadCityDropDown_ToEdit/",
+            data: JSON.stringify({ CityKey: '@Model.CityKey' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].CityKey + "' " + data[i].Selected + ">" + data[i].CityName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadStateDropDown_ToEdit() {
+        var select = $('select[name=StateCode]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtClientCompany/LoadStateDropDown_ToEdit/",
+            data: JSON.stringify({ StateKey: '@Model.StateCode' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].StateName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+</script>
+@section SideBar{
+    <h4>
+    <i class="icon-arrow-left52 position-left"></i>
+    <small class="display-block"><i class="icon-display4 position-left"></i>Company Info Edit</small>
+</h4>
+}
+@using (Html.BeginForm("UserEdit", "MgtInstitute", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.CompanyKey, new { id = "CompanyKey" })
+
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">List of Company</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <img src="@Url.Action("GetCompanyLogo", "ShowImage" ,new{id=Model.CompanyKey})" alt="User Image" />
+                        <label class="display-block">Upload Logo:</label>
+                        <input type="file" name="file" class="file-styled">
+                        <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyID, "ID")
+                        @Html.TextBoxFor(model => model.CompanyID, new { placeholder = "ID", @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyName, "Name")
+                        @Html.TextBoxFor(model => model.CompanyName, new { placeholder = "Name", @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyAddress, "Address")
+                        @Html.TextBoxFor(model => model.CompanyAddress, new { placeholder = "Address", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyAddress, "State")
+                        <select name="StateCode" placeholder="Select" class="select select-search"></select>                        
+                        @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group" id="CityName">
+                        @Html.LabelFor(model => model.CompanyAddress, "City")
+                        <select name="CityKey" placeholder="Select" class="select select-search"></select>                    
+                        @Html.ValidationMessageFor(model => model.CityKey, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Zipcode, "Zipcode")
+
+                        @Html.TextBoxFor(model => model.Zipcode, new { id = "Zipcode", placeholder = "Zipcode", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyAddress, "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyPhone, "Phone #")
+
+                        @Html.TextBoxFor(model => model.CompanyPhone, new { placeholder = "Phone #", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyPhone, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyMobile, "Mobile #")
+
+                        @Html.TextBoxFor(model => model.CompanyMobile, new { placeholder = "Mobile No", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyMobile, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyEmail, "Email Address")
+
+                        @Html.TextBoxFor(model => model.CompanyEmail, new { placeholder = "Email Address", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyEmail, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyWebsite, "Website")
+
+                        @Html.TextBoxFor(model => model.CompanyWebsite, new { placeholder = "Website", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyWebsite, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CompanyFax, "Fax")
+
+                        @Html.TextBoxFor(model => model.CompanyFax, new { placeholder = "FAX", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CompanyFax, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactPersonName, "Contact Person")
+
+                        @Html.TextBoxFor(model => model.ContactPersonName, new { placeholder = "Contact Person", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ContactPersonName, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, "Title")
+
+                        @Html.TextBoxFor(model => model.Title, new { placeholder = "Title", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactPersonNo, "Contact #")
+
+                        @Html.TextBoxFor(model => model.ContactPersonNo, new { placeholder = "Contact Person Contact #", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ContactPersonNo, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactEmail, "Email")
+
+                        @Html.TextBoxFor(model => model.ContactEmail, new { placeholder = "Contact Person Email", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ContactEmail, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="text-right">
+
+                        <button type="submit" class="btn btn-primary">Save<i class="icon-arrow-right14 position-right"></i></button>
+                        @Html.ActionLink("Cancel", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,47 @@
+﻿@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    foreach (var item in GlobalClass.ModuleList)
+    {
+
+        <div class="text-center content-group text-muted content-divider">
+            <span class="pt-10 pb-10">@Html.DisplayFor(m=>item.ModuleName)</span>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel border-left-lg border-left-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            @{
+                                foreach (var fitem in item.formList)
+                                {
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="panel panel-body panel-body-accent">
+                                            <div class="media no-margin">
+                                                <div class="media-left media-middle">
+                                                    <i class="@fitem.FormCss"></i>
+                                                </div>
+                                                <div class="media-body text-right">
+                                                    <a href="@Url.Action(fitem.FormView, fitem.FormController)" class="btn btn-float btn-float-lg"><span>@fitem.FormName</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }                          
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    }
+}
+   <hr><hr><hr>

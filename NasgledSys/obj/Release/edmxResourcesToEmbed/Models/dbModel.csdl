@@ -1,0 +1,2453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NasgledDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CityList">
+    <Key>
+      <PropertyRef Name="CityKey" />
+    </Key>
+    <Property Name="CityKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="StateCode" Type="Int32" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="StateList" Relationship="Self.FK_CityList_StateList" FromRole="CityList" ToRole="StateList" />
+    <NavigationProperty Name="ClientContact" Relationship="NasgledDBModel.FK_ClientContact_CityList" FromRole="CityList" ToRole="ClientContact" />
+    <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_UserProfile_CityList" FromRole="CityList" ToRole="UserProfile" />
+    <NavigationProperty Name="Company" Relationship="NasgledDBModel.FK_Company_CityList" FromRole="CityList" ToRole="Company" />
+    <NavigationProperty Name="ZIPList" Relationship="NasgledDBModel.FK_ZIPList_CityList" FromRole="CityList" ToRole="ZIPList" />
+    <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_ClientCompany_ClientCompany" FromRole="CityList" ToRole="ClientCompany" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_CityList" FromRole="CityList" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Forms">
+    <Key>
+      <PropertyRef Name="FormID" />
+    </Key>
+    <Property Name="FormID" Type="Guid" Nullable="false" />
+    <Property Name="ModuleID" Type="Guid" Nullable="false" />
+    <Property Name="FormName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FormLevel" Type="Int32" />
+    <Property Name="FormController" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FormView" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="Modules" Relationship="Self.FK_Forms_Modules" FromRole="Forms" ToRole="Modules" />
+    <NavigationProperty Name="UserGroupForm" Relationship="NasgledDBModel.FK_UserGroupForm_Forms" FromRole="Forms" ToRole="UserGroupForm" />
+    <Property Name="FormCss" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ImageFile">
+    <Key>
+      <PropertyRef Name="ImageFileKey" />
+    </Key>
+    <Property Name="ImageFileKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Modules">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="Guid" Nullable="false" />
+    <Property Name="ModuleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ModuleLevel" Type="Int32" />
+    <Property Name="NoSub" Type="Boolean" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="Forms" Relationship="Self.FK_Forms_Modules" FromRole="Modules" ToRole="Forms" />
+    <NavigationProperty Name="UserGroupForm" Relationship="NasgledDBModel.FK_UserGroupForm_Modules" FromRole="Modules" ToRole="UserGroupForm" />
+    <NavigationProperty Name="UserGroupModule" Relationship="NasgledDBModel.FK_UserGroupModule_Modules" FromRole="Modules" ToRole="UserGroupModule" />
+    <Property Name="ParentModuleID" Type="Guid" />
+  </EntityType>
+  <EntityType Name="StaffList">
+    <Key>
+      <PropertyRef Name="PersonnelKey" />
+    </Key>
+    <Property Name="PersonnelKey" Type="Guid" Nullable="false" />
+    <Property Name="PID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="PicType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyKey" Type="Guid" />
+    <Property Name="Usergr" Type="Guid" />
+    <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsUser" Type="Boolean" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="Usergroup" Relationship="Self.FK_StaffList_Usergroup" FromRole="StaffList" ToRole="Usergroup" />
+  </EntityType>
+  <EntityType Name="StateList">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StateCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="CityList" Relationship="Self.FK_CityList_StateList" FromRole="StateList" ToRole="CityList" />
+    <NavigationProperty Name="ClientContact" Relationship="NasgledDBModel.FK_ClientContact_StateList" FromRole="StateList" ToRole="ClientContact" />
+    <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_UserProfile_StateList" FromRole="StateList" ToRole="UserProfile" />
+    <NavigationProperty Name="Company" Relationship="NasgledDBModel.FK_Company_StateList" FromRole="StateList" ToRole="Company" />
+    <NavigationProperty Name="ZIPList" Relationship="NasgledDBModel.FK_ZIPList_StateList" FromRole="StateList" ToRole="ZIPList" />
+    <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_ClientCompany_StateList" FromRole="StateList" ToRole="ClientCompany" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_StateList" FromRole="StateList" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Usergroup">
+    <Key>
+      <PropertyRef Name="UserGroupKey" />
+    </Key>
+    <Property Name="UserGroupKey" Type="Guid" Nullable="false" />
+    <Property Name="GroupID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GroupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyKey" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="StaffList" Relationship="Self.FK_StaffList_Usergroup" FromRole="Usergroup" ToRole="StaffList" />
+    <NavigationProperty Name="Company" Relationship="NasgledDBModel.FK_Usergroup_Company" FromRole="Usergroup" ToRole="Company" />
+    <NavigationProperty Name="UserGroupForm" Relationship="NasgledDBModel.FK_UserGroupForm_Usergroup" FromRole="Usergroup" ToRole="UserGroupForm" />
+    <NavigationProperty Name="UserGroupModule" Relationship="NasgledDBModel.FK_UserGroupModule_Usergroup" FromRole="Usergroup" ToRole="UserGroupModule" />
+  </EntityType>
+  <Association Name="FK_CityList_StateList">
+    <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+    <End Role="CityList" Type="Self.CityList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="CityList">
+        <PropertyRef Name="StateCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Forms_Modules">
+    <End Role="Modules" Type="Self.Modules" Multiplicity="1" />
+    <End Role="Forms" Type="Self.Forms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modules">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="Forms">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StaffList_Usergroup">
+    <End Role="Usergroup" Type="Self.Usergroup" Multiplicity="0..1" />
+    <End Role="StaffList" Type="Self.StaffList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usergroup">
+        <PropertyRef Name="UserGroupKey" />
+      </Principal>
+      <Dependent Role="StaffList">
+        <PropertyRef Name="Usergr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NasgledDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CityList" EntityType="Self.CityList" />
+    <EntitySet Name="Forms" EntityType="Self.Forms" />
+    <EntitySet Name="ImageFile" EntityType="Self.ImageFile" />
+    <EntitySet Name="Modules" EntityType="Self.Modules" />
+    <EntitySet Name="StaffList" EntityType="Self.StaffList" />
+    <EntitySet Name="StateList" EntityType="Self.StateList" />
+    <EntitySet Name="Usergroup" EntityType="Self.Usergroup" />
+    <AssociationSet Name="FK_CityList_StateList" Association="Self.FK_CityList_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="CityList" EntitySet="CityList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Forms_Modules" Association="Self.FK_Forms_Modules">
+      <End Role="Modules" EntitySet="Modules" />
+      <End Role="Forms" EntitySet="Forms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StaffList_Usergroup" Association="Self.FK_StaffList_Usergroup">
+      <End Role="Usergroup" EntitySet="Usergroup" />
+      <End Role="StaffList" EntitySet="StaffList" />
+    </AssociationSet>
+    <EntitySet Name="AreaDetail" EntityType="NasgledDBModel.AreaDetail" />
+    <EntitySet Name="AreaDocument" EntityType="NasgledDBModel.AreaDocument" />
+    <EntitySet Name="AreaNote" EntityType="NasgledDBModel.AreaNote" />
+    <EntitySet Name="AreaPhoto" EntityType="NasgledDBModel.AreaPhoto" />
+    <EntitySet Name="AreaProduct" EntityType="NasgledDBModel.AreaProduct" />
+    <EntitySet Name="AreaProductDetail" EntityType="NasgledDBModel.AreaProductDetail" />
+    <EntitySet Name="AreaProductDocument" EntityType="NasgledDBModel.AreaProductDocument" />
+    <EntitySet Name="AreaProductNote" EntityType="NasgledDBModel.AreaProductNote" />
+    <EntitySet Name="AreaProductPhoto" EntityType="NasgledDBModel.AreaProductPhoto" />
+    <EntitySet Name="ClientContact" EntityType="NasgledDBModel.ClientContact" />
+    <EntitySet Name="CoolingEfficientyType" EntityType="NasgledDBModel.CoolingEfficientyType" />
+    <EntitySet Name="CoolingSystem" EntityType="NasgledDBModel.CoolingSystem" />
+    <EntitySet Name="CoolingSystemType" EntityType="NasgledDBModel.CoolingSystemType" />
+    <EntitySet Name="FuelType" EntityType="NasgledDBModel.FuelType" />
+    <EntitySet Name="HeatingEfficiencyType" EntityType="NasgledDBModel.HeatingEfficiencyType" />
+    <EntitySet Name="HeatingSystem" EntityType="NasgledDBModel.HeatingSystem" />
+    <EntitySet Name="HeatingSystemType" EntityType="NasgledDBModel.HeatingSystemType" />
+    <EntitySet Name="IncentiveMaxType" EntityType="NasgledDBModel.IncentiveMaxType" />
+    <EntitySet Name="IncentiveType" EntityType="NasgledDBModel.IncentiveType" />
+    <EntitySet Name="IndustryType" EntityType="NasgledDBModel.IndustryType" />
+    <EntitySet Name="ItemCategory" EntityType="NasgledDBModel.ItemCategory" />
+    <EntitySet Name="ItemCatelogue" EntityType="NasgledDBModel.ItemCatelogue" />
+    <EntitySet Name="ItemSubcategory" EntityType="NasgledDBModel.ItemSubcategory" />
+    <EntitySet Name="ItemType" EntityType="NasgledDBModel.ItemType" />
+    <EntitySet Name="JobFunction" EntityType="NasgledDBModel.JobFunction" />
+    <EntitySet Name="LightingSatisfactionFactor" EntityType="NasgledDBModel.LightingSatisfactionFactor" />
+    <EntitySet Name="Manufacturer" EntityType="NasgledDBModel.Manufacturer" />
+    <EntitySet Name="NewRateSchedule" EntityType="NasgledDBModel.NewRateSchedule" />
+    <EntitySet Name="OperatingSchedule" EntityType="NasgledDBModel.OperatingSchedule" />
+    <EntitySet Name="ProfileProduct" EntityType="NasgledDBModel.ProfileProduct" />
+    <EntitySet Name="Project" EntityType="NasgledDBModel.Project" />
+    <EntitySet Name="ProjectStatus" EntityType="NasgledDBModel.ProjectStatus" />
+    <EntitySet Name="Proposal" EntityType="NasgledDBModel.Proposal" />
+    <EntitySet Name="ProposalAdditional" EntityType="NasgledDBModel.ProposalAdditional" />
+    <EntitySet Name="ProposalLoanTerms" EntityType="NasgledDBModel.ProposalLoanTerms" />
+    <EntitySet Name="ProposalNote" EntityType="NasgledDBModel.ProposalNote" />
+    <EntitySet Name="Team" EntityType="NasgledDBModel.Team" />
+    <EntitySet Name="UserProfile" EntityType="NasgledDBModel.UserProfile" />
+    <EntitySet Name="UserRole" EntityType="NasgledDBModel.UserRole" />
+    <AssociationSet Name="FK_AreaDetail_LightingSatisfactionFactor" Association="NasgledDBModel.FK_AreaDetail_LightingSatisfactionFactor">
+      <End Role="LightingSatisfactionFactor" EntitySet="LightingSatisfactionFactor" />
+      <End Role="AreaDetail" EntitySet="AreaDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_IncentiveMaxType" Association="NasgledDBModel.FK_AreaProduct_IncentiveMaxType">
+      <End Role="IncentiveMaxType" EntitySet="IncentiveMaxType" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_IncentiveType" Association="NasgledDBModel.FK_AreaProduct_IncentiveType">
+      <End Role="IncentiveType" EntitySet="IncentiveType" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_ProfileProduct" Association="NasgledDBModel.FK_AreaProduct_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_AreaProduct" Association="NasgledDBModel.FK_AreaProductDetail_AreaProduct">
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDocument_AreaProduct" Association="NasgledDBModel.FK_AreaProductDocument_AreaProduct">
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+      <End Role="AreaProductDocument" EntitySet="AreaProductDocument" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductNote_AreaProduct" Association="NasgledDBModel.FK_AreaProductNote_AreaProduct">
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+      <End Role="AreaProductNote" EntitySet="AreaProductNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductPhoto_AreaProduct" Association="NasgledDBModel.FK_AreaProductPhoto_AreaProduct">
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+      <End Role="AreaProductPhoto" EntitySet="AreaProductPhoto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_LightingSatisfactionFactor" Association="NasgledDBModel.FK_AreaProductDetail_LightingSatisfactionFactor">
+      <End Role="LightingSatisfactionFactor" EntitySet="LightingSatisfactionFactor" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_OperatingSchedule" Association="NasgledDBModel.FK_AreaProductDetail_OperatingSchedule">
+      <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_ProfileProduct" Association="NasgledDBModel.FK_AreaProductDetail_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDocument_ProfileProduct" Association="NasgledDBModel.FK_AreaProductDocument_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProductDocument" EntitySet="AreaProductDocument" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductNote_ProfileProduct" Association="NasgledDBModel.FK_AreaProductNote_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProductNote" EntitySet="AreaProductNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductPhoto_ProfileProduct" Association="NasgledDBModel.FK_AreaProductPhoto_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProductPhoto" EntitySet="AreaProductPhoto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientContact_CityList" Association="NasgledDBModel.FK_ClientContact_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="ClientContact" EntitySet="ClientContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfile_CityList" Association="NasgledDBModel.FK_UserProfile_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientContact_ClientContact" Association="NasgledDBModel.FK_ClientContact_ClientContact">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="ClientContact" EntitySet="ClientContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientContact_StateList" Association="NasgledDBModel.FK_ClientContact_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="ClientContact" EntitySet="ClientContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_ClientContact" Association="NasgledDBModel.FK_Project_ClientContact">
+      <End Role="ClientContact" EntitySet="ClientContact" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoolingSystem_CoolingEfficientyType" Association="NasgledDBModel.FK_CoolingSystem_CoolingEfficientyType">
+      <End Role="CoolingEfficientyType" EntitySet="CoolingEfficientyType" />
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoolingSystem_CoolingSystemType" Association="NasgledDBModel.FK_CoolingSystem_CoolingSystemType">
+      <End Role="CoolingSystemType" EntitySet="CoolingSystemType" />
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoolingSystem_FuelType" Association="NasgledDBModel.FK_CoolingSystem_FuelType">
+      <End Role="FuelType" EntitySet="FuelType" />
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoolingSystem_Project" Association="NasgledDBModel.FK_CoolingSystem_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeatingSystem_FuelType" Association="NasgledDBModel.FK_HeatingSystem_FuelType">
+      <End Role="FuelType" EntitySet="FuelType" />
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeatingSystem_HeatingEfficiencyType" Association="NasgledDBModel.FK_HeatingSystem_HeatingEfficiencyType">
+      <End Role="HeatingEfficiencyType" EntitySet="HeatingEfficiencyType" />
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeatingSystem_HeatingSystemType" Association="NasgledDBModel.FK_HeatingSystem_HeatingSystemType">
+      <End Role="HeatingSystemType" EntitySet="HeatingSystemType" />
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeatingSystem_Project" Association="NasgledDBModel.FK_HeatingSystem_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_ItemCategory" Association="NasgledDBModel.FK_ProfileProduct_ItemCategory">
+      <End Role="ItemCategory" EntitySet="ItemCategory" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_ItemCatelogue" Association="NasgledDBModel.FK_ProfileProduct_ItemCatelogue">
+      <End Role="ItemCatelogue" EntitySet="ItemCatelogue" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_ItemSubcategory" Association="NasgledDBModel.FK_ProfileProduct_ItemSubcategory">
+      <End Role="ItemSubcategory" EntitySet="ItemSubcategory" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_ItemType" Association="NasgledDBModel.FK_ProfileProduct_ItemType">
+      <End Role="ItemType" EntitySet="ItemType" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_JobFunction" Association="NasgledDBModel.FK_Team_JobFunction">
+      <End Role="JobFunction" EntitySet="JobFunction" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_Manufacturer" Association="NasgledDBModel.FK_ProfileProduct_Manufacturer">
+      <End Role="Manufacturer" EntitySet="Manufacturer" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NewRateSchedule_Project" Association="NasgledDBModel.FK_NewRateSchedule_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="NewRateSchedule" EntitySet="NewRateSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OperatingSchedule_Project" Association="NasgledDBModel.FK_OperatingSchedule_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_UserProfile" Association="NasgledDBModel.FK_ProfileProduct_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_ProjectStatus" Association="NasgledDBModel.FK_Project_ProjectStatus">
+      <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_UserProfile" Association="NasgledDBModel.FK_Project_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proposal_Project" Association="NasgledDBModel.FK_Proposal_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_Project" Association="NasgledDBModel.FK_Team_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proposal_UserProfile" Association="NasgledDBModel.FK_Proposal_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfile_StateList" Association="NasgledDBModel.FK_UserProfile_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_UserProfile" Association="NasgledDBModel.FK_Team_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_UserRole" Association="NasgledDBModel.FK_Team_UserRole">
+      <End Role="UserRole" EntitySet="UserRole" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfile_UserRole" Association="NasgledDBModel.FK_UserProfile_UserRole">
+      <End Role="UserRole" EntitySet="UserRole" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
+    </AssociationSet>
+    <EntitySet Name="Company" EntityType="NasgledDBModel.Company" />
+    <EntitySet Name="ZIPList" EntityType="NasgledDBModel.ZIPList" />
+    <AssociationSet Name="FK_Company_CityList" Association="NasgledDBModel.FK_Company_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZIPList_CityList" Association="NasgledDBModel.FK_ZIPList_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="ZIPList" EntitySet="ZIPList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_StateList" Association="NasgledDBModel.FK_Company_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usergroup_Company" Association="NasgledDBModel.FK_Usergroup_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Usergroup" EntitySet="Usergroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZIPList_StateList" Association="NasgledDBModel.FK_ZIPList_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="ZIPList" EntitySet="ZIPList" />
+    </AssociationSet>
+    <EntitySet Name="UserGroupForm" EntityType="NasgledDBModel.UserGroupForm" />
+    <EntitySet Name="UserGroupModule" EntityType="NasgledDBModel.UserGroupModule" />
+    <AssociationSet Name="FK_UserGroupForm_Forms" Association="NasgledDBModel.FK_UserGroupForm_Forms">
+      <End Role="Forms" EntitySet="Forms" />
+      <End Role="UserGroupForm" EntitySet="UserGroupForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroupForm_Modules" Association="NasgledDBModel.FK_UserGroupForm_Modules">
+      <End Role="Modules" EntitySet="Modules" />
+      <End Role="UserGroupForm" EntitySet="UserGroupForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroupModule_Modules" Association="NasgledDBModel.FK_UserGroupModule_Modules">
+      <End Role="Modules" EntitySet="Modules" />
+      <End Role="UserGroupModule" EntitySet="UserGroupModule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroupForm_Usergroup" Association="NasgledDBModel.FK_UserGroupForm_Usergroup">
+      <End Role="Usergroup" EntitySet="Usergroup" />
+      <End Role="UserGroupForm" EntitySet="UserGroupForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroupModule_Usergroup" Association="NasgledDBModel.FK_UserGroupModule_Usergroup">
+      <End Role="Usergroup" EntitySet="Usergroup" />
+      <End Role="UserGroupModule" EntitySet="UserGroupModule" />
+    </AssociationSet>
+    <EntitySet Name="DefaultEmail" EntityType="NasgledDBModel.DefaultEmail" />
+    <EntitySet Name="AnnualSalesRevenueSetup" EntityType="NasgledDBModel.AnnualSalesRevenueSetup" />
+    <EntitySet Name="SalesReachSetup" EntityType="NasgledDBModel.SalesReachSetup" />
+    <EntitySet Name="MainProduct" EntityType="NasgledDBModel.MainProduct" />
+    <AssociationSet Name="FK_MainProduct_ItemCategory" Association="NasgledDBModel.FK_MainProduct_ItemCategory">
+      <End Role="ItemCategory" EntitySet="ItemCategory" />
+      <End Role="MainProduct" EntitySet="MainProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainProduct_ItemSubcategory" Association="NasgledDBModel.FK_MainProduct_ItemSubcategory">
+      <End Role="ItemSubcategory" EntitySet="ItemSubcategory" />
+      <End Role="MainProduct" EntitySet="MainProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainProduct_ItemType" Association="NasgledDBModel.FK_MainProduct_ItemType">
+      <End Role="ItemType" EntitySet="ItemType" />
+      <End Role="MainProduct" EntitySet="MainProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainProduct_Manufacturer" Association="NasgledDBModel.FK_MainProduct_Manufacturer">
+      <End Role="Manufacturer" EntitySet="Manufacturer" />
+      <End Role="MainProduct" EntitySet="MainProduct" />
+    </AssociationSet>
+    <EntitySet Name="Logs" EntityType="NasgledDBModel.Logs" />
+    <EntitySet Name="ClientCompany" EntityType="NasgledDBModel.ClientCompany" />
+    <AssociationSet Name="FK_ClientCompany_ClientCompany" Association="NasgledDBModel.FK_ClientCompany_ClientCompany">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientCompany_IndustryType" Association="NasgledDBModel.FK_ClientCompany_IndustryType">
+      <End Role="IndustryType" EntitySet="IndustryType" />
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientCompany_StateList" Association="NasgledDBModel.FK_ClientCompany_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_ClientCompany" Association="NasgledDBModel.FK_Project_ClientCompany">
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_ClientCompany" Association="NasgledDBModel.FK_Team_ClientCompany">
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <EntitySet Name="ClientCompanyProfileRequest" EntityType="NasgledDBModel.ClientCompanyProfileRequest" />
+    <EntitySet Name="EnvironmentalImpact" EntityType="NasgledDBModel.EnvironmentalImpact" />
+    <EntitySet Name="Unit" EntityType="NasgledDBModel.Unit" />
+    <AssociationSet Name="FK_Project_CityList" Association="NasgledDBModel.FK_Project_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_StateList" Association="NasgledDBModel.FK_Project_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <EntitySet Name="Area" EntityType="NasgledDBModel.Area" />
+    <AssociationSet Name="FK_Area_CoolingSystem" Association="NasgledDBModel.FK_Area_CoolingSystem">
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Area_HeatingSystem" Association="NasgledDBModel.FK_Area_HeatingSystem">
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Area_NewRateSchedule" Association="NasgledDBModel.FK_Area_NewRateSchedule">
+      <End Role="NewRateSchedule" EntitySet="NewRateSchedule" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Area_OperatingSchedule" Association="NasgledDBModel.FK_Area_OperatingSchedule">
+      <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Area_Project" Association="NasgledDBModel.FK_Area_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaDetail_Area" Association="NasgledDBModel.FK_AreaDetail_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaDetail" EntitySet="AreaDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaDocument_Area" Association="NasgledDBModel.FK_AreaDocument_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaDocument" EntitySet="AreaDocument" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaNote_Area" Association="NasgledDBModel.FK_AreaNote_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaNote" EntitySet="AreaNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaPhoto_Area" Association="NasgledDBModel.FK_AreaPhoto_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaPhoto" EntitySet="AreaPhoto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_Area" Association="NasgledDBModel.FK_AreaProduct_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_Area" Association="NasgledDBModel.FK_AreaProductDetail_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDocument_Area" Association="NasgledDBModel.FK_AreaProductDocument_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProductDocument" EntitySet="AreaProductDocument" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductNote_Area" Association="NasgledDBModel.FK_AreaProductNote_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProductNote" EntitySet="AreaProductNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductPhoto_Area" Association="NasgledDBModel.FK_AreaProductPhoto_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProductPhoto" EntitySet="AreaProductPhoto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_OperatingSchedule" Association="NasgledDBModel.FK_AreaProduct_OperatingSchedule">
+      <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <EntitySet Name="FinanceCompany" EntityType="NasgledDBModel.FinanceCompany" />
+    <EntitySet Name="ProposalTemplate" EntityType="NasgledDBModel.ProposalTemplate" />
+    <EntitySet Name="ReportTemplate" EntityType="NasgledDBModel.ReportTemplate" />
+  </EntityContainer>
+  <EntityType Name="AreaDetail">
+    <Key>
+      <PropertyRef Name="DetailKey" />
+    </Key>
+    <Property Name="DetailKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaKey" Type="Guid" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AverageIlluminnce" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LightingSatisfactionKey" Type="Guid" />
+    <Property Name="CeilingHeight" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Reflectance" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="AreaWidth" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Length" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="LightingSatisfactionFactor" Relationship="NasgledDBModel.FK_AreaDetail_LightingSatisfactionFactor" FromRole="AreaDetail" ToRole="LightingSatisfactionFactor" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaDetail_Area" FromRole="AreaDetail" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="AreaDocument">
+    <Key>
+      <PropertyRef Name="DocumentKey" />
+    </Key>
+    <Property Name="DocumentKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaKey" Type="Guid" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaDocument_Area" FromRole="AreaDocument" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="AreaNote">
+    <Key>
+      <PropertyRef Name="NoteKey" />
+    </Key>
+    <Property Name="NoteKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaKey" Type="Guid" />
+    <Property Name="NoteContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Internal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaNote_Area" FromRole="AreaNote" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="AreaPhoto">
+    <Key>
+      <PropertyRef Name="PhotoKey" />
+    </Key>
+    <Property Name="PhotoKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaKey" Type="Guid" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaPhoto_Area" FromRole="AreaPhoto" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="AreaProduct">
+    <Key>
+      <PropertyRef Name="ProductKey" />
+    </Key>
+    <Property Name="ProductKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaKey" Type="Guid" />
+    <Property Name="FixtureKey" Type="Guid" />
+    <Property Name="Count" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ForEveryMainQty" Type="Int32" />
+    <Property Name="ReplaceQty" Type="Int32" />
+    <Property Name="SolutionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IncentiveTypeKey" Type="Guid" />
+    <Property Name="IncentiveAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IncentiveMaxTypeKey" Type="Guid" />
+    <Property Name="IncentiveMaxAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ModelNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WattPerProduct" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="L70" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ThermalEfficency" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CustomNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MarkupPercentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="InstallationTime" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="InstallationCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ShipingCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MiscCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IsOn" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="IncentiveMaxType" Relationship="NasgledDBModel.FK_AreaProduct_IncentiveMaxType" FromRole="AreaProduct" ToRole="IncentiveMaxType" />
+    <NavigationProperty Name="IncentiveType" Relationship="NasgledDBModel.FK_AreaProduct_IncentiveType" FromRole="AreaProduct" ToRole="IncentiveType" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProduct_ProfileProduct" FromRole="AreaProduct" ToRole="ProfileProduct" />
+    <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductDetail" />
+    <NavigationProperty Name="AreaProductDocument" Relationship="NasgledDBModel.FK_AreaProductDocument_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductDocument" />
+    <NavigationProperty Name="AreaProductNote" Relationship="NasgledDBModel.FK_AreaProductNote_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductNote" />
+    <NavigationProperty Name="AreaProductPhoto" Relationship="NasgledDBModel.FK_AreaProductPhoto_AreaProduct" FromRole="AreaProduct" ToRole="AreaProductPhoto" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProduct_Area" FromRole="AreaProduct" ToRole="Area" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="ExistingProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OperatingScheduleKey" Type="Guid" />
+    <NavigationProperty Name="OperatingSchedule" Relationship="NasgledDBModel.FK_AreaProduct_OperatingSchedule" FromRole="AreaProduct" ToRole="OperatingSchedule" />
+    <Property Name="SolutionLevel" Type="Int32" />
+  </EntityType>
+  <EntityType Name="AreaProductDetail">
+    <Key>
+      <PropertyRef Name="DetailKey" />
+    </Key>
+    <Property Name="DetailKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaKey" Type="Guid" />
+    <Property Name="FixtureKey" Type="Guid" />
+    <Property Name="ProductKey" Type="Guid" />
+    <Property Name="ExistingControl" Type="Boolean" />
+    <Property Name="OperationScheduleKey" Type="Guid" />
+    <Property Name="WorkingFixtureCount" Type="Int32" />
+    <Property Name="ReplacementCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="AnnualMaintenance" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="InstallationInTime" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="LightingSatisfactionKey" Type="Guid" />
+    <Property Name="MountingHeight" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProductDetail_AreaProduct" FromRole="AreaProductDetail" ToRole="AreaProduct" />
+    <NavigationProperty Name="LightingSatisfactionFactor" Relationship="NasgledDBModel.FK_AreaProductDetail_LightingSatisfactionFactor" FromRole="AreaProductDetail" ToRole="LightingSatisfactionFactor" />
+    <NavigationProperty Name="OperatingSchedule" Relationship="NasgledDBModel.FK_AreaProductDetail_OperatingSchedule" FromRole="AreaProductDetail" ToRole="OperatingSchedule" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProductDetail_ProfileProduct" FromRole="AreaProductDetail" ToRole="ProfileProduct" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductDetail_Area" FromRole="AreaProductDetail" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="AreaProductDocument">
+    <Key>
+      <PropertyRef Name="DocumentKey" />
+    </Key>
+    <Property Name="DocumentKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaKey" Type="Guid" />
+    <Property Name="FixtureKey" Type="Guid" />
+    <Property Name="ProductKey" Type="Guid" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProductDocument_AreaProduct" FromRole="AreaProductDocument" ToRole="AreaProduct" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProductDocument_ProfileProduct" FromRole="AreaProductDocument" ToRole="ProfileProduct" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductDocument_Area" FromRole="AreaProductDocument" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="AreaProductNote">
+    <Key>
+      <PropertyRef Name="NoteKey" />
+    </Key>
+    <Property Name="NoteKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaKey" Type="Guid" />
+    <Property Name="FixtureKey" Type="Guid" />
+    <Property Name="ProductKey" Type="Guid" />
+    <Property Name="Condition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InternalNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProductNote_AreaProduct" FromRole="AreaProductNote" ToRole="AreaProduct" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProductNote_ProfileProduct" FromRole="AreaProductNote" ToRole="ProfileProduct" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductNote_Area" FromRole="AreaProductNote" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="AreaProductPhoto">
+    <Key>
+      <PropertyRef Name="PhotoKey" />
+    </Key>
+    <Property Name="PhotoKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaKey" Type="Guid" />
+    <Property Name="FixtureKey" Type="Guid" />
+    <Property Name="ProductKey" Type="Guid" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProductPhoto_AreaProduct" FromRole="AreaProductPhoto" ToRole="AreaProduct" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_AreaProductPhoto_ProfileProduct" FromRole="AreaProductPhoto" ToRole="ProfileProduct" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_AreaProductPhoto_Area" FromRole="AreaProductPhoto" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="ClientContact">
+    <Key>
+      <PropertyRef Name="ContactKey" />
+    </Key>
+    <Property Name="ContactKey" Type="Guid" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OfficePhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProfileKey" Type="Guid" />
+    <Property Name="JobTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="WebAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CellPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FaxPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CityKey" Type="Int32" />
+    <Property Name="StateKey" Type="Int32" />
+    <Property Name="Zipcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InternalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_ClientContact_CityList" FromRole="ClientContact" ToRole="CityList" />
+    <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_ClientContact_ClientContact" FromRole="ClientContact" ToRole="UserProfile" />
+    <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_ClientContact_StateList" FromRole="ClientContact" ToRole="StateList" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_ClientContact" FromRole="ClientContact" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="CoolingEfficientyType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="CoolingSystem" Relationship="NasgledDBModel.FK_CoolingSystem_CoolingEfficientyType" FromRole="CoolingEfficientyType" ToRole="CoolingSystem" />
+  </EntityType>
+  <EntityType Name="CoolingSystem">
+    <Key>
+      <PropertyRef Name="CoolingSystemKey" />
+    </Key>
+    <Property Name="CoolingSystemKey" Type="Guid" Nullable="false" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="SystemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AnnualRunTime" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CoolingSystemTypeKey" Type="Guid" />
+    <Property Name="FuelTypeKey" Type="Guid" />
+    <Property Name="FuelCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="EfficiencyType" Type="Guid" />
+    <Property Name="EfficiencyValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="InternalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <NavigationProperty Name="CoolingEfficientyType" Relationship="NasgledDBModel.FK_CoolingSystem_CoolingEfficientyType" FromRole="CoolingSystem" ToRole="CoolingEfficientyType" />
+    <NavigationProperty Name="CoolingSystemType" Relationship="NasgledDBModel.FK_CoolingSystem_CoolingSystemType" FromRole="CoolingSystem" ToRole="CoolingSystemType" />
+    <NavigationProperty Name="FuelType" Relationship="NasgledDBModel.FK_CoolingSystem_FuelType" FromRole="CoolingSystem" ToRole="FuelType" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_CoolingSystem_Project" FromRole="CoolingSystem" ToRole="Project" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_CoolingSystem" FromRole="CoolingSystem" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="CoolingSystemType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="CoolingSystem" Relationship="NasgledDBModel.FK_CoolingSystem_CoolingSystemType" FromRole="CoolingSystemType" ToRole="CoolingSystem" />
+  </EntityType>
+  <EntityType Name="FuelType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="CoolingSystem" Relationship="NasgledDBModel.FK_CoolingSystem_FuelType" FromRole="FuelType" ToRole="CoolingSystem" />
+    <NavigationProperty Name="HeatingSystem" Relationship="NasgledDBModel.FK_HeatingSystem_FuelType" FromRole="FuelType" ToRole="HeatingSystem" />
+  </EntityType>
+  <EntityType Name="HeatingEfficiencyType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="HeatingSystem" Relationship="NasgledDBModel.FK_HeatingSystem_HeatingEfficiencyType" FromRole="HeatingEfficiencyType" ToRole="HeatingSystem" />
+  </EntityType>
+  <EntityType Name="HeatingSystem">
+    <Key>
+      <PropertyRef Name="HeatingSystemKey" />
+    </Key>
+    <Property Name="HeatingSystemKey" Type="Guid" Nullable="false" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="SystemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AnnualRunTime" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="HeatingSystemTypeKey" Type="Guid" />
+    <Property Name="FuelTypeKey" Type="Guid" />
+    <Property Name="FuelCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="EfficiencyType" Type="Guid" />
+    <Property Name="EfficiencyValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="InternalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <NavigationProperty Name="FuelType" Relationship="NasgledDBModel.FK_HeatingSystem_FuelType" FromRole="HeatingSystem" ToRole="FuelType" />
+    <NavigationProperty Name="HeatingEfficiencyType" Relationship="NasgledDBModel.FK_HeatingSystem_HeatingEfficiencyType" FromRole="HeatingSystem" ToRole="HeatingEfficiencyType" />
+    <NavigationProperty Name="HeatingSystemType" Relationship="NasgledDBModel.FK_HeatingSystem_HeatingSystemType" FromRole="HeatingSystem" ToRole="HeatingSystemType" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_HeatingSystem_Project" FromRole="HeatingSystem" ToRole="Project" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_HeatingSystem" FromRole="HeatingSystem" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="HeatingSystemType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="HeatingSystem" Relationship="NasgledDBModel.FK_HeatingSystem_HeatingSystemType" FromRole="HeatingSystemType" ToRole="HeatingSystem" />
+  </EntityType>
+  <EntityType Name="IncentiveMaxType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProduct_IncentiveMaxType" FromRole="IncentiveMaxType" ToRole="AreaProduct" />
+  </EntityType>
+  <EntityType Name="IncentiveType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProduct_IncentiveType" FromRole="IncentiveType" ToRole="AreaProduct" />
+  </EntityType>
+  <EntityType Name="IndustryType">
+    <Key>
+      <PropertyRef Name="IndustryKey" />
+    </Key>
+    <Property Name="IndustryKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_ClientCompany_IndustryType" FromRole="IndustryType" ToRole="ClientCompany" />
+  </EntityType>
+  <EntityType Name="ItemCategory">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_ItemCategory" FromRole="ItemCategory" ToRole="ProfileProduct" />
+    <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemCategory" FromRole="ItemCategory" ToRole="MainProduct" />
+  </EntityType>
+  <EntityType Name="ItemCatelogue">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_ItemCatelogue" FromRole="ItemCatelogue" ToRole="ProfileProduct" />
+  </EntityType>
+  <EntityType Name="ItemSubcategory">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_ItemSubcategory" FromRole="ItemSubcategory" ToRole="ProfileProduct" />
+    <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemSubcategory" FromRole="ItemSubcategory" ToRole="MainProduct" />
+  </EntityType>
+  <EntityType Name="ItemType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_ItemType" FromRole="ItemType" ToRole="ProfileProduct" />
+    <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_ItemType" FromRole="ItemType" ToRole="MainProduct" />
+  </EntityType>
+  <EntityType Name="JobFunction">
+    <Key>
+      <PropertyRef Name="JobFunctionKey" />
+    </Key>
+    <Property Name="JobFunctionKey" Type="Guid" Nullable="false" />
+    <Property Name="FunctionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_JobFunction" FromRole="JobFunction" ToRole="Team" />
+  </EntityType>
+  <EntityType Name="LightingSatisfactionFactor">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="FactorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="AreaDetail" Relationship="NasgledDBModel.FK_AreaDetail_LightingSatisfactionFactor" FromRole="LightingSatisfactionFactor" ToRole="AreaDetail" />
+    <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_LightingSatisfactionFactor" FromRole="LightingSatisfactionFactor" ToRole="AreaProductDetail" />
+  </EntityType>
+  <EntityType Name="Manufacturer">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="ManufacturerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_Manufacturer" FromRole="Manufacturer" ToRole="ProfileProduct" />
+    <NavigationProperty Name="MainProduct" Relationship="NasgledDBModel.FK_MainProduct_Manufacturer" FromRole="Manufacturer" ToRole="MainProduct" />
+  </EntityType>
+  <EntityType Name="NewRateSchedule">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="NRName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="BlendElectricityRate" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="InternalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_NewRateSchedule_Project" FromRole="NewRateSchedule" ToRole="Project" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_NewRateSchedule" FromRole="NewRateSchedule" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="OperatingSchedule">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="OPName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="AnnualOperationHour" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="InternalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Boolean" />
+    <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_OperatingSchedule" FromRole="OperatingSchedule" ToRole="AreaProductDetail" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_OperatingSchedule_Project" FromRole="OperatingSchedule" ToRole="Project" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_OperatingSchedule" FromRole="OperatingSchedule" ToRole="Area" />
+    <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProduct_OperatingSchedule" FromRole="OperatingSchedule" ToRole="AreaProduct" />
+  </EntityType>
+  <EntityType Name="ProfileProduct">
+    <Key>
+      <PropertyRef Name="FixtureKey" />
+    </Key>
+    <Property Name="FixtureKey" Type="Guid" Nullable="false" />
+    <Property Name="ItemTypeKey" Type="Guid" />
+    <Property Name="CategoryKey" Type="Guid" />
+    <Property Name="SubcategoryKey" Type="Guid" />
+    <Property Name="CatelogueKey" Type="Guid" />
+    <Property Name="ManufacturerKey" Type="Guid" />
+    <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ModelNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Watt" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ThermalEfficacy" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CRI" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Lumen" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LightApparent" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Brand" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LightOutput" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CCT" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MountingBase" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProfileKey" Type="Guid" />
+    <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProduct_ProfileProduct" FromRole="ProfileProduct" ToRole="AreaProduct" />
+    <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_ProfileProduct" FromRole="ProfileProduct" ToRole="AreaProductDetail" />
+    <NavigationProperty Name="AreaProductDocument" Relationship="NasgledDBModel.FK_AreaProductDocument_ProfileProduct" FromRole="ProfileProduct" ToRole="AreaProductDocument" />
+    <NavigationProperty Name="AreaProductNote" Relationship="NasgledDBModel.FK_AreaProductNote_ProfileProduct" FromRole="ProfileProduct" ToRole="AreaProductNote" />
+    <NavigationProperty Name="AreaProductPhoto" Relationship="NasgledDBModel.FK_AreaProductPhoto_ProfileProduct" FromRole="ProfileProduct" ToRole="AreaProductPhoto" />
+    <NavigationProperty Name="ItemCategory" Relationship="NasgledDBModel.FK_ProfileProduct_ItemCategory" FromRole="ProfileProduct" ToRole="ItemCategory" />
+    <NavigationProperty Name="ItemCatelogue" Relationship="NasgledDBModel.FK_ProfileProduct_ItemCatelogue" FromRole="ProfileProduct" ToRole="ItemCatelogue" />
+    <NavigationProperty Name="ItemSubcategory" Relationship="NasgledDBModel.FK_ProfileProduct_ItemSubcategory" FromRole="ProfileProduct" ToRole="ItemSubcategory" />
+    <NavigationProperty Name="ItemType" Relationship="NasgledDBModel.FK_ProfileProduct_ItemType" FromRole="ProfileProduct" ToRole="ItemType" />
+    <NavigationProperty Name="Manufacturer" Relationship="NasgledDBModel.FK_ProfileProduct_Manufacturer" FromRole="ProfileProduct" ToRole="Manufacturer" />
+    <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_ProfileProduct_UserProfile" FromRole="ProfileProduct" ToRole="UserProfile" />
+    <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LampLife" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TypeCount" Type="Int32" />
+    <Property Name="ThermalEfficiency" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MainItemKey" Type="Guid" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectKey" />
+    </Key>
+    <Property Name="ProjectKey" Type="Guid" Nullable="false" />
+    <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectStatusKey" Type="Guid" />
+    <Property Name="PrimaryContactKey" Type="Guid" />
+    <Property Name="PreparedBy" Type="Guid" />
+    <Property Name="ExpectedClosingMonth" Type="Int32" />
+    <Property Name="EspectedClosingYear" Type="Int32" />
+    <Property Name="ProbabilityOfCompletion" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IsAccessableByOthers" Type="Boolean" />
+    <Property Name="CompanyKey" Type="Guid" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ClientContact" Relationship="NasgledDBModel.FK_Project_ClientContact" FromRole="Project" ToRole="ClientContact" />
+    <NavigationProperty Name="CoolingSystem" Relationship="NasgledDBModel.FK_CoolingSystem_Project" FromRole="Project" ToRole="CoolingSystem" />
+    <NavigationProperty Name="HeatingSystem" Relationship="NasgledDBModel.FK_HeatingSystem_Project" FromRole="Project" ToRole="HeatingSystem" />
+    <NavigationProperty Name="NewRateSchedule" Relationship="NasgledDBModel.FK_NewRateSchedule_Project" FromRole="Project" ToRole="NewRateSchedule" />
+    <NavigationProperty Name="OperatingSchedule" Relationship="NasgledDBModel.FK_OperatingSchedule_Project" FromRole="Project" ToRole="OperatingSchedule" />
+    <NavigationProperty Name="ProjectStatus" Relationship="NasgledDBModel.FK_Project_ProjectStatus" FromRole="Project" ToRole="ProjectStatus" />
+    <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_Project_UserProfile" FromRole="Project" ToRole="UserProfile" />
+    <NavigationProperty Name="Proposal" Relationship="NasgledDBModel.FK_Proposal_Project" FromRole="Project" ToRole="Proposal" />
+    <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_Project" FromRole="Project" ToRole="Team" />
+    <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_Project_ClientCompany" FromRole="Project" ToRole="ClientCompany" />
+    <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Zipcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CityKey" Type="Int32" />
+    <Property Name="StateKey" Type="Int32" />
+    <Property Name="MarkupPercentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LaborCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ShippingCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MiscCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxIncentives" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ProductMargin" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GeneralNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InternalNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_Project_CityList" FromRole="Project" ToRole="CityList" />
+    <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_Project_StateList" FromRole="Project" ToRole="StateList" />
+    <Property Name="ProfileKey" Type="Guid" />
+    <NavigationProperty Name="Area" Relationship="NasgledDBModel.FK_Area_Project" FromRole="Project" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="ProjectStatus">
+    <Key>
+      <PropertyRef Name="ProjectStatusKey" />
+    </Key>
+    <Property Name="ProjectStatusKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_ProjectStatus" FromRole="ProjectStatus" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Proposal">
+    <Key>
+      <PropertyRef Name="ProposalKey" />
+    </Key>
+    <Property Name="ProposalKey" Type="Guid" Nullable="false" />
+    <Property Name="ProposalName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="PreparedBy" Type="Guid" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="PicType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Picname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PageInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IntroductionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Team" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Legal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Disclaimer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Reference" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Billing" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Estimal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Proposal_Project" FromRole="Proposal" ToRole="Project" />
+    <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_Proposal_UserProfile" FromRole="Proposal" ToRole="UserProfile" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="PreparedByText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MarkupPercentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LaborCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ShippingCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MiscCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxIncentives" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ProductMargin" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Incentives" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="InstallationRates" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="ProposalAdditional">
+    <Key>
+      <PropertyRef Name="AdditionalKey" />
+    </Key>
+    <Property Name="AdditionalKey" Type="Guid" Nullable="false" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="ProposalKey" Type="Guid" />
+    <Property Name="ProductMarkup" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="LaborCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Shipping" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Misc" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Incentives" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LaborHourlyRate" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="ProposalLoanTerms">
+    <Key>
+      <PropertyRef Name="LoanTermKey" />
+    </Key>
+    <Property Name="LoanTermKey" Type="Guid" Nullable="false" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="ProposalKey" Type="Guid" />
+    <Property Name="PercentageOfProjectCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FinancingInterestRate" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LoanMonth" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="ProposalNote">
+    <Key>
+      <PropertyRef Name="NoteKey" />
+    </Key>
+    <Property Name="NoteKey" Type="Guid" Nullable="false" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="ProposalKey" Type="Guid" />
+    <Property Name="InternalNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="TeamKey" />
+    </Key>
+    <Property Name="TeamKey" Type="Guid" Nullable="false" />
+    <Property Name="ClientCompanyKey" Type="Guid" Nullable="false" />
+    <Property Name="ProfileKey" Type="Guid" />
+    <Property Name="RoleKey" Type="Guid" />
+    <Property Name="JobFunctionKey" Type="Guid" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <NavigationProperty Name="JobFunction" Relationship="NasgledDBModel.FK_Team_JobFunction" FromRole="Team" ToRole="JobFunction" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Team_Project" FromRole="Team" ToRole="Project" />
+    <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_Team_UserProfile" FromRole="Team" ToRole="UserProfile" />
+    <NavigationProperty Name="UserRole" Relationship="NasgledDBModel.FK_Team_UserRole" FromRole="Team" ToRole="UserRole" />
+    <NavigationProperty Name="ClientCompany" Relationship="NasgledDBModel.FK_Team_ClientCompany" FromRole="Team" ToRole="ClientCompany" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="ProfileKey" />
+    </Key>
+    <Property Name="ProfileKey" Type="Guid" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CityKey" Type="Int32" />
+    <Property Name="StateKey" Type="Int32" />
+    <Property Name="JobTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserStatus" Type="Boolean" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RoleKey" Type="Guid" />
+    <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_UserProfile_CityList" FromRole="UserProfile" ToRole="CityList" />
+    <NavigationProperty Name="ClientContact" Relationship="NasgledDBModel.FK_ClientContact_ClientContact" FromRole="UserProfile" ToRole="ClientContact" />
+    <NavigationProperty Name="ProfileProduct" Relationship="NasgledDBModel.FK_ProfileProduct_UserProfile" FromRole="UserProfile" ToRole="ProfileProduct" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_UserProfile" FromRole="UserProfile" ToRole="Project" />
+    <NavigationProperty Name="Proposal" Relationship="NasgledDBModel.FK_Proposal_UserProfile" FromRole="UserProfile" ToRole="Proposal" />
+    <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_UserProfile_StateList" FromRole="UserProfile" ToRole="StateList" />
+    <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_UserProfile" FromRole="UserProfile" ToRole="Team" />
+    <NavigationProperty Name="UserRole" Relationship="NasgledDBModel.FK_UserProfile_UserRole" FromRole="UserProfile" ToRole="UserRole" />
+    <Property Name="PhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PrimaryBusinessType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HireOutsideAuditor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AnnualSalesRevenue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SalesReach" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DirectManufacture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DirectDistributor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="RoleKey" />
+    </Key>
+    <Property Name="RoleKey" Type="Guid" Nullable="false" />
+    <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_UserRole" FromRole="UserRole" ToRole="Team" />
+    <NavigationProperty Name="UserProfile" Relationship="NasgledDBModel.FK_UserProfile_UserRole" FromRole="UserRole" ToRole="UserProfile" />
+    <Property Name="Rlevel" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_AreaDetail_LightingSatisfactionFactor">
+    <End Type="NasgledDBModel.LightingSatisfactionFactor" Role="LightingSatisfactionFactor" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaDetail" Role="AreaDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LightingSatisfactionFactor">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaDetail">
+        <PropertyRef Name="LightingSatisfactionKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_IncentiveMaxType">
+    <End Type="NasgledDBModel.IncentiveMaxType" Role="IncentiveMaxType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IncentiveMaxType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="IncentiveMaxTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_IncentiveType">
+    <End Type="NasgledDBModel.IncentiveType" Role="IncentiveType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IncentiveType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="IncentiveTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_ProfileProduct">
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_AreaProduct">
+    <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductDetail" Role="AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AreaProduct">
+        <PropertyRef Name="ProductKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="ProductKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDocument_AreaProduct">
+    <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductDocument" Role="AreaProductDocument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AreaProduct">
+        <PropertyRef Name="ProductKey" />
+      </Principal>
+      <Dependent Role="AreaProductDocument">
+        <PropertyRef Name="ProductKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductNote_AreaProduct">
+    <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductNote" Role="AreaProductNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AreaProduct">
+        <PropertyRef Name="ProductKey" />
+      </Principal>
+      <Dependent Role="AreaProductNote">
+        <PropertyRef Name="ProductKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductPhoto_AreaProduct">
+    <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductPhoto" Role="AreaProductPhoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AreaProduct">
+        <PropertyRef Name="ProductKey" />
+      </Principal>
+      <Dependent Role="AreaProductPhoto">
+        <PropertyRef Name="ProductKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_LightingSatisfactionFactor">
+    <End Type="NasgledDBModel.LightingSatisfactionFactor" Role="LightingSatisfactionFactor" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductDetail" Role="AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LightingSatisfactionFactor">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="LightingSatisfactionKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_OperatingSchedule">
+    <End Type="NasgledDBModel.OperatingSchedule" Role="OperatingSchedule" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductDetail" Role="AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OperatingSchedule">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="OperationScheduleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_ProfileProduct">
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductDetail" Role="AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDocument_ProfileProduct">
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductDocument" Role="AreaProductDocument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProductDocument">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductNote_ProfileProduct">
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductNote" Role="AreaProductNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProductNote">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductPhoto_ProfileProduct">
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductPhoto" Role="AreaProductPhoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProductPhoto">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientContact_CityList">
+    <End Type="NasgledDBModel.CityList" Role="CityList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ClientContact" Role="ClientContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="ClientContact">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfile_CityList">
+    <End Type="NasgledDBModel.CityList" Role="CityList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientContact_ClientContact">
+    <End Type="NasgledDBModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ClientContact" Role="ClientContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="ClientContact">
+        <PropertyRef Name="ProfileKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientContact_StateList">
+    <End Type="NasgledDBModel.StateList" Role="StateList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ClientContact" Role="ClientContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ClientContact">
+        <PropertyRef Name="StateKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_ClientContact">
+    <End Type="NasgledDBModel.ClientContact" Role="ClientContact" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientContact">
+        <PropertyRef Name="ContactKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="PrimaryContactKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoolingSystem_CoolingEfficientyType">
+    <End Type="NasgledDBModel.CoolingEfficientyType" Role="CoolingEfficientyType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.CoolingSystem" Role="CoolingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoolingEfficientyType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="CoolingSystem">
+        <PropertyRef Name="EfficiencyType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoolingSystem_CoolingSystemType">
+    <End Type="NasgledDBModel.CoolingSystemType" Role="CoolingSystemType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.CoolingSystem" Role="CoolingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoolingSystemType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="CoolingSystem">
+        <PropertyRef Name="CoolingSystemTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoolingSystem_FuelType">
+    <End Type="NasgledDBModel.FuelType" Role="FuelType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.CoolingSystem" Role="CoolingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuelType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="CoolingSystem">
+        <PropertyRef Name="FuelTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoolingSystem_Project">
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.CoolingSystem" Role="CoolingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="CoolingSystem">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeatingSystem_FuelType">
+    <End Type="NasgledDBModel.FuelType" Role="FuelType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.HeatingSystem" Role="HeatingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuelType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="HeatingSystem">
+        <PropertyRef Name="FuelTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeatingSystem_HeatingEfficiencyType">
+    <End Type="NasgledDBModel.HeatingEfficiencyType" Role="HeatingEfficiencyType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.HeatingSystem" Role="HeatingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeatingEfficiencyType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="HeatingSystem">
+        <PropertyRef Name="EfficiencyType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeatingSystem_HeatingSystemType">
+    <End Type="NasgledDBModel.HeatingSystemType" Role="HeatingSystemType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.HeatingSystem" Role="HeatingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeatingSystemType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="HeatingSystem">
+        <PropertyRef Name="HeatingSystemTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeatingSystem_Project">
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.HeatingSystem" Role="HeatingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="HeatingSystem">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_ItemCategory">
+    <End Type="NasgledDBModel.ItemCategory" Role="ItemCategory" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemCategory">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="CategoryKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_ItemCatelogue">
+    <End Type="NasgledDBModel.ItemCatelogue" Role="ItemCatelogue" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemCatelogue">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="CatelogueKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_ItemSubcategory">
+    <End Type="NasgledDBModel.ItemSubcategory" Role="ItemSubcategory" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemSubcategory">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="SubcategoryKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_ItemType">
+    <End Type="NasgledDBModel.ItemType" Role="ItemType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="ItemTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_JobFunction">
+    <End Type="NasgledDBModel.JobFunction" Role="JobFunction" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Team" Role="Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobFunction">
+        <PropertyRef Name="JobFunctionKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="JobFunctionKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_Manufacturer">
+    <End Type="NasgledDBModel.Manufacturer" Role="Manufacturer" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturer">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="ManufacturerKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NewRateSchedule_Project">
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.NewRateSchedule" Role="NewRateSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="NewRateSchedule">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OperatingSchedule_Project">
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.OperatingSchedule" Role="OperatingSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="OperatingSchedule">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_UserProfile">
+    <End Type="NasgledDBModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ProfileProduct" Role="ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="ProfileKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_ProjectStatus">
+    <End Type="NasgledDBModel.ProjectStatus" Role="ProjectStatus" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectStatus">
+        <PropertyRef Name="ProjectStatusKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="ProjectStatusKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_UserProfile">
+    <End Type="NasgledDBModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="PreparedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proposal_Project">
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Proposal" Role="Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_Project">
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Team" Role="Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proposal_UserProfile">
+    <End Type="NasgledDBModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Proposal" Role="Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="PreparedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfile_StateList">
+    <End Type="NasgledDBModel.StateList" Role="StateList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="StateKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_UserProfile">
+    <End Type="NasgledDBModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Team" Role="Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="ProfileKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_UserRole">
+    <End Type="NasgledDBModel.UserRole" Role="UserRole" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Team" Role="Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRole">
+        <PropertyRef Name="RoleKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="RoleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfile_UserRole">
+    <End Type="NasgledDBModel.UserRole" Role="UserRole" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRole">
+        <PropertyRef Name="RoleKey" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="RoleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyKey" />
+    </Key>
+    <Property Name="CompanyKey" Type="Guid" Nullable="false" />
+    <Property Name="CompanyID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyMobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyWebsite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyFax" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ContactPersonName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ContactPersonNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="LogoType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="StateCode" Type="Int32" />
+    <Property Name="CityKey" Type="Int32" />
+    <Property Name="Zipcode" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ContactEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_Company_CityList" FromRole="Company" ToRole="CityList" />
+    <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_Company_StateList" FromRole="Company" ToRole="StateList" />
+    <NavigationProperty Name="Usergroup" Relationship="NasgledDBModel.FK_Usergroup_Company" FromRole="Company" ToRole="Usergroup" />
+  </EntityType>
+  <EntityType Name="ZIPList">
+    <Key>
+      <PropertyRef Name="ZipKey" />
+    </Key>
+    <Property Name="ZipKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityKey" Type="Int32" />
+    <Property Name="StateCode" Type="Int32" />
+    <Property Name="ZIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="County" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_ZIPList_CityList" FromRole="ZIPList" ToRole="CityList" />
+    <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_ZIPList_StateList" FromRole="ZIPList" ToRole="StateList" />
+  </EntityType>
+  <Association Name="FK_Company_CityList">
+    <End Type="NasgledDBModel.CityList" Role="CityList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Company" Role="Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZIPList_CityList">
+    <End Type="NasgledDBModel.CityList" Role="CityList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ZIPList" Role="ZIPList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="ZIPList">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_StateList">
+    <End Type="NasgledDBModel.StateList" Role="StateList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Company" Role="Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="StateCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usergroup_Company">
+    <End Type="NasgledDBModel.Company" Role="Company" Multiplicity="1" />
+    <End Type="NasgledDBModel.Usergroup" Role="Usergroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyKey" />
+      </Principal>
+      <Dependent Role="Usergroup">
+        <PropertyRef Name="CompanyKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZIPList_StateList">
+    <End Type="NasgledDBModel.StateList" Role="StateList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ZIPList" Role="ZIPList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ZIPList">
+        <PropertyRef Name="StateCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserGroupForm">
+    <Key>
+      <PropertyRef Name="UserGroupFormKey" />
+    </Key>
+    <Property Name="UserGroupFormKey" Type="Guid" Nullable="false" />
+    <Property Name="UserGroupKey" Type="Guid" />
+    <Property Name="ModuleKey" Type="Guid" />
+    <Property Name="FormKey" Type="Guid" />
+    <NavigationProperty Name="Forms" Relationship="NasgledDBModel.FK_UserGroupForm_Forms" FromRole="UserGroupForm" ToRole="Forms" />
+    <NavigationProperty Name="Modules" Relationship="NasgledDBModel.FK_UserGroupForm_Modules" FromRole="UserGroupForm" ToRole="Modules" />
+    <NavigationProperty Name="Usergroup" Relationship="NasgledDBModel.FK_UserGroupForm_Usergroup" FromRole="UserGroupForm" ToRole="Usergroup" />
+  </EntityType>
+  <EntityType Name="UserGroupModule">
+    <Key>
+      <PropertyRef Name="UserGroupModuleKey" />
+    </Key>
+    <Property Name="UserGroupModuleKey" Type="Guid" Nullable="false" />
+    <Property Name="UserGroupKey" Type="Guid" />
+    <Property Name="ModuleKey" Type="Guid" />
+    <NavigationProperty Name="Modules" Relationship="NasgledDBModel.FK_UserGroupModule_Modules" FromRole="UserGroupModule" ToRole="Modules" />
+    <NavigationProperty Name="Usergroup" Relationship="NasgledDBModel.FK_UserGroupModule_Usergroup" FromRole="UserGroupModule" ToRole="Usergroup" />
+  </EntityType>
+  <Association Name="FK_UserGroupForm_Forms">
+    <End Type="NasgledDBModel.Forms" Role="Forms" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.UserGroupForm" Role="UserGroupForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Forms">
+        <PropertyRef Name="FormID" />
+      </Principal>
+      <Dependent Role="UserGroupForm">
+        <PropertyRef Name="FormKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroupForm_Modules">
+    <End Type="NasgledDBModel.Modules" Role="Modules" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.UserGroupForm" Role="UserGroupForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modules">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="UserGroupForm">
+        <PropertyRef Name="ModuleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroupModule_Modules">
+    <End Type="NasgledDBModel.Modules" Role="Modules" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.UserGroupModule" Role="UserGroupModule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modules">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="UserGroupModule">
+        <PropertyRef Name="ModuleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroupForm_Usergroup">
+    <End Type="NasgledDBModel.Usergroup" Role="Usergroup" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.UserGroupForm" Role="UserGroupForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usergroup">
+        <PropertyRef Name="UserGroupKey" />
+      </Principal>
+      <Dependent Role="UserGroupForm">
+        <PropertyRef Name="UserGroupKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroupModule_Usergroup">
+    <End Type="NasgledDBModel.Usergroup" Role="Usergroup" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.UserGroupModule" Role="UserGroupModule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usergroup">
+        <PropertyRef Name="UserGroupKey" />
+      </Principal>
+      <Dependent Role="UserGroupModule">
+        <PropertyRef Name="UserGroupKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DefaultEmail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SenderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SMTPServer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SMTPPort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SMTPUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SMTPPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsSMTPssl" Type="Boolean" />
+    <Property Name="POPServer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IncomingPort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="POPUsername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="POPpassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsPOPssl" Type="Boolean" />
+    <Property Name="Fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AnnualSalesRevenueSetup">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="SalesReachSetup">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="Guid" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDelete" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="MainProduct">
+    <Key>
+      <PropertyRef Name="FixtureKey" />
+    </Key>
+    <Property Name="FixtureKey" Type="Guid" Nullable="false" />
+    <Property Name="ItemTypeKey" Type="Guid" />
+    <Property Name="CategoryKey" Type="Guid" />
+    <Property Name="SubcategoryKey" Type="Guid" />
+    <Property Name="ManufacturerKey" Type="Guid" />
+    <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ModelNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Watt" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ThermalEfficacy" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CRI" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Lumen" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LightApparent" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Brand" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LightOutput" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CCT" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MountingBase" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="FileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LampLife" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TypeCount" Type="Int32" />
+    <NavigationProperty Name="ItemCategory" Relationship="NasgledDBModel.FK_MainProduct_ItemCategory" FromRole="MainProduct" ToRole="ItemCategory" />
+    <NavigationProperty Name="ItemSubcategory" Relationship="NasgledDBModel.FK_MainProduct_ItemSubcategory" FromRole="MainProduct" ToRole="ItemSubcategory" />
+    <NavigationProperty Name="ItemType" Relationship="NasgledDBModel.FK_MainProduct_ItemType" FromRole="MainProduct" ToRole="ItemType" />
+    <NavigationProperty Name="Manufacturer" Relationship="NasgledDBModel.FK_MainProduct_Manufacturer" FromRole="MainProduct" ToRole="Manufacturer" />
+    <Property Name="MainItemKey" Type="Guid" />
+  </EntityType>
+  <Association Name="FK_MainProduct_ItemCategory">
+    <End Type="NasgledDBModel.ItemCategory" Role="ItemCategory" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemCategory">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="MainProduct">
+        <PropertyRef Name="CategoryKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainProduct_ItemSubcategory">
+    <End Type="NasgledDBModel.ItemSubcategory" Role="ItemSubcategory" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemSubcategory">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="MainProduct">
+        <PropertyRef Name="SubcategoryKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainProduct_ItemType">
+    <End Type="NasgledDBModel.ItemType" Role="ItemType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="MainProduct">
+        <PropertyRef Name="ItemTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainProduct_Manufacturer">
+    <End Type="NasgledDBModel.Manufacturer" Role="Manufacturer" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.MainProduct" Role="MainProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturer">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="MainProduct">
+        <PropertyRef Name="ManufacturerKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EventLevel" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MachineName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="EventMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ErrorSource" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ErrorClass" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ErrorMethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InnerErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ClientCompany">
+    <Key>
+      <PropertyRef Name="ClientCompanyKey" />
+    </Key>
+    <Property Name="ClientCompanyKey" Type="Guid" Nullable="false" />
+    <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IndustryTypeKey" Type="Guid" />
+    <Property Name="ProfileKey" Type="Guid" />
+    <Property Name="NoOfSalesPerson" Type="Int32" />
+    <Property Name="OfficePhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Zipcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BillingContactName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BillingContactEMail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsAddressSameAsOffice" Type="Boolean" />
+    <Property Name="ProposalIntro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProposalTeam" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProposalLegal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProposalDisclaimer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProposalReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EstimateFooter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MarkupOrMargin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MarkupOrMarginPercentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CityKey" Type="Int32" />
+    <Property Name="StateKey" Type="Int32" />
+    <NavigationProperty Name="CityList" Relationship="NasgledDBModel.FK_ClientCompany_ClientCompany" FromRole="ClientCompany" ToRole="CityList" />
+    <NavigationProperty Name="IndustryType" Relationship="NasgledDBModel.FK_ClientCompany_IndustryType" FromRole="ClientCompany" ToRole="IndustryType" />
+    <NavigationProperty Name="StateList" Relationship="NasgledDBModel.FK_ClientCompany_StateList" FromRole="ClientCompany" ToRole="StateList" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Project_ClientCompany" FromRole="ClientCompany" ToRole="Project" />
+    <NavigationProperty Name="Team" Relationship="NasgledDBModel.FK_Team_ClientCompany" FromRole="ClientCompany" ToRole="Team" />
+  </EntityType>
+  <Association Name="FK_ClientCompany_ClientCompany">
+    <End Type="NasgledDBModel.CityList" Role="CityList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="ClientCompany">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientCompany_IndustryType">
+    <End Type="NasgledDBModel.IndustryType" Role="IndustryType" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndustryType">
+        <PropertyRef Name="IndustryKey" />
+      </Principal>
+      <Dependent Role="ClientCompany">
+        <PropertyRef Name="IndustryTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientCompany_StateList">
+    <End Type="NasgledDBModel.StateList" Role="StateList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ClientCompany">
+        <PropertyRef Name="StateKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_ClientCompany">
+    <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientCompany">
+        <PropertyRef Name="ClientCompanyKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CompanyKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_ClientCompany">
+    <End Type="NasgledDBModel.ClientCompany" Role="ClientCompany" Multiplicity="1" />
+    <End Type="NasgledDBModel.Team" Role="Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientCompany">
+        <PropertyRef Name="ClientCompanyKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="ClientCompanyKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ClientCompanyProfileRequest">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="Guid" Nullable="false" />
+    <Property Name="ClientCompanyKey" Type="Guid" Nullable="false" />
+    <Property Name="ProfileKey" Type="Guid" Nullable="false" />
+    <Property Name="RequestDate" Type="DateTime" Precision="3" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AdminProfileKey" Type="Guid" />
+    <Property Name="IsCancelled" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="EnvironmentalImpact">
+    <Key>
+      <PropertyRef Name="FactorKey" />
+    </Key>
+    <Property Name="FactorKey" Type="Guid" Nullable="false" />
+    <Property Name="FactorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UnitName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="QtyUsed" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="KilowattSaved" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="LogoType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Filename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="UnitKey" />
+    </Key>
+    <Property Name="UnitKey" Type="Guid" Nullable="false" />
+    <Property Name="UnitName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UnitShortname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Project_CityList">
+    <End Type="NasgledDBModel.CityList" Role="CityList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_StateList">
+    <End Type="NasgledDBModel.StateList" Role="StateList" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="StateKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="AreaKey" />
+    </Key>
+    <Property Name="AreaKey" Type="Guid" Nullable="false" />
+    <Property Name="AreaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Reception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SquareFeet" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="OperationScheduleKey" Type="Guid" />
+    <Property Name="NewRateScheduleKey" Type="Guid" />
+    <Property Name="CoolingSystemKey" Type="Guid" />
+    <Property Name="HeatingSystemKey" Type="Guid" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="ParentAreaKey" Type="Guid" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="CoolingSystem" Relationship="NasgledDBModel.FK_Area_CoolingSystem" FromRole="Area" ToRole="CoolingSystem" />
+    <NavigationProperty Name="HeatingSystem" Relationship="NasgledDBModel.FK_Area_HeatingSystem" FromRole="Area" ToRole="HeatingSystem" />
+    <NavigationProperty Name="NewRateSchedule" Relationship="NasgledDBModel.FK_Area_NewRateSchedule" FromRole="Area" ToRole="NewRateSchedule" />
+    <NavigationProperty Name="OperatingSchedule" Relationship="NasgledDBModel.FK_Area_OperatingSchedule" FromRole="Area" ToRole="OperatingSchedule" />
+    <NavigationProperty Name="Project" Relationship="NasgledDBModel.FK_Area_Project" FromRole="Area" ToRole="Project" />
+    <NavigationProperty Name="AreaDetail" Relationship="NasgledDBModel.FK_AreaDetail_Area" FromRole="Area" ToRole="AreaDetail" />
+    <NavigationProperty Name="AreaDocument" Relationship="NasgledDBModel.FK_AreaDocument_Area" FromRole="Area" ToRole="AreaDocument" />
+    <NavigationProperty Name="AreaNote" Relationship="NasgledDBModel.FK_AreaNote_Area" FromRole="Area" ToRole="AreaNote" />
+    <NavigationProperty Name="AreaPhoto" Relationship="NasgledDBModel.FK_AreaPhoto_Area" FromRole="Area" ToRole="AreaPhoto" />
+    <NavigationProperty Name="AreaProduct" Relationship="NasgledDBModel.FK_AreaProduct_Area" FromRole="Area" ToRole="AreaProduct" />
+    <NavigationProperty Name="AreaProductDetail" Relationship="NasgledDBModel.FK_AreaProductDetail_Area" FromRole="Area" ToRole="AreaProductDetail" />
+    <NavigationProperty Name="AreaProductDocument" Relationship="NasgledDBModel.FK_AreaProductDocument_Area" FromRole="Area" ToRole="AreaProductDocument" />
+    <NavigationProperty Name="AreaProductNote" Relationship="NasgledDBModel.FK_AreaProductNote_Area" FromRole="Area" ToRole="AreaProductNote" />
+    <NavigationProperty Name="AreaProductPhoto" Relationship="NasgledDBModel.FK_AreaProductPhoto_Area" FromRole="Area" ToRole="AreaProductPhoto" />
+  </EntityType>
+  <Association Name="FK_Area_CoolingSystem">
+    <End Type="NasgledDBModel.CoolingSystem" Role="CoolingSystem" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoolingSystem">
+        <PropertyRef Name="CoolingSystemKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="CoolingSystemKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Area_HeatingSystem">
+    <End Type="NasgledDBModel.HeatingSystem" Role="HeatingSystem" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeatingSystem">
+        <PropertyRef Name="HeatingSystemKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="HeatingSystemKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Area_NewRateSchedule">
+    <End Type="NasgledDBModel.NewRateSchedule" Role="NewRateSchedule" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NewRateSchedule">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="NewRateScheduleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Area_OperatingSchedule">
+    <End Type="NasgledDBModel.OperatingSchedule" Role="OperatingSchedule" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OperatingSchedule">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="OperationScheduleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Area_Project">
+    <End Type="NasgledDBModel.Project" Role="Project" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaDetail_Area">
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaDetail" Role="AreaDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaDetail">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaDocument_Area">
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaDocument" Role="AreaDocument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaDocument">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaNote_Area">
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaNote" Role="AreaNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaNote">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaPhoto_Area">
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaPhoto" Role="AreaPhoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaPhoto">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_Area">
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_Area">
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductDetail" Role="AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDocument_Area">
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductDocument" Role="AreaProductDocument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProductDocument">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductNote_Area">
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductNote" Role="AreaProductNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProductNote">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductPhoto_Area">
+    <End Type="NasgledDBModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProductPhoto" Role="AreaProductPhoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProductPhoto">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_OperatingSchedule">
+    <End Type="NasgledDBModel.OperatingSchedule" Role="OperatingSchedule" Multiplicity="0..1" />
+    <End Type="NasgledDBModel.AreaProduct" Role="AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OperatingSchedule">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="OperatingScheduleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FinanceCompany">
+    <Key>
+      <PropertyRef Name="FinanceKey" />
+    </Key>
+    <Property Name="FinanceKey" Type="Guid" Nullable="false" />
+    <Property Name="FinancingCompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IntroText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Hyperlink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LogoType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AboutUsLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProposalTemplate">
+    <Key>
+      <PropertyRef Name="ReportKey" />
+    </Key>
+    <Property Name="ReportKey" Type="Guid" Nullable="false" />
+    <Property Name="ProjectKey" Type="Guid" />
+    <Property Name="ProposalKey" Type="Guid" />
+    <Property Name="FactorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DisplayIndex" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ReportTemplate">
+    <Key>
+      <PropertyRef Name="TemplateKey" />
+    </Key>
+    <Property Name="TemplateKey" Type="Guid" Nullable="false" />
+    <Property Name="FactorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TLevel" Type="Int32" />
+  </EntityType>
+</Schema>

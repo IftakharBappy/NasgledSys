@@ -1,0 +1,79 @@
+﻿
+@model IEnumerable<NasgledSys.Models.Usergroup>
+
+@{
+    ViewBag.Title = "Usergroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <script src="~/Content/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            $('#ctable').DataTable();
+
+        });
+
+    </script>
+
+@section SideBar{
+    <h4>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold"><a href="@Url.Action("DIndex","MgtUsergroup")"><i class="icon-display4 position-left"></i>List of Usergroup</a></span>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold">User groups</span> - List of User groups
+        <small class="display-block"><a href="@Url.Action("DCreate","MgtUsergroup")"><i class="icon-display4 position-left"></i> Add new User group</a></small>
+    </h4>
+}
+
+
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">List of User Group</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover datatable-highlight" id="ctable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th></th>
+                <th></th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GroupID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GroupName)
+                    </td>
+
+
+                    <td>@Html.ActionLink("Edit", "DEdit", "MgtUsergroup", new { id = item.UserGroupKey }, null) </td>
+
+                    <td>@Html.ActionLink("view Details", "DDetails", "MgtUsergroup", new { id = item.UserGroupKey }, null) </td>
+
+                    <td>@Html.ActionLink("Remove", "DDelete", "MgtUsergroup", new { id = item.UserGroupKey }, new { onclick = "return confirm('Are you sure you want to Remove this?')" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

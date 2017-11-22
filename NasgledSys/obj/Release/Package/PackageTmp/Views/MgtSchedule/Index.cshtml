@@ -1,0 +1,274 @@
+﻿@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Schedule";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+
+@section CenterTitle{
+    @Html.DisplayFor(m => GlobalClass.Project.ProjectName)
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id= @ViewBag.ProjectKey})">Projects</a>
+
+        </span>
+        <span class="heading-text">
+            <a class="btn btn-primary" href="@Url.Action("Create","MgtProject",new { id= @ViewBag.ProjectKey})"><i class="add-on"></i>Edit Project</a>
+        </span>
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Audit</a></li>
+                        <li><a href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a></li>
+                        <li><a href="#" data-toggle="tab">Team</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+                                <div class="panel-heading">
+                                    <div class="panel-title pull-left">
+
+                                        <ul class="nav nav-pills">
+                                            <li><a href="@Url.Action("Created","MgtProject",new { id= @ViewBag.ProjectKey})">Areas</a></li>
+                                            <li><a href="@Url.Action("Existing","MgtProject",new { id= @ViewBag.ProjectKey})">Existing</a></li>
+                                            <li class="active"><a href="#tab-demo2" data-toggle="tab">Schedule</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel-title pull-right">
+                                        <a href="@Url.Action("Create","MgtArea",new { id= @ViewBag.ProjectKey})" class="btn border-success btn-xlg col-md-12" role="button">Add Area</a>
+                                    </div>
+                                </div>
+                                </diV>
+                                <div class="tab-pane fade in active" id="tab-demo2" style="margin-top:5em;">
+                                    @*Operating*@
+                                    <div class="panel panel-flat">
+                                        <div class="panel-title">
+                                            <div class="panel-title pull-left">
+                                                <h6>
+                                                    <i class="icon-arrow-left52 position-left"></i>
+                                                    <span class="text-semibold">Operating</span>
+                                                </h6>
+
+                                            </div>
+                                            <div class="panel-title pull-right">
+                                                <a href="@Url.Action("CreateOS","MgtSchedule",new { id= @ViewBag.ProjectKey })" class="btn border-success btn-xlg col-md-12" role="button">Add Operating Schedule</a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table class="table table-bordered table-hover datatable-highlight" id="ctable">
+                                                <thead><tr><th>Name</th><th>Details</th><th>Default</th><th>Edit</th></tr></thead>
+                                                <tbody>
+
+                                                    @foreach (var item in ViewBag.OperatingSchedules)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @item.OPName
+                                                            </td>
+                                                            <td>
+                                                                @item.AnnualOperationHour
+                                                            </td>
+                                                            <td>
+                                                                @{
+                                                                    if (@item.IsDefault == false)
+                                                                    {
+                                                                        <a href="@Url.Action("SetDefaultOS","MgtSchedule",new { id= @item.PKey })">Set As Default</a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <text>Current Default</text>
+                                                                    }
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                               
+                                                                <a href="@Url.Action("EditOS","MgtSchedule",new { id= @item.PKey })" class="btn btn-primary" role="button">Edit</a>
+                                                            </td>
+                                                        </tr>
+                                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        </div>
+
+                                        @*Rate*@
+                                    <div class="panel panel-flat">
+                                        <div class="panel-title">
+                                            <div class="panel-title pull-left">
+                                                <h6>
+                                                    <i class="icon-arrow-left52 position-left"></i>
+                                                    <span class="text-semibold">Rate</span>
+                                                </h6>
+
+                                            </div>
+                                            <div class="panel-title pull-right">
+                                                <a href="@Url.Action("CreateRS","MgtSchedule",new { id= @ViewBag.ProjectKey})" class="btn border-success btn-xlg col-md-12" role="button">Add Rate Schedule</a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table class="table table-bordered table-hover datatable-highlight" id="ctable">
+                                                <thead><tr><th>Name</th><th>Details</th><th>Default</th><th>Edit</th></tr></thead>
+                                                <tbody>
+
+                                                    @foreach (var item in ViewBag.RateSchedule)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @item.NRName
+                                                        </td>
+                                                        <td>
+                                                            @item.BlendElectricityRate
+                                                        </td>
+                                                        <td>
+                                                            @{
+                                                                if (@item.IsDefault == false)
+                                                                {
+                                                                    <a href="@Url.Action("SetRS","MgtSchedule",new { id= @item.PKey })">Set As Default</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <text>Current Default</text>
+                                                                }
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <a href="@Url.Action("EditRS","MgtSchedule",new { id= @item.PKey })" class="btn btn-primary" role="button">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                                }
+
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+                                    @*Heating System*@
+                                    <div class="panel panel-flat">
+                                        <div class="panel-title">
+                                            <div class="panel-title pull-left">
+                                                <h6>
+                                                    <i class="icon-arrow-left52 position-left"></i>
+                                                    <span class="text-semibold">Heating</span>
+                                                </h6>
+
+                                            </div>
+                                            <div class="panel-title pull-right">
+                                                <a href="@Url.Action("CreateHS","MgtSchedule",new { id= @ViewBag.ProjectKey })" class="btn border-success btn-xlg col-md-12" role="button">Add Heating Schedule</a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table class="table table-bordered table-hover datatable-highlight" id="ctable">
+                                                <thead><tr><th>Name</th><th>Details</th><th>Default</th><th>Edit</th></tr></thead>
+                                                <tbody>
+
+                                                    @foreach (var item in ViewBag.HeatingSystem)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @item.SystemName
+                                                            </td>
+                                                            <td>
+                                                                @item.AnnualRunTime
+                                                            </td>
+                                                            <td>
+                                                                @{
+                                                                    if (@item.IsDefault == false)
+                                                                    {
+                                                                        <a href="@Url.Action("SetDefaultHS","MgtSchedule",new { id= @item.HeatingSystemKey })" >Set As Default</a>
+                                                                        
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <text>Current Default</text>
+                                                                    }
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <a href="@Url.Action("EditHS","MgtSchedule",new { id= @item.HeatingSystemKey })" class="btn btn-primary" role="button">Edit</a>
+                                                            </td>
+                                                        </tr>
+                                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    @*Cooling System*@
+                                    <div class="panel panel-flat">
+                                        <div class="panel-title">
+                                            <div class="panel-title pull-left">
+                                                <h6>
+                                                    <i class="icon-arrow-left52 position-left"></i>
+                                                    <span class="text-semibold">Cooling</span>
+                                                </h6>
+
+                                            </div>
+                                            <div class="panel-title pull-right">
+                                                <a href="@Url.Action("CreateCS","MgtSchedule",new { id= @ViewBag.ProjectKey })" class="btn border-success btn-xlg col-md-12" role="button">Add Cooling Schedule</a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table class="table table-bordered table-hover datatable-highlight" id="ctable">
+                                                <thead><tr><th>Name</th><th>Details</th><th>Default</th><th>Edit</th></tr></thead>
+                                                <tbody>
+
+                                                    @foreach (var item in ViewBag.CoolingSchedule)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @item.SystemName
+                                                            </td>
+                                                            <td>
+                                                                @item.AnnualRunTime
+                                                            </td>
+                                                            <td>
+                                                                @{
+                                                                    if (@item.IsDefault == false)
+                                                                    {
+                                                                        <a href="@Url.Action("SetDefaultCS","MgtSchedule",new { id= @item.CoolingSystemKey })">Set As Default</a>
+                                                                       
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <text>Current Default</text>
+                                                                    }
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <a href="@Url.Action("EditCS","MgtSchedule",new { id= @item.CoolingSystemKey })" class="btn btn-primary" role="button">Edit</a>
+                                                            </td>
+                                                        </tr>
+                                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>

@@ -1,0 +1,115 @@
+﻿@model NasgledSys.Models.Company
+@{
+    ViewBag.Title = "CompanyDetails";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section SideBar{
+   
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold"><a href="@Url.Action("Index","MgtInstitute")"><i class="icon-display4 position-left"></i>List of Company</a></span> 
+        <small class="display-block"><a href="@Url.Action("Details","MgtInstitute",new { id=Model.CompanyKey})"><i class="icon-display4 position-left"></i>@Html.DisplayFor(m=>m.CompanyName)</a></small>
+   
+}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">Company</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <hr />
+        <div class="row"><img src="@Url.Action("GetCompanyLogo", "ShowImage" ,new{id=Model.CompanyKey})" alt="User Image" /></div>
+        <dl class="dl-horizontal">
+            <dt>ID</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyID)
+            </dd>
+
+            <dt>Name</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyName)
+            </dd>
+
+            <dt>Address</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyAddress)
+            </dd>
+
+            <dt>Phone #</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyPhone)
+            </dd>
+
+            <dt>Emergency Contact</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyMobile)
+            </dd>
+
+            <dt>Email</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyEmail)
+            </dd>
+
+            <dt>Website</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyWebsite)
+            </dd>
+
+            <dt>Fax</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyFax)
+            </dd>
+
+            <dt>Contact Person Name</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContactPersonName)
+            </dd>
+            <dt>Tite</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>Contact Person Email</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContactEmail)
+            </dd>
+            <dt>Contact Person No</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContactPersonNo)
+            </dd>
+            <dt>State</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StateList.StateName)
+            </dd>
+            <dt>City</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CityList.CityName)
+            </dd>
+            <dt>Zipcode</dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Zipcode)
+            </dd>
+        </dl>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<NasgledSys.Models.ReportTemplate>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Report Sections</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FactorName)
+        </th><th>Level</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FactorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TLevel)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TemplateKey }) |          
+            @Html.ActionLink("Delete", "Delete", new { id=item.TemplateKey })
+        </td>
+    </tr>
+}
+
+</table>

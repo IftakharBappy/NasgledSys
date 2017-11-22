@@ -1,0 +1,193 @@
+﻿@model NasgledSys.Models.CatelogueViewModel
+@{
+    ViewBag.Title = "Catelogue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section SideBar{
+    <h4>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold">Item Catelogue</span>
+
+    </h4>
+}
+@section scripts
+{
+<script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/form_select2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+           
+            $("#ManufacturerKey").select2();
+            $("#ItemTypeKey").select2();
+            $("#CategoryKey").select2();
+        });
+
+        var baseList = [];
+        var filteredList = [];
+        $(document).ready(function () {
+            GetClientCompanyListData();
+        });
+        function refresh() {
+            location.reload();
+        }
+        function search() {
+            filteredList = [];
+            
+            var manu = $("#ManufacturerKey").val();
+            var itemtype = $("#ItemTypeKey").val();
+            var category = $("#CategoryKey").val();
+          
+            if (manu != "") {
+                baseList.forEach(function (item) {
+                    if (item.ManufacturerKey.includes(manu)) {
+                        filteredList.push(item);
+                    }
+                });
+            remakeGrid();
+            }
+            else if (category != "") {
+                baseList.forEach(function (item) {
+                    if (item.CategoryKey.includes(category)) {
+                        filteredList.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+            else if (itemtype != "") {
+                baseList.forEach(function (item) {
+                    if (item.ItemTypeKey.includes(itemtype)) {
+                        filteredList.push(item);
+                    }
+                });
+                remakeGrid();
+            }
+            else  {
+                filteredList = baseList;
+                remakeGrid();
+            }
+           
+        }
+        function remakeGrid() {
+            var res = "";
+            $("#elementContainer").html("");
+
+            for (var i = 0; i < filteredList.length; i++) {
+              
+                res=res+"<div class='col-sm-6 col-md-3'>"
+                    +"<div class='panel panel-body panel-body-accent'>"
+                     +   "<div class='media no-margin'>"
+                     +       "<div class='media-body text-left'>"
+                      +       "<img src='/ShowImage/GetMainProductPic?id=" + filteredList[i].FixtureKey + "' class='img-responsive img-rounded' width='100px' height='80px' alt=''>"
+                      +      "</div>"
+                       +     "<div class='media-body text-right'>"
+                        +       " <h3 class='no-margin text-semibold'><a href='/MgtAdminItem/Edit?id=" + filteredList[i].FixtureKey + "' class='text-default'>" + filteredList[i].ProductName+"</a></h3>"
+                        +       " <span class='text-uppercase text-size-mini'>Model #" + filteredList[i].ModelNo+"</span><br />"
+                        +      "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].Watt +"Watt Per Luminaire</span><br />"
+                         +     "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].LampLife +" Hrs     Lamp Life</span><br />"
+                         +     "  <span class='text-uppercase text-size-mini text-muted'>" + filteredList[i].LightOutput +" Light Output</span><br />"
+                          +    "  <span class='text-uppercase text-size-mini text-muted'><a href='/MgtAdminItem/Details?id=" + filteredList[i].FixtureKey + "'>View Details</a></span>"
+                           +"</div>"
+                        +"</div>"
+                  +"</div>"
+               + "</div>";
+            }
+            $("#elementContainer").html(res);
+        }
+        function GetClientCompanyListData() {
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/MgtAdminItem/GetCatelogue/",
+                success: function (data) {
+                    baseList = data;
+                    filteredList = data;
+                    remakeGrid();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+</script>
+}
+<div class="row">
+@using (Html.BeginForm())
+{
+    <div class="col-sm-3">
+        <div class="panel panel-heading border-top-primary text-center">
+            <a href="@Url.Action("Create","MgtAdminItem")" class="btn btn-primary btn-rounded btn-xlg">Add New Product</a>
+        </div>
+        <!-- Widget with rounded icon -->
+        <div class="panel panel-heading">
+            <h1 class="panel-title list-panel-title">Filter Product By</h1>
+        </div>
+        <div class="panel panel-body">
+            <div class="form-horizontal">
+               
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.CatelogueKey, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("CatelogueKey", null, string.Empty, new {  id = "CatelogueKey", @class = "select select-search" })
+                </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ManufacturerKey, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("ManufacturerKey", null, string.Empty, new { id = "ManufacturerKey", @class = "select select-search" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemTypeKey, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("ItemTypeKey", null, string.Empty, new { id = "ItemTypeKey", @class = "select select-search" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryKey, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("CategoryKey", null, string.Empty, new { id = "CategoryKey", @class = "select select-search" })
+                </div>
+
+            </div>
+        </div>
+        <div class="panel panel-footer text-center">
+            <button type="button" onclick="search()" class="btn btn-primary btn-rounded btn-xlg">Find<i class="icon-arrow-right14 position-right"></i></button>
+            <button type="button" onclick="refresh()" class="btn btn-primary btn-rounded btn-xlg">Refresh<i class="icon-arrow-right14 position-right"></i></button>
+        </div>
+        <!-- /widget with rounded icon -->
+        </div>
+}
+    <div class="col-sm-9">
+        <div class="panel panel-heading">
+            <h1 class="panel-title list-panel-title">@ViewBag.mess</h1>
+        </div>
+        <div id="elementContainer">
+
+
+        </div>
+        @*@{
+            foreach (var item in Model.ItemList)
+            {
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="panel panel-body panel-body-accent">
+                        <div class="media no-margin">
+                            <div class="media-body text-left">
+                                <img src="@Url.Action("GetMainProductPic","ShowImage",new { id=item.FixtureKey})" class="img-responsive img-rounded" width="100px" height="80px" alt="">
+                            </div>
+                            <div class="media-body text-right">
+                                <h3 class="no-margin text-semibold"><a href="@Url.Action("Edit","MgtAdminItem",new { id=item.FixtureKey})" class="text-default">@Html.DisplayFor(m => item.ProductName)</a></h3>
+                                <span class="text-uppercase text-size-mini">Model # @Html.DisplayFor(m => item.ModelNo)</span><br />
+                                <span class="text-uppercase text-size-mini text-muted">@Html.DisplayFor(m => item.Watt) Watt Per Luminaire</span><br />
+                                <span class="text-uppercase text-size-mini text-muted">@Html.DisplayFor(m => item.LampLife)  Hrs     Lamp Life</span><br />
+                                <span class="text-uppercase text-size-mini text-muted">@Html.DisplayFor(m => item.LightOutput)  Light Output</span><br />
+                                <span class="text-uppercase text-size-mini text-muted"><a href="@Url.Action("Details","MgtAdminItem",new { id=item.FixtureKey})">View Details</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            }
+        }*@
+        
+        
+    </div>
+    </div>

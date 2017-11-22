@@ -1,0 +1,260 @@
+﻿@model NasgledSys.Models.ProductDetailClass
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadYear();
+        LoadExistingControl();
+        LoadOperatingSchedule();
+        LoadLightingSatisfaction();
+    });
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    function LoadLightingSatisfaction() {
+        var select = $('select[name=LightingSatisfactionKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/LoadLightingSatisfaction/",
+            data: JSON.stringify({ LightingSatisfactionKey: '@Model.LightingSatisfactionKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].FactorName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadOperatingSchedule() {
+        var select = $('select[name=OperationScheduleKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadOperationSchedule/",
+            data: JSON.stringify({ OperationScheduleKey: '@Model.OperationScheduleKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].OPName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadExistingControl() {
+        var select = $('select[name=ExistingControl]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/LoadExistingControl/",
+            data: JSON.stringify({ id: '@Model.ExistingControl' }),
+            success: function (data) {
+                var res = "<option></option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadYear() {
+        var select = $('select[name=Year]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadPrevious/",
+            data: JSON.stringify({ Year: '@Model.Year' }),
+            success: function (data) {
+                var res = "<option></option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].Value + "' " + data[i].Selected + ">" + data[i].Text + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+
+</script>
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.AreaKey;
+    string areaLink = "";
+    for (;;)
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+
+        if (area.ParentAreaKey == null)
+        {
+            break;
+        }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
+
+
+}
+@section CenterTitle{
+    Edit Existing Product
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">Projects</a>
+            <label>></label>@MvcHtmlString.Create(areaLink)
+
+        </span>
+
+    </center>
+
+
+}
+
+<div class="content-wrapper">
+
+
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-8">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <ul class="nav nav-pills">
+
+                            <li><a href="@Url.Action("Edit", "MgtAddProducts", new { id = Model.ProductKey })">Products</a></li>
+                            <li class="active"><a href="#tab-demo2" data-toggle="tab">Details</a></li>
+                            <li><a href="@Url.Action("Notes", "MgtAreaProductNote", new { id = Model.ProductKey })">Notes</a></li>
+                            <li><a href="@Url.Action("Photos", "MgtAreaProductPhoto", new { id = Model.ProductKey })">Photos</a></li>
+                            <li><a href="@Url.Action("Documents", "MgtAreaProductDocument", new { id = Model.ProductKey })">Documents</a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                          
+                            <div class="tab-pane fade in active" id="tab-demo2">
+                                @using (Html.BeginForm("Details", "MgtAreaProductDetail", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                                {
+                                    @Html.ValidationSummary()
+                                    <div class="panel-body">
+
+                                        @Html.HiddenFor(m => m.DetailKey, new { id = "DetailKey" })
+                                        @Html.HiddenFor(m => m.ProductKey, new { id = "ProductKey" })
+                                        @Html.HiddenFor(m => m.AreaKey, new { id = "AreaKey" })
+                                        @Html.HiddenFor(m => m.FixtureKey, new { id = "FixtureKey" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ExistingControl)
+                                            <select name="ExistingControl" placeholder="Select" id="ExistingControl" class="select"></select>
+                                            @Html.ValidationMessageFor(model => model.ExistingControl, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.OperationScheduleKey)
+                                            <select name="OperationScheduleKey" placeholder="Select" id="OperationScheduleKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.OperationScheduleKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.WorkingFixtureCount)
+                                            @Html.TextBoxFor(model => model.WorkingFixtureCount, new { @onkeypress = "return isNumberKey(event)", placeholder = "Working Fixture Count", id = "WorkingFixtureCount", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.WorkingFixtureCount, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ReplacementCost)
+                                            @Html.TextBoxFor(model => model.ReplacementCost, new { @onkeypress = "return isNumberKey(event)", placeholder = "Replacement Cost", id = "ReplacementCost", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ReplacementCost, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AnnualMaintenance)
+                                            @Html.TextBoxFor(model => model.AnnualMaintenance, new { @onkeypress = "return isNumberKey(event)", placeholder = "Annual Maintenance", id = "AnnualMaintenance", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.AnnualMaintenance, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.InstallationInTime)
+                                            @Html.TextBoxFor(model => model.InstallationInTime, new { @onkeypress = "return isNumberKey(event)", placeholder = "minutes", id = "InstallationInTime", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.InstallationInTime, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Location)
+                                            @Html.TextBoxFor(model => model.Location, new { placeholder = "Location", id = "Location", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Year)
+                                            <select name="Year" placeholder="Select" id="Year" class="select"></select>
+                                            @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.LightingSatisfactionKey)
+                                            <select name="LightingSatisfactionKey" placeholder="Select" id="LightingSatisfactionKey" class="select"></select>
+                                            @Html.ValidationMessageFor(model => model.LightingSatisfactionKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.MountingHeight)
+                                            @Html.TextBoxFor(model => model.MountingHeight, new { @onkeypress = "return isNumberKey(event)", placeholder = "feet", id = "MountingHeight", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.MountingHeight, "", new { @class = "text-danger" })
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="panel-footer">
+
+                                        <a href="@Url.Action("Index", "MgtAddProducts", new { id = Model.AreaKey })" class="btn border-warning btn-xlg col-md-4" role="button">Cancel</a>
+                                        <span class="col-md-2">&nbsp;</span>
+                                        <button type="submit" class="btn border-blue btn-xlg col-md-6" id="Save" name="Save" value="Save">Save</button>
+                                    </div>
+                                    <br />
+                                    <div class="panel-footer">
+                                        <a href="@Url.Action("Delete", "MgtAddProducts", new { id = Model.ProductKey })" onclick="return confirm('Are you sure you want to Remove this?')" class="btn border-warning btn-xlg col-md-12" role="button">Delete</a>
+
+                                    </div>
+                                }
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-2">&nbsp;</div>
+        </div>
+    </div>
+
+
+</div>

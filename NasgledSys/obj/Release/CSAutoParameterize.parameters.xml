@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-NasgledSys-20170731115014.mdf;Initial Catalog=aspnet-NasgledSys-20170731115014;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\NasgledSys\\NasgledSys\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="NasgledDBEntities-Web.config Connection String" description="NasgledDBEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.dbModel.csdl|res://*/Models.dbModel.ssdl|res://*/Models.dbModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=NMAI1\SQLSERVER2014;initial catalog=NasgledDB;persist security info=True;user id=sa;password=1234;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\NasgledSys\\NasgledSys\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='NasgledDBEntities']/@connectionString" />
+  </parameter>
+</parameters>

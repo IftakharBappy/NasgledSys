@@ -1,0 +1,87 @@
+﻿@model NasgledSys.Models.ModuleClass
+@{
+    ViewBag.Title = "AddNewModule";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/AutoComplete/scStateCity.js"></script>
+<script type="text/javascript">
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
+@section SideBar{
+
+    <i class="icon-arrow-left52 position-left"></i>
+    <span class="text-semibold"><a href="@Url.Action("Index","MgtModules")"><i class="icon-display4 position-left"></i>List of Modules</a></span>
+    <small class="display-block"><i class="icon-display4 position-left"></i>Add New Module</small>
+
+}
+@using (Html.BeginForm("Edit", "MgtModules", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ModuleID, new { id= "ModuleID"})
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">New Module</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ModuleName)
+                      
+                            @Html.TextBoxFor(model => model.ModuleName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ModuleName, "", new { @class = "text-danger" })
+                     
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ModuleLevel)
+                    
+                            @Html.TextBoxFor(model => model.ModuleLevel,  new { @onkeypress = "return isNumberKey(event)", @class = "form-control", @required = "required"  })
+                            @Html.ValidationMessageFor(model => model.ModuleLevel, "", new { @class = "text-danger" })
+                      
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NoSub, htmlAttributes: new { @class = "control-label col-md-3" })
+                     
+                            @Html.RadioButtonFor(model => model.NoSub, false, new { htmlAttributes = new { @class = "form-control" } }) Yes
+                            @Html.RadioButtonFor(model => model.NoSub, true, new { htmlAttributes = new { @class = "form-control" } }) No
+                            @Html.ValidationMessageFor(model => model.NoSub, "", new { @class = "text-danger" })
+                        
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ParentModuleID, htmlAttributes: new { @class = "control-label col-md-3" })
+                       
+                            @Html.DropDownList("ParentModuleID", null, string.Empty, htmlAttributes: new { id = "ParentModuleID", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ParentModuleID, "", new { @class = "text-danger" })
+                      
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel-footer">
+            <input type="submit" value="Save" class="btn btn-default" />
+            @Html.ActionLink("Cancel", "Index")
+        </div>
+    </div>
+}

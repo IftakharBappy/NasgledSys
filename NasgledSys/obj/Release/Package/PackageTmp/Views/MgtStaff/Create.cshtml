@@ -1,0 +1,152 @@
+﻿@model NasgledSys.Models.StaffClass
+@using NasgledSys.Models
+@{
+    ViewBag.Title = "MgtUser";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section SideBar{
+
+    <i class="icon-arrow-left52 position-left"></i>
+    <span class="text-semibold"><a href="@Url.Action("Index","MgtStaff")"><i class="icon-display4 position-left"></i>List of Users</a></span>
+    <small class="display-block"><i class="icon-display4 position-left"></i>Add New User</small>
+
+}
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Username").blur(function () {
+            var user = "#Username";
+            var url = '@Url.Content("~/")' + "Utility/CheckUsernameCreate";
+            $.getJSON(url, { user: $(user).val() }, function (data) {
+                if (data == "1") {
+
+                }
+                else {
+                    alert("Duplicate Username");
+                    $("#Username").val("");
+                }
+            });
+        });
+    });
+</script>
+@Scripts.Render("~/bundles/jqueryval")
+    }
+
+@using (Html.BeginForm("Create", "MgtStaff", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">New User</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+
+                        <label class="display-block">Upload Logo:</label>
+                        <input type="file" name="file" class="file-styled">
+                        <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PID)
+
+                        @Html.TextBoxFor(model => model.PID, new { placeholder = "ID", @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.PID, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PName)
+
+                        @Html.TextBoxFor(model => model.PName, new { placeholder = "Name", @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.PName, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mobile)
+
+                        @Html.TextBoxFor(model => model.Mobile, new { placeholder = "Phone No", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+
+                    </div>
+                   
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mail)
+
+                        @Html.TextBoxFor(model => model.Mail, new { placeholder = "Email", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Mail, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Designation)
+
+                        @Html.TextBoxFor(model => model.Designation, new { placeholder = "Designation", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Department)
+
+                        @Html.TextBoxFor(model => model.Department, new { placeholder = "Department", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                   
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Username)
+
+                        @Html.TextBoxFor(model => model.Username, new { placeholder = "Username",id= "Username", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password)
+
+                        @Html.PasswordFor(model => model.Password, new { placeholder = "Password", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConfirmPassword)
+                       
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                        
+                    </div>  
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Usergr)
+                     
+                            @Html.DropDownList("Usergr", null, string.Empty, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Usergr, "", new { @class = "text-danger" })
+                      
+                    </div> 
+                   
+                    <div class="text-right">
+
+                        <button type="submit" class="btn btn-primary">Save<i class="icon-arrow-right14 position-right"></i></button>
+                        @Html.ActionLink("Cancel", "Index", "MgtStaff", new { id = GlobalClass.Company.CompanyKey },null)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+}

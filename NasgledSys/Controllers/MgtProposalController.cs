@@ -231,6 +231,82 @@ namespace NasgledSys.Controllers
             }
         }
 
+        public ActionResult Copy(Guid id)
+        {
+            if (GlobalClass.MasterSession)
+            {
+                try
+                {
+                   
+                    Proposal p = db.Proposal.Find(id);
+                    NasgledDBEntities bc = new NasgledDBEntities();
+                    Proposal obj = new Proposal();
+                    obj.ProposalKey = Guid.NewGuid();
+                    obj.ProposalName = p.ProposalName + " _Copy";
+                    obj.ProjectKey = p.ProjectKey;
+                    obj.PreparedBy = p.PreparedBy;
+                    obj.CreateDate = System.DateTime.Now;
+                    obj.Pic = p.Pic;
+                    obj.PicType = p.PicType;
+                    obj.Picname = p.Picname;
+                    obj.PageInfo = p.PageInfo;
+                    obj.IntroductionText = p.IntroductionText;
+                    obj.Team = p.Team;
+                    obj.Legal = p.Legal;
+                    obj.Disclaimer = p.Disclaimer;
+                    obj.Reference = p.Reference;
+                    obj.Billing = p.Billing;
+                    obj.Notes = p.Notes;
+                    obj.Summary = p.Summary;
+                    obj.Estimal = p.Estimal;
+                    obj.ProjectDescription = p.ProjectDescription;
+                    obj.IsDelete = false;
+                    obj.PreparedByText = p.PreparedByText;
+                    obj.MarkupPercentage = p.MarkupPercentage;
+                    obj.LaborCost = p.LaborCost;
+                    obj.ShippingCost = p.ShippingCost;
+                    obj.MiscCost = p.MiscCost;
+                    obj.TaxIncentives = p.TaxIncentives;
+                    obj.ProductMargin = p.ProductMargin;
+                    obj.Incentives = p.Incentives;
+                    obj.InstallationRates = p.InstallationRates;
+                   
+                    bc.Proposal.Add(obj);
+                    bc.SaveChanges();
+                    var temp = from x in db.ProposalLoanTerms where x.ProposalKey == id select x;
+                    if (temp.Count() > 0)
+                    {
+                        foreach(var item in temp)
+                        {
+                            bc = new NasgledDBEntities();
+                            ProposalLoanTerms lt = new ProposalLoanTerms();
+                            lt.LoanTermKey = Guid.NewGuid();
+                            lt.ProjectKey = item.ProjectKey;
+                            lt.ProposalKey = obj.ProposalKey;
+                            lt.PercentageOfProjectCost = item.PercentageOfProjectCost;
+                            lt.FinancingInterestRate = item.FinancingInterestRate;
+                            lt.LoanMonth = item.LoanMonth;
+                            bc.ProposalLoanTerms.Add(lt);
+                            bc.SaveChanges();
+                        }
+                    }
+                    bc.Dispose();
+
+                    return RedirectToAction("Index",new { id=p.ProjectKey}) ;
+                }
+                catch (Exception e)
+                {
+
+                    return View("Error", new HandleErrorInfo(e, "MgtProject", "Created"));
+                }
+            }
+            else
+            {
+                Exception e = new Exception("Session Expired");
+                return View("Error", new HandleErrorInfo(e, "Home", "UserLogin"));
+            }
+        }
+
         public ActionResult Cost(Guid id)
         {
             if (GlobalClass.MasterSession)

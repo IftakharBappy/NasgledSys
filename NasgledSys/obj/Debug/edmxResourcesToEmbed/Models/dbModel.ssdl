@@ -1,0 +1,2285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NasgledDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AnnualSalesRevenueSetup">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="AreaKey" />
+    </Key>
+    <Property Name="AreaKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaName" Type="nvarchar(max)" />
+    <Property Name="Reception" Type="nvarchar(max)" />
+    <Property Name="SquareFeet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="OperationScheduleKey" Type="uniqueidentifier" />
+    <Property Name="NewRateScheduleKey" Type="uniqueidentifier" />
+    <Property Name="CoolingSystemKey" Type="uniqueidentifier" />
+    <Property Name="HeatingSystemKey" Type="uniqueidentifier" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="ParentAreaKey" Type="uniqueidentifier" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="AreaDetail">
+    <Key>
+      <PropertyRef Name="DetailKey" />
+    </Key>
+    <Property Name="DetailKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaKey" Type="uniqueidentifier" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="AverageIlluminnce" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="LightingSatisfactionKey" Type="uniqueidentifier" />
+    <Property Name="CeilingHeight" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Reflectance" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="AreaWidth" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Length" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="AreaDocument">
+    <Key>
+      <PropertyRef Name="DocumentKey" />
+    </Key>
+    <Property Name="DocumentKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaKey" Type="uniqueidentifier" />
+    <Property Name="FileType" Type="nvarchar(max)" />
+    <Property Name="FileContent" Type="image" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AreaNote">
+    <Key>
+      <PropertyRef Name="NoteKey" />
+    </Key>
+    <Property Name="NoteKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaKey" Type="uniqueidentifier" />
+    <Property Name="NoteContent" Type="nvarchar(max)" />
+    <Property Name="Internal" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AreaPhoto">
+    <Key>
+      <PropertyRef Name="PhotoKey" />
+    </Key>
+    <Property Name="PhotoKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaKey" Type="uniqueidentifier" />
+    <Property Name="FileType" Type="nvarchar(max)" />
+    <Property Name="FileContent" Type="image" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AreaProduct">
+    <Key>
+      <PropertyRef Name="ProductKey" />
+    </Key>
+    <Property Name="ProductKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaKey" Type="uniqueidentifier" />
+    <Property Name="FixtureKey" Type="uniqueidentifier" />
+    <Property Name="Count" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="ForEveryMainQty" Type="int" />
+    <Property Name="ReplaceQty" Type="int" />
+    <Property Name="SolutionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IncentiveTypeKey" Type="uniqueidentifier" />
+    <Property Name="IncentiveAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IncentiveMaxTypeKey" Type="uniqueidentifier" />
+    <Property Name="IncentiveMaxAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ProductName" Type="nvarchar(max)" />
+    <Property Name="ModelNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="WattPerProduct" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="L70" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ThermalEfficency" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CustomNotes" Type="nvarchar(max)" />
+    <Property Name="ProductCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MarkupPercentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="InstallationTime" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="InstallationCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ShipingCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MiscCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IsOn" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="ExistingProductName" Type="nvarchar(max)" />
+    <Property Name="OperatingScheduleKey" Type="uniqueidentifier" />
+    <Property Name="SolutionLevel" Type="int" />
+  </EntityType>
+  <EntityType Name="AreaProductDetail">
+    <Key>
+      <PropertyRef Name="DetailKey" />
+    </Key>
+    <Property Name="DetailKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaKey" Type="uniqueidentifier" />
+    <Property Name="FixtureKey" Type="uniqueidentifier" />
+    <Property Name="ProductKey" Type="uniqueidentifier" />
+    <Property Name="ExistingControl" Type="bit" />
+    <Property Name="OperationScheduleKey" Type="uniqueidentifier" />
+    <Property Name="WorkingFixtureCount" Type="int" />
+    <Property Name="ReplacementCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="AnnualMaintenance" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="InstallationInTime" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="Year" Type="int" />
+    <Property Name="LightingSatisfactionKey" Type="uniqueidentifier" />
+    <Property Name="MountingHeight" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="AreaProductDocument">
+    <Key>
+      <PropertyRef Name="DocumentKey" />
+    </Key>
+    <Property Name="DocumentKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaKey" Type="uniqueidentifier" />
+    <Property Name="FixtureKey" Type="uniqueidentifier" />
+    <Property Name="ProductKey" Type="uniqueidentifier" />
+    <Property Name="FileType" Type="nvarchar(max)" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="FileContent" Type="image" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AreaProductNote">
+    <Key>
+      <PropertyRef Name="NoteKey" />
+    </Key>
+    <Property Name="NoteKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaKey" Type="uniqueidentifier" />
+    <Property Name="FixtureKey" Type="uniqueidentifier" />
+    <Property Name="ProductKey" Type="uniqueidentifier" />
+    <Property Name="Condition" Type="nvarchar(max)" />
+    <Property Name="InternalNotes" Type="nvarchar(max)" />
+    <Property Name="GeneralNote" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AreaProductPhoto">
+    <Key>
+      <PropertyRef Name="PhotoKey" />
+    </Key>
+    <Property Name="PhotoKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AreaKey" Type="uniqueidentifier" />
+    <Property Name="FixtureKey" Type="uniqueidentifier" />
+    <Property Name="ProductKey" Type="uniqueidentifier" />
+    <Property Name="FileType" Type="nvarchar(max)" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="FileContent" Type="image" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="CityList">
+    <Key>
+      <PropertyRef Name="CityKey" />
+    </Key>
+    <Property Name="CityKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateCode" Type="int" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="ClientCompany">
+    <Key>
+      <PropertyRef Name="ClientCompanyKey" />
+    </Key>
+    <Property Name="ClientCompanyKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IndustryTypeKey" Type="uniqueidentifier" />
+    <Property Name="ProfileKey" Type="uniqueidentifier" />
+    <Property Name="NoOfSalesPerson" Type="int" />
+    <Property Name="OfficePhone" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Address2" Type="nvarchar(max)" />
+    <Property Name="Zipcode" Type="nvarchar(max)" />
+    <Property Name="BillingContactName" Type="nvarchar(max)" />
+    <Property Name="BillingContactEMail" Type="nvarchar(max)" />
+    <Property Name="IsAddressSameAsOffice" Type="bit" />
+    <Property Name="ProposalIntro" Type="nvarchar(max)" />
+    <Property Name="ProposalTeam" Type="nvarchar(max)" />
+    <Property Name="ProposalLegal" Type="nvarchar(max)" />
+    <Property Name="ProposalDisclaimer" Type="nvarchar(max)" />
+    <Property Name="ProposalReference" Type="nvarchar(max)" />
+    <Property Name="EstimateFooter" Type="nvarchar(max)" />
+    <Property Name="MarkupOrMargin" Type="nvarchar(max)" />
+    <Property Name="MarkupOrMarginPercentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CityKey" Type="int" />
+    <Property Name="StateKey" Type="int" />
+  </EntityType>
+  <EntityType Name="ClientCompanyProfileRequest">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ClientCompanyKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProfileKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RequestDate" Type="datetime" />
+    <Property Name="IsConfirmed" Type="bit" />
+    <Property Name="Remarks" Type="nvarchar(max)" />
+    <Property Name="AdminProfileKey" Type="uniqueidentifier" />
+    <Property Name="IsCancelled" Type="bit" />
+  </EntityType>
+  <EntityType Name="ClientContact">
+    <Key>
+      <PropertyRef Name="ContactKey" />
+    </Key>
+    <Property Name="ContactKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" />
+    <Property Name="LastName" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="OfficePhone" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="ProfileKey" Type="uniqueidentifier" />
+    <Property Name="JobTitle" Type="nvarchar(max)" />
+    <Property Name="WebAddress" Type="nvarchar(max)" />
+    <Property Name="CellPhone" Type="nvarchar(max)" />
+    <Property Name="FaxPhone" Type="nvarchar(max)" />
+    <Property Name="Address2" Type="nvarchar(max)" />
+    <Property Name="CityKey" Type="int" />
+    <Property Name="StateKey" Type="int" />
+    <Property Name="Zipcode" Type="nvarchar(max)" />
+    <Property Name="InternalNote" Type="nvarchar(max)" />
+    <Property Name="GeneralNote" Type="nvarchar(max)" />
+    <Property Name="IsDefault" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyKey" />
+    </Key>
+    <Property Name="CompanyKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CompanyID" Type="nvarchar(max)" />
+    <Property Name="CompanyName" Type="nvarchar(max)" />
+    <Property Name="CompanyAddress" Type="nvarchar(max)" />
+    <Property Name="CompanyPhone" Type="nvarchar(max)" />
+    <Property Name="CompanyMobile" Type="nvarchar(max)" />
+    <Property Name="CompanyEmail" Type="nvarchar(max)" />
+    <Property Name="CompanyWebsite" Type="nvarchar(max)" />
+    <Property Name="CompanyFax" Type="nvarchar(max)" />
+    <Property Name="ContactPersonName" Type="nvarchar(max)" />
+    <Property Name="ContactPersonNo" Type="nvarchar(max)" />
+    <Property Name="Logo" Type="image" />
+    <Property Name="LogoType" Type="varchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="StateCode" Type="int" />
+    <Property Name="CityKey" Type="int" />
+    <Property Name="Zipcode" Type="int" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="ContactEmail" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="CoolingEfficientyType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="CoolingSystem">
+    <Key>
+      <PropertyRef Name="CoolingSystemKey" />
+    </Key>
+    <Property Name="CoolingSystemKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="SystemName" Type="nvarchar(max)" />
+    <Property Name="AnnualRunTime" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CoolingSystemTypeKey" Type="uniqueidentifier" />
+    <Property Name="FuelTypeKey" Type="uniqueidentifier" />
+    <Property Name="FuelCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="EfficiencyType" Type="uniqueidentifier" />
+    <Property Name="EfficiencyValue" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="InternalNote" Type="nvarchar(max)" />
+    <Property Name="GeneralNote" Type="nvarchar(max)" />
+    <Property Name="IsDefault" Type="bit" />
+  </EntityType>
+  <EntityType Name="CoolingSystemType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="DefaultEmail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="EmailAddress" Type="nvarchar(max)" />
+    <Property Name="SenderName" Type="nvarchar(max)" />
+    <Property Name="SMTPServer" Type="nvarchar(max)" />
+    <Property Name="SMTPPort" Type="nvarchar(max)" />
+    <Property Name="SMTPUsername" Type="nvarchar(max)" />
+    <Property Name="SMTPPassword" Type="nvarchar(max)" />
+    <Property Name="IsSMTPssl" Type="bit" />
+    <Property Name="POPServer" Type="nvarchar(max)" />
+    <Property Name="IncomingPort" Type="nvarchar(max)" />
+    <Property Name="POPUsername" Type="nvarchar(max)" />
+    <Property Name="POPpassword" Type="nvarchar(max)" />
+    <Property Name="IsPOPssl" Type="bit" />
+    <Property Name="Fullname" Type="nvarchar(max)" />
+    <Property Name="Detail" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="EnvironmentalImpact">
+    <Key>
+      <PropertyRef Name="FactorKey" />
+    </Key>
+    <Property Name="FactorKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FactorName" Type="nvarchar(max)" />
+    <Property Name="UnitName" Type="nvarchar(max)" />
+    <Property Name="QtyUsed" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="KilowattSaved" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Logo" Type="image" />
+    <Property Name="LogoType" Type="nvarchar(max)" />
+    <Property Name="Filename" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="FinanceCompany">
+    <Key>
+      <PropertyRef Name="FinanceKey" />
+    </Key>
+    <Property Name="FinanceKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FinancingCompanyName" Type="nvarchar(max)" />
+    <Property Name="IntroText" Type="nvarchar(max)" />
+    <Property Name="Hyperlink" Type="nvarchar(max)" />
+    <Property Name="LogoType" Type="nvarchar(max)" />
+    <Property Name="Logo" Type="image" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="AboutUsLink" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Forms">
+    <Key>
+      <PropertyRef Name="FormID" />
+    </Key>
+    <Property Name="FormID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ModuleID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FormName" Type="nvarchar(max)" />
+    <Property Name="FormLevel" Type="int" />
+    <Property Name="FormController" Type="nvarchar(max)" />
+    <Property Name="FormView" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="FormCss" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="FuelType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Unit" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="HeatingEfficiencyType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="HeatingSystem">
+    <Key>
+      <PropertyRef Name="HeatingSystemKey" />
+    </Key>
+    <Property Name="HeatingSystemKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="SystemName" Type="nvarchar(max)" />
+    <Property Name="AnnualRunTime" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="HeatingSystemTypeKey" Type="uniqueidentifier" />
+    <Property Name="FuelTypeKey" Type="uniqueidentifier" />
+    <Property Name="FuelCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="EfficiencyType" Type="uniqueidentifier" />
+    <Property Name="EfficiencyValue" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="InternalNote" Type="nvarchar(max)" />
+    <Property Name="GeneralNote" Type="nvarchar(max)" />
+    <Property Name="IsDefault" Type="bit" />
+  </EntityType>
+  <EntityType Name="HeatingSystemType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="ImageFile">
+    <Key>
+      <PropertyRef Name="ImageFileKey" />
+    </Key>
+    <Property Name="ImageFileKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="varchar(max)" />
+    <Property Name="FileType" Type="varchar(max)" />
+    <Property Name="FileContent" Type="image" />
+  </EntityType>
+  <EntityType Name="IncentiveMaxType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="IncentiveType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="IndustryType">
+    <Key>
+      <PropertyRef Name="IndustryKey" />
+    </Key>
+    <Property Name="IndustryKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="ItemCategory">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="ItemCatelogue">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="ItemSubcategory">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="ItemType">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="JobFunction">
+    <Key>
+      <PropertyRef Name="JobFunctionKey" />
+    </Key>
+    <Property Name="JobFunctionKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FunctionName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="LightingSatisfactionFactor">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FactorName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EventDateTime" Type="datetime" Nullable="false" />
+    <Property Name="EventLevel" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="MachineName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="EventMessage" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ErrorSource" Type="nvarchar" MaxLength="100" />
+    <Property Name="ErrorClass" Type="nvarchar" MaxLength="500" />
+    <Property Name="ErrorMethod" Type="nvarchar(max)" />
+    <Property Name="ErrorMessage" Type="nvarchar(max)" />
+    <Property Name="InnerErrorMessage" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="MainProduct">
+    <Key>
+      <PropertyRef Name="FixtureKey" />
+    </Key>
+    <Property Name="FixtureKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ItemTypeKey" Type="uniqueidentifier" />
+    <Property Name="CategoryKey" Type="uniqueidentifier" />
+    <Property Name="SubcategoryKey" Type="uniqueidentifier" />
+    <Property Name="ManufacturerKey" Type="uniqueidentifier" />
+    <Property Name="ProductName" Type="nvarchar(max)" />
+    <Property Name="ModelNo" Type="nvarchar(max)" />
+    <Property Name="Watt" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ThermalEfficacy" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CRI" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Lumen" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="LightApparent" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Source" Type="nvarchar(max)" />
+    <Property Name="Brand" Type="nvarchar(max)" />
+    <Property Name="LightOutput" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CCT" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Size" Type="nvarchar(max)" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="MountingBase" Type="nvarchar(max)" />
+    <Property Name="Logo" Type="image" />
+    <Property Name="FileType" Type="nvarchar(max)" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="LampLife" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TypeCount" Type="int" />
+    <Property Name="MainItemKey" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="Manufacturer">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ManufacturerName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="Modules">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+    </Key>
+    <Property Name="ModuleID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ModuleName" Type="nvarchar(max)" />
+    <Property Name="ModuleLevel" Type="int" />
+    <Property Name="NoSub" Type="bit" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="ParentModuleID" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="NewRateSchedule">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NRName" Type="nvarchar(max)" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="BlendElectricityRate" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="InternalNote" Type="nvarchar(max)" />
+    <Property Name="GeneralNote" Type="nvarchar(max)" />
+    <Property Name="IsDefault" Type="bit" />
+  </EntityType>
+  <EntityType Name="OperatingSchedule">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="OPName" Type="nvarchar(max)" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="AnnualOperationHour" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="InternalNote" Type="nvarchar(max)" />
+    <Property Name="GeneralNote" Type="nvarchar(max)" />
+    <Property Name="IsDefault" Type="bit" />
+  </EntityType>
+  <EntityType Name="ProfileProduct">
+    <Key>
+      <PropertyRef Name="FixtureKey" />
+    </Key>
+    <Property Name="FixtureKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ItemTypeKey" Type="uniqueidentifier" />
+    <Property Name="CategoryKey" Type="uniqueidentifier" />
+    <Property Name="SubcategoryKey" Type="uniqueidentifier" />
+    <Property Name="CatelogueKey" Type="uniqueidentifier" />
+    <Property Name="ManufacturerKey" Type="uniqueidentifier" />
+    <Property Name="ProductName" Type="nvarchar(max)" />
+    <Property Name="ModelNo" Type="nvarchar(max)" />
+    <Property Name="Watt" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ThermalEfficacy" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ThermalEfficiency" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CRI" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Lumen" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="LightApparent" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Source" Type="nvarchar(max)" />
+    <Property Name="Brand" Type="nvarchar(max)" />
+    <Property Name="LightOutput" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CCT" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Size" Type="nvarchar(max)" />
+    <Property Name="Location" Type="nvarchar(max)" />
+    <Property Name="MountingBase" Type="nvarchar(max)" />
+    <Property Name="ProfileKey" Type="uniqueidentifier" />
+    <Property Name="Logo" Type="image" />
+    <Property Name="FileType" Type="nvarchar(max)" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="LampLife" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TypeCount" Type="int" />
+    <Property Name="MainItemKey" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectKey" />
+    </Key>
+    <Property Name="ProjectKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProjectName" Type="nvarchar(max)" />
+    <Property Name="ProjectStatusKey" Type="uniqueidentifier" />
+    <Property Name="PrimaryContactKey" Type="uniqueidentifier" />
+    <Property Name="PreparedBy" Type="uniqueidentifier" />
+    <Property Name="ExpectedClosingMonth" Type="int" />
+    <Property Name="EspectedClosingYear" Type="int" />
+    <Property Name="ProbabilityOfCompletion" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IsAccessableByOthers" Type="bit" />
+    <Property Name="CompanyKey" Type="uniqueidentifier" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Phone" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="Address2" Type="nvarchar(max)" />
+    <Property Name="Zipcode" Type="nvarchar(max)" />
+    <Property Name="CityKey" Type="int" />
+    <Property Name="StateKey" Type="int" />
+    <Property Name="MarkupPercentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="LaborCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ShippingCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MiscCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TaxIncentives" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ProductMargin" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="GeneralNote" Type="nvarchar(max)" />
+    <Property Name="InternalNotes" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="ProfileKey" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="ProjectStatus">
+    <Key>
+      <PropertyRef Name="ProjectStatusKey" />
+    </Key>
+    <Property Name="ProjectStatusKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="Proposal">
+    <Key>
+      <PropertyRef Name="ProposalKey" />
+    </Key>
+    <Property Name="ProposalKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProposalName" Type="nvarchar(max)" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="PreparedBy" Type="uniqueidentifier" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Pic" Type="image" />
+    <Property Name="PicType" Type="nvarchar(max)" />
+    <Property Name="Picname" Type="nvarchar(max)" />
+    <Property Name="PageInfo" Type="nvarchar(max)" />
+    <Property Name="IntroductionText" Type="nvarchar(max)" />
+    <Property Name="Team" Type="nvarchar(max)" />
+    <Property Name="Legal" Type="nvarchar(max)" />
+    <Property Name="Disclaimer" Type="nvarchar(max)" />
+    <Property Name="Reference" Type="nvarchar(max)" />
+    <Property Name="Billing" Type="nvarchar(max)" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="Summary" Type="nvarchar(max)" />
+    <Property Name="Estimal" Type="nvarchar(max)" />
+    <Property Name="ProjectDescription" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="PreparedByText" Type="nvarchar(max)" />
+    <Property Name="MarkupPercentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="LaborCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ShippingCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MiscCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TaxIncentives" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ProductMargin" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Incentives" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="InstallationRates" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="ProposalAdditional">
+    <Key>
+      <PropertyRef Name="AdditionalKey" />
+    </Key>
+    <Property Name="AdditionalKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="ProposalKey" Type="uniqueidentifier" />
+    <Property Name="ProductMarkup" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="LaborCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Shipping" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Misc" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Incentives" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="LaborHourlyRate" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="ProposalLoanTerms">
+    <Key>
+      <PropertyRef Name="LoanTermKey" />
+    </Key>
+    <Property Name="LoanTermKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="ProposalKey" Type="uniqueidentifier" />
+    <Property Name="PercentageOfProjectCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FinancingInterestRate" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="LoanMonth" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="ProposalNote">
+    <Key>
+      <PropertyRef Name="NoteKey" />
+    </Key>
+    <Property Name="NoteKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="ProposalKey" Type="uniqueidentifier" />
+    <Property Name="InternalNotes" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ProposalTemplate">
+    <Key>
+      <PropertyRef Name="ReportKey" />
+    </Key>
+    <Property Name="ReportKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+    <Property Name="ProposalKey" Type="uniqueidentifier" />
+    <Property Name="FactorName" Type="nvarchar(max)" />
+    <Property Name="DisplayIndex" Type="int" />
+  </EntityType>
+  <EntityType Name="ReportTemplate">
+    <Key>
+      <PropertyRef Name="TemplateKey" />
+    </Key>
+    <Property Name="TemplateKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FactorName" Type="nvarchar(max)" />
+    <Property Name="TLevel" Type="int" />
+  </EntityType>
+  <EntityType Name="SalesReachSetup">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="StaffList">
+    <Key>
+      <PropertyRef Name="PersonnelKey" />
+    </Key>
+    <Property Name="PersonnelKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PID" Type="nvarchar(max)" />
+    <Property Name="PName" Type="nvarchar(max)" />
+    <Property Name="Mobile" Type="nvarchar(max)" />
+    <Property Name="Mail" Type="nvarchar(max)" />
+    <Property Name="Designation" Type="nvarchar(max)" />
+    <Property Name="Department" Type="nvarchar(max)" />
+    <Property Name="Pic" Type="image" />
+    <Property Name="PicType" Type="nvarchar(max)" />
+    <Property Name="CompanyKey" Type="uniqueidentifier" />
+    <Property Name="Usergr" Type="uniqueidentifier" />
+    <Property Name="Username" Type="nvarchar(max)" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="IsUser" Type="bit" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="StateList">
+    <Key>
+      <PropertyRef Name="PKey" />
+    </Key>
+    <Property Name="PKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StateName" Type="nvarchar(max)" />
+    <Property Name="StateCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="TeamKey" />
+    </Key>
+    <Property Name="TeamKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ClientCompanyKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProfileKey" Type="uniqueidentifier" />
+    <Property Name="RoleKey" Type="uniqueidentifier" />
+    <Property Name="JobFunctionKey" Type="uniqueidentifier" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="ProjectKey" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="UnitKey" />
+    </Key>
+    <Property Name="UnitKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UnitName" Type="nvarchar(max)" />
+    <Property Name="UnitShortname" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Usergroup">
+    <Key>
+      <PropertyRef Name="UserGroupKey" />
+    </Key>
+    <Property Name="UserGroupKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="GroupID" Type="nvarchar(max)" />
+    <Property Name="GroupName" Type="nvarchar(max)" />
+    <Property Name="CompanyKey" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserGroupForm">
+    <Key>
+      <PropertyRef Name="UserGroupFormKey" />
+    </Key>
+    <Property Name="UserGroupFormKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserGroupKey" Type="uniqueidentifier" />
+    <Property Name="ModuleKey" Type="uniqueidentifier" />
+    <Property Name="FormKey" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="UserGroupModule">
+    <Key>
+      <PropertyRef Name="UserGroupModuleKey" />
+    </Key>
+    <Property Name="UserGroupModuleKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserGroupKey" Type="uniqueidentifier" />
+    <Property Name="ModuleKey" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="ProfileKey" />
+    </Key>
+    <Property Name="ProfileKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" />
+    <Property Name="LastName" Type="nvarchar(max)" />
+    <Property Name="CompanyName" Type="nvarchar(max)" />
+    <Property Name="CityKey" Type="int" />
+    <Property Name="StateKey" Type="int" />
+    <Property Name="JobTitle" Type="nvarchar(max)" />
+    <Property Name="Username" Type="nvarchar(max)" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="UserStatus" Type="bit" />
+    <Property Name="Photo" Type="image" />
+    <Property Name="FileType" Type="nvarchar(max)" />
+    <Property Name="FileName" Type="nvarchar(max)" />
+    <Property Name="RoleKey" Type="uniqueidentifier" />
+    <Property Name="PhoneNo" Type="nvarchar(max)" />
+    <Property Name="PrimaryBusinessType" Type="nvarchar(max)" />
+    <Property Name="HireOutsideAuditor" Type="nvarchar(max)" />
+    <Property Name="AnnualSalesRevenue" Type="nvarchar(max)" />
+    <Property Name="SalesReach" Type="nvarchar(max)" />
+    <Property Name="DirectManufacture" Type="nvarchar(max)" />
+    <Property Name="DirectDistributor" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="RoleKey" />
+    </Key>
+    <Property Name="RoleKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar(max)" />
+    <Property Name="Rlevel" Type="int" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="ZIPList">
+    <Key>
+      <PropertyRef Name="ZipKey" />
+    </Key>
+    <Property Name="ZipKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityKey" Type="int" />
+    <Property Name="StateCode" Type="int" />
+    <Property Name="ZIP" Type="nvarchar" MaxLength="50" />
+    <Property Name="Latitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="Longitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="County" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Area_CoolingSystem">
+    <End Role="CoolingSystem" Type="Self.CoolingSystem" Multiplicity="0..1" />
+    <End Role="Area" Type="Self.Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoolingSystem">
+        <PropertyRef Name="CoolingSystemKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="CoolingSystemKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Area_HeatingSystem">
+    <End Role="HeatingSystem" Type="Self.HeatingSystem" Multiplicity="0..1" />
+    <End Role="Area" Type="Self.Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeatingSystem">
+        <PropertyRef Name="HeatingSystemKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="HeatingSystemKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Area_NewRateSchedule">
+    <End Role="NewRateSchedule" Type="Self.NewRateSchedule" Multiplicity="0..1" />
+    <End Role="Area" Type="Self.Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NewRateSchedule">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="NewRateScheduleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Area_OperatingSchedule">
+    <End Role="OperatingSchedule" Type="Self.OperatingSchedule" Multiplicity="0..1" />
+    <End Role="Area" Type="Self.Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OperatingSchedule">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="OperationScheduleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Area_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Area" Type="Self.Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaDetail_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="AreaDetail" Type="Self.AreaDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaDetail">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaDetail_LightingSatisfactionFactor">
+    <End Role="LightingSatisfactionFactor" Type="Self.LightingSatisfactionFactor" Multiplicity="0..1" />
+    <End Role="AreaDetail" Type="Self.AreaDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LightingSatisfactionFactor">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaDetail">
+        <PropertyRef Name="LightingSatisfactionKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaDocument_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="AreaDocument" Type="Self.AreaDocument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaDocument">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaNote_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="AreaNote" Type="Self.AreaNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaNote">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaPhoto_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="AreaPhoto" Type="Self.AreaPhoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaPhoto">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_IncentiveMaxType">
+    <End Role="IncentiveMaxType" Type="Self.IncentiveMaxType" Multiplicity="0..1" />
+    <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IncentiveMaxType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="IncentiveMaxTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_IncentiveType">
+    <End Role="IncentiveType" Type="Self.IncentiveType" Multiplicity="0..1" />
+    <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IncentiveType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="IncentiveTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_OperatingSchedule">
+    <End Role="OperatingSchedule" Type="Self.OperatingSchedule" Multiplicity="0..1" />
+    <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OperatingSchedule">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="OperatingScheduleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProduct_ProfileProduct">
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="0..1" />
+    <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="AreaProductDetail" Type="Self.AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_AreaProduct">
+    <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="0..1" />
+    <End Role="AreaProductDetail" Type="Self.AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AreaProduct">
+        <PropertyRef Name="ProductKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="ProductKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_LightingSatisfactionFactor">
+    <End Role="LightingSatisfactionFactor" Type="Self.LightingSatisfactionFactor" Multiplicity="0..1" />
+    <End Role="AreaProductDetail" Type="Self.AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LightingSatisfactionFactor">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="LightingSatisfactionKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_OperatingSchedule">
+    <End Role="OperatingSchedule" Type="Self.OperatingSchedule" Multiplicity="0..1" />
+    <End Role="AreaProductDetail" Type="Self.AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OperatingSchedule">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="OperationScheduleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDetail_ProfileProduct">
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="0..1" />
+    <End Role="AreaProductDetail" Type="Self.AreaProductDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProductDetail">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDocument_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="AreaProductDocument" Type="Self.AreaProductDocument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProductDocument">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDocument_AreaProduct">
+    <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="0..1" />
+    <End Role="AreaProductDocument" Type="Self.AreaProductDocument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AreaProduct">
+        <PropertyRef Name="ProductKey" />
+      </Principal>
+      <Dependent Role="AreaProductDocument">
+        <PropertyRef Name="ProductKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductDocument_ProfileProduct">
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="0..1" />
+    <End Role="AreaProductDocument" Type="Self.AreaProductDocument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProductDocument">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductNote_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="AreaProductNote" Type="Self.AreaProductNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProductNote">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductNote_AreaProduct">
+    <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="0..1" />
+    <End Role="AreaProductNote" Type="Self.AreaProductNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AreaProduct">
+        <PropertyRef Name="ProductKey" />
+      </Principal>
+      <Dependent Role="AreaProductNote">
+        <PropertyRef Name="ProductKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductNote_ProfileProduct">
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="0..1" />
+    <End Role="AreaProductNote" Type="Self.AreaProductNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProductNote">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductPhoto_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="0..1" />
+    <End Role="AreaProductPhoto" Type="Self.AreaProductPhoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaKey" />
+      </Principal>
+      <Dependent Role="AreaProductPhoto">
+        <PropertyRef Name="AreaKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductPhoto_AreaProduct">
+    <End Role="AreaProduct" Type="Self.AreaProduct" Multiplicity="0..1" />
+    <End Role="AreaProductPhoto" Type="Self.AreaProductPhoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AreaProduct">
+        <PropertyRef Name="ProductKey" />
+      </Principal>
+      <Dependent Role="AreaProductPhoto">
+        <PropertyRef Name="ProductKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AreaProductPhoto_ProfileProduct">
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="0..1" />
+    <End Role="AreaProductPhoto" Type="Self.AreaProductPhoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileProduct">
+        <PropertyRef Name="FixtureKey" />
+      </Principal>
+      <Dependent Role="AreaProductPhoto">
+        <PropertyRef Name="FixtureKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CityList_StateList">
+    <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+    <End Role="CityList" Type="Self.CityList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="CityList">
+        <PropertyRef Name="StateCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientCompany_ClientCompany">
+    <End Role="CityList" Type="Self.CityList" Multiplicity="0..1" />
+    <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="ClientCompany">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientCompany_IndustryType">
+    <End Role="IndustryType" Type="Self.IndustryType" Multiplicity="0..1" />
+    <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndustryType">
+        <PropertyRef Name="IndustryKey" />
+      </Principal>
+      <Dependent Role="ClientCompany">
+        <PropertyRef Name="IndustryTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientCompany_StateList">
+    <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+    <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ClientCompany">
+        <PropertyRef Name="StateKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientContact_CityList">
+    <End Role="CityList" Type="Self.CityList" Multiplicity="0..1" />
+    <End Role="ClientContact" Type="Self.ClientContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="ClientContact">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientContact_ClientContact">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="ClientContact" Type="Self.ClientContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="ClientContact">
+        <PropertyRef Name="ProfileKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientContact_StateList">
+    <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+    <End Role="ClientContact" Type="Self.ClientContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ClientContact">
+        <PropertyRef Name="StateKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_CityList">
+    <End Role="CityList" Type="Self.CityList" Multiplicity="0..1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_StateList">
+    <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="StateCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoolingSystem_CoolingEfficientyType">
+    <End Role="CoolingEfficientyType" Type="Self.CoolingEfficientyType" Multiplicity="0..1" />
+    <End Role="CoolingSystem" Type="Self.CoolingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoolingEfficientyType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="CoolingSystem">
+        <PropertyRef Name="EfficiencyType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoolingSystem_CoolingSystemType">
+    <End Role="CoolingSystemType" Type="Self.CoolingSystemType" Multiplicity="0..1" />
+    <End Role="CoolingSystem" Type="Self.CoolingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoolingSystemType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="CoolingSystem">
+        <PropertyRef Name="CoolingSystemTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoolingSystem_FuelType">
+    <End Role="FuelType" Type="Self.FuelType" Multiplicity="0..1" />
+    <End Role="CoolingSystem" Type="Self.CoolingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuelType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="CoolingSystem">
+        <PropertyRef Name="FuelTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoolingSystem_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="CoolingSystem" Type="Self.CoolingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="CoolingSystem">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Forms_Modules">
+    <End Role="Modules" Type="Self.Modules" Multiplicity="1" />
+    <End Role="Forms" Type="Self.Forms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modules">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="Forms">
+        <PropertyRef Name="ModuleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeatingSystem_FuelType">
+    <End Role="FuelType" Type="Self.FuelType" Multiplicity="0..1" />
+    <End Role="HeatingSystem" Type="Self.HeatingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuelType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="HeatingSystem">
+        <PropertyRef Name="FuelTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeatingSystem_HeatingEfficiencyType">
+    <End Role="HeatingEfficiencyType" Type="Self.HeatingEfficiencyType" Multiplicity="0..1" />
+    <End Role="HeatingSystem" Type="Self.HeatingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeatingEfficiencyType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="HeatingSystem">
+        <PropertyRef Name="EfficiencyType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeatingSystem_HeatingSystemType">
+    <End Role="HeatingSystemType" Type="Self.HeatingSystemType" Multiplicity="0..1" />
+    <End Role="HeatingSystem" Type="Self.HeatingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HeatingSystemType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="HeatingSystem">
+        <PropertyRef Name="HeatingSystemTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeatingSystem_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="HeatingSystem" Type="Self.HeatingSystem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="HeatingSystem">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainProduct_ItemCategory">
+    <End Role="ItemCategory" Type="Self.ItemCategory" Multiplicity="0..1" />
+    <End Role="MainProduct" Type="Self.MainProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemCategory">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="MainProduct">
+        <PropertyRef Name="CategoryKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainProduct_ItemSubcategory">
+    <End Role="ItemSubcategory" Type="Self.ItemSubcategory" Multiplicity="0..1" />
+    <End Role="MainProduct" Type="Self.MainProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemSubcategory">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="MainProduct">
+        <PropertyRef Name="SubcategoryKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainProduct_ItemType">
+    <End Role="ItemType" Type="Self.ItemType" Multiplicity="0..1" />
+    <End Role="MainProduct" Type="Self.MainProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="MainProduct">
+        <PropertyRef Name="ItemTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainProduct_Manufacturer">
+    <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="0..1" />
+    <End Role="MainProduct" Type="Self.MainProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturer">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="MainProduct">
+        <PropertyRef Name="ManufacturerKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NewRateSchedule_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="NewRateSchedule" Type="Self.NewRateSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="NewRateSchedule">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OperatingSchedule_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="OperatingSchedule" Type="Self.OperatingSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="OperatingSchedule">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_ItemCategory">
+    <End Role="ItemCategory" Type="Self.ItemCategory" Multiplicity="0..1" />
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemCategory">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="CategoryKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_ItemCatelogue">
+    <End Role="ItemCatelogue" Type="Self.ItemCatelogue" Multiplicity="0..1" />
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemCatelogue">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="CatelogueKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_ItemSubcategory">
+    <End Role="ItemSubcategory" Type="Self.ItemSubcategory" Multiplicity="0..1" />
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemSubcategory">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="SubcategoryKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_ItemType">
+    <End Role="ItemType" Type="Self.ItemType" Multiplicity="0..1" />
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemType">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="ItemTypeKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_Manufacturer">
+    <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="0..1" />
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturer">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="ManufacturerKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileProduct_UserProfile">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="ProfileProduct" Type="Self.ProfileProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="ProfileProduct">
+        <PropertyRef Name="ProfileKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_CityList">
+    <End Role="CityList" Type="Self.CityList" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_ClientCompany">
+    <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientCompany">
+        <PropertyRef Name="ClientCompanyKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CompanyKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_ClientContact">
+    <End Role="ClientContact" Type="Self.ClientContact" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientContact">
+        <PropertyRef Name="ContactKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="PrimaryContactKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_ProjectStatus">
+    <End Role="ProjectStatus" Type="Self.ProjectStatus" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectStatus">
+        <PropertyRef Name="ProjectStatusKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="ProjectStatusKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_StateList">
+    <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="StateKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_UserProfile">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="PreparedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proposal_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proposal_UserProfile">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="Proposal" Type="Self.Proposal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="Proposal">
+        <PropertyRef Name="PreparedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StaffList_Usergroup">
+    <End Role="Usergroup" Type="Self.Usergroup" Multiplicity="0..1" />
+    <End Role="StaffList" Type="Self.StaffList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usergroup">
+        <PropertyRef Name="UserGroupKey" />
+      </Principal>
+      <Dependent Role="StaffList">
+        <PropertyRef Name="Usergr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_ClientCompany">
+    <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="1" />
+    <End Role="Team" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientCompany">
+        <PropertyRef Name="ClientCompanyKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="ClientCompanyKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_JobFunction">
+    <End Role="JobFunction" Type="Self.JobFunction" Multiplicity="0..1" />
+    <End Role="Team" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobFunction">
+        <PropertyRef Name="JobFunctionKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="JobFunctionKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Team" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="ProjectKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_UserProfile">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="Team" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="ProfileKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="ProfileKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Team_UserRole">
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
+    <End Role="Team" Type="Self.Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRole">
+        <PropertyRef Name="RoleKey" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="RoleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usergroup_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Usergroup" Type="Self.Usergroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyKey" />
+      </Principal>
+      <Dependent Role="Usergroup">
+        <PropertyRef Name="CompanyKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroupForm_Forms">
+    <End Role="Forms" Type="Self.Forms" Multiplicity="0..1" />
+    <End Role="UserGroupForm" Type="Self.UserGroupForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Forms">
+        <PropertyRef Name="FormID" />
+      </Principal>
+      <Dependent Role="UserGroupForm">
+        <PropertyRef Name="FormKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroupForm_Modules">
+    <End Role="Modules" Type="Self.Modules" Multiplicity="0..1" />
+    <End Role="UserGroupForm" Type="Self.UserGroupForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modules">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="UserGroupForm">
+        <PropertyRef Name="ModuleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroupForm_Usergroup">
+    <End Role="Usergroup" Type="Self.Usergroup" Multiplicity="0..1" />
+    <End Role="UserGroupForm" Type="Self.UserGroupForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usergroup">
+        <PropertyRef Name="UserGroupKey" />
+      </Principal>
+      <Dependent Role="UserGroupForm">
+        <PropertyRef Name="UserGroupKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroupModule_Modules">
+    <End Role="Modules" Type="Self.Modules" Multiplicity="0..1" />
+    <End Role="UserGroupModule" Type="Self.UserGroupModule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modules">
+        <PropertyRef Name="ModuleID" />
+      </Principal>
+      <Dependent Role="UserGroupModule">
+        <PropertyRef Name="ModuleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserGroupModule_Usergroup">
+    <End Role="Usergroup" Type="Self.Usergroup" Multiplicity="0..1" />
+    <End Role="UserGroupModule" Type="Self.UserGroupModule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usergroup">
+        <PropertyRef Name="UserGroupKey" />
+      </Principal>
+      <Dependent Role="UserGroupModule">
+        <PropertyRef Name="UserGroupKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfile_CityList">
+    <End Role="CityList" Type="Self.CityList" Multiplicity="0..1" />
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfile_StateList">
+    <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="StateKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfile_UserRole">
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRole">
+        <PropertyRef Name="RoleKey" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="RoleKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZIPList_CityList">
+    <End Role="CityList" Type="Self.CityList" Multiplicity="0..1" />
+    <End Role="ZIPList" Type="Self.ZIPList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityList">
+        <PropertyRef Name="CityKey" />
+      </Principal>
+      <Dependent Role="ZIPList">
+        <PropertyRef Name="CityKey" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZIPList_StateList">
+    <End Role="StateList" Type="Self.StateList" Multiplicity="0..1" />
+    <End Role="ZIPList" Type="Self.ZIPList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StateList">
+        <PropertyRef Name="PKey" />
+      </Principal>
+      <Dependent Role="ZIPList">
+        <PropertyRef Name="StateCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NasgledDBModelStoreContainer">
+    <EntitySet Name="AnnualSalesRevenueSetup" EntityType="Self.AnnualSalesRevenueSetup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AreaDetail" EntityType="Self.AreaDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AreaDocument" EntityType="Self.AreaDocument" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AreaNote" EntityType="Self.AreaNote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AreaPhoto" EntityType="Self.AreaPhoto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AreaProduct" EntityType="Self.AreaProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AreaProductDetail" EntityType="Self.AreaProductDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AreaProductDocument" EntityType="Self.AreaProductDocument" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AreaProductNote" EntityType="Self.AreaProductNote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AreaProductPhoto" EntityType="Self.AreaProductPhoto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CityList" EntityType="Self.CityList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientCompany" EntityType="Self.ClientCompany" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientCompanyProfileRequest" EntityType="Self.ClientCompanyProfileRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientContact" EntityType="Self.ClientContact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CoolingEfficientyType" EntityType="Self.CoolingEfficientyType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CoolingSystem" EntityType="Self.CoolingSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CoolingSystemType" EntityType="Self.CoolingSystemType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DefaultEmail" EntityType="Self.DefaultEmail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EnvironmentalImpact" EntityType="Self.EnvironmentalImpact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FinanceCompany" EntityType="Self.FinanceCompany" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Forms" EntityType="Self.Forms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FuelType" EntityType="Self.FuelType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HeatingEfficiencyType" EntityType="Self.HeatingEfficiencyType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HeatingSystem" EntityType="Self.HeatingSystem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HeatingSystemType" EntityType="Self.HeatingSystemType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImageFile" EntityType="Self.ImageFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IncentiveMaxType" EntityType="Self.IncentiveMaxType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IncentiveType" EntityType="Self.IncentiveType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IndustryType" EntityType="Self.IndustryType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ItemCategory" EntityType="Self.ItemCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ItemCatelogue" EntityType="Self.ItemCatelogue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ItemSubcategory" EntityType="Self.ItemSubcategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ItemType" EntityType="Self.ItemType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobFunction" EntityType="Self.JobFunction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LightingSatisfactionFactor" EntityType="Self.LightingSatisfactionFactor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MainProduct" EntityType="Self.MainProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NewRateSchedule" EntityType="Self.NewRateSchedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OperatingSchedule" EntityType="Self.OperatingSchedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProfileProduct" EntityType="Self.ProfileProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProposalAdditional" EntityType="Self.ProposalAdditional" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProposalLoanTerms" EntityType="Self.ProposalLoanTerms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProposalNote" EntityType="Self.ProposalNote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProposalTemplate" EntityType="Self.ProposalTemplate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportTemplate" EntityType="Self.ReportTemplate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SalesReachSetup" EntityType="Self.SalesReachSetup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StaffList" EntityType="Self.StaffList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StateList" EntityType="Self.StateList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usergroup" EntityType="Self.Usergroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserGroupForm" EntityType="Self.UserGroupForm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserGroupModule" EntityType="Self.UserGroupModule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ZIPList" EntityType="Self.ZIPList" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Area_CoolingSystem" Association="Self.FK_Area_CoolingSystem">
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Area_HeatingSystem" Association="Self.FK_Area_HeatingSystem">
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Area_NewRateSchedule" Association="Self.FK_Area_NewRateSchedule">
+      <End Role="NewRateSchedule" EntitySet="NewRateSchedule" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Area_OperatingSchedule" Association="Self.FK_Area_OperatingSchedule">
+      <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Area_Project" Association="Self.FK_Area_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaDetail_Area" Association="Self.FK_AreaDetail_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaDetail" EntitySet="AreaDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaDetail_LightingSatisfactionFactor" Association="Self.FK_AreaDetail_LightingSatisfactionFactor">
+      <End Role="LightingSatisfactionFactor" EntitySet="LightingSatisfactionFactor" />
+      <End Role="AreaDetail" EntitySet="AreaDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaDocument_Area" Association="Self.FK_AreaDocument_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaDocument" EntitySet="AreaDocument" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaNote_Area" Association="Self.FK_AreaNote_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaNote" EntitySet="AreaNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaPhoto_Area" Association="Self.FK_AreaPhoto_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaPhoto" EntitySet="AreaPhoto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_Area" Association="Self.FK_AreaProduct_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_IncentiveMaxType" Association="Self.FK_AreaProduct_IncentiveMaxType">
+      <End Role="IncentiveMaxType" EntitySet="IncentiveMaxType" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_IncentiveType" Association="Self.FK_AreaProduct_IncentiveType">
+      <End Role="IncentiveType" EntitySet="IncentiveType" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_OperatingSchedule" Association="Self.FK_AreaProduct_OperatingSchedule">
+      <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProduct_ProfileProduct" Association="Self.FK_AreaProduct_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_Area" Association="Self.FK_AreaProductDetail_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_AreaProduct" Association="Self.FK_AreaProductDetail_AreaProduct">
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_LightingSatisfactionFactor" Association="Self.FK_AreaProductDetail_LightingSatisfactionFactor">
+      <End Role="LightingSatisfactionFactor" EntitySet="LightingSatisfactionFactor" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_OperatingSchedule" Association="Self.FK_AreaProductDetail_OperatingSchedule">
+      <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDetail_ProfileProduct" Association="Self.FK_AreaProductDetail_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProductDetail" EntitySet="AreaProductDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDocument_Area" Association="Self.FK_AreaProductDocument_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProductDocument" EntitySet="AreaProductDocument" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDocument_AreaProduct" Association="Self.FK_AreaProductDocument_AreaProduct">
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+      <End Role="AreaProductDocument" EntitySet="AreaProductDocument" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductDocument_ProfileProduct" Association="Self.FK_AreaProductDocument_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProductDocument" EntitySet="AreaProductDocument" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductNote_Area" Association="Self.FK_AreaProductNote_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProductNote" EntitySet="AreaProductNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductNote_AreaProduct" Association="Self.FK_AreaProductNote_AreaProduct">
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+      <End Role="AreaProductNote" EntitySet="AreaProductNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductNote_ProfileProduct" Association="Self.FK_AreaProductNote_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProductNote" EntitySet="AreaProductNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductPhoto_Area" Association="Self.FK_AreaProductPhoto_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="AreaProductPhoto" EntitySet="AreaProductPhoto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductPhoto_AreaProduct" Association="Self.FK_AreaProductPhoto_AreaProduct">
+      <End Role="AreaProduct" EntitySet="AreaProduct" />
+      <End Role="AreaProductPhoto" EntitySet="AreaProductPhoto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AreaProductPhoto_ProfileProduct" Association="Self.FK_AreaProductPhoto_ProfileProduct">
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+      <End Role="AreaProductPhoto" EntitySet="AreaProductPhoto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CityList_StateList" Association="Self.FK_CityList_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="CityList" EntitySet="CityList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientCompany_ClientCompany" Association="Self.FK_ClientCompany_ClientCompany">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientCompany_IndustryType" Association="Self.FK_ClientCompany_IndustryType">
+      <End Role="IndustryType" EntitySet="IndustryType" />
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientCompany_StateList" Association="Self.FK_ClientCompany_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientContact_CityList" Association="Self.FK_ClientContact_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="ClientContact" EntitySet="ClientContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientContact_ClientContact" Association="Self.FK_ClientContact_ClientContact">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="ClientContact" EntitySet="ClientContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientContact_StateList" Association="Self.FK_ClientContact_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="ClientContact" EntitySet="ClientContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_CityList" Association="Self.FK_Company_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_StateList" Association="Self.FK_Company_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoolingSystem_CoolingEfficientyType" Association="Self.FK_CoolingSystem_CoolingEfficientyType">
+      <End Role="CoolingEfficientyType" EntitySet="CoolingEfficientyType" />
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoolingSystem_CoolingSystemType" Association="Self.FK_CoolingSystem_CoolingSystemType">
+      <End Role="CoolingSystemType" EntitySet="CoolingSystemType" />
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoolingSystem_FuelType" Association="Self.FK_CoolingSystem_FuelType">
+      <End Role="FuelType" EntitySet="FuelType" />
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoolingSystem_Project" Association="Self.FK_CoolingSystem_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="CoolingSystem" EntitySet="CoolingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Forms_Modules" Association="Self.FK_Forms_Modules">
+      <End Role="Modules" EntitySet="Modules" />
+      <End Role="Forms" EntitySet="Forms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeatingSystem_FuelType" Association="Self.FK_HeatingSystem_FuelType">
+      <End Role="FuelType" EntitySet="FuelType" />
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeatingSystem_HeatingEfficiencyType" Association="Self.FK_HeatingSystem_HeatingEfficiencyType">
+      <End Role="HeatingEfficiencyType" EntitySet="HeatingEfficiencyType" />
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeatingSystem_HeatingSystemType" Association="Self.FK_HeatingSystem_HeatingSystemType">
+      <End Role="HeatingSystemType" EntitySet="HeatingSystemType" />
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeatingSystem_Project" Association="Self.FK_HeatingSystem_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="HeatingSystem" EntitySet="HeatingSystem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainProduct_ItemCategory" Association="Self.FK_MainProduct_ItemCategory">
+      <End Role="ItemCategory" EntitySet="ItemCategory" />
+      <End Role="MainProduct" EntitySet="MainProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainProduct_ItemSubcategory" Association="Self.FK_MainProduct_ItemSubcategory">
+      <End Role="ItemSubcategory" EntitySet="ItemSubcategory" />
+      <End Role="MainProduct" EntitySet="MainProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainProduct_ItemType" Association="Self.FK_MainProduct_ItemType">
+      <End Role="ItemType" EntitySet="ItemType" />
+      <End Role="MainProduct" EntitySet="MainProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainProduct_Manufacturer" Association="Self.FK_MainProduct_Manufacturer">
+      <End Role="Manufacturer" EntitySet="Manufacturer" />
+      <End Role="MainProduct" EntitySet="MainProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NewRateSchedule_Project" Association="Self.FK_NewRateSchedule_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="NewRateSchedule" EntitySet="NewRateSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OperatingSchedule_Project" Association="Self.FK_OperatingSchedule_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="OperatingSchedule" EntitySet="OperatingSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_ItemCategory" Association="Self.FK_ProfileProduct_ItemCategory">
+      <End Role="ItemCategory" EntitySet="ItemCategory" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_ItemCatelogue" Association="Self.FK_ProfileProduct_ItemCatelogue">
+      <End Role="ItemCatelogue" EntitySet="ItemCatelogue" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_ItemSubcategory" Association="Self.FK_ProfileProduct_ItemSubcategory">
+      <End Role="ItemSubcategory" EntitySet="ItemSubcategory" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_ItemType" Association="Self.FK_ProfileProduct_ItemType">
+      <End Role="ItemType" EntitySet="ItemType" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_Manufacturer" Association="Self.FK_ProfileProduct_Manufacturer">
+      <End Role="Manufacturer" EntitySet="Manufacturer" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileProduct_UserProfile" Association="Self.FK_ProfileProduct_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="ProfileProduct" EntitySet="ProfileProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_CityList" Association="Self.FK_Project_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_ClientCompany" Association="Self.FK_Project_ClientCompany">
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_ClientContact" Association="Self.FK_Project_ClientContact">
+      <End Role="ClientContact" EntitySet="ClientContact" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_ProjectStatus" Association="Self.FK_Project_ProjectStatus">
+      <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_StateList" Association="Self.FK_Project_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_UserProfile" Association="Self.FK_Project_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proposal_Project" Association="Self.FK_Proposal_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proposal_UserProfile" Association="Self.FK_Proposal_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="Proposal" EntitySet="Proposal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StaffList_Usergroup" Association="Self.FK_StaffList_Usergroup">
+      <End Role="Usergroup" EntitySet="Usergroup" />
+      <End Role="StaffList" EntitySet="StaffList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_ClientCompany" Association="Self.FK_Team_ClientCompany">
+      <End Role="ClientCompany" EntitySet="ClientCompany" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_JobFunction" Association="Self.FK_Team_JobFunction">
+      <End Role="JobFunction" EntitySet="JobFunction" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_Project" Association="Self.FK_Team_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_UserProfile" Association="Self.FK_Team_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Team_UserRole" Association="Self.FK_Team_UserRole">
+      <End Role="UserRole" EntitySet="UserRole" />
+      <End Role="Team" EntitySet="Team" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usergroup_Company" Association="Self.FK_Usergroup_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Usergroup" EntitySet="Usergroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroupForm_Forms" Association="Self.FK_UserGroupForm_Forms">
+      <End Role="Forms" EntitySet="Forms" />
+      <End Role="UserGroupForm" EntitySet="UserGroupForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroupForm_Modules" Association="Self.FK_UserGroupForm_Modules">
+      <End Role="Modules" EntitySet="Modules" />
+      <End Role="UserGroupForm" EntitySet="UserGroupForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroupForm_Usergroup" Association="Self.FK_UserGroupForm_Usergroup">
+      <End Role="Usergroup" EntitySet="Usergroup" />
+      <End Role="UserGroupForm" EntitySet="UserGroupForm" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroupModule_Modules" Association="Self.FK_UserGroupModule_Modules">
+      <End Role="Modules" EntitySet="Modules" />
+      <End Role="UserGroupModule" EntitySet="UserGroupModule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserGroupModule_Usergroup" Association="Self.FK_UserGroupModule_Usergroup">
+      <End Role="Usergroup" EntitySet="Usergroup" />
+      <End Role="UserGroupModule" EntitySet="UserGroupModule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfile_CityList" Association="Self.FK_UserProfile_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfile_StateList" Association="Self.FK_UserProfile_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfile_UserRole" Association="Self.FK_UserProfile_UserRole">
+      <End Role="UserRole" EntitySet="UserRole" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZIPList_CityList" Association="Self.FK_ZIPList_CityList">
+      <End Role="CityList" EntitySet="CityList" />
+      <End Role="ZIPList" EntitySet="ZIPList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZIPList_StateList" Association="Self.FK_ZIPList_StateList">
+      <End Role="StateList" EntitySet="StateList" />
+      <End Role="ZIPList" EntitySet="ZIPList" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

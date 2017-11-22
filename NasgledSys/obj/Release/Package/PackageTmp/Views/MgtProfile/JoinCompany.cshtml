@@ -1,0 +1,132 @@
+﻿@using NasgledSys.Models
+@{
+    ViewBag.Title = "JoinCompany";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@section SideBar{
+    <center>
+        <h4>
+            <span class="heading-text">
+                <i class="icon-folder-download position-left"></i> > <a href="@Url.Action("UserHome","Home")">Home </a>
+            </span>
+        </h4>
+    </center>
+}
+
+@section CenterTitle{
+    Join A company
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary list-panel" id="list-panel">
+                <div class="panel-heading list-panel-heading">
+                    <h1 class="panel-title list-panel-title">List of All the Companies</h1>
+
+
+                </div>
+
+                <div class="panel-body">
+
+
+
+                    <table id="Citys-data-table" class="table table-striped table-bordered" style="width:100%;"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    @section scripts
+{
+        <script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+        <script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+
+        <script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+
+        <link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+        <script src="~/Content/datatables/jquery.dataTables.js"></script>
+        <script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+
+        <script type="text/javascript">
+
+        var CityListVM;
+        $(function () {
+
+            CityListVM = {
+                dt: null,
+
+                init: function () {
+                    dt = $('#Citys-data-table').DataTable({
+                        "serverSide": true,
+                        "processing": true,
+                        "ajax": {
+                            "url": "@Url.Action("GetCompanyList", "MgtProfile")",
+                            "data": function (data) {
+
+                                data.ClientCompanyKey = $("#ClientCompanyKey").val();
+                                data.CompanyName = $("#CompanyName").val();
+                                data.Description = $("#Description").val();
+                                data.IndustryType = $("#IndustryType").val();
+                                data.OfficePhone = $("#OfficePhone").val();
+                                data.Address = $("#Address").val();
+                            }
+                        },
+                        "columns": [
+
+                            { "title": "Company Name", "data": "CompanyName", "searchable": true, "sortable": true },
+                            { "title": "Industry Type", "data": "IndustryType", "searchable": false, "sortable": false },
+                            { "title": "Address", "data": "Address", "searchable": false, "sortable": false },
+                            { "title": "Phone", "data": "OfficePhone", "searchable": false, "sortable": false },
+                             { "title": "Description", "data": "Description", "searchable": false, "sortable": false },
+                            {
+                                "title": "Actions",
+                                "data": "ClientCompanyKey",
+                                "searchable": false,
+                                "sortable": false,
+                                "render": function (data, type, full, meta) {
+                                    return ' <a href="@Url.Action("SendJoiningRequest", "MgtProfile")?id=' + data + '" class="deleteCity">Send Joining Request</a>';
+                                }
+                            }
+                        ],
+                        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                    });
+                },
+
+                refresh: function () {
+                    dt.ajax.reload();
+                }
+            }
+
+
+
+            // initialize the datatables
+            CityListVM.init();
+
+
+
+
+
+            $('#Citys-data-table').on("click", ".deleteCity", function (event) {
+                event.preventDefault();
+                var ans = confirm("Are you sure you want to send this request?");
+                if (ans) {
+
+                    var url = $(this).attr("href");
+                    $.get(url, function (data) {
+                        alert(data);
+                        CityListVM.refresh();
+
+                    });
+                }
+            });
+
+        });
+
+
+
+
+        </script>
+
+    }
+

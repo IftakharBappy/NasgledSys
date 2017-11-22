@@ -1,0 +1,227 @@
+﻿@model NasgledSys.Models.RoleViewModel
+@using NasgledSys.Models
+@{
+    ViewBag.Title = "Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Role</h1>
+
+                <button type="button" class="btn btn-default btn-md" data-toggle="modal" id="Add" data-target="#createCityModal">
+                    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> Add Role
+                </button>
+            </div>
+            <div class="panel-body">
+                <div id="deleteCityContainer">
+                </div>
+                
+                <table id="Citys-data-table" class="table table-striped table-bordered" style="width:100%;"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createCityModal" tabindex="-1" role="dialog" aria-labelledby="CreateCityModal" aria-hidden="true" data-backdrop="static">
+    <div id="createCityContainer">
+        <div class="panel-body">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add Role</h4>
+                    </div>
+                    @using (Ajax.BeginForm("Index", "MgtRole", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateCitySuccess" }, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        <div class="modal-body">
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.RoleKey, new { Value = Guid.NewGuid(),id= "RoleKey" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.RoleName, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.RoleName, new { htmlAttributes = new {id= "RoleName", @required = "required", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RoleName, "", new { @class = "text-danger" })
+
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Rlevel, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Rlevel, new { htmlAttributes = new {id= "Rlevel", @onkeypress = "return isNumberKey(event)", @required = "required", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Rlevel, "", new { @class = "text-danger" })
+
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-primary" value="Save" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+
+
+
+
+
+@section scripts
+{
+
+
+    <script type="text/javascript">
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+        var CityListVM;
+        $(function () {
+        
+            CityListVM = {
+                dt: null,
+
+                init: function () {
+                    dt = $('#Citys-data-table').DataTable({
+                        "serverSide": true,
+                        "processing": true,
+                        "ajax": {
+                            "url": "@Url.Action("Get", "MgtRole")",
+                            "data": function (data) {
+
+                                data.RoleKey = $("#RoleKey").val();
+                                data.RoleName = $("#RoleName").val();
+                                data.Rlevel = $("#Rlevel").val();
+                                data.IsDelete = $("#IsDelete").val();
+                            }
+                        },
+                        "columns": [
+
+                            { "title": "Role Name", "data": "RoleName", "searchable": true, "sortable": true },
+                            { "title": "Level", "data": "Rlevel", "searchable": true, "sortable": true },
+                            {
+                                "title": "Actions",
+                                "data": "RoleKey",
+                                "searchable": false,
+                                "sortable": false,
+                                "render": function (data, type, full, meta) {
+                                    return '<a href="@Url.Action("Edit", "MgtRole")?id=' + data + '" class="editCity">Edit</a> | <a href="@Url.Action("Delete", "MgtRole")?id=' + data + '" class="deleteCity">Delete</a>';
+                                }
+                            }
+                        ],
+                        "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+                    });
+                },
+
+                refresh: function () {
+                    dt.ajax.reload();
+                }
+            }
+
+            // Advanced Search Modal Search button click handler
+            $('#btnPerformAdvancedSearch').on("click", CityListVM.refresh);
+
+            // initialize the datatables
+            CityListVM.init();
+
+           
+
+            $('#Citys-data-table').on("click", ".editCity", function (event) {
+
+                event.preventDefault();
+
+                var url = $(this).attr("href");
+
+                $.get(url, function (data) {
+                    $('#RoleKey').val(data["RoleKey"]);
+                    $('#RoleName').val(data["RoleName"]);
+                    $('#Rlevel').val(data["Rlevel"]);
+                   
+                    $('#createCityModal').modal('show');
+                });
+
+            });
+
+            $('#Add').click(function (event) {
+
+                //event.preventDefault();
+
+              
+                    $('#RoleKey').val("");
+                    $('#RoleName').val("");
+                    $('#Rlevel').val("");
+
+
+            });
+           
+
+            $('#Citys-data-table').on("click", ".deleteCity", function (event) {
+                event.preventDefault();
+                var ans = confirm("Are you sure you want to delete this Record?");               
+                if (ans) {
+                   
+                    var url = $(this).attr("href");
+                    $.get(url, function (data) {
+                        CityListVM.refresh();
+                        $('#deleteCityContainer').html(data);
+                    });
+                }
+            });
+
+        });
+
+    /**** Create City Ajax Form CallBack ********/
+
+    function CreateCitySuccess(data) {
+
+        if (data != "success") {
+            $('#createCityContainer').html(data);
+            $('#createCityModal').modal('show');
+        }
+        $('#RoleKey').val("");
+        $('#RoleName').val("");
+        $('#Rlevel').val("");
+        $('#createCityModal').modal('hide');
+        $('#createCityContainer').html("");
+        CityListVM.refresh();
+
+    }
+
+   
+
+   
+
+    </script>
+
+}
+
+
+
+
+

@@ -1,0 +1,213 @@
+﻿@model NasgledSys.Models.ItemViewModel
+@using NasgledSys.Models
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section SideBar{
+<h4>
+    <i class="icon-arrow-left52 position-left"></i>
+    <span class="text-semibold"><a class="navbar-brand" href="@Url.Action("Index","Home")">Home</a></span> 
+    <a class="navbar-brand" href="@Url.Action("Catelogue", "MgtAdminItem")"> <small class="display-block">Product List</small></a>
+   
+</h4>
+
+    }
+@section scripts
+{
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Content/assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/js/pages/form_select2.js"></script>
+    <script type="text/javascript">
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+        $(document).ready(function (e) {
+           // $("#CatelogueKey").select2();
+            $("#ManufacturerKey").select2();
+            $("#ItemTypeKey").select2();
+            $("#CategoryKey").select2();
+            $("#SubcategoryKey").select2();
+            $("#MainItemKey").select2();
+        });
+
+      
+     
+    </script>
+
+}
+@using (Html.BeginForm("Create", "MgtAdminItem", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+  
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">Add New Product</h1>
+
+                <div id="deleteCityContainer">
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.ProductName,  new {placeholder="Product Name", id = "ProductName", @class = "form-control"  })
+                        @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ModelNo, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.ModelNo,  new { placeholder = "Model Number", id = "ModelNo", @class = "form-control"  })
+                        @Html.ValidationMessageFor(model => model.ModelNo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Watt, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Watt,  new { placeholder = "WATT", @onkeypress = "return isNumberKey(event)",type="number", id = "Watt", @class = "form-control"  })
+                        @Html.ValidationMessageFor(model => model.Watt, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ThermalEfficacy, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.ThermalEfficacy,  new { placeholder = "Thermal Efficacy", @onkeypress = "return isNumberKey(event)", type = "number", id = "ThermalEfficacy", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.ThermalEfficacy, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CRI, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.CRI,  new { placeholder = "CRI", @onkeypress = "return isNumberKey(event)", type = "number", id = "CRI", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.CRI, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Lumen, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Lumen, new { placeholder = "Lumen", @onkeypress = "return isNumberKey(event)", type = "number", id = "Lumen", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.Lumen, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LightApparent, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.LightApparent, new { placeholder = "Light Appearence", @onkeypress = "return isNumberKey(event)", type = "number", id = "LightApparent", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.LightApparent, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Source, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Source,  new { placeholder = "Source", id = "Source", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.Source, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Brand,  new { placeholder = "Brand", id = "Brand", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LightOutput, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.LightOutput,  new { placeholder = "Light Output", @onkeypress = "return isNumberKey(event)", type = "number", id = "LightOutput", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.LightOutput, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CCT, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.CCT,  new { placeholder = "CCT", @onkeypress = "return isNumberKey(event)", type = "number", id = "CCT", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.CCT, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Size,  new { placeholder = "Size", id = "Size", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Location,  new { placeholder = "Location", id = "Location", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MountingBase, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.MountingBase,  new { placeholder = "Mounting Base", id = "MountingBase", @class = "form-control" } )
+                        @Html.ValidationMessageFor(model => model.MountingBase, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LampLife, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.LampLife, new { placeholder = "Lamp Life", @onkeypress = "return isNumberKey(event)", type = "number", id = "LampLife", @class = "form-control"  })
+                        @Html.ValidationMessageFor(model => model.LampLife, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+             <div class="panel-footer text-center">
+             <input type="submit" class="btn btn-primary btn-lg" value="Save" name="Save" />
+                 <input type="submit" class="btn btn-primary btn-lg" name="Add" value="Save and Add More" />
+             </div>
+                        
+               
+               
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-primary list-panel" id="list-panel">
+           
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+
+                        <label class="display-block">Upload Image:</label>
+                        <input type="file" name="file" class="file-styled">
+                        <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TypeCount, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.TypeCount, new { placeholder = "Type Count", @onkeypress = "return isNumberKey(event)", type = "number", id = "TypeCount", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TypeCount, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("CategoryKey", null, string.Empty, new { @required = "required", id = "CategoryKey", @class = "select select-search" })
+                        @Html.ValidationMessageFor(model => model.CategoryKey, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Subcategory, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("SubcategoryKey", null, string.Empty, new { id = "SubcategoryKey", @class = "select select-search" })
+                        @Html.ValidationMessageFor(model => model.SubcategoryKey, "", new { @class = "text-danger" })
+                    </div>
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.Catelogue, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("CatelogueKey", null, string.Empty, new { @required = "required", id = "CatelogueKey", @class = "select select-search" })
+                        @Html.ValidationMessageFor(model => model.CatelogueKey, "", new { @class = "text-danger" })
+                    </div>*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("ItemTypeKey", null, string.Empty, new { @required = "required", id = "ItemTypeKey", @class = "select select-search" })
+                        @Html.ValidationMessageFor(model => model.ItemTypeKey, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Manufacturer, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownList("ManufacturerKey", null, string.Empty, new { @required = "required", id = "ManufacturerKey", @class = "select select-search" })
+                        @Html.ValidationMessageFor(model => model.ManufacturerKey, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label class = "control-label">Does it Fall under another Product</label>                      
+                        @Html.DropDownList("MainItemKey", null, string.Empty, new { id = "MainItemKey", @class = "select select-search" })
+                        @Html.ValidationMessageFor(model => model.ManufacturerKey, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+          
+
+
+
+
+        </div>
+    </div>
+</div>
+
+}
+
+
+
+
+

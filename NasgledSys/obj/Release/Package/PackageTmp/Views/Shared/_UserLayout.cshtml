@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Nasgled</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+   @Styles.Render("~/Content/css")
+
+
+@Scripts.Render("~/Content/js")
+    <script type="text/javascript">
+       
+        $(document).ready(function () {
+         
+            if ($("#calibri").val().trim() === "") {
+
+            }
+            else {
+                if ($("#counter").val().trim() === "1") {
+                    $("#ConfirmationMessegeSlot").show().delay(1000).fadeOut();
+                    Counter();
+                }
+            }
+           
+        });
+        function Counter() {
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/Home/RestartCounter/",
+                success: function (data) {
+                   var d = data;     
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+</head>
+
+<body class="navbar-top">
+   
+    @using NasgledSys.Models
+
+    <!-- Main navbar -->
+    <div class="navbar navbar-inverse bg-grey-400 navbar-fixed-top">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="@Url.Action("Userhome","Home")">
+                NASGLED
+            </a>
+            <ul class="nav navbar-nav pull-right visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            </ul>
+        </div> 
+        <div class="nav navbar-nav navbar-left">
+            <ul class="nav navbar-nav navbar-nav-material">
+                <li class="active"><a href="@Url.Action("Userhome","Home")"><i class="icon-display4 position-left"></i> Dashboard</a></li>
+                <li><a href="@Url.Action("Index","MgtProfileProduct")"><i class="icon-bubble position-left"></i> Product</a></li>
+            </ul>
+
+        </div>
+           <div class="navbar-nav navbar-center">@RenderSection("CenterTitle", required: false)</div>
+        <div class="nav navbar-nav navbar-right">
+            <a href="@Url.Action("Index","MgtClientContact")" class="btn bg-grey btn-block btn-float btn-float-lg" type="button">
+                @*<img src="~/Content/12_-_Address_book-256.png" height="50px" width="45px" />*@
+                <i class="icon-address-book"></i>
+              
+            </a>
+        </div>    
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+
+            <ul class="nav navbar-nav navbar-right">
+
+
+               
+
+                <li class="dropdown mega-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user-lock"></i><span>@Html.DisplayFor(m => GlobalClass.ProfileUser.FirstName)</span></a>
+                    <div class="dropdown-menu dropdown-content">
+                        <div class="dropdown-content-body">
+                            <div class="sidebar sidebar-secondary sidebar-default">
+                                <div class="sidebar-content">
+                                    <div class="sidebar-category">
+                                        <div class="category-title">
+                                            <span>Setting</span>
+                                            <ul class="icons-list">
+                                                <li><a href="#" data-action="collapse"></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="category-content">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <a href="@Url.Action("UpdateUserProfile","MgtProfile")" class="btn bg-teal-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-git-branch"></i> <span>My profile</span></a>
+                                                    <a href="@Url.Action("Index","MgtClientContact")" class="btn bg-purple-300 btn-block btn-float btn-float-lg" type="button"><i class="icon-people"></i> <span>Contacts</span></a>
+
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <a href="@Url.Action("IndexClientCompany","MgtClientCompany")" class="btn bg-warning-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-stats-bars"></i> <span>Company</span></a>
+                                                    <a href="@Url.Action("ChangeUsernamePassword", "MgtProfile")" class="btn bg-teal-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-lock2"></i> <span>Change<br />Password</span></a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div><div class="sidebar-category">
+                                        <div class="category-title">
+                                            <span>Item</span>
+                                            <ul class="icons-list">
+                                                <li><a href="#" data-action="collapse"></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="category-content">
+                                            <div class="row">
+
+                                                <div class="col-xs-6">
+                                                    <a href="@Url.Action("Index","UserItemCategory")" class="btn bg-blue btn-block btn-float btn-float-lg" type="button"><i class="icon-barcode2"></i> <span>Category</span></a>
+                                                    <a href="@Url.Action("Index","UserItemSubcategory")" class="btn bg-warning-400 btn-block btn-float btn-float-lg" type="button"><i class="icon-stats-bars"></i> <span>Subcategory</span></a>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <a href="@Url.Action("Index","UserItemCatelogue")" class="btn bg-indigo btn-block btn-float btn-float-lg" type="button"><i class="icon-bag"></i> <span>Catelogue</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sidebar-category">
+                                        <div class="category-title">
+                                            <i class="icon-switch2"></i>
+                                            <a href="@Url.Action("UserLogin","Home")">Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                                
+                                </div>
+                            </div>
+</li>
+            </ul>
+        </div>
+     
+    </div>
+    <!-- /main navbar -->
+   
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <div class="heading-text text-center alert-info" id="ConfirmationMessegeSlot">
+                    <input type="hidden" name="calibri" id="calibri" value="@Session["GlobalMessege"]" />
+                    <input type="hidden" name="counter" id="counter" value="@Session["counter"]" />
+                    <h5>@Html.DisplayFor(m => Session["GlobalMessege"])</h5>
+
+                </div>
+                @if (IsSectionDefined(("SideBar")))
+                {
+                    @RenderSection("SideBar", required: false)
+                }
+                else
+                {
+                    <h4>
+                        <span class="heading-text pull-left">
+
+                            <span class="position-left"><a href="@Url.Action("Userhome","Home")">Home<<</a></span>
+                            <span class="position-left">Hello , @Html.DisplayFor(m => GlobalClass.ProfileUser.FirstName)</span>
+                        </span>
+
+                    </h4>
+                }
+            </div>
+            <div class="heading-elements">
+                @RenderSection("TopHeader", required: false)
+               
+            </div>
+           
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main content -->
+          
+               
+                    
+                
+               @RenderBody()
+              
+              
+         
+            <!-- /main content -->
+        </div>
+        <!-- /page content -->
+    </div>
+    <!-- /page container -->
+    <!-- Footer -->
+    <div class="footer text-muted">
+        &copy; @DateTime.Now.Year - NasGLED
+
+    </div>
+    <!-- /footer -->
+
+</body>
+</html>

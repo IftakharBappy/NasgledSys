@@ -1,0 +1,26 @@
+﻿@model NasgledSys.Models.CityViewModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">City Details</h4>
+
+        </div>
+
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CityName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StateName)
+                </dd>
+
+            </dl>
+
+        </div>
+
+    </div>
+</div>

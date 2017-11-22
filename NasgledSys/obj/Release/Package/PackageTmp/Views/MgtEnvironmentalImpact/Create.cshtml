@@ -1,0 +1,124 @@
+﻿@model NasgledSys.Models.EnvironmentalImpactViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/ui/prism.min.js"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#msgSuccess').hide();
+
+        LoadUnitDropDown_ToCreate();
+    });
+    function LoadUnitDropDown_ToCreate() {
+        var select = $('select[name=UnitName]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtEnvironmentalImpact/LoadUnitDropDown_ToCreate/",
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].UnitName + "'>" + data[i].UnitName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            &nbsp;
+            <div id="progress" class="modal fade">
+                <div class="center">
+                    <img src="~/Content/loader4.gif" />
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("Create", "MgtEnvironmentalImpact", FormMethod.Post , new { enctype = "multipart/form-data" }))
+        {
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="panel-body">
+                        <h4>
+                            <span class="heading-text pull-left">
+                                <i class="icon-folder-download position-left"></i>
+                                <span class="position-left"><a href="@Url.Action("Index", "MgtEnvironmentalImpact")">Back </a></span>
+
+                            </span>
+
+                        </h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="panel panel-default ">
+                                <div class="panel-body">
+                                    <div class="form-horizontal">
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.FactorName)
+                                                @Html.HiddenFor(model => model.FactorKey, new { id = "FactorKey" })
+                                                @Html.TextBoxFor(model => model.FactorName, new { placeholder = " Factor Name", id = "FactorName", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.FactorName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UnitName, "Unit Name")
+                                                <div>
+                                                    <select name="UnitName" placeholder="Select" class="select select-search form-control"></select>
+                                                </div>
+                                                @Html.ValidationMessageFor(model => model.UnitName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.QtyUsed)
+                                                @Html.TextBoxFor(model => model.QtyUsed, new {type= "number", placeholder = " Qty Used", id = "QtyUsed", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.QtyUsed, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.KilowattSaved)
+                                                @Html.TextBoxFor(model => model.KilowattSaved, new { type = "number", placeholder = " Kilowatt Saved", id = "KilowattSaved", @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.KilowattSaved, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.PostedLogo)
+                                                @Html.TextBoxFor(model => model.PostedLogo, new { type = "file" })
+                                                @Html.ValidationMessageFor(model => model.PostedLogo, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="form-group" id="msgSuccess"><h4 class="alert alert-success">Data is successfully Saved on database.</h4></div>
+
+                    <center>
+                        <a href="@Url.Action("Index","MgtEnvironmentalImpact")" class="btn btn-primary btn-xlg col-lg-4">Cancel </a> &nbsp;
+                        <button type="submit" class="btn btn-primary btn-xlg col-lg-4" id="btnAdd">Create</button>
+                    </center>
+                </div>
+             </div>
+                }
+            </div>
+    </div>
+

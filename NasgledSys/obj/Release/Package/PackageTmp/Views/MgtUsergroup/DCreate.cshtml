@@ -1,0 +1,99 @@
+﻿@model NasgledSys.Models.Usergroup
+@using NasgledSys.Models
+@{
+    ViewBag.Title = "Usergroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    var temp = from x in db.Modules where x.IsDelete == false select x;
+    temp = temp.OrderBy(m => m.ModuleLevel);
+}
+
+@section SideBar{
+
+    <i class="icon-arrow-left52 position-left"></i>
+    <span class="text-semibold"><a href="@Url.Action("DIndex","MgtUsergroup",new { id=GlobalClass.Company.CompanyKey})"><i class="icon-display4 position-left"></i>List of Company</a></span>
+
+}
+@using (Html.BeginForm("DCreate", "MgtUsergroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">New Usergroup</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+
+
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GroupID, "Group ID")
+
+                        @Html.TextBoxFor(model => model.GroupID, new { placeholder = "GroupID", @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.GroupID, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GroupName, "Name")
+
+                        @Html.TextBoxFor(model => model.GroupName, new { placeholder = "GroupName", @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+
+
+                    @{
+                        foreach (var item in temp)
+                        {
+                            <h3>@Html.DisplayFor(m => item.ModuleName)</h3>
+                            var ftemp = from x in db.Forms where x.ModuleID == item.ModuleID select x;
+                            ftemp = ftemp.OrderBy(m => m.FormLevel);
+                            if (ftemp.Count() > 0)
+                            {
+                                <table class="table table-bordered">
+
+                                    <tbody>
+                                        @foreach (var Xitem in ftemp)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="formlist" value="@Xitem.FormID" />
+                                                    @Html.DisplayFor(modelItem => Xitem.FormName)
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    }
+
+                    <div class="text-right">
+
+                        <button type="submit" class="btn btn-primary">Save<i class="icon-arrow-right14 position-right"></i></button>
+                        @Html.ActionLink("Cancel", "DIndex")
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+                        }

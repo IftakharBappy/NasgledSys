@@ -1,0 +1,52 @@
+﻿
+@model NasgledSys.Models.CityViewModel
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#StateCode").select2();
+    })
+</script>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Edit City</h4>
+        </div>
+        @using (Ajax.BeginForm("Edit", "City", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "UpdateCitySuccess" }, new { @class = "form-horizontal", role = "form" }))
+        {
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.CityKey)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CityName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CityName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CityName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StateCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("StateCode", null, string.Empty, new { @required = "required", id = "StateCode", @class = "select select-search" })
+                            @Html.ValidationMessageFor(model => model.StateCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save changes" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

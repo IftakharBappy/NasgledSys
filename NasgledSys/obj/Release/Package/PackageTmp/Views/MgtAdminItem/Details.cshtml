@@ -1,0 +1,150 @@
+﻿@model NasgledSys.Models.ItemViewModel
+@using NasgledSys.Models
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section SideBar{
+    <h4>
+        <i class="icon-arrow-left52 position-left"></i>
+        <span class="text-semibold"><a class="navbar-brand" href="@Url.Action("Index","Home")">Home</a></span>
+        <a class="navbar-brand" href="@Url.Action("Catelogue", "MgtAdminItem")"> <small class="display-block">Product List</small></a>
+
+    </h4>
+
+}
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary list-panel" id="list-panel">
+                <div class="panel-heading list-panel-heading">
+                    <h1 class="panel-title list-panel-title">Product Details</h1>
+
+                    <div id="deleteCityContainer" class="alert alert-info">
+                    </div>
+                </div>
+
+
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.FixtureKey, new { id = "FixtureKey" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label" })
+                        @Html.DisplayFor(model => model.ProductName)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ModelNo, htmlAttributes: new { @class = "control-label" })
+                           @Html.DisplayFor(model => model.ModelNo)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Watt, htmlAttributes: new { @class = "control-label" })
+                          @Html.DisplayFor(model => model.Watt)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThermalEfficacy, htmlAttributes: new { @class = "control-label" })
+                         @Html.DisplayFor(model => model.ThermalEfficacy)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CRI, htmlAttributes: new { @class = "control-label" })
+                        @Html.DisplayFor(model => model.CRI)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Lumen, htmlAttributes: new { @class = "control-label" })
+                        @Html.DisplayFor(model => model.Lumen)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LightApparent, htmlAttributes: new { @class = "control-label" })
+                          @Html.DisplayFor(model => model.LightApparent)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Source, htmlAttributes: new { @class = "control-label" })
+                         @Html.DisplayFor(model => model.Source)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "control-label" })
+                           @Html.DisplayFor(model => model.Brand)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LightOutput, htmlAttributes: new { @class = "control-label" })
+                           @Html.DisplayFor(model => model.LightOutput)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CCT, htmlAttributes: new { @class = "control-label" })
+                          @Html.DisplayFor(model => model.CCT)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "control-label" })
+                          @Html.DisplayFor(model => model.Size)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label" })
+                           @Html.DisplayFor(model => model.Location)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MountingBase, htmlAttributes: new { @class = "control-label" })
+                  @Html.DisplayFor(model => model.MountingBase)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LampLife, htmlAttributes: new { @class = "control-label" })
+                        @Html.DisplayFor(model => model.LampLife)
+                        </div>
+
+                    </div>
+                </div>
+            
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-primary list-panel" id="list-panel">
+
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <img src="@Url.Action("GetMainProductPic","ShowImage",new{id=Model.FixtureKey})" alt="User Image" /><br />
+                        
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TypeCount, htmlAttributes: new { @class = "control-label" })
+                            @Html.DisplayFor(model => model.TypeCount)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Subcategory, htmlAttributes: new { @class = "control-label" })
+                            @Html.DisplayFor(model => model.Subcategory)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Catelogue, htmlAttributes: new { @class = "control-label" })
+                            @Html.DisplayFor(model => model.Catelogue)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label" })
+                            @Html.DisplayFor(model => model.Type)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Manufacturer, htmlAttributes: new { @class = "control-label" })
+                            @Html.DisplayFor(model => model.Manufacturer)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MainProductDetail, htmlAttributes: new { @class = "control-label" })
+                            @Html.DisplayFor(model => model.MainProductDetail)
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+

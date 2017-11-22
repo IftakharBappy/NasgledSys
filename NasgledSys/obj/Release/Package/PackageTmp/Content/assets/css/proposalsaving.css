@@ -1,0 +1,26 @@
+﻿
+.list-group-item-heading {
+    margin-top: 7px;
+    margin-bottom: 7px;
+    margin-left: 90px;
+    font-size:12px;
+}
+a.list-group-item .list-group-item-heading {
+    color: #38AFD4;
+}
+
+img {
+    max-height: 40px;
+    max-width:40px;
+    padding-top: 0px;
+    margin: 0px;
+    color: #38AFD4;
+}
+p.list-group-item-text{
+    font-size:13px;
+    margin-left:15px;
+}
+.image{
+    margin-top:5px;
+}
+

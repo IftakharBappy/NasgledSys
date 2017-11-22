@@ -1,0 +1,331 @@
+﻿@model NasgledSys.Models.AddProductClass
+@using NasgledSys.Models;
+@using NasgledSys.DAL;
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@section scripts{<link href="~/Content/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //LoadItemList();
+       // LoadSuggestItemList();
+        LoadArea();
+        LoadFixture();
+       
+        $("#deletemsg").show().delay(1000).fadeOut();
+    });
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    $(function () {
+        $('a').click(function () {
+          // alert($(this).attr('discussKey'));
+            
+            $('#temp').val($(this).attr('discussKey'));
+           
+            var zz = "#temp";
+            var select = $('select[name=FixtureKey]');
+            $.ajax({
+                traditional: true,
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/DropdownUtility/loadFixture?FixtureKey=" + $(zz).val(),
+               // data: { FixtureKey: $(zz).val() },
+                success: function (data) {
+                    var res = "<option>Use Default</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        res = res + "<option value='" + data[i].FixtureKey + "' " + data[i].Selected + ">" + data[i].ProductName + "</option>";
+                    }
+                    select.html(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Error on ajax call");
+                }
+            });
+            window.location.hash = "item";
+        });
+    });
+    function LoadSuggestItemList() {
+        var select = $('#AutoSuggestion');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtAddProducts/GetSuggestList/",
+            success: function (data) {
+                select.html(JSON.stringify(data));
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadItemList() {
+        var select = $('#elementContainer');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/MgtAddProducts/GetItemList/",
+            success: function (data) {
+                select.html(JSON.stringify(data));
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadArea() {
+        var select = $('select[name=AreaKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadArea/",
+            data: JSON.stringify({ AreaKey: '@Model.AreaKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].AreaKey + "' " + data[i].Selected + ">" + data[i].AreaName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+   
+    function LoadFixture() {
+        var select = $('select[name=FixtureKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadFixture/",
+            data: JSON.stringify({ FixtureKey: '@Model.FixtureKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].FixtureKey + "' " + data[i].Selected + ">" + data[i].ProductName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+
+</script>
+    }
+@{
+    ManageAreaProduct manage = new ManageAreaProduct();
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.AreaObj.AreaKey;
+    string areaLink = "";
+    for (;;)
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+
+        if (area.ParentAreaKey == null)
+        {
+            break;
+        }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
+
+
+}
+@section CenterTitle{
+   Add Existing Product
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>  <a class="h4" href="@Url.Action("Created", "MgtProject", new { id = GlobalClass.Project.ProjectKey })">Projects</a>
+            <label>></label>@MvcHtmlString.Create(areaLink)
+
+        </span>
+      
+    </center>
+
+
+}
+
+<div class="content-wrapper">
+
+@using (Html.BeginForm("Create", "MgtAddProducts", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary()
+    @Html.HiddenFor(m => m.AreaObj.AreaKey)
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-8">
+                <input type="hidden"id="temp"name="temp" />
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <ul class="nav nav-pills">
+
+
+
+                            <li class="active"><a href="#tab-demo1" data-toggle="tab">Product</a></li>
+                            <li class="disabled"><a href="#">Details</a></li>
+                            <li class="disabled"><a href="#">Note</a></li>
+                            <li class="disabled"><a href="#">Photos</a></li>
+                            <li class="disabled"><a href="#">Documents</a></li>
+
+
+
+
+
+
+
+
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="tab-demo1">
+
+                                <div class="panel-body" id="item">
+                                    <div class="form-group">
+                                        <div class="h3 alert-info" id="deletemsg"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AreaKey)
+                                        <select name="AreaKey" placeholder="Select" id="AreaKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.AreaKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group" >
+                                        @Html.LabelFor(model => model.FixtureKey)
+                                        <select name="FixtureKey" placeholder="Select" id="FixtureKey" class="select select-search"></select>
+                                        @Html.ValidationMessageFor(model => model.FixtureKey, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Count)
+                                        @Html.TextBoxFor(model => model.Count, new { type = "number", placeholder = "existing count", id = "Count", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Description)
+                                        @Html.TextAreaFor(model => model.Description, new { placeholder = "Description", id = "Description", @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <center>
+                                        <a href="@Url.Action("Index", "MgtAddProducts", new { id = Model.AreaKey })" class="btn btn-warning btn-xlg" role="button">Cancel</a>
+
+                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="Save" name="Save" value="Save">Save</button>
+                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="Add" name="Add" value="AddAnother">Add Another</button>
+                                        <button type="submit" class="btn btn-default btn-xlg col-md-3" id="AddDetails" name="AddDetails" value="AddDetails">Add Details</button>
+                                    </center>
+
+                                </div>
+                                <div id="AutoSuggestion">
+                                    @MvcHtmlString.Create(manage.GetSuggestiveItem(GlobalClass.Project.ProjectKey))
+                                </div>
+                                <div id="elementContainer">
+                                    
+                                </div>
+                             
+                                                    <h3>Browse for Items</h3>
+                            <div class='sidebar-main sidebar-default'>
+                                <div class='sidebar-fixed'>
+                                    <div class='sidebar-content'>
+                                        <div class='sidebar-category sidebar-category-visible'>
+                                            <div class='category-content no-padding'>
+                                                @{
+                                                    var list = (from asset in db.ProfileProduct
+                                                                where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                                && asset.MainItemKey == null
+                                                                select new BrowseItemClass
+                                                                {
+
+                                                                    FixtureKey = asset.FixtureKey,
+                                                                    TypeCount = asset.TypeCount,
+                                                                    ProductName = asset.ProductName,
+                                                                    ModelNo = asset.ModelNo
+                                                                }).OrderBy(m => m.ProductName).ToList();
+                                                }
+                                                <ul class='navigation navigation-main navigation-accordion'>
+                                                    @foreach (var item in list)
+                                                    {
+
+                                                        ProfileProduct pr = db.ProfileProduct.Find(item.FixtureKey);
+                                                        var sublist = (from asset in db.ProfileProduct
+                                                                       where asset.ProfileKey == GlobalClass.ProfileUser.ProfileKey
+                                                                       && asset.MainItemKey == item.FixtureKey
+                                                                       select new BrowseItemClass
+                                                                       {
+
+                                                                           FixtureKey = asset.FixtureKey,
+                                                                           TypeCount = asset.TypeCount,
+                                                                           ProductName = asset.ProductName,
+                                                                           ModelNo = asset.ModelNo,
+                                                                           MainItemKey = asset.MainItemKey
+                                                                       }).OrderBy(m => m.ProductName).ToList();
+                                                        if (sublist.Count() > 0)
+                                                        {
+                                                            <li>
+                                                                <a href='#' discussKey='@item.FixtureKey'>@item.ProductName  <label>(</label> @item.TypeCount<label>)</label></a>
+                                                                <ul>
+                                                                    @foreach (var sitem in sublist)
+                                                                    {
+                                                                        @MvcHtmlString.Create(manage.IterateandRepeatThroughItem1(sitem))
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                               
+                                                        }
+                                                        else
+                                                        {
+                                                            <li><a href='#' discussKey='@item.FixtureKey'>@item.ProductName  <label>(</label> @item.TypeCount<label>)</label></a></li>
+                                                        }
+                                                    }
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+            <div class="col-md-2">&nbsp;</div>
+            </div>
+    </div>
+
+                                                        }
+
+</div>
+

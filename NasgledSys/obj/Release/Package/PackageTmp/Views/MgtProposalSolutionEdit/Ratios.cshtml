@@ -1,0 +1,99 @@
+﻿@model NasgledSys.Models.ProposalSolutionEditRatioViewModel
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "Solution";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+
+}
+
+@section CenterTitle{
+    @Html.DisplayFor(m => GlobalClass.Project.ProjectName) <label>Proposal</label>
+}
+@*@section SideBar{
+        <center>
+
+            <span class="heading-text">
+
+                <i class="icon-folder-download position-left"></i>
+                <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+                <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+                <label>></label>
+                <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+            </span>
+            <span class="heading-text pull-right">
+                <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
+            </span>
+        </center>
+
+
+    }*@
+<div class="content-wrapper">
+    @using (Html.BeginForm("Ratios", "MgtProposalSolutionEdit", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="form-horizontal">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="@Url.Action("Existing","MgtProposalSolutionEdit",new {proposalKey=Model.ProposalKey})">Existing</a></li>
+                                <li class="active"><a href="@Url.Action("Proposed","MgtProposalSolutionEdit",new { productKey=Model.ProductKey, proposalKey=Model.ProposalKey })">Proposed</a></li>
+                                <li class="active"><a href="#tab-demo1" data-toggle="tab">Ratios</a></li>
+                                <li class="active"><a href="@Url.Action("Details","MgtProposalSolutionEdit",new { productKey=Model.ProductKey, proposalKey=Model.ProposalKey})">Details</a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-demo1">
+                                    <h1>Update Soulution</h1>
+                                    @Html.HiddenFor(m => m.ProductKey)
+                                    @Html.HiddenFor(m => m.ProposalKey)
+                                    <div class="col-md-12">
+                                        <div class="col-md-5" style="border:solid;border-color:gray; padding:50px;">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m => m.ForEveryMainQty, new { @class = "form-control" })
+                                                @Html.DisplayFor(m => m.ProfileProductNameText)
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" style="text-align:center;">
+                                            >>
+                                        </div>
+                                        <div class="col-md-5" style="border:solid;border-color:gray; padding:50px;">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m => m.ReplaceQty, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="small text-muted">FYI: For 1 to 1 replacement, set both numbers to 1. To delamp, set the replacement number lower than the first number. To unlamp, sdo the opposite.</span>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default border-blue" onclick="location.href='@Url.Action("Proposed", "MgtProposalSolutionEdit", new { productKey = Model.ProductKey, proposalKey = Model.ProposalKey })'">Back</button>
+                                        <button type="submit" class="btn btn-success">Next</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+
+</div>
+<script src="~/Content/datatables/jquery.dataTables.js"></script>
+<script src="~/Content/datatables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Nasgled</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/Content/js")
+
+</head>
+
+<body>
+    @RenderSection("scripts", required: false)
+@using NasgledSys.Models
+   
+    <!-- Main navbar -->
+    <div class="navbar navbar-inverse bg-indigo">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">
+              NASGLED Admin Panel</a>
+            <ul class="nav navbar-nav pull-right visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+           
+            <ul class="nav navbar-nav navbar-right">
+                
+               
+                <li class="dropdown dropdown-user">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                       
+                        <img src="~/Content/assets/images/placeholder.jpg"alt="" />
+                        <span>@Html.DisplayFor(m=>GlobalClass.LoginUser.PName)</span>
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="@Url.Action("MyProfile","MgtStaff")"><i class="icon-user-plus"></i> My profile</a></li>
+                        <li><a href="@Url.Action("EditMyProfile","MgtStaff")"><i class="icon-user-plus"></i>Edit My profile</a></li>
+                      
+                        <li class="divider"></li>
+                        
+                        <li><a href="@Url.Action("Logout","Home")"><i class="icon-switch2"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /main navbar -->
+    <!-- Second navbar -->
+    <div class="navbar navbar-default" id="navbar-second">
+        <ul class="nav navbar-nav no-border visible-xs-block">
+            <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
+        </ul>
+        <div class="navbar-collapse collapse" id="navbar-second-toggle">
+            <ul class="nav navbar-nav navbar-nav-material">
+                <li class="active"><a href="@Url.Action("Index","Home")"><i class="icon-display4 position-left"></i> Dashboard</a></li>
+                <li class="dropdown mega-menu mega-menu-wide">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-puzzle4 position-left"></i> Menu <span class="caret"></span></a>
+                    <div class="dropdown-menu dropdown-content">
+                        <div class="dropdown-content-body">
+                            <div class="row">
+                               @{
+                                   foreach (var item in GlobalClass.ModuleList)
+                                   {
+
+                                    <div class="col-md-4">
+                                        <span class="menu-heading underlined">@Html.DisplayFor(m => item.ModuleName)</span>
+                                        <ul>
+                                            @{
+                                                foreach (var fitem in item.formList)
+                                                {
+                                                    <li><a href="@Url.Action(fitem.FormView, fitem.FormController)">@fitem.FormName</a></li>
+                                                }
+                                            }                                
+
+                                        </ul>
+                                    </div>
+                                   }
+                            }
+                            </div>
+                            @*88888888888888888888888888888888888888888888888*@
+                           
+                        </div>
+                    </div>
+                </li>
+
+
+            </ul>
+           
+        </div>
+    </div>
+    <!-- /second navbar -->
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+               
+                    @if (IsSectionDefined(("SideBar")))
+                    {
+                        @RenderSection("SideBar", required:false)
+                    }
+                     else
+                    {
+                        <h4>
+                            <i class="icon-arrow-left52 position-left"></i>
+                            <span class="text-semibold">Home</span> - Dashboard
+                            <small class="display-block">Good morning, @Html.DisplayFor(m => GlobalClass.LoginUser.PName)</small>
+                        </h4>
+                    }                       
+            </div>
+           
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main content -->
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+            <!-- /main content -->
+        </div>
+        <!-- /page content -->
+    </div>
+    <!-- /page container -->
+    <!-- Footer -->
+    <div class="footer text-muted">
+        &copy; @DateTime.Now.Year - NasGLED
+
+    </div>
+    <!-- /footer -->
+   
+</body>
+</html>

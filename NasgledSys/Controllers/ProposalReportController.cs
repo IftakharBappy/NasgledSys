@@ -15,6 +15,13 @@ namespace NasgledSys.Controllers
 
             model.ProposalKey = id;
 
+            ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
+           
+           
+            model.CompanyKey = company.ClientCompanyKey;
+            model.CompanyName = company.CompanyName;
+          
+
             IQueryable<ReportTemplate> query = db.ReportTemplate;
 
             var data = query.Select(asset => new ReportTemplateModel()

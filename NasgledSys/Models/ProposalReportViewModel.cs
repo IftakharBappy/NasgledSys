@@ -11,5 +11,7 @@ namespace NasgledSys.Models
         public List<ReportTemplateModel> ToReportTemplateList { get; set; }
 
         public System.Guid ProposalKey { get; set; }
+        public System.Guid CompanyKey { get; set; }
+        public string CompanyName { get; set; }
     }
 }

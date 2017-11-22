@@ -1,0 +1,717 @@
+﻿@model NasgledSys.Models.AreaClass
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "AddAreas";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/pages/components_modals.js"></script>
+
+<script src="~/Content/assets/js/plugins/forms/inputs/formatter.min.js"></script>
+<script src="~/Content/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadParentArea();
+        LoadOperatingSchedule();
+        LoadRateSchedule();
+        LoadHeating();
+        LoadCooling();
+
+        LoadSystemTypeC();
+        LoadFuelTypeC();
+        LoadEfficiencyTypeC();
+        LoadSystemTypeH();
+        LoadFuelTypeH();
+        LoadEfficiencyTypeH();
+        $("#deletemsg").show().delay(1000).fadeOut();
+    });
+     function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    $(function () {
+        $('#ParentAreaKey').change(function() {    
+            var item = $(this);
+            alert(item.val())
+            var urlX = '@Url.Content("~/")' + "Utility/GetParentAreaName";
+            $.getJSON(urlX, { AreaKey: $(item).val() }, function (data) {
+                $('#ParentAreaName').val(data);
+
+            });
+                });
+    });
+    $(function () {
+        $('#OperationScheduleKey')
+                .select2()
+                .on('select2:open', () => {
+                    $(".select2-results:not(:has(a))").append('<a data-toggle="modal" data-target="#modal_Operating" style="padding: 6px;height: 20px;display: inline-table;">New Operating Schedule</a>');
+                });
+    });
+    $(function () {
+        $('#NewRateScheduleKey')
+                .select2()
+                .on('select2:open', () => {
+                    $(".select2-results:not(:has(a))").append('<a data-toggle="modal" data-target="#modal_Rate" style="padding: 6px;height: 20px;display: inline-table;">Add New</a>');
+                });
+    });
+    $(function () {
+        $('#CoolingSystemKey')
+                .select2()
+                .on('select2:open', () => {
+                    $(".select2-results:not(:has(a))").append('<a data-toggle="modal" data-target="#modal_cooling" style="padding: 6px;height: 20px;display: inline-table;">Add New</a>');
+                });
+    });
+    $(function () {
+        $('#HeatingSystemKey')
+                .select2()
+                .on('select2:open', () => {
+                    $(".select2-results:not(:has(a))").append('<a data-toggle="modal" data-target="#modal_Heating" style="padding: 6px;height: 20px;display: inline-table;">Add New</a>');
+                });
+    });
+    function LoadFuelTypeH() {
+        var select = $('select[name=FuelTypeKey1]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadFuelType/",
+            data: JSON.stringify({ FuelTypeKey: '@Guid.Empty' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadFuelTypeC() {
+        var select = $('select[name=FuelTypeKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadFuelType/",
+            data: JSON.stringify({ FuelTypeKey: '@Guid.Empty' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadSystemTypeH() {
+        var select = $('select[name=SystemTypeKey1]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadHeatingSystemType/",
+            data: JSON.stringify({ SystemTypeKey: '@Guid.Empty' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadEfficiencyTypeH() {
+        var select = $('select[name=EfficiencyTypeKey1]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadEfficiencyTypeH/",
+            data: JSON.stringify({ EfficiencyTypeKey: '@Guid.Empty' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadSystemTypeC() {
+        var select = $('select[name=SystemTypeKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadCoolingSystemType/",
+            data: JSON.stringify({ SystemTypeKey: '@Guid.Empty' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadEfficiencyTypeC() {
+        var select = $('select[name=EfficiencyTypeKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadEfficiencyTypeC/",
+            data: JSON.stringify({ EfficiencyTypeKey: '@Guid.Empty' }),
+            success: function (data) {
+                var res = "<option>Select</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].TypeName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadParentArea() {
+        var select = $('select[name=ParentAreaKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadParentArea/",
+            data: JSON.stringify({ ParentAreaKey: '@Model.ParentAreaKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].AreaKey + "' " + data[i].Selected + ">" + data[i].AreaName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadOperatingSchedule() {
+        var select = $('select[name=OperationScheduleKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadOperationSchedule/",
+            data: JSON.stringify({ OperationScheduleKey: '@Model.OperationScheduleKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].OPName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+
+    function LoadRateSchedule() {
+        var select = $('select[name=NewRateScheduleKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadNewRateSchedule/",
+            data: JSON.stringify({ NewRateScheduleKey: '@Model.NewRateScheduleKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].NRName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadCooling() {
+        var select = $('select[name=CoolingSystemKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadCoolingSystem/",
+            data: JSON.stringify({ CoolingSystemKey: '@Model.CoolingSystemKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].CoolingSystemKey + "' " + data[i].Selected + ">" + data[i].SystemName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function LoadHeating() {
+        var select = $('select[name=HeatingSystemKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/LoadHeatingSystem/",
+            data: JSON.stringify({ HeatingSystemKey: '@Model.HeatingSystemKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].HeatingSystemKey + "' " + data[i].Selected + ">" + data[i].SystemName + "</option>";
+                }
+                select.html(res);
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+    function CreateOperatingSchedule(data) {
+
+        if (data != "success") {
+            $('#deleteCityContainer').html(data);
+            $('#modal_Operating').modal('show');
+        }
+        else {
+            $('#ScheduleName').val("");
+            $('#OptHour').val("");
+            $('#deleteCityContainer').html("Data has been Saved Successfully");
+            //$('#modal_Operating').modal('hide');
+
+            LoadOperatingSchedule();
+
+        }
+    }
+    function CreateNewRate(data) {
+
+        if (data != "success") {
+            $('#deleteCityContainer1').html(data);
+            $('#modal_Rate').modal('show');
+        }
+        else {
+            $('#RateName').val("");
+            $('#Rate').val("");
+
+            //$('#modal_Rate').modal('hide');
+            $('#deleteCityContainer1').html("Data has been Saved Successfully");
+            LoadRateSchedule();
+        }
+    }
+    function CreateCoolingSystem(data) {
+
+        if (data != "success") {
+            $('#deleteCityContainer2').html(data);
+            $('#modal_cooling').modal('show');
+        }
+        else {
+            $('#SystemName').val("");
+            $('#RunTime').val("");
+            $('#FCost').val("");
+            $('#EfficiencyValue').val("");
+
+            //$('#modal_cooling').modal('hide');
+            $('#modal_cooling').html("Data has been Saved Successfully");
+            LoadCooling();
+        }
+    }
+    function CreateHeatingSystem(data) {
+
+        if (data != "success") {
+            $('#deleteCityContainer3').html(data);
+            $('#modal_Heating').modal('show');
+        }
+        else {
+            $('#SystemName1').val("");
+            $('#RunTime1').val("");
+            $('#FCost1').val("");
+            $('#EfficiencyValue1').val("");
+
+            //$('#modal_Heating').modal('hide');
+            $('#deleteCityContainer3').html("Data has been Saved Successfully");
+            LoadHeating();
+
+
+        }
+    }
+</script>
+@{
+    NasgledDBEntities db = new NasgledDBEntities();
+    Guid? ak = Model.ParentAreaKey;
+    string areaLink = "";
+    for (;;)
+    {
+        Area area = db.Area.Find(ak);
+        areaLink = "<a class='h4' href='/MgtSubArea/Edit?id=" + area.AreaKey.ToString() + "'>" + area.AreaName + "</a> <label>></label>" + areaLink;
+
+        if (area.ParentAreaKey == null)
+        {
+            break;
+        }
+        else
+        {
+            ak = area.ParentAreaKey;
+        }
+    }
+}
+@section CenterTitle{
+    Add Area
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("Created","MgtProject")">@Html.DisplayFor(m => GlobalClass.Project.ProjectName)</a>
+            <label>></label>@MvcHtmlString.Create(areaLink)
+        </span>
+
+    </center>
+}
+<div class="content-wrapper">
+    @using (Html.BeginForm("Create", "MgtSubArea", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary()
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-2">&nbsp;</div>
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#tab-demo1" data-toggle="tab">Area</a></li>
+                                <li class="disabled"><a href="#" data-toggle="tab">Product</a></li>
+                                <li class="disabled"><a href="#" data-toggle="tab">Details</a></li>
+                                <li class="disabled"><a href="#" data-toggle="tab">Sub-Areas</a></li>
+                                <li class="disabled"><a href="#" data-toggle="tab">Photos</a></li>
+                                <li class="disabled"><a href="#" data-toggle="tab">Documents</a></li>
+                                <li class="disabled"><a href="#" data-toggle="tab">Notes</a></li>
+                                <li class="disabled"><a href="#" data-toggle="tab">Copy</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab-demo1">
+                                    <div class="panel-heading">
+                                        <div class="col-md-8"><h3>Area</h3></div>
+                                        <div class="col-md-4">
+                                            <button type="submit" class="btn btn-primary btn-xlg col-lg-8" id="btnAdd">Add</button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="h3 alert-info" id="deletemsg"></div>
+                                        </div>
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })                                      
+                                        @Html.HiddenFor(model => model.ProjectKey, new { id = "ProjectKey" })
+                                        @Html.HiddenFor(model => model.IsParent, new { id = "IsParent" })
+                                        @Html.HiddenFor(model => model.IsSubEdit, new { id = "IsSubEdit" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AreaName)
+                                            @Html.TextBoxFor(model => model.AreaName, new { placeholder = "Area Name", id = "AreaName", @class = "form-control" })
+
+                                            @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ParentAreaKey)
+                                            <select name="ParentAreaKey" placeholder="Select" id="ParentAreaKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.ParentAreaKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ParentAreaName)
+                                            @Html.TextBoxFor(model => model.ParentAreaName, new { @readonly = "readonly", id = "ParentAreaName", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ParentAreaName, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.SquareFeet)
+                                            @Html.TextBoxFor(model => model.SquareFeet, new { @onkeypress = "return isNumberKey(event)", placeholder = "Square Feet", id = "SquareFeet", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.SquareFeet, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.OperationScheduleKey)
+                                            <select name="OperationScheduleKey" placeholder="Select" id="OperationScheduleKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.OperationScheduleKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.NewRateScheduleKey)
+                                            <select name="NewRateScheduleKey" placeholder="Select" id="NewRateScheduleKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.NewRateScheduleKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CoolingSystemKey)
+                                            <select name="CoolingSystemKey" placeholder="Select" id="CoolingSystemKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.CoolingSystemKey, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.HeatingSystemKey)
+                                            <select name="HeatingSystemKey" placeholder="Select" id="HeatingSystemKey" class="select select-search"></select>
+                                            @Html.ValidationMessageFor(model => model.HeatingSystemKey, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <center><a href="@Url.Action("Created", "MgtArea",new { id=Model.ParentAreaKey})" class="btn btn-warning btn-xlg col-md-4" role="button">Cancel</a>
+                                            <span class="col-md-2">&nbsp;</span>
+                                            <button type="submit" class="btn btn-info btn-xlg col-md-6" id="btnsave" name="btnsave">Add Area</button></center>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">&nbsp;</div>
+            </div>
+        </div>
+    }
+
+    <div id="modal_Heating" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">New Cooling System</h4></center>
+                </div>
+                @using (Ajax.BeginForm("SaveNewHeatingSystem", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateHeatingSystem" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <div class="control-label">Name <span class="alert-danger">*..</span></div>
+                                <input type="text" required="required" name="SystemName1" placeholder="heating name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Annual Run Time %<span class="alert-danger">*..</span></div>
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="RunTime1" required="required" placeholder="annual runtime percentage" class="form-control" />
+                                <p class="text-muted">% of Year running, enter 50 for 50%</p>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">System Type<span class="alert-danger">*..</span></div>
+                                <select name="SystemTypeKey1" required="required" id="SystemTypeKey1" class="form-control"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Fuel Type<span class="alert-danger">*..</span></div>
+                                <select name="FuelTypeKey1" required="required" id="FuelTypeKey1" class="form-control"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="FCost1" required="required" placeholder="fuel cost" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
+                                <select name="EfficiencyTypeKey1" required="required" id="EfficiencyTypeKey1" class="form-control"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="EfficiencyValue1" required="required" placeholder="efficiency value" class="form-control" />
+                            </div>
+                            <div class="h3 alert-info" id="deleteCityContainer3">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="Save1" id="Save1" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+    <div id="modal_cooling" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">New Cooling System</h4></center>
+                </div>
+                @using (Ajax.BeginForm("SaveNewCoolingSystem", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateCoolingSystem" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <div class="control-label">Name <span class="alert-danger">*..</span></div>
+                                <input type="text" required="required" name="SystemName" placeholder="cooling name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Annual Run Time %<span class="alert-danger">*..</span></div>
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="RunTime" required="required" placeholder="annual runtime percentage" class="form-control" />
+                                <p class="text-muted">% of Year running, enter 50 for 50%</p>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">System Type<span class="alert-danger">*..</span></div>
+                                <select name="SystemTypeKey" required="required" id="SystemTypeKey" class="form-control"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Fuel Type<span class="alert-danger">*..</span></div>
+                                <select name="FuelTypeKey" required="required" id="FuelTypeKey" class="form-control"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Fuel Cost<span class="alert-danger">*..</span></div>
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="FCost" required="required" placeholder="fuel cost" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Efficiency Type<span class="alert-danger">*..</span></div>
+                                <select name="EfficiencyTypeKey" required="required" id="EfficiencyTypeKey" class="form-control"></select>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Efficiency Value<span class="alert-danger">*..</span></div>
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="EfficiencyValue" required="required" placeholder="efficiency value" class="form-control" />
+                            </div>
+                            <div class="h3 alert-info" id="deleteCityContainer2">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="Save1" id="Save1" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+    <div id="modal_Rate" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">New Rate Schedule</h4></center>
+                </div>
+                @using (Ajax.BeginForm("SaveNewRateSchedule", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateNewRate" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <div class="control-label">Name <span class="alert-danger">*..</span></div>
+                                <input type="text" required="required" name="RateName" placeholder="schedule name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Blended Electricity Rate<span class="alert-danger">*..</span></div>
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="Rate" required="required" placeholder="$/kWh" class="form-control" />
+                            </div>
+
+
+                            <div class="h3 alert-info" id="deleteCityContainer1">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="Save1" id="Save1" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+    <div id="modal_Operating" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center><h4 class="modal-title panel panel-success panel-heading">New Operating Schedule</h4></center>
+                </div>
+                @using (Ajax.BeginForm("SaveNewOperatingSchedule", "MgtArea", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "CreateOperatingSchedule" }, new { @class = "form-horizontal", role = "form" }))
+            {
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <div class="control-label">Name <span class="alert-danger">*..</span></div>
+                                <input type="text" required="required" name="ScheduleName" placeholder="schedule name" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Annual Operating Hours<span class="alert-danger">*..</span></div>
+                                <input type="text" onkeypress = "return isNumberKey(event)" name="OptHour" required="required" placeholder="annual hours" class="form-control" />
+                            </div>
+
+
+                            <div class="h3 alert-info" id="deleteCityContainer">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="Save" id="Save" value="Save" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

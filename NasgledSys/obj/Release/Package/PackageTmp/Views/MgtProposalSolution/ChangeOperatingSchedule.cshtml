@@ -1,0 +1,113 @@
+﻿@model NasgledSys.Models.ChangeOperatingScheduleClass
+
+@using NasgledSys.Models;
+@{
+    ViewBag.Title = "OperatingScheduleChange";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        LoadOperatingSchedule();
+
+    });
+    function LoadOperatingSchedule() {
+        var select = $('select[name=OperatingScheduleKey]');
+        $.ajax({
+            traditional: true,
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/DropdownUtility/loadOperationSchedule/",
+            data: JSON.stringify({ OperationScheduleKey: '@Model.OperatingScheduleKey' }),
+            success: function (data) {
+                var res = "<option>Use Default</option>";
+                for (var i = 0; i < data.length; i++) {
+                    res = res + "<option value='" + data[i].PKey + "' " + data[i].Selected + ">" + data[i].OPName + "</option>";
+                }
+                select.html(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Error on ajax call");
+            }
+        });
+    }
+</script>
+@section CenterTitle{
+    @Html.DisplayFor(m => GlobalClass.Project.ProjectName) <label>Proposal</label>
+}
+@section SideBar{
+    <center>
+
+        <span class="heading-text">
+
+            <i class="icon-folder-download position-left"></i>
+            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <label>></label>
+            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+        </span>
+
+    </center>
+
+
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-pills">
+
+                        <li class="active"><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
+                        <li class="active"><a href="@Url.Action("Index","MgtProposalSolution",new { id=Model.ProposalKey})">Solutions</a></li>
+
+                        <li class="active"><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Saving</a></li>
+
+                        <li class="active"><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
+                        <li class="active"><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
+                        <li class="active"><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
+
+                        <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab-demo1">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.HiddenFor(model=>model.ProductKey,new {id= "ProductKey" })
+                                @Html.HiddenFor(model => model.ProposalKey, new { id = "ProposalKey" })
+                                @Html.ValidationSummary()
+                                <div class="form-horizontal">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Apply an operating Schedule to Solution
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.OperatingScheduleKey)
+                                                <select name="OperatingScheduleKey" placeholder="Select" id="OperatingScheduleKey" class="select select-search"></select>
+                                                @Html.ValidationMessageFor(model => model.OperatingScheduleKey, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <a href="@Url.Action("Index", "MgtProposalSolution",new { id=Model.ProposalKey})" class="btn btn-warning btn-xlg col-md-4" role="button">Cancel</a>
+                                            <input type="submit" class="btn btn-info btn-xlg col-md-6" id="btnsave" name="btnsave" value="Create" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">&nbsp;</div>
+        </div>
+    </div>

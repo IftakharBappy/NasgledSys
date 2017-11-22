@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<script type="text/javascript">
+   
+</script>
+@section SideBar{
+<center>
+    <h4>
+        <span class="heading-text">
+            <i class="icon-folder-download position-left"></i> > Registration > <a href="@Url.Action("Index","MgtRole")">Role ></a><a href="@Url.Action("GetAllProfile","MgtProfile")">Profile ></a><a href="@Url.Action("Index","MgtCCompany")">Company</a>
+        </span>
+    </h4>
+    </center>
+}
+@section CenterTitle{
+    Company
+}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="reload"></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <center>
+                        <h3>Create a Company</h3><h4>If you are the first person in your company, then create the button below to create a new company</h4>
+
+
+
+                        <div class="form-group">
+                            <a href="@Url.Action("Create","MgtClientCompany")" class="btn btn-primary btn-rounded btn-xlg col-lg-10">Create a new Company</a>
+                        </div>
+                        <h3>Join a Company</h3><h4>To join an existing company, please contact someone from that company and ask them to add you as a team member</h4>
+                        <div class="form-group">
+                            <a href="@Url.Action("JoinCompany","MgtProfile")" class="btn btn-primary btn-rounded btn-xlg col-lg-10">Get Started</a>
+                        </div>
+                    </center>
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>
+</div>
