@@ -226,7 +226,7 @@ namespace NasgledSys.Controllers
         {
             Session["counter"] = 0;
             var list = Session["counter"];
-
+            Session["GlobalMessege"] = "";
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ProjectByCompanyReroute()

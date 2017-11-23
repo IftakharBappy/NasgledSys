@@ -143,6 +143,19 @@ namespace NasgledSys.Models
 
 
     }
+    public class ProposalViewClass
+    {
+        public Guid? ProjectKey { get; set; }
+        public Guid? ProposalKey { get; set; }      
+        public string ProposalName { get; set; }
+        public string TotalPrice { get; set; }
+        public string Incentives { get; set; }
+        public string NetPrice { get; set; }
+        public string AnnualSaving { get; set; }
+        public string ROI { get; set; }
+
+
+    }
     public class SummaryClass
     {
         public Guid? ProjectKey { get; set; }
@@ -160,7 +173,9 @@ namespace NasgledSys.Models
         public decimal? CostOfGoodsSold { get; set; }
         public decimal? NetSavings { get; set; }
         public decimal? SimplePaybackYears { get; set; }
+        public string SimplePaybackYearsString { get; set; }
         public decimal? SimpleROI { get; set; }
+        public string SimpleROIstring { get; set; }
         public decimal? GrossMargin { get; set; }
         public decimal? GrossMarginPercentage { get; set; }
         public decimal? TotalProjectPrice { get; set; }

@@ -15,14 +15,15 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-      
-        var item = "#PreparedByUser";         
+
+        var item = "#PreparedByUser";
         var urlX = '@Url.Content("~/")' + "MgtProposal/GetProfileUsername";
             $.getJSON(urlX, { id: $(item).val() }, function (data) {
                 $('#PreparedByUser').val(data);
             });
-      
-     
+
+           // GetClientCompanyListData();
+
     });
 
         var CityListVM;
@@ -46,7 +47,7 @@
                                 data.Incentives = $("#Incentives").val();
                                 data.NetPrice = $("#NetPrice").val();
                                 data.AnnualSaving = $("#AnnualSaving").val();
-                                data.ROI = $("#ROI").val();                            
+                                data.ROI = $("#ROI").val();
                             }
                         },
                         "columns": [
@@ -84,17 +85,68 @@
                     dt.ajax.reload();
                 }
             }
-
             // Advanced Search Modal Search button click handler
             $('#btnPerformAdvancedSearch').on("click", CityListVM.refresh);
-
             // initialize the datatables
             CityListVM.init();
-
-
-
         });
 
+
+    //var baseList = [];
+    //var filteredList = [];
+   
+    //function search() {
+    //    filteredList = [];
+    //    var searchText = $("#searchText").val().toLowerCase();
+    //    if (searchText == "") {
+    //        filteredList = baseList;
+    //        remakeGrid();
+    //    }
+    //    else {
+    //        baseList.forEach(function (item) {
+    //            if (item.ProposalName.toLowerCase().includes(searchText)) {
+    //                filteredList.push(item);
+    //            }
+    //        });
+    //        remakeGrid();
+    //    }
+    //}
+    //function remakeGrid() {
+    //    var res = "";
+    //    $("#elementContainer").html("");
+    //    res = "<table id='Citys-data-table' class='table table-striped table-bordered' style='width:100%;'><thead><tr><th>Proposal Name</th><th>Total Price</th><th>Incentives</th><th>Net Price</th><th>Annual Savings</th><th>ROI</th><th>Copy</th><th>View</th></tr></thead>"
+    //    + "<tbody>";
+    //    for (var i = 0; i < filteredList.length; i++) {
+
+    //        res = res + "<tr>"
+    //               + "<td>" + filteredList[i].ProposalName + "</td>" + "<td>" + filteredList[i].TotalPrice + "</td>" + "<td>" + filteredList[i].Incentives + "</td>"
+    //               + "<td>" + filteredList[i].NetPrice + "</td>" + "<td>" + filteredList[i].AnnualSaving + "</td>" + "<td>" + filteredList[i].ROI + "</td>"
+    //                 + "<td><a href='/MgtProposal/Copy?id=" + filteredList[i].ProposalKey + "' class='btn btn-success btn-xs' role='button'>Copy</a></td>"
+    //                 + "<td><a href='/MgtProposal/Summary?id=" + filteredList[i].ProposalKey + "' class='btn btn-info btn-xs' role='button'>View</a></td>"         
+                    
+    //                 + "</tr>";
+    //    }
+    //    res =res+ "</tbody></table>";
+    //    $("#elementContainer").html(res);
+    //}
+    //function GetClientCompanyListData() {
+    //    $.ajax({
+    //        traditional: true,
+    //        type: "post",
+    //        dataType: "json",
+    //        contentType: "application/json",
+    //        url: "/MgtProposal/GetProposalProductList/",
+    //        //data: JSON.stringify({ clientCompanyKey: '#' }),
+    //        success: function (data) {
+    //            baseList = data;
+    //            filteredList = data;
+    //            remakeGrid();
+    //        },
+    //        error: function (xhr, textStatus, errorThrown) {
+    //            console.log("Error on ajax call");
+    //        }
+    //    });
+    //}
 
 
 
@@ -165,6 +217,10 @@
                             <div class="tab-pane fade in active" id="tab-demo2">
                                 <div class="panel-body">
                                     <table id="Citys-data-table" class="table table-striped table-bordered" style="width:100%;"></table>
+                                    <div class="container" id="elementContainer">
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -12,6 +12,7 @@ using NasgledSys.Validation;
 using System.Globalization;
 using NasgledSys.DAL;
 using DataTables.Mvc;
+using NasgledSys.Calculations;
 using System.Linq.Dynamic;
 
 namespace NasgledSys.Controllers
@@ -20,6 +21,7 @@ namespace NasgledSys.Controllers
     {
         // GET: MgtProposal
         private NasgledDBEntities db = new NasgledDBEntities();
+        private CalculateProposalCosts Costs = new CalculateProposalCosts();
         public JsonResult GetFinanceCompanyList()
         {
             var list = (from x in db.FinanceCompany
@@ -101,6 +103,7 @@ namespace NasgledSys.Controllers
         {
             try
             {
+                Project proj = db.Project.Find(GlobalClass.Project.ProjectKey);
                 Proposal contact = new Proposal();
                 contact.ProposalKey = Guid.NewGuid();
                 contact.ProposalName = ProposalName;
@@ -109,12 +112,13 @@ namespace NasgledSys.Controllers
                 contact.CreateDate = System.DateTime.Now;
                 contact.PreparedBy = GlobalClass.LoggedInUser.ProfileKey;
                 contact.IsDelete = false;
-                contact.MarkupPercentage = 0;
-                contact.LaborCost = 0;
-                contact.ShippingCost = 0;
-                contact.MiscCost = 0;
-                contact.TaxIncentives = 0;
-                contact.ProductMargin = 0;
+                contact.MarkupPercentage =proj.MarkupPercentage;
+                contact.LaborCost = proj.LaborCost;
+                contact.ShippingCost = proj.ShippingCost;
+                contact.MiscCost = proj.MiscCost;
+                contact.TaxIncentives = proj.TaxIncentives;
+                contact.ProductMargin = proj.ProductMargin;
+               
                 db.Proposal.Add(contact);
                 var task = db.SaveChangesAsync();
                 await task;
@@ -130,6 +134,28 @@ namespace NasgledSys.Controllers
                 return Content("Error");
             }
         }
+
+        public JsonResult GetProposalProductList()
+        {
+            var query = db.Proposal.Where(m => m.ProjectKey == GlobalClass.Project.ProjectKey && m.IsDelete == false);
+            List<ProposalViewClass> data = new List<ProposalViewClass>();
+            foreach (var item in query)
+            {
+                SummaryClass s = GetAllCosts(item.ProposalKey);
+                ProposalViewClass obj = new ProposalViewClass();
+                obj.ProjectKey = item.ProjectKey;
+                obj.ProposalKey = item.ProposalKey;
+                obj.ProposalName = item.ProposalName;
+                obj.TotalPrice = (s.TotalProjectPrice).ToString();
+                obj.Incentives = (s.EstimatedIncentiveRebate).ToString();
+                obj.NetPrice = (s.NetProjectPrice).ToString();
+                obj.AnnualSaving = (s.AnnualCostSaving).ToString();
+                obj.ROI = (s.SimpleROIstring).ToString();
+                data.Add(obj);
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetProposal([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestModel, AdvancedSearchViewModel searchViewModel)
         {
             IQueryable<Proposal> query = db.Proposal.Where(m => m.ProjectKey == GlobalClass.Project.ProjectKey && m.IsDelete == false);
@@ -142,21 +168,67 @@ namespace NasgledSys.Controllers
             // Paging
             query = query.Skip(requestModel.Start).Take(requestModel.Length);
 
-            var data = query.Select(asset => new
+            List<ProposalViewClass> data = new List<ProposalViewClass>();
+            foreach(var item in query)
             {
-                ProjectKey = asset.ProjectKey,
-                ProposalKey = asset.ProposalKey,
-                ProposalName =asset.ProposalName,
-                TotalPrice=asset.ProjectDescription,
-                Incentives=asset.Legal,
-                NetPrice = asset.Legal,
-                AnnualSaving = asset.Legal,
-                ROI = asset.Legal
-            }).ToList();
+                ProposalViewClass obj = new ProposalViewClass();
+                SummaryClass s = GetAllCosts(item.ProposalKey);
+                obj.ProjectKey = item.ProjectKey;
+                obj.ProposalKey = item.ProposalKey;
+                obj.ProposalName = item.ProposalName;
+                obj.TotalPrice = (s.TotalProjectPrice).ToString();
+                obj.Incentives = (s.EstimatedIncentiveRebate).ToString();
+                obj.NetPrice = (s.NetProjectPrice).ToString();
+                obj.AnnualSaving = (s.AnnualCostSaving).ToString();
+                obj.ROI = (s.SimpleROIstring).ToString();
+                data.Add(obj);
+            }
+           
             return Json(new DataTablesResponse(requestModel.Draw, data, filteredCount, totalCount), JsonRequestBehavior.AllowGet);
 
         }
+        public SummaryClass GetAllCosts(Guid id)
+        {
+           
+                   
+                    Proposal p = db.Proposal.Find(id);
+                    if (p.ProductMargin == null) p.ProductMargin = 0;
+                    SummaryClass model = new SummaryClass();
+                   
+                    model.ProductCosts = Costs.GetProductCost(p.ProposalKey);
+                    model.LaborCosts = Costs.GetLaborCost(p.ProposalKey);
+                    model.ShippingCosts = Costs.GetShippingCost(p.ProposalKey);
+                    model.MiscProductCost = Costs.GetMiscCost(p.ProposalKey);
+                    model.EstimatedSalesTax = 0;
+                    model.CostOfGoodsSold = model.ProductCosts + model.LaborCosts + model.ShippingCosts + model.MiscProductCost + model.EstimatedSalesTax;
+                    model.NetSavings = 0;
+                    model.SimplePaybackYears = 0;
+                    model.SimpleROI = 0;
+                    model.GrossMarginPercentage = p.ProductMargin;
+                    model.GrossMargin = Costs.GetGrossMarginAmount(p.ProductMargin, model.CostOfGoodsSold);
+                    model.TotalProjectPrice = model.GrossMargin + model.CostOfGoodsSold;
+                    model.EstimatedIncentiveRebate = Costs.GetEstimatedIncentiveRebate(p.ProposalKey);
+                    model.NetProjectPrice = model.TotalProjectPrice - model.EstimatedIncentiveRebate;
+                 
 
+            ////////////////////////////////////////////////
+            model.TotalProjectSaving = Costs.GetEstimatedIncentiveRebate(p.ProposalKey);
+            model.AnnualCostSaving = Costs.GetExistingCost(p.ProjectKey) - Costs.GetNewCost(p.ProjectKey);
+            model.AnnualEnergySaving = Costs.GetExistingEnergy(p.ProjectKey) - Costs.GetNewEnergy(p.ProjectKey);
+            
+            model.MiscProductCost = Costs.GetMiscCost(p.ProposalKey);
+            model.EstimatedSalesTax = 0;
+           
+            /////////////////////////////////////
+            model.NetSavings = model.TotalProjectSaving + model.AnnualCostSaving;
+            model.SimplePaybackYearsString = ((decimal)(model.NetProjectPrice / model.NetSavings)).ToString("0.##");
+            model.SimplePaybackYears = (decimal)(model.NetProjectPrice / model.NetSavings);
+            model.SimpleROIstring = ((decimal)(model.SimplePaybackYears / 100)).ToString("0.00");
+
+
+            return model;
+               
+        }
         private IQueryable<Proposal> Search(IDataTablesRequest requestModel, AdvancedSearchViewModel searchViewModel, IQueryable<Proposal> query)
         {
             if (requestModel.Search.Value != string.Empty)
@@ -196,26 +268,36 @@ namespace NasgledSys.Controllers
                     model.CompanyName = company.CompanyName;
                     model.ProjectKey = p.ProjectKey;
                     model.ProposalKey = p.ProposalKey;
-                    model.TotalProjectSaving = 0;
-                    model.AnnualCostSaving = 0;
-                    model.AnnualEnergySaving = 0;
-                    model.ProductCosts = 0;
-                    model.LaborCosts = 0;
-                    model.ShippingCosts = 0;
-                    model.MiscProductCost = 0;
+                    model.TotalProjectSaving = Costs.GetEstimatedIncentiveRebate(p.ProposalKey); 
+                    model.AnnualCostSaving = Costs.GetExistingCost(p.ProjectKey)- Costs.GetNewCost(p.ProjectKey);
+                    model.AnnualEnergySaving = Costs.GetExistingEnergy(p.ProjectKey) - Costs.GetNewEnergy(p.ProjectKey);
+                    model.ProductCosts = Costs.GetProductCost(p.ProposalKey);
+                    model.LaborCosts = Costs.GetLaborCost(p.ProposalKey);
+                    model.ShippingCosts = Costs.GetShippingCost(p.ProposalKey);
+                    model.MiscProductCost = Costs.GetMiscCost(p.ProposalKey);
                     model.EstimatedSalesTax = 0;
-                    model.CostOfGoodsSold = 0;
-                    model.NetSavings = 0;
-                    model.SimplePaybackYears = 0;
-                    model.SimpleROI = 0;
-                    model.GrossMargin = 0;
-                    model.TotalProjectPrice = 0;
-                    model.EstimatedIncentiveRebate = 0;
-                    model.NetProjectPrice = 0;
-                    model.CostOfWaitingOneMonth = 0;
-                    model.CostOfWaitingOneYear = 0;
-                    model.CostOfWaitingFiveYear = 0;
+                    model.CostOfGoodsSold = model.ProductCosts + model.LaborCosts + model.ShippingCosts + model.MiscProductCost + model.EstimatedSalesTax;
+                    
                    
+                   
+                    model.GrossMarginPercentage = p.ProductMargin;
+                    model.GrossMargin = Costs.GetGrossMarginAmount(p.ProductMargin, model.CostOfGoodsSold);
+                    model.TotalProjectPrice = model.GrossMargin + model.CostOfGoodsSold;
+                    model.EstimatedIncentiveRebate = Costs.GetEstimatedIncentiveRebate(p.ProposalKey);
+                    model.NetProjectPrice = model.TotalProjectPrice - model.EstimatedIncentiveRebate;                   
+
+                    /////////////////////////////////////
+                    model.NetSavings = model.TotalProjectSaving+ model.AnnualCostSaving;
+                    model.SimplePaybackYearsString = ((decimal)(model.NetProjectPrice / model.NetSavings)).ToString("0.##");
+                    model.SimplePaybackYears = (decimal)(model.NetProjectPrice / model.NetSavings);
+                    model.SimpleROIstring = ((decimal)(model.SimplePaybackYears / 100)).ToString("0.00");
+
+                    ///////////////////////////////////////
+
+                    model.CostOfWaitingOneMonth = model.AnnualCostSaving / 12;
+                    model.CostOfWaitingOneYear = model.AnnualCostSaving; 
+                    model.CostOfWaitingFiveYear = model.AnnualCostSaving * 5;
+
                     return View(model);
                 }
                 catch (Exception e)
@@ -315,6 +397,7 @@ namespace NasgledSys.Controllers
                 {
                     ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
                     Proposal p = db.Proposal.Find(id);
+                    if (p.ProductMargin == null) p.ProductMargin = 0;
                     SummaryClass model = new SummaryClass();
                     model.CompanyKey = company.ClientCompanyKey;
                     model.CompanyName = company.CompanyName;
@@ -323,20 +406,20 @@ namespace NasgledSys.Controllers
                     model.TotalProjectSaving = 0;
                     model.AnnualCostSaving = 0;
                     model.AnnualEnergySaving = 0;
-                    model.ProductCosts = 0;
-                    model.LaborCosts = 0;
-                    model.ShippingCosts = 0;
-                    model.MiscProductCost = 0;
+                    model.ProductCosts = Costs.GetProductCost(p.ProposalKey);
+                    model.LaborCosts = Costs.GetLaborCost(p.ProposalKey); 
+                    model.ShippingCosts = Costs.GetShippingCost(p.ProposalKey);
+                    model.MiscProductCost = Costs.GetMiscCost(p.ProposalKey);
                     model.EstimatedSalesTax = 0;
-                    model.CostOfGoodsSold = 0;
+                    model.CostOfGoodsSold = model.ProductCosts+ model.LaborCosts+ model.ShippingCosts+ model.MiscProductCost+ model.EstimatedSalesTax;
                     model.NetSavings = 0;
                     model.SimplePaybackYears = 0;
-                    model.SimpleROI = 0;
-                    model.GrossMargin = 0;
-                    model.GrossMarginPercentage = 0;
-                    model.TotalProjectPrice = 0;
-                    model.EstimatedIncentiveRebate = 0;
-                    model.NetProjectPrice = 0;
+                    model.SimpleROI = 0;                  
+                    model.GrossMarginPercentage = p.ProductMargin;
+                    model.GrossMargin = Costs.GetGrossMarginAmount(p.ProductMargin,model.CostOfGoodsSold);
+                    model.TotalProjectPrice = model.GrossMargin+model.CostOfGoodsSold;
+                    model.EstimatedIncentiveRebate = Costs.GetEstimatedIncentiveRebate(p.ProposalKey);
+                    model.NetProjectPrice = model.TotalProjectPrice- model.EstimatedIncentiveRebate;
                     model.CostOfWaitingOneMonth = 0;
                     model.CostOfWaitingOneYear = 0;
                     model.CostOfWaitingFiveYear = 0;
