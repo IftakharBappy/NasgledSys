@@ -33,7 +33,7 @@ namespace NasgledSys.Controllers
                         TemplateKey = asset.TemplateKey,
                         FactorName = asset.FactorName,
                         TLevel = asset.TLevel
-                    }).ToList();
+                    }).OrderBy(m=>m.TLevel).ToList();
 
                     model.FromReportTemplateList = data;
                     model.ToReportTemplateList = new List<ReportTemplateModel>();
