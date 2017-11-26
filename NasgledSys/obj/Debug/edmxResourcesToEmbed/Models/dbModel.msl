@@ -553,6 +553,7 @@
     <EntitySetMapping Name="Proposal">
       <EntityTypeMapping TypeName="NasgledDBModel.Proposal">
         <MappingFragment StoreEntitySet="Proposal">
+          <ScalarProperty Name="TaxInput" ColumnName="TaxInput" />
           <ScalarProperty Name="InstallationRates" ColumnName="InstallationRates" />
           <ScalarProperty Name="Incentives" ColumnName="Incentives" />
           <ScalarProperty Name="ProductMargin" ColumnName="ProductMargin" />

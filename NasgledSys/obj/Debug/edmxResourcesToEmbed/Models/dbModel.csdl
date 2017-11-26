@@ -1100,6 +1100,7 @@
     <Property Name="ProductMargin" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Incentives" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="InstallationRates" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxInput" Type="Decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="ProposalAdditional">
     <Key>

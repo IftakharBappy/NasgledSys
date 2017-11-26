@@ -163,6 +163,7 @@ namespace NasgledSys.Models
         public string CompanyName { get; set; }
         public Guid? ProposalKey { get; set; }
         public decimal? TotalProjectSaving { get; set; }
+        public decimal? SalesTax { get; set; }
         public decimal? AnnualCostSaving { get; set; }
         public decimal? AnnualEnergySaving { get; set; }
         public decimal? ProductCosts { get; set; }
@@ -228,7 +229,7 @@ namespace NasgledSys.Models
         public Nullable<decimal> CostSavings { get; set; }
         [Display(Name = "-Loan Payment")]
         public Nullable<decimal> LoanPayment { get; set; }
-        [Display(Name = "MOnthly Cash Flow")]
+        [Display(Name = "Monthly Cash Flow")]
         public Nullable<decimal> MonthlyCashFlow { get; set; }
     }
     public class NoteClass

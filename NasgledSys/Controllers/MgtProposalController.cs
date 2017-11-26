@@ -99,7 +99,7 @@ namespace NasgledSys.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public async Task<ActionResult> Create(string ProposalName, string PreparedByUser)
+        public async Task<ActionResult> Create(string ProposalName, string PreparedByUser,decimal? SalesTax)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace NasgledSys.Controllers
                 contact.MiscCost = proj.MiscCost;
                 contact.TaxIncentives = proj.TaxIncentives;
                 contact.ProductMargin = proj.ProductMargin;
-               
+                contact.TaxInput = SalesTax;
                 db.Proposal.Add(contact);
                 var task = db.SaveChangesAsync();
                 await task;
@@ -176,11 +176,11 @@ namespace NasgledSys.Controllers
                 obj.ProjectKey = item.ProjectKey;
                 obj.ProposalKey = item.ProposalKey;
                 obj.ProposalName = item.ProposalName;
-                obj.TotalPrice = (s.TotalProjectPrice).ToString();
-                obj.Incentives = (s.EstimatedIncentiveRebate).ToString();
-                obj.NetPrice = (s.NetProjectPrice).ToString();
-                obj.AnnualSaving = (s.AnnualCostSaving).ToString();
-                obj.ROI = (s.SimpleROIstring).ToString();
+                obj.TotalPrice = (Convert.ToDecimal(s.TotalProjectPrice)).ToString("0.000");
+                obj.Incentives = (Convert.ToDecimal(s.EstimatedIncentiveRebate)).ToString("0.000"); 
+                obj.NetPrice = (Convert.ToDecimal(s.NetProjectPrice)).ToString("0.000"); 
+                obj.AnnualSaving = (Convert.ToDecimal(s.AnnualCostSaving)).ToString("0.000"); 
+                obj.ROI = (Convert.ToDecimal(s.SimpleROIstring)).ToString("0.000"); 
                 data.Add(obj);
             }
            
@@ -193,19 +193,30 @@ namespace NasgledSys.Controllers
                    
                     Proposal p = db.Proposal.Find(id);
                     if (p.ProductMargin == null) p.ProductMargin = 0;
-                    SummaryClass model = new SummaryClass();
+            if (p.TaxInput == null) p.TaxInput = 0;
+            SummaryClass model = new SummaryClass();
                    
                     model.ProductCosts = Costs.GetProductCost(p.ProposalKey);
                     model.LaborCosts = Costs.GetLaborCost(p.ProposalKey);
                     model.ShippingCosts = Costs.GetShippingCost(p.ProposalKey);
                     model.MiscProductCost = Costs.GetMiscCost(p.ProposalKey);
-                    model.EstimatedSalesTax = 0;
-                    model.CostOfGoodsSold = model.ProductCosts + model.LaborCosts + model.ShippingCosts + model.MiscProductCost + model.EstimatedSalesTax;
+
+                    model.EstimatedSalesTax = (model.ProductCosts + model.MiscProductCost) * (p.TaxInput / 100);
+            model.CostOfGoodsSold = model.ProductCosts + model.LaborCosts + model.ShippingCosts + model.MiscProductCost + model.EstimatedSalesTax;
                     model.NetSavings = 0;
                     model.SimplePaybackYears = 0;
                     model.SimpleROI = 0;
-                    model.GrossMarginPercentage = p.ProductMargin;
-                    model.GrossMargin = Costs.GetGrossMarginAmount(p.ProductMargin, model.CostOfGoodsSold);
+            if (p.ProductMargin > 0)
+            {
+                model.GrossMarginPercentage = p.ProductMargin;
+                model.GrossMargin = Costs.GetGrossMarginAmount(p.ProductMargin, model.CostOfGoodsSold);
+            }
+            else
+            {
+                model.GrossMarginPercentage = p.MarkupPercentage;
+                model.GrossMargin = Costs.GetMarkupAmount(p.MarkupPercentage, model.CostOfGoodsSold);
+            }
+            
                     model.TotalProjectPrice = model.GrossMargin + model.CostOfGoodsSold;
                     model.EstimatedIncentiveRebate = Costs.GetEstimatedIncentiveRebate(p.ProposalKey);
                     model.NetProjectPrice = model.TotalProjectPrice - model.EstimatedIncentiveRebate;
@@ -216,8 +227,8 @@ namespace NasgledSys.Controllers
             model.AnnualCostSaving = Costs.GetExistingCost(p.ProjectKey) - Costs.GetNewCost(p.ProjectKey);
             model.AnnualEnergySaving = Costs.GetExistingEnergy(p.ProjectKey) - Costs.GetNewEnergy(p.ProjectKey);
             
-            model.MiscProductCost = Costs.GetMiscCost(p.ProposalKey);
-            model.EstimatedSalesTax = 0;
+           
+          
            
             /////////////////////////////////////
             model.NetSavings = model.TotalProjectSaving + model.AnnualCostSaving;
@@ -263,25 +274,37 @@ namespace NasgledSys.Controllers
                 {
                     ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
                     Proposal p = db.Proposal.Find(id);
+                    if (p.ProductMargin == null) p.ProductMargin = 0;
+                    if (p.TaxInput == null) p.TaxInput = 0;
                     SummaryClass model = new SummaryClass();
                     model.CompanyKey = company.ClientCompanyKey;
                     model.CompanyName = company.CompanyName;
                     model.ProjectKey = p.ProjectKey;
                     model.ProposalKey = p.ProposalKey;
-                    model.TotalProjectSaving = Costs.GetEstimatedIncentiveRebate(p.ProposalKey); 
+                    model.TotalProjectSaving = Costs.GetProjectSaving(p.ProposalKey); 
                     model.AnnualCostSaving = Costs.GetExistingCost(p.ProjectKey)- Costs.GetNewCost(p.ProjectKey);
                     model.AnnualEnergySaving = Costs.GetExistingEnergy(p.ProjectKey) - Costs.GetNewEnergy(p.ProjectKey);
                     model.ProductCosts = Costs.GetProductCost(p.ProposalKey);
                     model.LaborCosts = Costs.GetLaborCost(p.ProposalKey);
                     model.ShippingCosts = Costs.GetShippingCost(p.ProposalKey);
                     model.MiscProductCost = Costs.GetMiscCost(p.ProposalKey);
-                    model.EstimatedSalesTax = 0;
+
+                    model.EstimatedSalesTax = (model.ProductCosts + model.MiscProductCost) * (p.TaxInput / 100);
+
                     model.CostOfGoodsSold = model.ProductCosts + model.LaborCosts + model.ShippingCosts + model.MiscProductCost + model.EstimatedSalesTax;
-                    
+                    if (p.ProductMargin > 0)
+                    {
+                        model.GrossMarginPercentage = p.ProductMargin;
+                        model.GrossMargin = Costs.GetGrossMarginAmount(p.ProductMargin, model.CostOfGoodsSold);
+                    }
+                    else
+                    {
+                        model.GrossMarginPercentage = p.MarkupPercentage;
+                        model.GrossMargin = Costs.GetMarkupAmount(p.MarkupPercentage, model.CostOfGoodsSold);
+                    }
+
+
                    
-                   
-                    model.GrossMarginPercentage = p.ProductMargin;
-                    model.GrossMargin = Costs.GetGrossMarginAmount(p.ProductMargin, model.CostOfGoodsSold);
                     model.TotalProjectPrice = model.GrossMargin + model.CostOfGoodsSold;
                     model.EstimatedIncentiveRebate = Costs.GetEstimatedIncentiveRebate(p.ProposalKey);
                     model.NetProjectPrice = model.TotalProjectPrice - model.EstimatedIncentiveRebate;                   
@@ -352,7 +375,7 @@ namespace NasgledSys.Controllers
                     obj.ProductMargin = p.ProductMargin;
                     obj.Incentives = p.Incentives;
                     obj.InstallationRates = p.InstallationRates;
-                   
+                    obj.TaxInput = p.TaxInput;
                     bc.Proposal.Add(obj);
                     bc.SaveChanges();
                     var temp = from x in db.ProposalLoanTerms where x.ProposalKey == id select x;
@@ -398,25 +421,36 @@ namespace NasgledSys.Controllers
                     ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
                     Proposal p = db.Proposal.Find(id);
                     if (p.ProductMargin == null) p.ProductMargin = 0;
+                    if (p.TaxInput == null) p.TaxInput = 0;
                     SummaryClass model = new SummaryClass();
                     model.CompanyKey = company.ClientCompanyKey;
                     model.CompanyName = company.CompanyName;
                     model.ProjectKey = p.ProjectKey;
                     model.ProposalKey = p.ProposalKey;
-                    model.TotalProjectSaving = 0;
+                    model.TotalProjectSaving = Costs.GetProjectSaving(p.ProposalKey);
                     model.AnnualCostSaving = 0;
                     model.AnnualEnergySaving = 0;
                     model.ProductCosts = Costs.GetProductCost(p.ProposalKey);
                     model.LaborCosts = Costs.GetLaborCost(p.ProposalKey); 
                     model.ShippingCosts = Costs.GetShippingCost(p.ProposalKey);
                     model.MiscProductCost = Costs.GetMiscCost(p.ProposalKey);
-                    model.EstimatedSalesTax = 0;
+
+                    model.EstimatedSalesTax = (model.ProductCosts+ model.MiscProductCost)*(p.TaxInput/100);
+
                     model.CostOfGoodsSold = model.ProductCosts+ model.LaborCosts+ model.ShippingCosts+ model.MiscProductCost+ model.EstimatedSalesTax;
                     model.NetSavings = 0;
                     model.SimplePaybackYears = 0;
-                    model.SimpleROI = 0;                  
-                    model.GrossMarginPercentage = p.ProductMargin;
-                    model.GrossMargin = Costs.GetGrossMarginAmount(p.ProductMargin,model.CostOfGoodsSold);
+                    model.SimpleROI = 0;
+                    if (p.ProductMargin > 0)
+                    {
+                        model.GrossMarginPercentage = p.ProductMargin;
+                        model.GrossMargin = Costs.GetGrossMarginAmount(p.ProductMargin, model.CostOfGoodsSold);
+                    }
+                    else
+                    {
+                        model.GrossMarginPercentage = p.MarkupPercentage;
+                        model.GrossMargin = Costs.GetMarkupAmount(p.MarkupPercentage, model.CostOfGoodsSold);
+                    }
                     model.TotalProjectPrice = model.GrossMargin+model.CostOfGoodsSold;
                     model.EstimatedIncentiveRebate = Costs.GetEstimatedIncentiveRebate(p.ProposalKey);
                     model.NetProjectPrice = model.TotalProjectPrice- model.EstimatedIncentiveRebate;
@@ -424,6 +458,8 @@ namespace NasgledSys.Controllers
                     model.CostOfWaitingOneYear = 0;
                     model.CostOfWaitingFiveYear = 0;
 
+                    if (p.TaxInput == null) model.SalesTax = 0;
+                    else model.SalesTax = p.TaxInput;
                     model.MarkupPercentage = p.MarkupPercentage;
                     model.LaborCost = p.LaborCost;
                     model.ShippingCost = p.ShippingCost;
@@ -610,8 +646,10 @@ namespace NasgledSys.Controllers
                 if (model.MiscCost == null) model.MiscCost = 0;
                 if (model.TaxIncentives == null) model.TaxIncentives = 0;
                 if (model.InstallationLaborCharge == null) model.InstallationLaborCharge = 0;
+                if (model.SalesTax == null) model.SalesTax = 0;
 
                 obj.MarkupPercentage = model.MarkupPercentage;
+                obj.TaxInput = model.SalesTax;
                 obj.LaborCost = model.LaborCost;
                 obj.ShippingCost = model.ShippingCost;
                 obj.MiscCost = model.MiscCost;

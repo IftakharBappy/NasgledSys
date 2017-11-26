@@ -57,7 +57,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3>Annual Cost Savings</h3>
-                                you will save $ @Model.AnnualCost every Year
+                                you will save $ @String.Format("{0:.##}", Model.AnnualCost)  every Year
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3>Annual Energy Saving</h3>
-                                You will use @Model.AnnualEnergy less kWh's every year .
+                                You will use @String.Format("{0:.##}", Model.AnnualEnergy) less kWh every year .
                             </div>
                         </div>
 

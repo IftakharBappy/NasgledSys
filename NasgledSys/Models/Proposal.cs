@@ -43,6 +43,7 @@ namespace NasgledSys.Models
         public Nullable<decimal> ProductMargin { get; set; }
         public Nullable<decimal> Incentives { get; set; }
         public Nullable<decimal> InstallationRates { get; set; }
+        public Nullable<decimal> TaxInput { get; set; }
     
         public virtual Project Project { get; set; }
         public virtual UserProfile UserProfile { get; set; }

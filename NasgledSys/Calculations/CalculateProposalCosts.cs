@@ -23,11 +23,42 @@ namespace NasgledSys.Calculations
 
                 decimal newcount = (decimal)((item.ReplaceQty / item.ForEveryMainQty) * item.Count);
                 decimal TotalProductCost = (newcount * (decimal)item.ProductCost);
-                decimal markup = TotalProductCost + ((decimal)(item.MarkupPercentage/100)* TotalProductCost);
+                //decimal markup = TotalProductCost + ((decimal)(item.MarkupPercentage/100)* TotalProductCost);
                 // decimal margin = TotalProductCost * (100/ (decimal)p.ProductMargin);
 
-                result = result + markup;// + margin;
+                result = result + TotalProductCost;// markup;// + margin;
             }
+            db.Dispose();
+            return result;
+
+        }
+
+        public decimal GetProjectSaving(Guid? ProposalKey)
+        {
+            NasgledDBEntities db = new NasgledDBEntities();
+
+            decimal result = 0;
+            decimal? NewItemLifecost = 0;
+            decimal? OldItemLifeCost = 0;
+            Proposal p = db.Proposal.Find(ProposalKey);
+            if (p.MarkupPercentage == null) p.MarkupPercentage = 0;
+            if (p.ProductMargin == null) p.ProductMargin = 0;
+
+            var productList = from x in db.AreaProduct where x.ProjectKey == p.ProjectKey && x.IsDelete == false && x.IsOn == 1 select x;
+            foreach (var item in productList)
+            {
+                ProfileProduct old = db.ProfileProduct.Find(item.FixtureKey);
+                Area area = db.Area.Find(item.AreaKey);
+                OldItemLifeCost = OldItemLifeCost + ((old.LampLife*old.Watt*item.Count*item.OperatingSchedule.AnnualOperationHour*area.NewRateSchedule.BlendElectricityRate)/100);
+                ProfileProduct newitem = db.ProfileProduct.FirstOrDefault(m=>m.ModelNo==item.ModelNo && m.ProductName==item.ProductName);
+                decimal newcount = (decimal)((item.ReplaceQty / item.ForEveryMainQty) * item.Count);
+                if (newitem != null)
+                {
+                    NewItemLifecost = NewItemLifecost + ((newitem.LampLife * item.WattPerProduct * newcount * item.OperatingSchedule.AnnualOperationHour * area.NewRateSchedule.BlendElectricityRate) / 100);
+                }
+               
+            }
+            result = (decimal)(OldItemLifeCost - NewItemLifecost);
             db.Dispose();
             return result;
 
@@ -43,7 +74,17 @@ namespace NasgledSys.Calculations
             return result;
 
         }
+        public decimal GetMarkupAmount(decimal? MarginPercentage, decimal? COG)
+        {
+            NasgledDBEntities db = new NasgledDBEntities();
 
+            decimal result = 0;
+            if (MarginPercentage == 0) result = 0;
+            else result = (decimal)COG + ((decimal)(MarginPercentage / 100) * (decimal)COG);
+
+            return result;
+
+        }
         public decimal GetLaborCost(Guid? ProposalKey)
         {
             NasgledDBEntities db = new NasgledDBEntities();

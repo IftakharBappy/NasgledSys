@@ -692,6 +692,7 @@
           <Property Name="ProductMargin" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Incentives" Type="decimal" Precision="18" Scale="2" />
           <Property Name="InstallationRates" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TaxInput" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ProposalAdditional">
           <Key>
@@ -3391,6 +3392,7 @@
           <Property Name="ProductMargin" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Incentives" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="InstallationRates" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TaxInput" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ProposalAdditional">
           <Key>
@@ -5299,6 +5301,7 @@
           <EntitySetMapping Name="Proposal">
             <EntityTypeMapping TypeName="NasgledDBModel.Proposal">
               <MappingFragment StoreEntitySet="Proposal">
+                <ScalarProperty Name="TaxInput" ColumnName="TaxInput" />
                 <ScalarProperty Name="InstallationRates" ColumnName="InstallationRates" />
                 <ScalarProperty Name="Incentives" ColumnName="Incentives" />
                 <ScalarProperty Name="ProductMargin" ColumnName="ProductMargin" />

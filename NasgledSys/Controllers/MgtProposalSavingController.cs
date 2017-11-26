@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using NasgledSys.Calculations;
 namespace NasgledSys.Controllers
 {
     public class MgtProposalSavingController : Controller
     {
         // GET: MgtProposalSaving
         private NasgledDBEntities db = new NasgledDBEntities();
+        private CalculateProposalCosts Costs = new CalculateProposalCosts();
         public ActionResult Saving(Guid id)
         {
             if (GlobalClass.MasterSession)
@@ -25,8 +26,8 @@ namespace NasgledSys.Controllers
                     model.ProjectKey = p.ProjectKey;
                     model.ProposalKey = p.ProposalKey;
 
-                    if (model.AnnualCost == null) model.AnnualCost = 0;
-                    if (model.AnnualEnergy == null) model.AnnualEnergy = 0;
+                    if (model.AnnualCost == null) model.AnnualCost = Costs.GetExistingCost(p.ProjectKey) - Costs.GetNewCost(p.ProjectKey);
+                    if (model.AnnualEnergy == null) model.AnnualEnergy = Costs.GetExistingEnergy(p.ProjectKey) - Costs.GetNewEnergy(p.ProjectKey);
                     if (model.ReduceCarbon == null) model.ReduceCarbon = 0;
 
                     ViewBag.Env = (from os in db.EnvironmentalImpact

@@ -158,6 +158,7 @@
         }
         else {
             $('#ProposalName').val("");
+            $('#SalesTax').val("");
             $('#PreparedByUser').val("");
             $('#deleteCityContainer').html("Data has been Saved Successfully");
             window.location.reload();
@@ -246,6 +247,11 @@
                                         <div class="control-label">Proposal Name <span class="alert-danger">*..</span></div>
                                         <input type="text" required="required" id="ProposalName" name="ProposalName" placeholder="proposal name" class="form-control" />
                                         <span class="small text-muted">This will appear on the cover page of the proposal</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="control-label">Sales Tax<span class="alert-danger">*..</span></div>
+                                        <input type="text" id="SalesTax" name="SalesTax" required="required" placeholder="Estimated Sales Tax" class="form-control" />
+                                        <span class="small text-muted">For Cost Calculation Purpose. If there is none please input 0 (zero).</span>
                                     </div>
                                     <div class="form-group">
                                         <div class="control-label">Prepared By<span class="alert-danger">*..</span></div>
