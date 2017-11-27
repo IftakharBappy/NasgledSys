@@ -55,7 +55,7 @@ namespace NasgledSys.Controllers
 
 
         [HttpPost]
-        public ActionResult Report(ProposalReportViewModel model)
+        public ActionResult Report(FormCollection fomr,ProposalReportViewModel model)
         {
 
             if (GlobalClass.MasterSession)
@@ -64,10 +64,8 @@ namespace NasgledSys.Controllers
                 {
                     ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
 
-
                     model.CompanyKey = company.ClientCompanyKey;
                     model.CompanyName = company.CompanyName;
-
 
                     IQueryable<ReportTemplate> query = db.ReportTemplate;
 
