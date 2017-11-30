@@ -13,6 +13,12 @@
     <NameOfLastUsedPublishProfile>nasgled</NameOfLastUsedPublishProfile>
     <WebStackScaffolding_DbContextTypeFullName>NasgledSys.Models.NasgledDBEntities</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

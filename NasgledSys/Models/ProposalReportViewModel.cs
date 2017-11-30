@@ -12,5 +12,6 @@ namespace NasgledSys.Models
         public System.Guid ProposalKey { get; set; }
         public System.Guid CompanyKey { get; set; }
         public string CompanyName { get; set; }
+        public string DropedHTML { get; set; }
     }
 }

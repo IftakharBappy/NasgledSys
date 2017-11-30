@@ -1,11 +1,13 @@
 ﻿@model NasgledSys.Models.ProposalReportViewModel
 
+
+
 @using NasgledSys.Models;
 @{
     ViewBag.Title = "Proposal";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
- 
+
 
 <link href="~/Content/assets/dragula/dragula.css" rel="stylesheet" />
 <script src="~/Content/assets/dragula/dragula.js"></script>
@@ -20,10 +22,10 @@
         <span class="heading-text">
 
             <i class="icon-folder-download position-left"></i>
-            <a class="h4" href="@Url.Action("SelectCompany","MgtProject",new { id=Model.CompanyKey})">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
-            <a class="h4" href="@Url.Action("Created","MgtProject",new { id=GlobalClass.Project.ProjectKey})">@GlobalClass.Project.ProjectName</a>
+            <a class="h4" href="@Url.Action("SelectCompany", "MgtProject", new { id = Model.CompanyKey })">@Html.DisplayFor(m => m.CompanyName)</a> <label>></label>
+            <a class="h4" href="@Url.Action("Created", "MgtProject", new { id = GlobalClass.Project.ProjectKey })">@GlobalClass.Project.ProjectName</a>
             <label>></label>
-            <a class="h4" href="@Url.Action("Index","MgtProposal",new { id=GlobalClass.Project.ProjectKey})">Proposal</a>
+            <a class="h4" href="@Url.Action("Index", "MgtProposal", new { id = GlobalClass.Project.ProjectKey })">Proposal</a>
         </span>
         <span class="heading-text pull-right">
             <a class="btn btn-primary" href="#"><i class="add-on"></i>Report</a>
@@ -39,26 +41,30 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <ul class="nav nav-pills">
-                        <li><a href="@Url.Action("Summary","MgtProposal",new { id=Model.ProposalKey})">Summary</a></li>
-                        <li><a href="@Url.Action("Index","MgtProposalSolution",new { id=Model.ProposalKey})">Solutions</a></li>
-                        <li><a href="@Url.Action("Cost","MgtProposal",new { id=Model.ProposalKey})">Cost</a></li>
-                        <li><a href="@Url.Action("Saving","MgtProposalSaving",new { id=Model.ProposalKey})">Saving</a></li>
+                        <li><a href="@Url.Action("Summary", "MgtProposal", new { id = Model.ProposalKey })">Summary</a></li>
+                        <li><a href="@Url.Action("Index", "MgtProposalSolution", new { id = Model.ProposalKey })">Solutions</a></li>
+                        <li><a href="@Url.Action("Cost", "MgtProposal", new { id = Model.ProposalKey })">Cost</a></li>
+                        <li><a href="@Url.Action("Saving", "MgtProposalSaving", new { id = Model.ProposalKey })">Saving</a></li>
 
-                        <li><a href="@Url.Action("Finance","MgtProposal",new { id=Model.ProposalKey})">Financing</a></li>
-                        <li><a href="@Url.Action("Customize","MgtProposalCustomize",new { id=Model.ProposalKey})">Customize</a></li>
-                        <li><a href="@Url.Action("Notes","MgtProposal",new { id=Model.ProposalKey})">Notes</a></li>
+                        <li><a href="@Url.Action("Finance", "MgtProposal", new { id = Model.ProposalKey })">Financing</a></li>
+                        <li><a href="@Url.Action("Customize", "MgtProposalCustomize", new { id = Model.ProposalKey })">Customize</a></li>
+                        <li><a href="@Url.Action("Notes", "MgtProposal", new { id = Model.ProposalKey })">Notes</a></li>
 
                         <li class="active"><a href="#tab-demo1" data-toggle="tab">Reports</a></li>
 
                     </ul>
                 </div>
 
-              
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="tab-demo1">
-@using (Html.BeginForm())
-{
-    @Html.HiddenFor(model=>model.ProposalKey)
+
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tab-demo1">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.HiddenFor(model => model.ProposalKey)
+
+                            @Html.HiddenFor(model => model.DropedHTML)
+
+
                             <div class="panel-body">
                                 <div class="col-md-6">
                                     <div class="panel panel-default">
@@ -69,24 +75,12 @@
                                         <table class="table table-bordered">
                                             @for (int i = 0; i < Model.FromReportTemplateList.Count(); i++)
                                             {
-
-                                                        <div class="row">
-
-                                                            <div class="form-group">
-
-                                                                <label class="cursor-move" id="@Model.FromReportTemplateList[i].TemplateKey">@Model.FromReportTemplateList[i].FactorName</label>
-
-                                                                <input type="hidden" class="form-control FactorName"  name="@Model.FromReportTemplateList[@i].TemplateKey" value="@Model.FromReportTemplateList[i].FactorName" />
-
-                                                            </div>
-                                                        </div>
-
-                                                    }
-
-</table>
+                                                <div class="row">
+                                                    <div class="form-group"><label class="cursor-move" id="@Model.FromReportTemplateList[i].TemplateKey">@Model.FromReportTemplateList[i].FactorName</label></div>
+                                                </div>
+                                            }
+                                        </table>
                                     </div>
-
-
                                 </div>
 
                                 <div class="col-md-6">
@@ -98,39 +92,51 @@
                                         <table class="table table-bordered">
                                             @for (int i = 0; i < Model.ToReportTemplateList.Count(); i++)
                                             {
-
-                                        <div class="row">
-
-                                            <div class="form-group">
-
-                                                <label class="cursor-move" id="@Model.ToReportTemplateList[i].TemplateKey">@Model.ToReportTemplateList[i].FactorName</label>
-                                                
-
-                                            </div>
-                                        </div>
-
-
+                                                <div class="row">
+                                                    <div class="form-group"><label class="cursor-move" id="@Model.ToReportTemplateList[i].TemplateKey">@Model.ToReportTemplateList[i].FactorName</label></div>
+                                                </div>
                                             }
-
                                         </table>
                                     </div>
-
-
                                 </div>
-
-
-
-
                             </div>
 
                             <div class="panel-footer"><input type="submit" class="btn btn-primary" name="Save" id="Save" value="Save" /></div>
 
-} </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-2">&nbsp;</div>
     </div>
 </div>
- 
+
+<script>
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    dragula([$('forms-target-left'), $('forms-target-right')], {
+        revertOnSpill: true
+    }).on('drop', function (el) {
+
+        if ($('forms-target-right').children.length > 0) {
+            document.getElementById("DropedHTML").value = $('forms-target-right').innerHTML;
+
+        } else {
+            //   alert("dd");
+        }
+
+        if ($('forms-target-left').children.length > 0) {
+
+            document.getElementById("DropedHTML").value = $('forms-target-right').innerHTML;
+
+        } else {
+
+        }
+
+    });
+
+</script>
 

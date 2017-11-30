@@ -55,13 +55,28 @@ namespace NasgledSys.Controllers
 
 
         [HttpPost]
-        public ActionResult Report(FormCollection fomr,ProposalReportViewModel model)
+        public ActionResult Report(ProposalReportViewModel model)
         {
 
             if (GlobalClass.MasterSession)
             {
                 try
                 {
+                    string[] splitProposalNameList;
+                    string m_string = UtilityExtention.StripHTML(model.DropedHTML);
+
+                    splitProposalNameList = m_string.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+
+                    List<string> proposalList = new List<string>();
+
+                    foreach (var item in splitProposalNameList)
+                    {
+                        if (!string.IsNullOrWhiteSpace(item.ToString()))
+                        {
+                            proposalList.Add(item.ToString().TrimStart().TrimEnd());
+                        }
+                    }
+
                     ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
 
                     model.CompanyKey = company.ClientCompanyKey;
