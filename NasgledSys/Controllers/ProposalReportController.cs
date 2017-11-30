@@ -1,4 +1,5 @@
-﻿using NasgledSys.Models;
+﻿using NasgledSys.EM;
+using NasgledSys.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,22 +119,54 @@ namespace NasgledSys.Controllers
                         labelIndex++;
                     }
 
+                    if (list.Count>0)
+                    {
+                        List<ProposalTemplate> proposalTemplateentList = new List<ProposalTemplate>();
+                        proposalTemplateentList = list.Select(n => EM_ProposalTemplate.ConvertToEntity(n)).ToList<ProposalTemplate>();
+
+                        // Batch Insert
+
+                        using (var db = new NasgledDBEntities())
+                        {
+                            // Insert  
+                            var template = proposalTemplateentList;
+                            db.ProposalTemplate.AddRange(template);
+                            db.SaveChanges();
+                        }
+                    }
+
+                   
+
                     ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
 
                     model.CompanyKey = company.ClientCompanyKey;
                     model.CompanyName = company.CompanyName;
 
-                    IQueryable<ReportTemplate> query = db.ReportTemplate;
+                    IQueryable<ReportTemplate> reportTemplatequery = db.ReportTemplate;
 
-                    var data = query.Select(asset => new ReportTemplateModel()
+                    var reportTemplateData = reportTemplatequery.Select(asset => new ReportTemplateModel()
                     {
                         TemplateKey = asset.TemplateKey,
                         FactorName = asset.FactorName,
                         TLevel = asset.TLevel
-                    }).ToList();
+                    }).OrderBy(m => m.TLevel).ToList();
 
-                    model.FromReportTemplateList = data;
+                    model.FromReportTemplateList = reportTemplateData;
+
+
                     model.ToReportTemplateList = new List<ReportTemplateModel>();
+
+                    IQueryable<ProposalTemplate> proposalTemplatequeryy = db.ProposalTemplate.Where(m => m.ProposalKey == model.ProposalKey);
+
+                    var proposalTemplateData = proposalTemplatequeryy.Select(asset => new ReportTemplateModel()
+                    {
+                        TemplateKey = asset.ProposalKey,
+                        FactorName = asset.FactorName,
+                        TLevel = asset.DisplayIndex
+                    }).OrderBy(m => m.TLevel).ToList();
+
+
+                    model.ToReportTemplateList = proposalTemplateData;
 
                     return View(model);
                 }

@@ -455,7 +455,7 @@ C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\bin\Microsoft.Owin.Securi
 C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\obj\Debug\NasgledSys.csprojResolveAssemblyReference.cache
 C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\obj\Debug\NasgledSys.csproj.CoreCompileInputs.cache
 C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\obj\Debug\NasgledSys.dll
 C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\obj\Debug\NasgledSys.pdb
+C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\obj\Debug\NasgledSys.csprojResolveAssemblyReference.cache
