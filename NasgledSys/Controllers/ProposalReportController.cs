@@ -21,22 +21,36 @@ namespace NasgledSys.Controllers
 
                     ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);
 
-
                     model.CompanyKey = company.ClientCompanyKey;
                     model.CompanyName = company.CompanyName;
 
 
-                    IQueryable<ReportTemplate> query = db.ReportTemplate;
+                    IQueryable<ReportTemplate> reportTemplatequery = db.ReportTemplate;
 
-                    var data = query.Select(asset => new ReportTemplateModel()
+                    var reportTemplateData = reportTemplatequery.Select(asset => new ReportTemplateModel()
                     {
                         TemplateKey = asset.TemplateKey,
                         FactorName = asset.FactorName,
                         TLevel = asset.TLevel
                     }).OrderBy(m=>m.TLevel).ToList();
 
-                    model.FromReportTemplateList = data;
+                    model.FromReportTemplateList = reportTemplateData;
+
+
                     model.ToReportTemplateList = new List<ReportTemplateModel>();
+
+                    IQueryable<ProposalTemplate> proposalTemplatequery = db.ProposalTemplate.Where(m=>m.ProposalKey == model.ProposalKey);
+
+                    var proposalTemplateData = proposalTemplatequery.Select(asset => new ReportTemplateModel()
+                    {
+                        TemplateKey = asset.ProposalKey,
+                        FactorName = asset.FactorName,
+                        TLevel = asset.DisplayIndex
+                    }).OrderBy(m => m.TLevel).ToList();
+
+
+                    model.ToReportTemplateList = proposalTemplateData;
+
 
                     return View(model);
                 }
@@ -55,6 +69,7 @@ namespace NasgledSys.Controllers
 
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Report(ProposalReportViewModel model)
         {
 
@@ -75,6 +90,32 @@ namespace NasgledSys.Controllers
                         {
                             proposalList.Add(item.ToString().TrimStart().TrimEnd());
                         }
+                    }
+
+                    List<ProposalTemplate> proposalTemplatequery = db.ProposalTemplate.Where(m => m.ProposalKey == model.ProposalKey).ToList();
+
+                    if (proposalTemplatequery.Count>0)
+                    {
+                        db.ProposalTemplate.RemoveRange(db.ProposalTemplate.Where(c => c.ProposalKey == model.ProposalKey));
+                        db.SaveChanges();
+                    }
+
+                    List<ProposalTemplateModel> list = new List<ProposalTemplateModel>();
+
+                    int labelIndex = 1;
+                    foreach (var item in proposalList)
+                    {
+                        ProposalTemplateModel proposalModel = new ProposalTemplateModel();
+
+                        proposalModel.ReportKey = Guid.NewGuid();
+                        proposalModel.ProjectKey = GlobalClass.Project.ProjectKey;
+                        proposalModel.ProposalKey = model.ProposalKey;
+                        proposalModel.FactorName = item.ToString();
+                        proposalModel.DisplayIndex = labelIndex;
+
+                        list.Add(proposalModel);
+
+                        labelIndex++;
                     }
 
                     ClientCompany company = db.ClientCompany.Find(GlobalClass.Project.CompanyKey);

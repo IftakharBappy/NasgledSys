@@ -317,6 +317,7 @@
     <Compile Include="EM\EM_MainProduct.cs" />
     <Compile Include="EM\EM_Profile.cs" />
     <Compile Include="EM\EM_Project.cs" />
+    <Compile Include="EM\EM_ProposalTemplate.cs" />
     <Compile Include="EM\EM_ReportTemplate.cs" />
     <Compile Include="EM\EM_Role.cs" />
     <Compile Include="Global.asax.cs">
@@ -542,6 +543,7 @@
     <Compile Include="Models\ProposalTemplate.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProposalTemplateModel.cs" />
     <Compile Include="Models\ProposalToCustomizeViewModel.cs" />
     <Compile Include="Models\ReportTemplate.cs">
       <DependentUpon>dbModel.tt</DependentUpon>

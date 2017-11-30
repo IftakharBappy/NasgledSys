@@ -7,7 +7,7 @@ namespace NasgledSys.Models
 {
     public class ReportTemplateModel
     {
-        public System.Guid TemplateKey { get; set; }
+        public System.Guid? TemplateKey { get; set; }
         public string FactorName { get; set; }
         public Nullable<int> TLevel { get; set; }
     }
