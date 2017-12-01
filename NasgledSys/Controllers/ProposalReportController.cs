@@ -53,6 +53,9 @@ namespace NasgledSys.Controllers
                     model.ToReportTemplateList = proposalTemplateData;
 
 
+                    model.FromReportTemplateList.RemoveAll(x => model.ToReportTemplateList.Exists(y => y.FactorName == x.FactorName));
+
+
                     return View(model);
                 }
                 catch (Exception e)
@@ -166,7 +169,12 @@ namespace NasgledSys.Controllers
                     }).OrderBy(m => m.TLevel).ToList();
 
 
+
                     model.ToReportTemplateList = proposalTemplateData;
+
+
+                    model.FromReportTemplateList.RemoveAll(x => model.ToReportTemplateList.Exists(y => y.FactorName == x.FactorName));
+
 
                     return View(model);
                 }

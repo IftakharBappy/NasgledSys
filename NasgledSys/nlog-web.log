@@ -394,3 +394,5 @@
 2017-11-30 18:16:32.9981 Trace ParseNLogElement
 2017-11-30 20:01:57.4998 Debug Loading config from C:\Users\LocalAdmin\Source\Repos\NasgledSys\NasgledSys\NLog.config
 2017-11-30 20:01:57.5488 Trace ParseNLogElement
+2017-12-02 00:41:22.8601 Debug Loading config from D:\Github\NasgledSys\NLog.config
+2017-12-02 00:41:22.9527 Trace ParseNLogElement
